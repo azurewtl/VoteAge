@@ -65,7 +65,10 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell
-        cell.backgroundLabel.frame = CGRect(x: 54, y: 0, width: 10, height: 54)
+        var barFrame = cell.backgroundLabel.frame
+        barFrame.size.width += 30
+        UIView.animateWithDuration(1.0, animations: {cell.backgroundLabel.frame = barFrame})
+        
     }
 
 
