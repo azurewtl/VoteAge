@@ -12,9 +12,11 @@
 		BB7208561A0B600100A97FCD /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208551A0B600100A97FCD /* MasterViewController.swift */; };
 		BB7208581A0B600100A97FCD /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208571A0B600100A97FCD /* DetailViewController.swift */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
-		BB72085D1A0B600100A97FCD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB72085C1A0B600100A97FCD /* Images.xcassets */; };
 		BB7208601A0B600100A97FCD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72085E1A0B600100A97FCD /* LaunchScreen.xib */; };
 		BB72086C1A0B600100A97FCD /* VoteAgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72086B1A0B600100A97FCD /* VoteAgeTests.swift */; };
+		BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208751A0B7F0300A97FCD /* VoteTableViewCell.swift */; };
+		BB7208B71A0BA94700A97FCD /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BB7208B61A0BA94700A97FCD /* Images.xcassets */; };
+		BB7208BB1A0BC6B200A97FCD /* OptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208BA1A0BC6B100A97FCD /* OptionTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,11 +37,13 @@
 		BB7208551A0B600100A97FCD /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		BB7208571A0B600100A97FCD /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		BB72085A1A0B600100A97FCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		BB72085C1A0B600100A97FCD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		BB72085F1A0B600100A97FCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BB7208651A0B600100A97FCD /* VoteAgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoteAgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72086A1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB72086B1A0B600100A97FCD /* VoteAgeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteAgeTests.swift; sourceTree = "<group>"; };
+		BB7208751A0B7F0300A97FCD /* VoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteTableViewCell.swift; sourceTree = "<group>"; };
+		BB7208B61A0BA94700A97FCD /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		BB7208BA1A0BC6B100A97FCD /* OptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +88,9 @@
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				BB7208551A0B600100A97FCD /* MasterViewController.swift */,
 				BB7208571A0B600100A97FCD /* DetailViewController.swift */,
+				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
-				BB72085C1A0B600100A97FCD /* Images.xcassets */,
+				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
 				BB72085E1A0B600100A97FCD /* LaunchScreen.xib */,
 				BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */,
 				BB72084E1A0B600100A97FCD /* Supporting Files */,
@@ -116,6 +121,15 @@
 				BB72086A1A0B600100A97FCD /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BB7208BC1A0BC6C700A97FCD /* CustomizedCell */ = {
+			isa = PBXGroup;
+			children = (
+				BB7208751A0B7F0300A97FCD /* VoteTableViewCell.swift */,
+				BB7208BA1A0BC6B100A97FCD /* OptionTableViewCell.swift */,
+			);
+			name = CustomizedCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,9 +212,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB7208B71A0BA94700A97FCD /* Images.xcassets in Resources */,
 				BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */,
 				BB7208601A0B600100A97FCD /* LaunchScreen.xib in Resources */,
-				BB72085D1A0B600100A97FCD /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -218,9 +232,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BB7208BB1A0BC6B200A97FCD /* OptionTableViewCell.swift in Sources */,
 				BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */,
 				BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */,
 				BB7208561A0B600100A97FCD /* MasterViewController.swift in Sources */,
+				BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */,
 				BB7208581A0B600100A97FCD /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,8 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VoteAge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -355,8 +373,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = VoteAge/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -413,6 +433,7 @@
 				BB7208711A0B600100A97FCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		BB7208721A0B600100A97FCD /* Build configuration list for PBXNativeTarget "VoteAgeTests" */ = {
 			isa = XCConfigurationList;
@@ -421,6 +442,7 @@
 				BB7208741A0B600100A97FCD /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
