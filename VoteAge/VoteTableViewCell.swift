@@ -17,6 +17,8 @@ class VoteTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        voteImage.layer.cornerRadius = voteImage.frame.width / 2
+        voteImage.clipsToBounds = true
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
