@@ -18,9 +18,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
         let tabBarController = self.window!.rootViewController as UITabBarController
-        let navigationController = tabBarController.viewControllers![0] as UINavigationController
-        let controller = navigationController.topViewController as VoteListViewController
-        controller.managedObjectContext = self.managedObjectContext
+        
+        let hotNavController = tabBarController.viewControllers![0] as UINavigationController
+        let hotViewController = hotNavController.topViewController as VoteListViewController
+        hotViewController.managedObjectContext = self.managedObjectContext
+        
+        let subscribeNavController = tabBarController.viewControllers![1] as UINavigationController
+        let subscribeViewController = subscribeNavController.topViewController as VoteListViewController
+        subscribeViewController.managedObjectContext = self.managedObjectContext
         return true
     }
 
