@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         let tabBarController = self.window!.rootViewController as UITabBarController
         let navigationController = tabBarController.viewControllers![0] as UINavigationController
-        let controller = navigationController.topViewController as MasterViewController
+        let controller = navigationController.topViewController as VoteListViewController
         controller.managedObjectContext = self.managedObjectContext
         return true
     }
