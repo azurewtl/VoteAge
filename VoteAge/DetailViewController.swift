@@ -8,12 +8,14 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
+class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
-    @IBOutlet weak var voteTabBar: UITabBar!
     @IBOutlet weak var optionTableView: UITableView!
+    
+
+    
     let animationDuration = 0.15
     
     override func viewDidLoad() {
@@ -75,13 +77,15 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
     }
     
-    // MARK: - TabBar
-
-    func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+    // MARK: - Segment Control
+    
+    @IBAction func voteSegment(sender: UISegmentedControl) {
+        println()
+    
         let rowCount = optionTableView.numberOfRowsInSection(0)
         
-        switch(item.title!) {
-        case "只看男":
+        switch(sender.selectedSegmentIndex) {
+        case 0: // men only
             var cell: OptionTableViewCell?
             var barFrame: CGRect
             for row in 0...rowCount-1{
@@ -94,7 +98,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
             
-        case "所有人":
+        case 1: // everyone
             var cell: OptionTableViewCell?
             var barFrame: CGRect
             for row in 0...rowCount-1{
@@ -106,7 +110,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 }
             }
             
-        case "只看女":
+        case 2: // women only
             var cell: OptionTableViewCell?
             var barFrame: CGRect
             for row in 0...rowCount-1{
@@ -119,7 +123,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
         default:
-            println("Option Tab Bar Error")
+            println("Segment Control Error")
         }
         
         
