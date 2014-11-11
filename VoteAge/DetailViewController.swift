@@ -10,9 +10,9 @@ import UIKit
 
 class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
 
-    @IBOutlet weak var optionImage: UIImageView!
+    @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
-    @IBOutlet weak var optionTabBar: UITabBar!
+    @IBOutlet weak var voteTabBar: UITabBar!
     @IBOutlet weak var optionTableView: UITableView!
     let animationDuration = 0.15
     
@@ -61,7 +61,7 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func configureCell(cell: OptionTableViewCell, atIndexPath indexPath: NSIndexPath) {
-        cell.title.text = "option1"
+        cell.optionTitle.text = "option1"
         
     }
     
@@ -69,9 +69,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let cell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell
-        var barFrame = cell.backgroundLabel.frame
+        var barFrame = cell.optionBackground.frame
         barFrame.size.width += 30
-        UIView.animateWithDuration(animationDuration, animations: {cell.backgroundLabel.frame = barFrame})
+        UIView.animateWithDuration(animationDuration, animations: {cell.optionBackground.frame = barFrame})
         
     }
     
@@ -87,9 +87,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
-                    barFrame = cell!.backgroundLabel.frame
+                    barFrame = cell!.optionBackground.frame
                     barFrame.size.width += 30
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.backgroundLabel.frame = barFrame})
+                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
                 }
             }
             
@@ -100,9 +100,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
-                    barFrame = cell!.backgroundLabel.frame
+                    barFrame = cell!.optionBackground.frame
                     barFrame.size.width += 10
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.backgroundLabel.frame = barFrame})
+                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
                 }
             }
             
@@ -112,9 +112,9 @@ class DetailViewController: UIViewController, UITableViewDelegate, UITableViewDa
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
-                    barFrame = cell!.backgroundLabel.frame
+                    barFrame = cell!.optionBackground.frame
                     barFrame.size.width -= 30
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.backgroundLabel.frame = barFrame})
+                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
                 }
             }
             

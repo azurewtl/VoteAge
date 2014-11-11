@@ -152,10 +152,10 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="backgroundLabel" destination="0WP-Xe-a4t" id="mG2-Wb-eMU"/>
-                                            <outlet property="detail" destination="sA4-Z3-khz" id="vbJ-id-wNT"/>
-                                            <outlet property="thumbnail" destination="JK1-xi-JfN" id="G0k-C4-ORW"/>
-                                            <outlet property="title" destination="5Mx-lc-Kyn" id="pO2-qL-c0y"/>
+                                            <outlet property="optionBackground" destination="0WP-Xe-a4t" id="zu0-eH-v5L"/>
+                                            <outlet property="optionDetail" destination="sA4-Z3-khz" id="bD8-rs-edG"/>
+                                            <outlet property="optionImage" destination="JK1-xi-JfN" id="PC4-dk-uAN"/>
+                                            <outlet property="optionTitle" destination="5Mx-lc-Kyn" id="8j0-IB-8Q7"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -169,9 +169,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="cra-N8-TIN"/>
                     <connections>
-                        <outlet property="optionImage" destination="Y5g-fn-XsJ" id="zYZ-Wf-zjQ"/>
-                        <outlet property="optionTabBar" destination="bAk-B0-5aT" id="eUD-fe-ZNF"/>
-                        <outlet property="optionTableView" destination="IjR-vi-x8M" id="tyE-uK-ygD"/>
+                        <outlet property="optionTableView" destination="IjR-vi-x8M" id="N2Q-xZ-HCr"/>
+                        <outlet property="voteImage" destination="Y5g-fn-XsJ" id="wLw-ee-ASg"/>
+                        <outlet property="voteTabBar" destination="bAk-B0-5aT" id="fPh-0o-p2h"/>
                         <outlet property="voteTitle" destination="3VA-DT-67c" id="QwG-2A-z6J"/>
                     </connections>
                 </viewController>

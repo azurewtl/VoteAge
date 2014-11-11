@@ -10,10 +10,10 @@ import UIKit
 
 class OptionTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var thumbnail: UIImageView!
-    @IBOutlet weak var backgroundLabel: UILabel!
-    @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var detail: UILabel!
+    @IBOutlet weak var optionImage: UIImageView!
+    @IBOutlet weak var optionBackground: UILabel!
+    @IBOutlet weak var optionTitle: UILabel!
+    @IBOutlet weak var optionDetail: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
