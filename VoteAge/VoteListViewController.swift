@@ -41,7 +41,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
         newManagedObject.setValue(NSDate(), forKey: "timeStamp")
         newManagedObject.setValue("this is a vote", forKey: "voteTitle")
-        newManagedObject.setValue("azure", forKey: "voteAuthor")
+        newManagedObject.setValue("azurewtl", forKey: "voteAuthor")
         var img = UIImage(named: "dummyImage")
         newManagedObject.setValue(img, forKey: "voteImage")
         
@@ -107,7 +107,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
 //        cell.textLabel.text = object.valueForKey("timeStamp")!.description
         cell.voteTitle.text = object.valueForKey("voteTitle") as? String
-        cell.voteAuthor.text = object.valueForKey("voteAuthor") as? String
+        cell.voteAuthor.setTitle(object.valueForKey("voteAuthor") as? String, forState: UIControlState.Normal)
         cell.voteImage.image = object.valueForKey("voteImage") as? UIImage
     }
 

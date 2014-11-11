@@ -11,8 +11,8 @@ import UIKit
 class VoteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var voteTitle: UILabel!
-    @IBOutlet weak var voteAuthor: UILabel!
     @IBOutlet weak var voteImage: UIImageView!
+    @IBOutlet var voteAuthor: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()

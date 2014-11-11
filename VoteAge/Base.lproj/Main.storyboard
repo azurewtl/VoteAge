@@ -50,17 +50,20 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="user" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg1-U4-sFh">
-                                            <rect key="frame" x="100" y="10" width="135" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIu-pI-M2f">
+                                            <rect key="frame" x="100" y="8" width="80" height="30"/>
+                                            <state key="normal" title="user">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <segue destination="5iV-fm-m0x" kind="push" id="uER-RB-LOg"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="voteAuthor" destination="Zg1-U4-sFh" id="SAB-Ja-JeE"/>
+                                    <outlet property="voteAuthor" destination="wIu-pI-M2f" id="HtA-Md-VTD"/>
                                     <outlet property="voteImage" destination="ztz-KA-ALo" id="G1C-bW-CC9"/>
                                     <outlet property="voteTitle" destination="2wk-ur-Z8s" id="Jri-3r-Ob9"/>
                                     <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="jUr-3t-vfg"/>
@@ -74,6 +77,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="854" y="56"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="MbU-bb-YjU">
+            <objects>
+                <viewController id="5iV-fm-m0x" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oIu-yL-Jxv"/>
+                        <viewControllerLayoutGuide type="bottom" id="Hcw-sV-i6k"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="JdW-MM-edb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3uX-ZJ-JqC"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BBv-5R-ySl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1294" y="-600"/>
         </scene>
         <!--Vote Detail View Controller-->
         <scene sceneID="Cn3-H9-jdl">
