@@ -74,7 +74,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         var barFrame = cell.optionBackground.frame
         barFrame.size.width += 30
         UIView.animateWithDuration(animationDuration, animations: {cell.optionBackground.frame = barFrame})
-        
+        cell.optionImage.hidden = true
+        cell.optionBackground.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
+        cell.optionTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
     }
     
     // MARK: - Segment Control

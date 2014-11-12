@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="660-7C-4iM">
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -63,7 +64,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="5iV-fm-m0x" kind="push" id="uER-RB-LOg"/>
+                                                <segue destination="5iV-fm-m0x" kind="push" identifier="showAuthorDetail" id="uER-RB-LOg"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -80,7 +81,7 @@
                                     <outlet property="voteAuthor" destination="wIu-pI-M2f" id="HtA-Md-VTD"/>
                                     <outlet property="voteImage" destination="ztz-KA-ALo" id="G1C-bW-CC9"/>
                                     <outlet property="voteTitle" destination="2wk-ur-Z8s" id="Jri-3r-Ob9"/>
-                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="showDetail" id="jUr-3t-vfg"/>
+                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="showVoteDetail" id="jUr-3t-vfg"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -159,12 +160,6 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-xi-JfN">
                                                     <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0人" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Z3-khz">
-                                                    <rect key="frame" x="264" y="0.0" width="48" height="59"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Option" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mx-lc-Kyn">
                                                     <rect key="frame" x="62" y="0.0" width="194" height="54"/>
                                                     <gestureRecognizers/>
@@ -172,7 +167,21 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Z3-khz">
+                                                    <rect key="frame" x="262" y="0.0" width="50" height="54"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="50" id="lhH-mw-uUf"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="sA4-Z3-khz" secondAttribute="trailing" id="8zv-DK-Myh"/>
+                                                <constraint firstItem="sA4-Z3-khz" firstAttribute="top" secondItem="5yy-iT-W7t" secondAttribute="topMargin" constant="-8" id="Dcd-mh-F2l"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="sA4-Z3-khz" secondAttribute="bottom" constant="-8" id="LGL-c0-ayy"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="optionBackground" destination="0WP-Xe-a4t" id="zu0-eH-v5L"/>
@@ -227,7 +236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1258" y="56"/>
+            <point key="canvasLocation" x="1294" y="60"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -240,7 +249,7 @@
                         <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="5cF-n6-nkC" kind="relationship" relationship="rootViewController" id="oLr-YH-NiX"/>
+                        <segue destination="bQ0-Aw-XyS" kind="relationship" relationship="rootViewController" id="7gk-gH-6BU"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLl-mg-8hZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -267,52 +276,66 @@
             </objects>
             <point key="canvasLocation" x="-143" y="426"/>
         </scene>
-        <!--关注-->
-        <scene sceneID="Cpf-bt-Imz">
+        <!--热点-->
+        <scene sceneID="93J-vX-Cxb">
             <objects>
-                <tableViewController id="5cF-n6-nkC" customClass="VoteListViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="aQI-IE-k75">
+                <tableViewController id="bQ0-Aw-XyS" customClass="VoteListViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUA-cA-hb2">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="OyP-yQ-2Xz" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="qAC-N7-XDe" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OyP-yQ-2Xz" id="QkC-gH-IL9">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qAC-N7-XDe" id="JbJ-ac-YgF">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ri7-o0-MZh">
-                                            <rect key="frame" x="8" y="8" width="84" height="84"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="REd-yQ-cDZ">
+                                            <rect key="frame" x="8" y="8" width="83" height="83"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="83" id="s0l-hu-YJ7"/>
+                                            </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rvG-7d-O2K">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aCW-o1-L03">
                                             <rect key="frame" x="100" y="39" width="212" height="52"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="user" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hLh-8C-xiE">
-                                            <rect key="frame" x="100" y="10" width="135" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjz-9r-El4">
+                                            <rect key="frame" x="100" y="8" width="30" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" priority="250" constant="80" id="39S-Nt-Kdx"/>
+                                                <constraint firstAttribute="height" constant="30" id="H29-rV-aoy"/>
+                                            </constraints>
+                                            <state key="normal" title="user">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
                                     </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="REd-yQ-cDZ" secondAttribute="bottom" id="53t-xb-Sdg"/>
+                                        <constraint firstItem="pjz-9r-El4" firstAttribute="leading" secondItem="REd-yQ-cDZ" secondAttribute="trailing" constant="9" id="KON-fO-Zmz"/>
+                                        <constraint firstItem="REd-yQ-cDZ" firstAttribute="leading" secondItem="JbJ-ac-YgF" secondAttribute="leadingMargin" id="R1I-ph-TOG"/>
+                                        <constraint firstItem="pjz-9r-El4" firstAttribute="top" secondItem="JbJ-ac-YgF" secondAttribute="topMargin" id="Yit-Gg-bwC"/>
+                                        <constraint firstItem="REd-yQ-cDZ" firstAttribute="top" secondItem="JbJ-ac-YgF" secondAttribute="topMargin" id="vA4-oY-toJ"/>
+                                    </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="voteAuthor" destination="hLh-8C-xiE" id="OaI-Ox-Yap"/>
-                                    <outlet property="voteImage" destination="Ri7-o0-MZh" id="pQl-vl-gWa"/>
-                                    <outlet property="voteTitle" destination="rvG-7d-O2K" id="H14-wo-OVV"/>
+                                    <outlet property="voteAuthor" destination="pjz-9r-El4" id="UR7-Wh-h4f"/>
+                                    <outlet property="voteImage" destination="REd-yQ-cDZ" id="W7F-dw-0fc"/>
+                                    <outlet property="voteTitle" destination="aCW-o1-L03" id="Q37-4A-ug3"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="关注" id="xT2-X3-mXW"/>
+                    <navigationItem key="navigationItem" title="热点" id="0MB-YU-dmv"/>
                 </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="HPX-iv-CBV" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DAT-DF-cO3" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="854" y="756"/>
         </scene>

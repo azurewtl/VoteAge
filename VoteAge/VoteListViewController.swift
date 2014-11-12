@@ -42,8 +42,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         newManagedObject.setValue(NSDate(), forKey: "timeStamp")
         newManagedObject.setValue("this is a vote", forKey: "voteTitle")
         newManagedObject.setValue("azurewtl", forKey: "voteAuthor")
-        var img = UIImage(named: "dummyImage")
-        newManagedObject.setValue(img, forKey: "voteImage")
+//        newManagedObject.setValue(imageURL, forKey: "voteImage")
         
         // Save the context.
         var error: NSError? = nil
@@ -58,11 +57,17 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
             let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
             (segue.destinationViewController as VoteDetailViewController).voteDetail = object
             }
+        }
+        
+        if segue.identifier == "showAuthorDetail" {
+            let senderButton = sender as UIButton
+            let cell = senderButton.superview?.superview as VoteTableViewCell
+            println(cell.voteTitle.text)
         }
     }
 
@@ -108,7 +113,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
 //        cell.textLabel.text = object.valueForKey("timeStamp")!.description
         cell.voteTitle.text = object.valueForKey("voteTitle") as? String
         cell.voteAuthor.setTitle(object.valueForKey("voteAuthor") as? String, forState: UIControlState.Normal)
-        cell.voteImage.image = object.valueForKey("voteImage") as? UIImage
+//        cell.voteImage.image = UIImage(data: imgData!)
     }
 
     // MARK: - Fetched results controller

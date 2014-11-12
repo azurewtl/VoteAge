@@ -5,7 +5,7 @@
             <userInfo/>
         </attribute>
         <attribute name="voteAuthor" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="voteImage" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="voteImage" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="voteTitle" optional="YES" attributeType="String" syncable="YES"/>
         <userInfo/>
     </entity>
