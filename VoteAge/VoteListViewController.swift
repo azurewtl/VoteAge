@@ -10,15 +10,15 @@ import UIKit
 import CoreData
 
 class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-
+    
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     override func awakeFromNib() {
         super.awakeFromNib()
-      
+        
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
@@ -28,230 +28,190 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         self.view.addSubview(activityIndicator)
         var ceshi:Int = 0
         if(ceshi == 1){
-       var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
-        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-        let group = dispatch_group_create()
-         dispatch_group_async(group, queue, {
-             self.activityIndicator.startAnimating()
+            var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
+            let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+            let group = dispatch_group_create()
+            dispatch_group_async(group, queue, {
+                self.activityIndicator.startAnimating()
             })
-        dispatch_group_notify(group, queue, {
-            AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
-                var str = NSString()
-                self.voteArray = result?.objectForKey("entries") as NSMutableArray
-                self.activityIndicator.stopAnimating()
-               
+            dispatch_group_notify(group, queue, {
+                AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
+                    var str = NSString()
+                    self.voteArray = result?.objectForKey("entries") as NSMutableArray
+                    self.activityIndicator.stopAnimating()
+                    
+                })
             })
-        })
         }else{
-
+            
             var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
             var data1 = NSData(contentsOfFile: path1!)
-
+            
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
             print(voteArray)
-       
+            
             
         }
         
-
+        
         
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-    
+        
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    func insertNewObject(sender: AnyObject) {
-        
-        
-////        let context = self.fetchedResultsController.managedObjectContext
-////        let entity = self.fetchedResultsController.fetchRequest.entity!
-////        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as NSManagedObject
-//        let newManagedObject = NSDictionary()
-//        // If appropriate, configure the new managed object.
-//        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-////        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-//        newManagedObject.setValue(sender.objectForKey("title"), forKey: "voteTitle")
-//        newManagedObject.setValue(sender.objectForKey("pubdate"), forKey: "voteAuthor")
-//        var dic = sender.objectForKey("images") as NSDictionary
-//        newManagedObject.setValue(dic.objectForKey("medium"), forKey: "voteImage")
-//       
-//        // Save the context.
-////        var error: NSError? = nil
-////        if !context.save(&error) {
-////            // Replace this implementation with code to handle the error appropriately.
-////            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-////            //println("Unresolved error \(error), \(error.userInfo)")
-////            abort()
-////        }
-    }
-//
+    
+    
     // MARK: - Segues
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let vote = voteArray[indexPath.row] as NSDictionary
-            (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
+                (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
             }
         }
         
         if segue.identifier == "showAuthorDetail" {
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
-//            println(cell.voteTitle.text)
+            //            println(cell.voteTitle.text)
         }
     }
-
+    
     // MARK: - Table View
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return voteArray.count
     }
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
-        var dic = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
-       cell.voteTitle.text = dic.objectForKey("voteTitle") as? NSString
-       cell.voteAuthor.setTitle(dic.objectForKey("voteAuthor") as? NSString, forState: UIControlState.Normal)
-        var str = dic.objectForKey("voteImage") as? NSString
-        var url = NSURL(string:str!)
-        cell.voteImage.sd_setImageWithURL(url)
+        let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
+        
+        cell.voteTitle.text = voteItem["voteTitle"] as NSString
+        cell.voteAuthor.setTitle(voteItem["voteAuthor"] as NSString, forState: UIControlState.Normal)
+        var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
+        cell.voteImage.sd_setImageWithURL(imageUrl)
         print(cell.voteTitle.text)
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
     }
-
+    
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-//            let context = self.fetchedResultsController.managedObjectContext
-//            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
-//                
-//            var error: NSError? = nil
-//            if !context.save(&error) {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                //println("Unresolved error \(error), \(error.userInfo)")
-//                abort()
-//            }
-            var deleArr = NSArray(objects: indexPath)
+            var deleteItem = NSArray(objects: indexPath)
             self.voteArray.removeObjectAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths(deleArr, withRowAnimation: UITableViewRowAnimation.Fade)
-            
+            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-
-    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
-//        cell.textLabel.text = object.valueForKey("timeStamp")!.description
-        cell.voteTitle.text = object.valueForKey("voteTitle") as? String
-        cell.voteAuthor.setTitle(object.valueForKey("voteAuthor") as? String, forState: UIControlState.Normal)
-//        cell.voteImage.image = UIImage(data: imgData!)
-        var str = object.valueForKey("voteImage") as? String
-      
-        var url = NSURL(string: str!)
-        cell.voteImage.sd_setImageWithURL(url)
     
-    }
-
+    //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
+    //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
+    //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String
+    //        cell.voteAuthor.setTitle(object.valueForKey("voteAuthor") as? String, forState: UIControlState.Normal)
+    //        var imageUrl = NSURL(string: object.valueForKey("voteImage") as NSString)
+    //        cell.voteImage.sd_setImageWithURL(imageUrl)
+    //    }
+    
     // MARK: - Fetched results controller
-
-    var fetchedResultsController: NSFetchedResultsController {
-        if _fetchedResultsController != nil {
-            return _fetchedResultsController!
-        }
-        
-        let fetchRequest = NSFetchRequest()
-        // Edit the entity name as appropriate.
-        let entity = NSEntityDescription.entityForName("Votes", inManagedObjectContext: self.managedObjectContext!)
-        fetchRequest.entity = entity
-        
-        // Set the batch size to a suitable number.
-        fetchRequest.fetchBatchSize = 20
-        
-        // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "voteAuthor", ascending: false)
-        let sortDescriptors = [sortDescriptor]
-        
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        
-        // Edit the section name key path and cache name if appropriate.
-        // nil for section name key path means "no sections".
-        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
-        aFetchedResultsController.delegate = self
-        _fetchedResultsController = aFetchedResultsController
-        
-    	var error: NSError? = nil
-    	if !_fetchedResultsController!.performFetch(&error) {
-    	     // Replace this implementation with code to handle the error appropriately.
-    	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. 
-             //println("Unresolved error \(error), \(error.userInfo)")
-    	     abort()
-    	}
-        
-        return _fetchedResultsController!
-    }    
-    var _fetchedResultsController: NSFetchedResultsController? = nil
-
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.beginUpdates()
-    }
-
-    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
-        switch type {
-            case .Insert:
-                self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-            case .Delete:
-                self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
-            default:
-                return
-        }
-    }
-
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
-        switch type {
-            case .Insert:
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            case .Delete:
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-            case .Update:
-                var cellToUpdate = self.tableView.cellForRowAtIndexPath(indexPath!)! as VoteTableViewCell
-                self.configureCell(cellToUpdate, atIndexPath: indexPath!)
-            case .Move:
-                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
-                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
-            default:
-                return
-        }
-    }
-
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        self.tableView.endUpdates()
-    }
-
+    
+    //    var fetchedResultsController: NSFetchedResultsController {
+    //        if _fetchedResultsController != nil {
+    //            return _fetchedResultsController!
+    //        }
+    //
+    //        let fetchRequest = NSFetchRequest()
+    //        // Edit the entity name as appropriate.
+    //        let entity = NSEntityDescription.entityForName("Votes", inManagedObjectContext: self.managedObjectContext!)
+    //        fetchRequest.entity = entity
+    //
+    //        // Set the batch size to a suitable number.
+    //        fetchRequest.fetchBatchSize = 20
+    //
+    //        // Edit the sort key as appropriate.
+    //        let sortDescriptor = NSSortDescriptor(key: "voteAuthor", ascending: false)
+    //        let sortDescriptors = [sortDescriptor]
+    //
+    //        fetchRequest.sortDescriptors = [sortDescriptor]
+    //
+    //        // Edit the section name key path and cache name if appropriate.
+    //        // nil for section name key path means "no sections".
+    //        let aFetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext!, sectionNameKeyPath: nil, cacheName: "Master")
+    //        aFetchedResultsController.delegate = self
+    //        _fetchedResultsController = aFetchedResultsController
+    //
+    //    	var error: NSError? = nil
+    //    	if !_fetchedResultsController!.performFetch(&error) {
+    //    	     // Replace this implementation with code to handle the error appropriately.
+    //    	     // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+    //             //println("Unresolved error \(error), \(error.userInfo)")
+    //    	     abort()
+    //    	}
+    //
+    //        return _fetchedResultsController!
+    //    }
+    //    var _fetchedResultsController: NSFetchedResultsController? = nil
+    //
+    //    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    //        self.tableView.beginUpdates()
+    //    }
+    //
+    //    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+    //        switch type {
+    //            case .Insert:
+    //                self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+    //            case .Delete:
+    //                self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+    //            default:
+    //                return
+    //        }
+    //    }
+    //
+    //    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    //        switch type {
+    //            case .Insert:
+    //                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+    //            case .Delete:
+    //                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+    //            case .Update:
+    //                var cellToUpdate = self.tableView.cellForRowAtIndexPath(indexPath!)! as VoteTableViewCell
+    //                self.configureCell(cellToUpdate, atIndexPath: indexPath!)
+    //            case .Move:
+    //                tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+    //                tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+    //            default:
+    //                return
+    //        }
+    //    }
+    //
+    //    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    //        self.tableView.endUpdates()
+    //    }
+    
     /*
-     // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
-     
-     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-         // In the simplest, most efficient, case, reload the table view.
-         self.tableView.reloadData()
-     }
-     */
-
+    // Implementing the above methods to update the table view in response to individual changes may have performance implications if a large number of changes are made simultaneously. If this proves to be an issue, you can instead just implement controllerDidChangeContent: which notifies the delegate that all section and object changes have been processed.
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    // In the simplest, most efficient, case, reload the table view.
+    self.tableView.reloadData()
+    }
+    */
+    
 }
 
