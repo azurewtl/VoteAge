@@ -1,0 +1,29 @@
+{
+    "hotlist": [
+        {
+            "voteID": "23532224", 
+            "voteTitle": "晚饭吃什么", 
+            "voteAuthor": "千军", 
+            "voteDate": "2014-11-14",
+            "voteImage": "http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg",
+            "options": [
+                {"title": "肯德基", "menCount": 43, "womenCount": 23},
+                {"title": "兰州拉面", "menCount": 23, "womenCount": 56}
+            ]
+        },
+
+        {
+            "voteID": "23532444", 
+            "voteTitle": "买什么车子", 
+            "voteAuthor": "azure", 
+            "voteDate": "2014-11-12",
+            "voteImage": "http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg",
+            "options": [
+                {"title": "桑塔纳", "menCount": 32, "womenCount": 25},
+                {"title": "兰博基尼", "menCount": 13, "womenCount": 16},
+                {"title": "audi", "menCount": 63, "womenCount": 43},
+                {"title": "benz", "menCount": 24, "womenCount": 36}
+            ]
+        }
+    ]
+}
