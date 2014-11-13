@@ -33,6 +33,7 @@
 		18773A051A14909000A05745 /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739F31A14909000A05745 /* UIImageView+HighlightedWebCache.m */; };
 		18773A061A14909000A05745 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739F51A14909000A05745 /* UIImageView+WebCache.m */; };
 		18773A071A14909000A05745 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739F71A14909000A05745 /* UIView+WebCacheOperation.m */; };
+		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB7208561A0B600100A97FCD /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208551A0B600100A97FCD /* VoteListViewController.swift */; };
@@ -111,6 +112,7 @@
 		187739F51A14909000A05745 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		187739F61A14909000A05745 /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		187739F71A14909000A05745 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
+		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -223,10 +225,10 @@
 		BB7208421A0B600100A97FCD = {
 			isa = PBXGroup;
 			children = (
-				187739D61A14909000A05745 /* SDWebImage */,
 				BB72084D1A0B600100A97FCD /* VoteAge */,
 				187739D01A145FB300A05745 /* AFJS */,
 				187739871A145F7400A05745 /* AFNetworking */,
+				187739D61A14909000A05745 /* SDWebImage */,
 				BB7208681A0B600100A97FCD /* VoteAgeTests */,
 				BB72084C1A0B600100A97FCD /* Products */,
 			);
@@ -244,6 +246,7 @@
 		BB72084D1A0B600100A97FCD /* VoteAge */ = {
 			isa = PBXGroup;
 			children = (
+				18773A081A1495AD00A05745 /* testData1.json */,
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				BB7208551A0B600100A97FCD /* VoteListViewController.swift */,
@@ -373,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BB7208B71A0BA94700A97FCD /* Images.xcassets in Resources */,
+				18773A091A1495AD00A05745 /* testData1.json in Resources */,
 				BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */,
 				BB7208601A0B600100A97FCD /* LaunchScreen.xib in Resources */,
 			);

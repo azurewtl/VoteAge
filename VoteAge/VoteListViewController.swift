@@ -43,10 +43,11 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
             })
         })
         }else{
-           var path = NSString(contentsOfFile:"/Users/apple/Documents/VoteAge/testData1.json", encoding: NSUTF8StringEncoding, error: nil) as String
-//            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-            var data = path.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
-            var votedic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
+
+            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+            var data1 = NSData(contentsOfFile: path1!)
+
+            var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
             print(voteArray)
        
