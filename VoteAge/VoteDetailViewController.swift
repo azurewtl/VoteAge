@@ -40,8 +40,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func configureView() {
         if let detail: AnyObject = self.voteDetail {
-            if let label = voteTitle {
-                label.text = "this is title"
+
+            if(voteTitle != nil) {
+                voteTitle.text = detail.objectForKey("voteTitle") as NSString
+                var str = detail["voteImage"] as NSString
+                var url = NSURL(string: str)
+                voteImage.sd_setImageWithURL(url)
             }
         }
     }

@@ -67,7 +67,9 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         // Dispose of any resources that can be recreated.
     }
 
-//    func insertNewObject(sender: AnyObject) {
+    func insertNewObject(sender: AnyObject) {
+        
+        
 ////        let context = self.fetchedResultsController.managedObjectContext
 ////        let entity = self.fetchedResultsController.fetchRequest.entity!
 ////        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as NSManagedObject
@@ -88,16 +90,15 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
 ////            //println("Unresolved error \(error), \(error.userInfo)")
 ////            abort()
 ////        }
-//    }
+    }
 //
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-            let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
-            (segue.destinationViewController as VoteDetailViewController).voteDetail = object
-            
+                let vote = voteArray[indexPath.row] as NSDictionary
+            (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
             }
         }
         
@@ -137,16 +138,20 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-            let context = self.fetchedResultsController.managedObjectContext
-            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
-                
-            var error: NSError? = nil
-            if !context.save(&error) {
-                // Replace this implementation with code to handle the error appropriately.
-                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                //println("Unresolved error \(error), \(error.userInfo)")
-                abort()
-            }
+//            let context = self.fetchedResultsController.managedObjectContext
+//            context.deleteObject(self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject)
+//                
+//            var error: NSError? = nil
+//            if !context.save(&error) {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                //println("Unresolved error \(error), \(error.userInfo)")
+//                abort()
+//            }
+            var deleArr = NSArray(objects: indexPath)
+            self.voteArray.removeObjectAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths(deleArr, withRowAnimation: UITableViewRowAnimation.Fade)
+            
         }
     }
 
