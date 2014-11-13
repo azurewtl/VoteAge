@@ -12,8 +12,8 @@ import CoreData
 class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
-    var array = NSMutableArray()
-
+    var voteArray = NSMutableArray()
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     override func awakeFromNib() {
         super.awakeFromNib()
       
@@ -21,19 +21,38 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
 
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        activityIndicator.frame = CGRectMake(130, 200, 50, 50)
+        activityIndicator.backgroundColor = UIColor.grayColor()
+        activityIndicator.layer.masksToBounds = true
+        activityIndicator.layer.cornerRadius = 5
+        self.view.addSubview(activityIndicator)
+        var ceshi:Int = 0
+        if(ceshi == 1){
        var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
-    
-        AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
-            
-                    self.array = result?.objectForKey("entries") as NSMutableArray
-        
-                for (var i:Int = 0;i < self.array.count;i++) {
-        
-                    var dic = self.array.objectAtIndex(i) as NSDictionary
-                    self.insertNewObject(dic)
-                }
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let group = dispatch_group_create()
+         dispatch_group_async(group, queue, {
+             self.activityIndicator.startAnimating()
             })
+        dispatch_group_notify(group, queue, {
+            AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
+                var str = NSString()
+                self.voteArray = result?.objectForKey("entries") as NSMutableArray
+                self.activityIndicator.stopAnimating()
+               
+            })
+        })
+        }else{
+           var path = NSString(contentsOfFile:"/Users/apple/Documents/VoteAge/testData1.json", encoding: NSUTF8StringEncoding, error: nil) as String
+//            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+            var data = path.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+            var votedic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
+            self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
+            print(voteArray)
+       
+            
+        }
+        
 
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -48,30 +67,29 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         // Dispose of any resources that can be recreated.
     }
 
-    func insertNewObject(sender: AnyObject) {
-        let context = self.fetchedResultsController.managedObjectContext
-        let entity = self.fetchedResultsController.fetchRequest.entity!
-        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as NSManagedObject
-             
-        // If appropriate, configure the new managed object.
-        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-//        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-        newManagedObject.setValue(sender.objectForKey("title"), forKey: "voteTitle")
-        newManagedObject.setValue(sender.objectForKey("pubdate"), forKey: "voteAuthor")
-        var dic = sender.objectForKey("images") as NSDictionary
-        
-        newManagedObject.setValue(dic.objectForKey("medium"), forKey: "voteImage")
-       
-        // Save the context.
-        var error: NSError? = nil
-        if !context.save(&error) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            //println("Unresolved error \(error), \(error.userInfo)")
-            abort()
-        }
-    }
-
+//    func insertNewObject(sender: AnyObject) {
+////        let context = self.fetchedResultsController.managedObjectContext
+////        let entity = self.fetchedResultsController.fetchRequest.entity!
+////        let newManagedObject = NSEntityDescription.insertNewObjectForEntityForName(entity.name!, inManagedObjectContext: context) as NSManagedObject
+//        let newManagedObject = NSDictionary()
+//        // If appropriate, configure the new managed object.
+//        // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
+////        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
+//        newManagedObject.setValue(sender.objectForKey("title"), forKey: "voteTitle")
+//        newManagedObject.setValue(sender.objectForKey("pubdate"), forKey: "voteAuthor")
+//        var dic = sender.objectForKey("images") as NSDictionary
+//        newManagedObject.setValue(dic.objectForKey("medium"), forKey: "voteImage")
+//       
+//        // Save the context.
+////        var error: NSError? = nil
+////        if !context.save(&error) {
+////            // Replace this implementation with code to handle the error appropriately.
+////            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+////            //println("Unresolved error \(error), \(error.userInfo)")
+////            abort()
+////        }
+//    }
+//
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -93,17 +111,22 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return self.fetchedResultsController.sections?.count ?? 0
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = self.fetchedResultsController.sections![section] as NSFetchedResultsSectionInfo
-        return sectionInfo.numberOfObjects
+        return voteArray.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
-        self.configureCell(cell, atIndexPath: indexPath)
+        var dic = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
+       cell.voteTitle.text = dic.objectForKey("voteTitle") as? NSString
+       cell.voteAuthor.setTitle(dic.objectForKey("voteAuthor") as? NSString, forState: UIControlState.Normal)
+        var str = dic.objectForKey("voteImage") as? NSString
+        var url = NSURL(string:str!)
+        cell.voteImage.sd_setImageWithURL(url)
+        print(cell.voteTitle.text)
         return cell
     }
 
