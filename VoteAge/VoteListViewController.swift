@@ -12,17 +12,33 @@ import CoreData
 class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var managedObjectContext: NSManagedObjectContext? = nil
-
+    var array = NSMutableArray()
 
     override func awakeFromNib() {
         super.awakeFromNib()
+      
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+       
+       var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
+    
+        AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
+            
+                    self.array = result?.objectForKey("entries") as NSMutableArray
+        
+                for (var i:Int = 0;i < self.array.count;i++) {
+        
+                    var dic = self.array.objectAtIndex(i) as NSDictionary
+                    self.insertNewObject(dic)
+                }
+            })
+
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
-
+    
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
         self.navigationItem.rightBarButtonItem = addButton
     }
@@ -39,11 +55,13 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
              
         // If appropriate, configure the new managed object.
         // Normally you should use accessor methods, but using KVC here avoids the need to add a custom class to the template.
-        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
-        newManagedObject.setValue("this is a vote", forKey: "voteTitle")
-        newManagedObject.setValue("azurewtl", forKey: "voteAuthor")
-//        newManagedObject.setValue(imageURL, forKey: "voteImage")
+//        newManagedObject.setValue(NSDate(), forKey: "timeStamp")
+        newManagedObject.setValue(sender.objectForKey("title"), forKey: "voteTitle")
+        newManagedObject.setValue(sender.objectForKey("pubdate"), forKey: "voteAuthor")
+        var dic = sender.objectForKey("images") as NSDictionary
         
+        newManagedObject.setValue(dic.objectForKey("medium"), forKey: "voteImage")
+       
         // Save the context.
         var error: NSError? = nil
         if !context.save(&error) {
@@ -61,13 +79,14 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
             if let indexPath = self.tableView.indexPathForSelectedRow() {
             let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
             (segue.destinationViewController as VoteDetailViewController).voteDetail = object
+            
             }
         }
         
         if segue.identifier == "showAuthorDetail" {
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
-            println(cell.voteTitle.text)
+//            println(cell.voteTitle.text)
         }
     }
 
@@ -114,6 +133,11 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         cell.voteTitle.text = object.valueForKey("voteTitle") as? String
         cell.voteAuthor.setTitle(object.valueForKey("voteAuthor") as? String, forState: UIControlState.Normal)
 //        cell.voteImage.image = UIImage(data: imgData!)
+        var str = object.valueForKey("voteImage") as? String
+      
+        var url = NSURL(string: str!)
+        cell.voteImage.sd_setImageWithURL(url)
+    
     }
 
     // MARK: - Fetched results controller
@@ -132,7 +156,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         fetchRequest.fetchBatchSize = 20
         
         // Edit the sort key as appropriate.
-        let sortDescriptor = NSSortDescriptor(key: "timeStamp", ascending: false)
+        let sortDescriptor = NSSortDescriptor(key: "voteAuthor", ascending: false)
         let sortDescriptors = [sortDescriptor]
         
         fetchRequest.sortDescriptors = [sortDescriptor]
