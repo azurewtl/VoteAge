@@ -49,7 +49,8 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
             
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-            print(voteArray)
+//            print(voteArray)
+       
             
             
         }
