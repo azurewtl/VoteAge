@@ -49,7 +49,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
 
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-            print(voteArray)
+//            print(voteArray)
        
             
         }
@@ -128,7 +128,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         var str = dic.objectForKey("voteImage") as? NSString
         var url = NSURL(string:str!)
         cell.voteImage.sd_setImageWithURL(url)
-        print(cell.voteTitle.text)
+//        print(cell.voteTitle.text)
         return cell
     }
 
