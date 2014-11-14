@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate, sendBack {
     
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
