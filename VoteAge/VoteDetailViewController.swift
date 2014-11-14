@@ -14,8 +14,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var optionTableView: UITableView!
     var timeAlertview = UIAlertView()
-    var menTotal = CGFloat()
-    var womenTotal = CGFloat()
+    var menCount = CGFloat()
+    var womenCount = CGFloat()
     var voteItem = NSMutableDictionary()
     var optionArray = NSMutableArray()
     var time = NSTimeInterval()
@@ -73,8 +73,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 voteImage.sd_setImageWithURL(url)
                 self.optionArray = detail.objectForKey("options") as NSMutableArray
                 for option in optionArray{
-                    menTotal += option["menCount"] as CGFloat
-                    womenTotal += option["womenCount"] as CGFloat
+                    menCount += option["menCount"] as CGFloat
+                    womenCount += option["womenCount"] as CGFloat
                 }
                 
             }
@@ -132,12 +132,10 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 if ((cell) != nil) {
                     
                     var percentage = optionArray[row]["menCount"] as CGFloat
-                    percentage = percentage / menTotal
-                    let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
-                    var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
-                    var per = Int(percentage * 100)
-                    cell?.optionPer.text = per.description + "%"
+                    percentage = percentage / menCount
+                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    let perInt = Int(percentage * 100)
+                    cell?.optionDetail.text = perInt.description + "%"
                 }
             }
             
@@ -148,17 +146,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
-                    barFrame = cell!.optionBackground.frame
-//                    barFrame.size.width += 10
                     var percentage = optionArray[row]["menCount"] as CGFloat
-                    var persontage1 = optionArray[row]["womenCount"] as CGFloat
-                    percentage = percentage + persontage1
-                    percentage = percentage / (menTotal + womenTotal)
-                    let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
-                    var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
-                    var per = Int(percentage * 100)
-                   cell?.optionPer.text = per.description + "%"
+                    percentage += optionArray[row]["womenCount"] as CGFloat
+                    percentage = percentage / (menCount + womenCount)
+                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    let perInt = Int(percentage * 100)
+                    cell?.optionDetail.text = perInt.description + "%"
                 }
             }
             
@@ -169,14 +162,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
                   var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
-                    barFrame = cell!.optionBackground.frame
                     var percentage = optionArray[row]["womenCount"] as CGFloat
-                    percentage = percentage / womenTotal
-                    let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
-                    var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
-                    UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
-                    var per = Int(percentage * 100)
-                    cell?.optionPer.text = per.description + "%"
+                    percentage = percentage / womenCount
+                    
+                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    let perInt = Int(percentage * 100)
+                    cell?.optionDetail.text = perInt.description + "%"
                 }
             }
             
