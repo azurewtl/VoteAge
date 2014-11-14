@@ -13,6 +13,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var optionTableView: UITableView!
+    @IBOutlet weak var waiveButton: UIButton!
     var timeAlertview = UIAlertView()
     var menCount = CGFloat()
     var womenCount = CGFloat()
@@ -22,6 +23,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var timer = NSTimer()
     let animationDuration = 0.15
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -39,14 +41,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - configureView
+    // MARK: - waiveButton
     
-    var voteDetail: AnyObject? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
+    @IBAction func waiveButton(sender: UIButton) {
+        sender.hidden = true
     }
+    
     func timeCount() {
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timeFire", userInfo: nil, repeats: true)
         
@@ -57,13 +57,24 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         timeAlertview.title = (4 - time).description + "秒后开始"
         if(time > 3){
             time = 0
-//            self.view.userInteractionEnabled = true
+            //            self.view.userInteractionEnabled = true
             timeAlertview.dismissWithClickedButtonIndex(timeAlertview.cancelButtonIndex, animated: true)
             timer.invalidate()
         }
-    
+        
     }
-    func configureView() {
+
+    
+    // MARK: - configureView
+    
+    var voteDetail: AnyObject? {
+        didSet {
+            // Update the view.
+            self.configureView()
+        }
+    }
+    
+      func configureView() {
         if let detail: AnyObject = self.voteDetail {
 
             if(voteTitle != nil) {
