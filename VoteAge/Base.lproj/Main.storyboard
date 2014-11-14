@@ -100,46 +100,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="4ZI-fn-2j3">
+                            <rect key="frame" x="0.0" y="64" width="320" height="72"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="6OR-b3-2fG">
+                            <rect key="frame" x="0.0" y="277" width="320" height="102"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                         <sections>
                             <tableViewSection id="eWR-OL-wGE">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="74" id="weQ-7J-hkI">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="weQ-7J-hkI" id="oJi-74-l3u">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="rom-oJ-Ybk">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rom-oJ-Ybk" id="44i-bz-aA3">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="43" id="weQ-7J-hkI">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="weQ-7J-hkI" id="oJi-74-l3u">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="v6x-7X-IWt">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v6x-7X-IWt" id="5by-ce-aD7">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                            <tableViewSection id="LMx-0s-OqM">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="fgE-NN-Uuk">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fgE-NN-Uuk" id="kYb-Jq-IcB">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="8yp-6f-8d8">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8yp-6f-8d8" id="rMG-Hl-it6">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="P3h-2E-ZG4">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="P3h-2E-ZG4" id="ivn-qi-K4j">
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -248,8 +236,8 @@
                                     <outlet property="delegate" destination="Ah7-4n-0Wa" id="Z6p-C8-psd"/>
                                 </connections>
                             </tableView>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
-                                <rect key="frame" x="0.0" y="164" width="320" height="29"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
+                                <rect key="frame" x="0.0" y="164" width="320" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="koO-L2-0Sw"/>
                                 </constraints>
@@ -258,13 +246,25 @@
                                     <segment title="所有人"/>
                                     <segment title="只看女"/>
                                 </segments>
+                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="voteSegment:" destination="Ah7-4n-0Wa" eventType="valueChanged" id="48a-pS-cNn"/>
                                 </connections>
                             </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0R-KP-ZDb">
+                                <rect key="frame" x="0.0" y="164" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="waiveButton:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="daj-hD-110"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="j0R-KP-ZDb" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="0T2-Pb-Cf3"/>
                             <constraint firstItem="IjR-vi-x8M" firstAttribute="top" secondItem="3k4-cB-J9c" secondAttribute="bottom" id="25y-Bq-fhF"/>
                             <constraint firstItem="3VA-DT-67c" firstAttribute="leading" secondItem="Y5g-fn-XsJ" secondAttribute="trailing" constant="8" id="BFo-82-iD5"/>
                             <constraint firstItem="3k4-cB-J9c" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="BG9-Jb-pe7"/>
@@ -272,10 +272,13 @@
                             <constraint firstItem="3VA-DT-67c" firstAttribute="trailing" secondItem="MMQ-IT-qOo" secondAttribute="trailingMargin" id="Fiw-4a-TCp"/>
                             <constraint firstItem="IjR-vi-x8M" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="Gzn-n5-5QW"/>
                             <constraint firstItem="3VA-DT-67c" firstAttribute="top" secondItem="Z6z-0j-46q" secondAttribute="bottom" id="JdK-lt-P4a"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="j0R-KP-ZDb" secondAttribute="trailing" constant="-16" id="Nst-bT-1c0"/>
                             <constraint firstItem="Y5g-fn-XsJ" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="V6k-tJ-zYD"/>
+                            <constraint firstItem="IjR-vi-x8M" firstAttribute="top" secondItem="j0R-KP-ZDb" secondAttribute="bottom" id="flE-Vk-vY6"/>
                             <constraint firstItem="3k4-cB-J9c" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="hC6-5O-w3t"/>
                             <constraint firstItem="C7H-2x-uT8" firstAttribute="top" secondItem="IjR-vi-x8M" secondAttribute="bottom" id="j0j-Hw-eS7"/>
                             <constraint firstAttribute="trailingMargin" secondItem="IjR-vi-x8M" secondAttribute="trailing" constant="-16" id="jpc-Cx-3lS"/>
+                            <constraint firstItem="j0R-KP-ZDb" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="lNM-UZ-YY5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="3k4-cB-J9c" secondAttribute="trailing" constant="-16" id="sXk-oQ-fJU"/>
                         </constraints>
                     </view>
@@ -284,11 +287,12 @@
                         <outlet property="optionTableView" destination="IjR-vi-x8M" id="N2Q-xZ-HCr"/>
                         <outlet property="voteImage" destination="Y5g-fn-XsJ" id="wLw-ee-ASg"/>
                         <outlet property="voteTitle" destination="3VA-DT-67c" id="QwG-2A-z6J"/>
+                        <outlet property="waiveButton" destination="j0R-KP-ZDb" id="hbT-cZ-GTv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1294" y="158.5"/>
+            <point key="canvasLocation" x="1294" y="158"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
