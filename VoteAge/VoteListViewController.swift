@@ -91,7 +91,10 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         if segue.identifier == "showAuthorDetail" {
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
-            //            println(cell.voteTitle.text)
+            println((segue.destinationViewController as UserDetailViewControllerTableViewController).authorID)
+            let indexPath = tableView.indexPathForCell(cell)
+            let voteFeed = voteArray[indexPath!.row] as NSDictionary
+            (segue.destinationViewController as UserDetailViewControllerTableViewController).voteFeed = voteFeed
         }
     }
     
@@ -111,9 +114,11 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         
         cell.voteTitle.text = voteItem["voteTitle"] as NSString
         cell.voteAuthor.setTitle(voteItem["voteAuthor"] as NSString, forState: UIControlState.Normal)
+        cell.authorID = voteItem["authorID"] as NSString
+        
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
         cell.voteImage.sd_setImageWithURL(imageUrl)
-        print(cell.voteTitle.text)
+
         return cell
     }
     
