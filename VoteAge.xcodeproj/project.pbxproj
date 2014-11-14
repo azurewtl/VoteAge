@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18332CA01A15B4F5003ED683 /* AuthorDetailViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18332C9F1A15B4F5003ED683 /* AuthorDetailViewControllerTableViewController.swift */; };
 		187739B91A145F7400A05745 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739891A145F7400A05745 /* AFHTTPRequestOperation.m */; };
 		187739BA1A145F7400A05745 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877398B1A145F7400A05745 /* AFHTTPRequestOperationManager.m */; };
 		187739BB1A145F7400A05745 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877398D1A145F7400A05745 /* AFHTTPSessionManager.m */; };
@@ -57,6 +58,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18332C9F1A15B4F5003ED683 /* AuthorDetailViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorDetailViewControllerTableViewController.swift; sourceTree = "<group>"; };
 		183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoteAge-Bridging-Header.h"; sourceTree = "<group>"; };
 		187739881A145F7400A05745 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		187739891A145F7400A05745 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				BB7208551A0B600100A97FCD /* VoteListViewController.swift */,
 				BB7208571A0B600100A97FCD /* VoteDetailViewController.swift */,
+				18332C9F1A15B4F5003ED683 /* AuthorDetailViewControllerTableViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -397,6 +400,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18773A021A14909000A05745 /* UIImage+GIF.m in Sources */,
+				18332CA01A15B4F5003ED683 /* AuthorDetailViewControllerTableViewController.swift in Sources */,
 				187739BE1A145F7400A05745 /* AFURLConnectionOperation.m in Sources */,
 				BB7208BB1A0BC6B200A97FCD /* OptionTableViewCell.swift in Sources */,
 				187739B91A145F7400A05745 /* AFHTTPRequestOperation.m in Sources */,

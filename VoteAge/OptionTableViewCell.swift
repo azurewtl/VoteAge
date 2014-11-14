@@ -11,7 +11,7 @@ import UIKit
 class OptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var optionImage: UIImageView!
-    @IBOutlet weak var optionBackground: UILabel!
+    @IBOutlet var optionProgress: UIProgressView!
     @IBOutlet weak var optionTitle: UILabel!
     @IBOutlet weak var optionDetail: UILabel!
     
