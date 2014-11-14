@@ -63,7 +63,13 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject")
         self.navigationItem.rightBarButtonItem = addButton
     }
-    
+    // MARK: - protocol
+    func changevalue(status: Int) {
+        if let indexPath = self.tableView.indexPathForSelectedRow() {
+            let vote = voteArray[indexPath.row] as NSMutableDictionary
+           vote["voteStatus"] = 1
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -75,8 +81,10 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let vote = voteArray[indexPath.row] as NSDictionary
+                let vote = voteArray[indexPath.row] as NSMutableDictionary
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
+
+                (segue.destinationViewController as VoteDetailViewController).delegate = self
             }
         }
         

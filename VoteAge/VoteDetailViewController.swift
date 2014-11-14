@@ -8,32 +8,44 @@
 
 import UIKit
 
-class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+protocol sendBack{
+    func changevalue(status:Int)
+}
 
+class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var optionTableView: UITableView!
     @IBOutlet weak var waiveButton: UIButton!
-    var timeAlertview = UIAlertView()
+    @IBOutlet weak var voteSegment: UISegmentedControl!
+ 
+    var delegate:sendBack?
     var menCount = CGFloat()
     var womenCount = CGFloat()
-    var voteItem = NSMutableDictionary()
     var optionArray = NSMutableArray()
     var time = NSTimeInterval()
     var timer = NSTimer()
     let animationDuration = 0.15
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        
     }
     override func viewWillAppear(animated: Bool) {
-       super.viewWillAppear(true)
-//        self.view.userInteractionEnabled = false
-       timeAlertview.show()
-        timeCount()
+        super.viewWillAppear(true)
+        if(voteDetail!["voteStatus"] as Int == 0){
+            optionTableView.allowsSelection = false
+            waiveButton.userInteractionEnabled = false
+            voteSegment.userInteractionEnabled = false
+            timeCount()
+        }else{
+            waiveButton.hidden = true
+        }
+        
         
     }
     override func didReceiveMemoryWarning() {
@@ -45,6 +57,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
+        waiveButton.setTitle("放弃投票", forState: UIControlState.Normal)
     }
     
     func timeCount() {
@@ -54,29 +67,33 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     func timeFire(){
         time++
-        timeAlertview.title = (4 - time).description + "秒后开始"
+        waiveButton .setTitle((4 - time).description + "秒后开始", forState: UIControlState.Normal)
         if(time > 3){
             time = 0
             //            self.view.userInteractionEnabled = true
-            timeAlertview.dismissWithClickedButtonIndex(timeAlertview.cancelButtonIndex, animated: true)
+            
+            waiveButton.userInteractionEnabled = true
+            waiveButton .setTitle("放弃投票", forState: UIControlState.Normal)
+            self.optionTableView.allowsSelection = true
+            voteSegment.userInteractionEnabled = true
             timer.invalidate()
         }
         
     }
-
+    
     
     // MARK: - configureView
     
-    var voteDetail: AnyObject? {
+    var voteDetail: NSDictionary? {
         didSet {
             // Update the view.
             self.configureView()
         }
     }
     
-      func configureView() {
+    func configureView() {
         if let detail: AnyObject = self.voteDetail {
-
+            
             if(voteTitle != nil) {
                 voteTitle.text = detail.objectForKey("voteTitle") as NSString
                 var str = detail["voteImage"] as NSString
@@ -107,6 +124,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         configureCell(cell, atIndexPath: indexPath)
         var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
+        
         return cell
     }
     
@@ -117,23 +135,25 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Table VIew Selection
     
-//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-//        let cell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell
-//        var barFrame = cell.optionBackground.frame
-//        barFrame.size.width += 30
-//        UIView.animateWithDuration(animationDuration, animations: {cell.optionBackground.frame = barFrame})
-//        cell.optionImage.hidden = true
-//        cell.optionBackground.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
-//        cell.optionTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
-//    }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell
+        self.delegate?.changevalue(1)
+        
+        //        var barFrame = cell.optionBackground.frame
+        //        barFrame.size.width += 30
+        //        UIView.animateWithDuration(animationDuration, animations: {cell.optionBackground.frame = barFrame})
+        //        cell.optionImage.hidden = true
+        //        cell.optionBackground.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
+        //        cell.optionTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
+    }
     
     // MARK: - Segment Control
     
     @IBAction func voteSegment(sender: UISegmentedControl) {
         println()
-    
+        
         let rowCount = optionTableView.numberOfRowsInSection(0)
-       
+        
         switch(sender.selectedSegmentIndex) {
         case 0: // men only
             var cell: OptionTableViewCell?
@@ -172,7 +192,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
-                  var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
+                    var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
                     var percentage = optionArray[row]["womenCount"] as CGFloat
                     percentage = percentage / womenCount
                     
