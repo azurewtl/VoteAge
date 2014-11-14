@@ -13,7 +13,8 @@ class VoteTableViewCell: UITableViewCell {
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet var voteAuthor: UIButton!
-
+    var authorID: NSString = NSString()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

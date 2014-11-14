@@ -3,7 +3,8 @@
         {
             "voteID": "23532224", 
             "voteTitle": "晚饭吃什么", 
-            "voteAuthor": "千军", 
+            "voteAuthor": "千军",
+            "authorID": "423234",
             "voteDate": "2014-11-14",
             "voteImage": "http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg",
             "options": [
@@ -15,7 +16,8 @@
         {
             "voteID": "23532444", 
             "voteTitle": "买什么车子", 
-            "voteAuthor": "azure", 
+            "voteAuthor": "azure",
+            "authorID": "445634",
             "voteDate": "2014-11-12",
             "voteImage": "http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg",
             "options": [
