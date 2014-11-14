@@ -60,7 +60,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject")
         self.navigationItem.rightBarButtonItem = addButton
     }
     
@@ -121,7 +121,9 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
             tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-    
+    func insertNewObject() {
+        
+    }
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
     //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String

@@ -13,12 +13,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var optionTableView: UITableView!
-
+    var timeAlertview = UIAlertView()
     var menTotal = CGFloat()
     var womenTotal = CGFloat()
     var voteItem = NSMutableDictionary()
     var optionArray = NSMutableArray()
-    
+    var time = NSTimeInterval()
+    var timer = NSTimer()
     let animationDuration = 0.15
     
     override func viewDidLoad() {
@@ -26,7 +27,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
     }
-    
+    override func viewWillAppear(animated: Bool) {
+       super.viewWillAppear(true)
+//        self.view.userInteractionEnabled = false
+       timeAlertview.show()
+        timeCount()
+        
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,7 +47,22 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             self.configureView()
         }
     }
+    func timeCount() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timeFire", userInfo: nil, repeats: true)
+        
+        timer.fire()
+    }
+    func timeFire(){
+        time++
+        timeAlertview.title = (4 - time).description + "秒后开始"
+        if(time > 3){
+            time = 0
+//            self.view.userInteractionEnabled = true
+            timeAlertview.dismissWithClickedButtonIndex(timeAlertview.cancelButtonIndex, animated: true)
+            timer.invalidate()
+        }
     
+    }
     func configureView() {
         if let detail: AnyObject = self.voteDetail {
 
@@ -113,10 +135,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     percentage = percentage / menTotal
                     let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
                     var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
-                
                     UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
-                    
-                    
+                    var per = Int(percentage * 100)
+                    cell?.optionPer.text = per.description + "%"
                 }
             }
             
@@ -136,6 +157,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
                     var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
                     UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
+                    var per = Int(percentage * 100)
+                   cell?.optionPer.text = per.description + "%"
                 }
             }
             
@@ -152,7 +175,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     let newWidth: CGFloat = percentage * (self.view.frame.width - 54)
                     var barFrame = CGRect(x: 54, y: 0, width: newWidth, height: 54)
                     UIView.animateWithDuration(animationDuration, animations: {cell!.optionBackground.frame = barFrame})
-                   
+                    var per = Int(percentage * 100)
+                    cell?.optionPer.text = per.description + "%"
                 }
             }
             
