@@ -18,6 +18,8 @@ class OptionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        optionProgress.progress = 0
+        optionDetail.text = ""
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

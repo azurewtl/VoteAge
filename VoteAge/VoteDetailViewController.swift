@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol sendBack{
+protocol VoteDetailDelegate{
     func changevalue(status:Int)
 }
 
@@ -20,7 +20,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
  
-    var delegate:sendBack?
+    var delegate: VoteDetailDelegate?
     var menCount = CGFloat()
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
@@ -62,16 +62,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func timeCount() {
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timeFire", userInfo: nil, repeats: true)
-        
         timer.fire()
     }
+    
     func timeFire(){
         time++
         waiveButton .setTitle((4 - time).description + "秒后开始", forState: UIControlState.Normal)
         if(time > 3){
             time = 0
-            //            self.view.userInteractionEnabled = true
-            
             waiveButton.userInteractionEnabled = true
             waiveButton .setTitle("放弃投票", forState: UIControlState.Normal)
             self.optionTableView.allowsSelection = true
@@ -136,15 +134,25 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Table VIew Selection
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell
+
         self.delegate?.changevalue(1)
-        
-        //        var barFrame = cell.optionBackground.frame
-        //        barFrame.size.width += 30
-        //        UIView.animateWithDuration(animationDuration, animations: {cell.optionBackground.frame = barFrame})
-        //        cell.optionImage.hidden = true
-        //        cell.optionBackground.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
-        //        cell.optionTitle.frame = CGRect(x: 0, y: 0, width: 100, height: 54)
+        let rowCount = optionTableView.numberOfRowsInSection(0)
+        var cell: OptionTableViewCell?
+        optionTableView.allowsSelection = false
+        // add count to men or women
+        //
+        //
+        for row in 0...rowCount-1{
+            cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+            if ((cell) != nil) {
+                var percentage = optionArray[row]["menCount"] as CGFloat
+                percentage += optionArray[row]["womenCount"] as CGFloat
+                percentage = percentage / (menCount + womenCount)
+                cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                let perInt = Int(percentage * 100)
+                cell?.optionDetail.text = perInt.description + "%"
+            }
+        }
     }
     
     // MARK: - Segment Control
@@ -157,7 +165,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         switch(sender.selectedSegmentIndex) {
         case 0: // men only
             var cell: OptionTableViewCell?
-            var barFrame: CGRect
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
@@ -173,7 +180,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             
         case 1: // everyone
             var cell: OptionTableViewCell?
-            var barFrame: CGRect
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
@@ -188,7 +194,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             
         case 2: // women only
             var cell: OptionTableViewCell?
-            var barFrame: CGRect
             for row in 0...rowCount-1{
                 cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {

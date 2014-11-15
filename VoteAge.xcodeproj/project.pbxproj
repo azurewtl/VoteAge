@@ -35,6 +35,7 @@
 		18773A071A14909000A05745 /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739F71A14909000A05745 /* UIView+WebCacheOperation.m */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		18C7D7AF1A15E39F007237AB /* UserDetailViewControllerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7D7AE1A15E39F007237AB /* UserDetailViewControllerTableViewController.swift */; };
+		18C7D7B11A170E6E007237AB /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C7D7B01A170E6E007237AB /* QRCodeViewController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB7208561A0B600100A97FCD /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208551A0B600100A97FCD /* VoteListViewController.swift */; };
@@ -115,6 +116,7 @@
 		187739F71A14909000A05745 /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		18C7D7AE1A15E39F007237AB /* UserDetailViewControllerTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailViewControllerTableViewController.swift; sourceTree = "<group>"; };
+		18C7D7B01A170E6E007237AB /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -254,6 +256,7 @@
 				BB7208551A0B600100A97FCD /* VoteListViewController.swift */,
 				BB7208571A0B600100A97FCD /* VoteDetailViewController.swift */,
 				18C7D7AE1A15E39F007237AB /* UserDetailViewControllerTableViewController.swift */,
+				18C7D7B01A170E6E007237AB /* QRCodeViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -419,6 +422,7 @@
 				187739BA1A145F7400A05745 /* AFHTTPRequestOperationManager.m in Sources */,
 				187739BF1A145F7400A05745 /* AFURLRequestSerialization.m in Sources */,
 				18773A051A14909000A05745 /* UIImageView+HighlightedWebCache.m in Sources */,
+				18C7D7B11A170E6E007237AB /* QRCodeViewController.swift in Sources */,
 				187739FD1A14909000A05745 /* SDWebImageDownloader.m in Sources */,
 				18773A001A14909000A05745 /* SDWebImagePrefetcher.m in Sources */,
 				187739D31A145FB300A05745 /* AFnetworkingJS.m in Sources */,
