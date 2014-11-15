@@ -44,6 +44,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             voteSegment.userInteractionEnabled = false
             timeCount()
         }else{
+            self.voteTotalperson()
             waiveButton.hidden = true
         }
         
@@ -58,6 +59,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
+        self.voteTotalperson()
      self.delegate?.changevalue(1)
     }
     
@@ -79,6 +81,30 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         
     }
+    
+    // MARK: - totalVoted
+    func voteTotalperson() {
+        let rowCount = optionTableView.numberOfRowsInSection(0)
+        var cell: OptionTableViewCell?
+        optionTableView.allowsSelection = false
+        // add count to men or women
+        //
+        //
+        for row in 0...rowCount-1{
+            cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+            if ((cell) != nil) {
+                var percentage = optionArray[row]["menCount"] as CGFloat
+                percentage += optionArray[row]["womenCount"] as CGFloat
+                percentage = percentage / (menCount + womenCount)
+                cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                let perInt = Int(percentage * 100)
+                cell?.optionDetail.text = perInt.description + "%"
+            }
+        }
+
+    }
+    
+    
     
     
     // MARK: - configureView
@@ -136,23 +162,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.delegate?.changevalue(1)
-        let rowCount = optionTableView.numberOfRowsInSection(0)
-        var cell: OptionTableViewCell?
-        optionTableView.allowsSelection = false
-        // add count to men or women
-        //
-        //
-        for row in 0...rowCount-1{
-            cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
-            if ((cell) != nil) {
-                var percentage = optionArray[row]["menCount"] as CGFloat
-                percentage += optionArray[row]["womenCount"] as CGFloat
-                percentage = percentage / (menCount + womenCount)
-                cell?.optionProgress.setProgress(Float(percentage), animated: true)
-                let perInt = Int(percentage * 100)
-                cell?.optionDetail.text = perInt.description + "%"
-            }
-        }
+        self.voteTotalperson()
         waiveButton.hidden = true
         voteSegment.selectedSegmentIndex = 1;
     }
@@ -181,18 +191,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
         case 1: // everyone
-            var cell: OptionTableViewCell?
-            for row in 0...rowCount-1{
-                cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
-                if ((cell) != nil) {
-                    var percentage = optionArray[row]["menCount"] as CGFloat
-                    percentage += optionArray[row]["womenCount"] as CGFloat
-                    percentage = percentage / (menCount + womenCount)
-                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
-                    let perInt = Int(percentage * 100)
-                    cell?.optionDetail.text = perInt.description + "%"
-                }
-            }
+         self.voteTotalperson()
             
         case 2: // women only
             var cell: OptionTableViewCell?
