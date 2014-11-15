@@ -64,10 +64,11 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         self.navigationItem.rightBarButtonItem = addButton
     }
     // MARK: - protocol
+
     func changevalue(status: Int) {
         if let indexPath = self.tableView.indexPathForSelectedRow() {
             let vote = voteArray[indexPath.row] as NSMutableDictionary
-           vote["voteStatus"] = 1
+           vote["hasVoted"] = 1
         }
     }
     override func didReceiveMemoryWarning() {
@@ -83,7 +84,7 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let vote = voteArray[indexPath.row] as NSMutableDictionary
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-
+                
                 (segue.destinationViewController as VoteDetailViewController).delegate = self
             }
         }
@@ -113,8 +114,8 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
         
         cell.voteTitle.text = voteItem["voteTitle"] as NSString
-        cell.voteAuthor.setTitle(voteItem["voteAuthor"] as NSString, forState: UIControlState.Normal)
-        cell.authorID = voteItem["authorID"] as NSString
+        cell.voteAuthor.setTitle(voteItem["voteAuthorName"] as NSString, forState: UIControlState.Normal)
+        cell.authorID = voteItem["voteAuthorID"] as NSString
         
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
         cell.voteImage.sd_setImageWithURL(imageUrl)

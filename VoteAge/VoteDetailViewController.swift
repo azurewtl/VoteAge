@@ -20,7 +20,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
  
-    var delegate: VoteDetailDelegate?
+    var delegate = VoteDetailDelegate?()
     var menCount = CGFloat()
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
@@ -33,11 +33,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
+        print(voteDetail!["hasVoted"] as Int)
         
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        if(voteDetail!["voteStatus"] as Int == 0){
+        if(voteDetail!["hasVoted"] as Int == 0){
             optionTableView.allowsSelection = false
             waiveButton.userInteractionEnabled = false
             voteSegment.userInteractionEnabled = false
@@ -57,7 +58,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
-        waiveButton.setTitle("放弃投票", forState: UIControlState.Normal)
+     self.delegate?.changevalue(1)
     }
     
     func timeCount() {
@@ -134,7 +135,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - Table VIew Selection
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
         self.delegate?.changevalue(1)
         let rowCount = optionTableView.numberOfRowsInSection(0)
         var cell: OptionTableViewCell?
@@ -153,6 +153,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell?.optionDetail.text = perInt.description + "%"
             }
         }
+        waiveButton.hidden = true
+        voteSegment.selectedSegmentIndex = 1;
     }
     
     // MARK: - Segment Control
