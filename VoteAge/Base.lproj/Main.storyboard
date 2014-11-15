@@ -281,7 +281,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
                                 <rect key="frame" x="0.0" y="164" width="320" height="51"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Qg9-sF-Gdx"/>
@@ -539,11 +539,10 @@
             </objects>
             <point key="canvasLocation" x="854" y="1459"/>
         </scene>
-        <!--User Detail View Controller Table View Controller-->
+        <!--Me Table View Controller-->
         <scene sceneID="VCD-YV-Ny9">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dnU-nt-6Js" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tableViewController id="9PZ-bg-fbZ" customClass="UserDetailViewControllerTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="9PZ-bg-fbZ" customClass="MeTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="me6-hu-gxX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -648,12 +647,8 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="vOP-dM-FpK"/>
-                    <connections>
-                        <outlet property="authorID" destination="eMG-jp-Pjs" id="EQ8-qj-6gW"/>
-                        <outlet property="authorImage" destination="HEb-8a-Y06" id="Dk5-Vo-Wa1"/>
-                        <outlet property="authorName" destination="MO7-QA-S4K" id="ZXz-bK-LDr"/>
-                    </connections>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dnU-nt-6Js" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="854" y="2173"/>
         </scene>

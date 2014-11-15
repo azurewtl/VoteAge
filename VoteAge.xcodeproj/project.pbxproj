@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D841A172C3C00BC44F1 /* MeTableViewController.swift */; };
 		187739B91A145F7400A05745 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 187739891A145F7400A05745 /* AFHTTPRequestOperation.m */; };
 		187739BA1A145F7400A05745 /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877398B1A145F7400A05745 /* AFHTTPRequestOperationManager.m */; };
 		187739BB1A145F7400A05745 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1877398D1A145F7400A05745 /* AFHTTPSessionManager.m */; };
@@ -60,6 +61,7 @@
 
 /* Begin PBXFileReference section */
 		183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoteAge-Bridging-Header.h"; sourceTree = "<group>"; };
+		18623D841A172C3C00BC44F1 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		187739881A145F7400A05745 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		187739891A145F7400A05745 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		1877398A1A145F7400A05745 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				BB7208571A0B600100A97FCD /* VoteDetailViewController.swift */,
 				18C7D7AE1A15E39F007237AB /* UserDetailViewControllerTableViewController.swift */,
 				18C7D7B01A170E6E007237AB /* QRCodeViewController.swift */,
+				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -418,6 +421,7 @@
 				BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */,
 				18773A061A14909000A05745 /* UIImageView+WebCache.m in Sources */,
 				187739BB1A145F7400A05745 /* AFHTTPSessionManager.m in Sources */,
+				18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */,
 				187739BC1A145F7400A05745 /* AFNetworkReachabilityManager.m in Sources */,
 				187739BA1A145F7400A05745 /* AFHTTPRequestOperationManager.m in Sources */,
 				187739BF1A145F7400A05745 /* AFURLRequestSerialization.m in Sources */,

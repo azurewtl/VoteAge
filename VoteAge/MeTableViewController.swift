@@ -1,25 +1,18 @@
 //
-//  authorDetailViewControllerTableViewController.swift
+//  MeTableViewController.swift
 //  VoteAge
 //
-//  Created by Apple on 14/11/14.
+//  Created by caiyang on 14/11/15.
 //  Copyright (c) 2014年 azure. All rights reserved.
 //
 
 import UIKit
 
-class UserDetailViewControllerTableViewController: UITableViewController {
+class MeTableViewController: UITableViewController {
 
-    @IBOutlet weak var authorImage: UIImageView!
-    @IBOutlet weak var authorName: UILabel!
-    @IBOutlet weak var authorID: UILabel!
-    @IBOutlet weak var subscribeButton: UIButton!
-    var voteFeed: NSDictionary = NSDictionary()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        authorName.text = voteFeed["voteAuthor"] as NSString
-//        authorID.text = voteFeed["authorID"] as NSString
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -32,27 +25,25 @@ class UserDetailViewControllerTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Subcribe Button
-    
-    @IBAction func subscribeButton(sender: UIButton) {
-        println("subscribe clicked")
-    }
-    
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        // #warning Potentially incomplete method implementation.
+        // Return the number of sections.
         return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete method implementation.
+        // Return the number of rows in the section.
+       
         switch section {
-            case 0: return 1
-            case 1: return 1
-            case 2: return 3
+        case 0: return 1
+        case 1: return 1
+        case 2: return 2
         default: return 0
         }
     }
-    
 
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
