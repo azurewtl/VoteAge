@@ -6,3 +6,4 @@
 
 #import "UIImageView+WebCache.h"
 #import "AFnetworkingJS.h"
+#import "pinyin.h"
