@@ -27,7 +27,8 @@ class MyConcernViewController: UITableViewController {
             var strr = self.friendArray.objectAtIndex(i).objectForKey("userName") as NSString
             if(strr.characterAtIndex(0) > 64 && strr.characterAtIndex(0) < 123){
                 self.albumArray.addObject(strr)
-                self.formatArray.addObject(String(strr.characterAtIndex(0)))
+                var ss = Character(UnicodeScalar(strr.characterAtIndex(0).hashValue))
+                self.formatArray.addObject(String(ss))
             }else{
                 var string = self.friendArray.objectAtIndex(i).objectForKey("userName") as NSString
                 var char = Int(pinyinFirstLetter(string.characterAtIndex(0)))
@@ -60,7 +61,7 @@ class MyConcernViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 1
+        return self.formatArray.objectAtIndex(section).length
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -72,11 +73,12 @@ class MyConcernViewController: UITableViewController {
       
         var char = Int(pinyinFirstLetter(string.characterAtIndex(0)))
         let c =  Character(UnicodeScalar(char))
-        cell.textLabel.text =  String(c)
+        cell.textLabel.text =  string
         var str = self.friendArray.objectAtIndex(indexPath.section).objectForKey("userImage") as NSString
         var url = NSURL(string: str)
         cell.imageView.sd_setImageWithURL(url)
-        
+      
+       
         return cell
     }
    
