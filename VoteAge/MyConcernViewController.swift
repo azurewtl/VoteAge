@@ -66,15 +66,15 @@ class MyConcernViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("rs", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as UITableViewCell
         
         // Configure the cell...
-        var string = self.friendArray.objectAtIndex(indexPath.section).objectForKey("userName") as NSString
+        var string = self.friendArray.objectAtIndex(indexPath.section)["userName"] as NSString
       
         var char = Int(pinyinFirstLetter(string.characterAtIndex(0)))
         let c =  Character(UnicodeScalar(char))
         cell.textLabel.text =  string
-        var str = self.friendArray.objectAtIndex(indexPath.section).objectForKey("userImage") as NSString
+        var str = self.friendArray.objectAtIndex(indexPath.section)["userImage"] as NSString
         var url = NSURL(string: str)
         cell.imageView.sd_setImageWithURL(url)
       
