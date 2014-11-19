@@ -38,8 +38,13 @@
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
--(void)updateTab:(NSString *)img idd:(NSString *)idd{
-    NSString *s = [NSString stringWithFormat:@"update Contact set name = '%@' where id = '%@'", idd, img];
+-(void)updateT:(NSString *)name str:(NSString *)str pid:(NSString *)pid ima:(NSString *)ima gender:(NSString *)gender city:(NSString *)city descri:(NSString *)descri{
+    NSString *s = [NSString stringWithFormat:@"update Contact set userName = '%@', userInital = '%@', userImage = '%@', gender = '%@', city = '%@', descibed = '%@' where userID = '%@'", name, str,  ima, gender, city, descri, pid];
+    int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
+    NSLog(@"%d", result);
+}
+-(void)updateTab:(NSString *)initLetter uname:(NSString *)uname uid:(NSString *)uid uimage:(NSString *)uimage ugender:(NSString *)ugender ucity:(NSString *)ucity udescibe:(NSString *)udescribe{
+    NSString *s = [NSString stringWithFormat:@"update Contact set userInital ='%@',userName ='%@', userImage='%@',gender ='%@',city ='%@',descibe = '%@'where userID ='%@'", initLetter, uname,uimage, ugender, ucity, udescribe, uid];
         int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
