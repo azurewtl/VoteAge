@@ -1,18 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6252" systemVersion="14A389" minimumToolsVersion="Automatic" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Votes" representedClassName="Votes">
-        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="descrip" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="firstAlbum" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="gender" optional="YES" attributeType="String">
-            <userInfo/>
-        </attribute>
-        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userImage" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="userName" optional="YES" attributeType="String" syncable="YES"/>
-        <userInfo/>
-    </entity>
-    <elements>
-        <element name="Votes" positionX="261" positionY="189" width="128" height="150"/>
-    </elements>
+    <elements/>
 </model>
