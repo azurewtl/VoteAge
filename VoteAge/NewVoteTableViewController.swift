@@ -8,8 +8,8 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController {
-
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate {
+    var rowCount = 1
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,18 +28,59 @@ class NewVoteTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Potentially incomplete method implementation.
-        // Return the number of sections.
         return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete method implementation.
-        // Return the number of rows in the section.
-        return 1
+        switch (section) {
+        case 0:
+            return 1
+        case 1:
+            return rowCount
+            
+        case 2:
+            return 1
+        default:
+            return 0
+        }
+    }
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n"){
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+     func textViewDidChange(textView: UITextView) {
+    
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
+       
+        let label = cell?.contentView.viewWithTag(103) as UILabel
+        if(textView.text != ""){
+            label.hidden = true
+        }else{
+            label.hidden = false
+        }
+      
+        
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
+        textField.resignFirstResponder()
+        return true
     }
 
-    
+    func textFieldDidEndEditing(textField: UITextField) {
+        
+        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
+        let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
+        if(lastTextField.text != ""){
+            if rowCount < 5 {
+                rowCount++
+            }
+        }
+        tableView.reloadData()
+    }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cell = UITableViewCell()
@@ -47,8 +88,13 @@ class NewVoteTableViewController: UITableViewController {
         switch (indexPath.section) {
         case 0:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteTitleCell", forIndexPath: indexPath) as UITableViewCell
+            let textv = cell.contentView.viewWithTag(102) as UITextView
+            textv.delegate = self
+
         case 1:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteOptionCell", forIndexPath: indexPath) as UITableViewCell
+            let textfield = cell.contentView.viewWithTag(102) as UITextField
+            textfield.delegate = self
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
         default:
@@ -57,7 +103,12 @@ class NewVoteTableViewController: UITableViewController {
         
         return cell
     }
-    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+      
+       
+        
+    }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         switch (indexPath.section) {

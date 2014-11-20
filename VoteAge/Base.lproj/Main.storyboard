@@ -817,17 +817,22 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iLS-Bc-LW0" id="rTg-dK-wpQ">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="Oge-gg-clt">
-                                            <rect key="frame" x="0.0" y="0.0" width="100" height="99"/>
+                                        <imageView userInteractionEnabled="NO" tag="101" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="Oge-gg-clt">
+                                            <rect key="frame" x="0.0" y="1" width="100" height="99"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="100" id="nwv-UN-qUc"/>
                                             </constraints>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" usesAttributedText="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-0I-7ET">
-                                            <rect key="frame" x="108" y="8" width="204" height="83"/>
-                                            <attributedString key="attributedText"/>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="102" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-0I-7ET">
+                                            <rect key="frame" x="108" y="9" width="204" height="83"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                         </textView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="103" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="请输入问题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="och-Um-DdH">
+                                            <rect key="frame" x="108" y="25" width="171" height="54"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="Oge-gg-clt" firstAttribute="top" secondItem="rTg-dK-wpQ" secondAttribute="topMargin" constant="-8" id="0cA-De-Ttu"/>
@@ -845,13 +850,13 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JtA-Vk-ANO" id="Erj-di-y79">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入选项" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iga-hx-tKc">
+                                        <textField opaque="NO" clipsSubviews="YES" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入选项" textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="iga-hx-tKc">
                                             <rect key="frame" x="70" y="12" width="242" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="30" id="0is-4j-ZQH"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                            <textInputTraits key="textInputTraits"/>
+                                            <textInputTraits key="textInputTraits" returnKeyType="done"/>
                                         </textField>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="rJT-4J-tzc">
                                             <rect key="frame" x="8" y="0.0" width="54" height="54"/>
@@ -914,7 +919,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1383" y="2542"/>
+            <point key="canvasLocation" x="1383" y="2538"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="xab-K3-35P">
