@@ -43,11 +43,7 @@
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
--(void)updateTab:(NSString *)initLetter uname:(NSString *)uname uid:(NSString *)uid uimage:(NSString *)uimage ugender:(NSString *)ugender ucity:(NSString *)ucity udescibe:(NSString *)udescribe{
-    NSString *s = [NSString stringWithFormat:@"update Contact set userInital ='%@',userName ='%@', userImage='%@',gender ='%@',city ='%@',descibe = '%@'where userID ='%@'", initLetter, uname,uimage, ugender, ucity, udescribe, uid];
-        int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
-    NSLog(@"%d", result);
-}
+
 -(void)deleteTab:(NSString *)idd{
     NSString *s = [NSString stringWithFormat:@"delete from Contact where pid = '%@'", idd];
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
