@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogInViewController: UIViewController {
+class LogInViewController: UIViewController{
     
     var logDefault = NSUserDefaults.standardUserDefaults()
     @IBOutlet weak var userLogtext: UITextField!
@@ -17,11 +17,16 @@ class LogInViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                // Do any additional setup after loading the view.
+   
+    
     }
-
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        userLogtext.resignFirstResponder()
+        passWordText.resignFirstResponder()
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        print(logDefault.objectForKey("userID"))
+    
         if(logDefault.objectForKey("userID") != nil){
             if(logDefault.objectForKey("userID") as NSString == "a") {
                 performSegueWithIdentifier("login", sender: self)

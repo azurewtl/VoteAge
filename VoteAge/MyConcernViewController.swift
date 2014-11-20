@@ -81,11 +81,13 @@ class MyConcernViewController: UITableViewController {
             
         initialSet.addObject(firstLetter)
         db.insertTab(firstLetter, uname: strrUsername, uid: strrUserID, uimage: strrUserImage, ugender: strrgender, ucity: strrcity, udescibe: strrdescribe)
+          
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+          print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
         db.openDB()
         db.createTable()
@@ -101,24 +103,19 @@ class MyConcernViewController: UITableViewController {
         friendArray = votedic["friendlist"] as NSMutableArray
     self.presentingViewController
         var sortDiscriptor = NSSortDescriptor(key: "description", ascending: true)
-     
-        
-            saveToCoreData()
-           updateCoreData()
-//        db.updateTab("asdasd", uname: "zxczx", uid: "43434", uimage: "1231231", ugender: "sasda", ucity: "werwrwe", udescibe: "scscsd")
-        
-//        var sortDiscriptor = NSSortDescriptor(key: "description", ascending: true)
+        saveToCoreData()
+        updateCoreData()
         for letter in initialSet.sortedArrayUsingDescriptors([sortDiscriptor]) {
             initialArray.addObject(letter)
         }
        
-        print(initialArray)
+   
         for var i = 0; i < initialArray.count; i++  {
            var dic = NSMutableDictionary()
             dic.setObject(db.selectAll(initialArray[i] as NSString), forKey: "letter")
             totalArray.addObject(dic)
         }
-       print(totalArray)
+       
       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -157,16 +154,13 @@ class MyConcernViewController: UITableViewController {
         // Configure the cell...
         var arname = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringname = arname.objectAtIndex(indexPath.row)["userName"] as NSString
-//
-////        var char = Int(pinyinFirstLetter(string.characterAtIndex(0)))
-////        let c =  Character(UnicodeScalar(char))
+
         cell.textLabel.text = stringname
-//        cell.textLabel.text = "121"
         var arimage = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
-//
+
        
         return cell
     }

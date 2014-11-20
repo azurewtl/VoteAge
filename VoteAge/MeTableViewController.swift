@@ -63,8 +63,7 @@ class MeTableViewController: UITableViewController {
         }
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        let cell  = tableView.cellForRowAtIndexPath(indexPath) as UITableViewCell?
+        logDefault.setObject("", forKey: "userID")
         if(indexPath.section == 4 ) {
             dismissViewControllerAnimated(true, completion: { () -> Void in
             })
