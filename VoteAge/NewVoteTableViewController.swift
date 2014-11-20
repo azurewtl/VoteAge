@@ -30,7 +30,7 @@ class NewVoteTableViewController: UITableViewController {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,12 +39,22 @@ class NewVoteTableViewController: UITableViewController {
         return 1
     }
 
-
+    
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewVoteTitle", forIndexPath: indexPath) as UITableViewCell
-
-        // Configure the cell...
-
+        
+        var cell = UITableViewCell()
+        
+        switch (indexPath.section) {
+        case 0:
+            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteTitleCell", forIndexPath: indexPath) as UITableViewCell
+        case 1:
+            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteOptionCell", forIndexPath: indexPath) as UITableViewCell
+        case 2:
+            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
+        default:
+            break
+        }
+        
         return cell
     }
     
@@ -56,8 +66,13 @@ class NewVoteTableViewController: UITableViewController {
         case 1:
             return 55
         default:
-            return 55
+            return 195
         }
+    }
+    
+    
+    override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 20
     }
     
     /*
