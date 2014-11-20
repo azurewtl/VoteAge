@@ -35,7 +35,7 @@ class MeTableViewController: UITableViewController {
         let  cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as UITableViewCell?
         if(logDefault.objectForKey("userID") as NSString == "guest") {
             cell?.textLabel.text = "登录"
-            print(logDefault.objectForKey("userID"))
+
         }else{
             cell?.textLabel.text = "退出登录"
         }

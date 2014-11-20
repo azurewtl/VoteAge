@@ -16,14 +16,19 @@ class LogInViewController: UIViewController {
   
     override func viewDidLoad() {
         super.viewDidLoad()
-        if(logDefault.objectForKey("userID") != nil){
-        if(logDefault.objectForKey("userID") as NSString == "a") {
-            performSegueWithIdentifier("login", sender: self)
-        }
-        }
-        // Do any additional setup after loading the view.
+               // Do any additional setup after loading the view.
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        print(logDefault.objectForKey("userID"))
+        if(logDefault.objectForKey("userID") != nil){
+            if(logDefault.objectForKey("userID") as NSString == "a") {
+                performSegueWithIdentifier("login", sender: self)
+            }
+        }
+
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -41,7 +46,6 @@ class LogInViewController: UIViewController {
     
     @IBAction func guestClicked(sender: AnyObject) {
         logDefault.setObject("guest", forKey: "userID")
-        print(logDefault.objectForKey("userID"))
         performSegueWithIdentifier("login", sender: self)
     }
     
