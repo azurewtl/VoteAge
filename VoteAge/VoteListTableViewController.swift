@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class VoteListViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate {
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate {
     
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -83,19 +83,17 @@ class VoteListViewController: UITableViewController, NSFetchedResultsControllerD
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let vote = voteArray[indexPath.row] as NSMutableDictionary
-                (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                
-                (segue.destinationViewController as VoteDetailViewController).delegate = self
+                (segue.destinationViewController as VoteDetailTableViewController).voteDetail = vote
+                (segue.destinationViewController as VoteDetailTableViewController).delegate = self
             }
         }
         
         if segue.identifier == "showAuthorDetail" {
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
-            println((segue.destinationViewController as UserDetailViewControllerTableViewController).authorID)
             let indexPath = tableView.indexPathForCell(cell)
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
-            (segue.destinationViewController as UserDetailViewControllerTableViewController).voteFeed = voteFeed
+            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
         }
     }
     
