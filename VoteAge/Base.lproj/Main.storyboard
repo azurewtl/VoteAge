@@ -119,8 +119,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rom-oJ-Ybk" id="44i-bz-aA3">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDa-3E-Snd">
-                                                    <rect key="frame" x="8" y="9" width="83" height="83"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="VDa-3E-Snd">
+                                                    <rect key="frame" x="8" y="8" width="83" height="83"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="83" id="AhW-qU-wr6"/>
                                                     </constraints>
@@ -251,7 +251,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nx-7s-lf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1587" y="873"/>
+            <point key="canvasLocation" x="1967" y="1305"/>
         </scene>
         <!--Vote Detail View Controller-->
         <scene sceneID="Cn3-H9-jdl">
@@ -564,7 +564,7 @@
             </objects>
             <point key="canvasLocation" x="854" y="756"/>
         </scene>
-        <!--二维码扫描-->
+        <!--二维码-->
         <scene sceneID="ENt-rh-KRR">
             <objects>
                 <viewController id="pJv-6D-Gee" customClass="QRCodeViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -576,37 +576,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="pick_bg" translatesAutoresizingMaskIntoConstraints="NO" id="pNJ-Ln-xEj">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="pNJ-Ln-xEj">
                                 <rect key="frame" x="16" y="153" width="288" height="270"/>
                                 <color key="backgroundColor" red="0.97462910353535359" green="0.77542500076528398" blue="0.56994087977735497" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="288" id="b0s-YG-ruC"/>
-                                    <constraint firstAttribute="height" constant="270" id="eDs-9J-MXo"/>
-                                </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="将二维码图像置于矩形方框内，离手机摄像头10CM左右，系统会自动识别。" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ete-i6-4Wu">
-                                <rect key="frame" x="85" y="105" width="557" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstAttribute="centerX" secondItem="pNJ-Ln-xEj" secondAttribute="centerX" id="9qZ-Bu-TU3"/>
-                            <constraint firstItem="Ete-i6-4Wu" firstAttribute="leading" secondItem="UXA-Nv-VeP" secondAttribute="leadingMargin" constant="69" id="GkM-hC-IpH"/>
-                            <constraint firstItem="pNJ-Ln-xEj" firstAttribute="top" secondItem="Ete-i6-4Wu" secondAttribute="bottom" constant="27" id="IO5-xV-667"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ete-i6-4Wu" secondAttribute="trailing" constant="69" id="UT0-Yf-yEY"/>
-                            <constraint firstItem="Ete-i6-4Wu" firstAttribute="top" secondItem="ISG-J5-OG8" secondAttribute="bottom" constant="41" id="d7G-TY-XE4"/>
-                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="二维码扫描" id="jrr-0w-3Wf"/>
+                    <navigationItem key="navigationItem" title="二维码" id="jrr-0w-3Wf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sl8-PK-UiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="854" y="1459"/>
         </scene>
-        <!--Me Table View Controller-->
+        <!--我-->
         <scene sceneID="VCD-YV-Ny9">
             <objects>
                 <tableViewController id="9PZ-bg-fbZ" customClass="MeTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -783,7 +766,7 @@
                             <outlet property="delegate" destination="9PZ-bg-fbZ" id="S4w-Rr-txs"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="vOP-dM-FpK"/>
+                    <navigationItem key="navigationItem" title="我" id="vOP-dM-FpK"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnU-nt-6Js" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -814,20 +797,7 @@
                             <outlet property="delegate" destination="kLs-jY-tF5" id="cwy-vE-QnP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="参选人" id="abm-WA-mhL">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="rAG-9G-GbO">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="U1l-u4-qU6">
-                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="完成">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="finishSelect:" destination="kLs-jY-tF5" eventType="touchUpInside" id="8KO-wG-vDZ"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="参选人" id="abm-WA-mhL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -975,6 +945,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BJf-xc-qrB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -988,7 +959,6 @@
     </scenes>
     <resources>
         <image name="dummyImage" width="132" height="132"/>
-        <image name="pick_bg" width="280" height="280"/>
         <image name="user1" width="200" height="200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
