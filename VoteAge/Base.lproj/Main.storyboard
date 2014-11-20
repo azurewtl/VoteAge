@@ -28,13 +28,13 @@
         <!--热点-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController id="pGg-6v-bdr" customClass="VoteListViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="pGg-6v-bdr" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="mLL-gJ-YKr">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="m0d-ak-lc9" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="m0d-ak-lc9" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
@@ -80,7 +80,7 @@
                                     <outlet property="voteAuthor" destination="wIu-pI-M2f" id="HtA-Md-VTD"/>
                                     <outlet property="voteImage" destination="ztz-KA-ALo" id="G1C-bW-CC9"/>
                                     <outlet property="voteTitle" destination="2wk-ur-Z8s" id="Jri-3r-Ob9"/>
-                                    <segue destination="Ah7-4n-0Wa" kind="push" identifier="showVoteDetail" id="jUr-3t-vfg"/>
+                                    <segue destination="vxY-pj-SY4" kind="push" identifier="showVoteDetail" id="0ZS-da-OxI"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -92,10 +92,10 @@
             </objects>
             <point key="canvasLocation" x="854" y="56"/>
         </scene>
-        <!--User Detail View Controller Table View Controller-->
+        <!--User Detail Table View Controller-->
         <scene sceneID="6tZ-Bi-EGg">
             <objects>
-                <tableViewController id="1NT-h6-jRF" customClass="UserDetailViewControllerTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="1NT-h6-jRF" customClass="UserDetailTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="u7G-0y-Fpd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -253,158 +253,151 @@
             </objects>
             <point key="canvasLocation" x="1967" y="1305"/>
         </scene>
-        <!--Vote Detail View Controller-->
-        <scene sceneID="Cn3-H9-jdl">
+        <!--Vote Detail Table View Controller-->
+        <scene sceneID="svg-bJ-LXD">
             <objects>
-                <viewController id="Ah7-4n-0Wa" customClass="VoteDetailViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Z6z-0j-46q"/>
-                        <viewControllerLayoutGuide type="bottom" id="C7H-2x-uT8"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="MMQ-IT-qOo">
-                        <rect key="frame" x="1" y="0.0" width="320" height="568"/>
+                <tableViewController id="vxY-pj-SY4" customClass="VoteDetailTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="hks-gd-71A">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user1" translatesAutoresizingMaskIntoConstraints="NO" id="Y5g-fn-XsJ">
-                                <rect key="frame" x="0.0" y="64" width="100" height="100"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="6ty-kY-Mph"/>
-                                    <constraint firstAttribute="width" constant="100" id="JEQ-dO-TaS"/>
-                                </constraints>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VA-DT-67c">
-                                <rect key="frame" x="108" y="64" width="196" height="70"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="70" id="ICt-AB-Dm0"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
-                                <rect key="frame" x="0.0" y="164" width="320" height="51"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Qg9-sF-Gdx"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="只看男"/>
-                                    <segment title="所有人"/>
-                                    <segment title="只看女"/>
-                                </segments>
-                                <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <action selector="voteSegment:" destination="Ah7-4n-0Wa" eventType="valueChanged" id="6JI-Qy-GYp"/>
-                                </connections>
-                            </segmentedControl>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0R-KP-ZDb">
-                                <rect key="frame" x="0.0" y="164" width="320" height="55"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="55" id="DjD-SK-nXw"/>
-                                </constraints>
-                                <state key="normal" title="Button">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="waiveButton:" destination="Ah7-4n-0Wa" eventType="touchUpInside" id="daj-hD-110"/>
-                                </connections>
-                            </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="56" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="IjR-vi-x8M">
-                                <rect key="frame" x="0.0" y="219" width="320" height="300"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="optionCell" rowHeight="55" id="Gvy-yF-6bL" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gvy-yF-6bL" id="5yy-iT-W7t">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-xi-JfN">
-                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="54" id="mPG-1h-w7X"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="l8I-wl-Hq9">
-                                                    <rect key="frame" x="54" y="0.0" width="266" height="54"/>
-                                                    <color key="progressTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </progressView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Option" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Mx-lc-Kyn">
-                                                    <rect key="frame" x="62" y="0.0" width="194" height="54"/>
-                                                    <gestureRecognizers/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-Z3-khz">
-                                                    <rect key="frame" x="262" y="0.0" width="50" height="54"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="50" id="ZMy-vE-kCG"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="g3f-Ty-VkJ">
+                            <rect key="frame" x="0.0" y="64" width="320" height="155"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="user1" translatesAutoresizingMaskIntoConstraints="NO" id="Y5g-fn-XsJ">
+                                    <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="100" id="6ty-kY-Mph"/>
+                                        <constraint firstAttribute="width" constant="100" id="JEQ-dO-TaS"/>
+                                    </constraints>
+                                </imageView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VA-DT-67c">
+                                    <rect key="frame" x="108" y="0.0" width="204" height="80"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="80" id="EcY-vy-ZIt"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
+                                    <rect key="frame" x="0.0" y="100" width="320" height="56"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="55" id="Qg9-sF-Gdx"/>
+                                    </constraints>
+                                    <segments>
+                                        <segment title="只看男"/>
+                                        <segment title="所有人"/>
+                                        <segment title="只看女"/>
+                                    </segments>
+                                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <connections>
+                                        <action selector="voteSegment:" destination="vxY-pj-SY4" eventType="touchUpInside" id="sAR-O3-ha3"/>
+                                    </connections>
+                                </segmentedControl>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j0R-KP-ZDb">
+                                    <rect key="frame" x="0.0" y="100" width="320" height="55"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="55" id="DjD-SK-nXw"/>
+                                    </constraints>
+                                    <state key="normal" title="Button">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="waiveButton:" destination="vxY-pj-SY4" eventType="touchUpInside" id="pcl-Ea-2yR"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="3VA-DT-67c" secondAttribute="trailing" constant="8" id="74f-Ea-0rp"/>
+                                <constraint firstItem="Y5g-fn-XsJ" firstAttribute="leading" secondItem="g3f-Ty-VkJ" secondAttribute="leading" id="HAU-Oq-AEu"/>
+                                <constraint firstAttribute="trailing" secondItem="j0R-KP-ZDb" secondAttribute="trailing" id="Hws-gh-9kD"/>
+                                <constraint firstItem="3k4-cB-J9c" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="LXs-Pb-WUg"/>
+                                <constraint firstItem="3VA-DT-67c" firstAttribute="leading" secondItem="Y5g-fn-XsJ" secondAttribute="trailing" constant="8" id="S3n-yv-bbk"/>
+                                <constraint firstItem="3k4-cB-J9c" firstAttribute="leading" secondItem="g3f-Ty-VkJ" secondAttribute="leading" id="T99-RV-2c4"/>
+                                <constraint firstAttribute="trailing" secondItem="3k4-cB-J9c" secondAttribute="trailing" id="TvJ-fg-2KA"/>
+                                <constraint firstItem="j0R-KP-ZDb" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="h3b-te-Lqg"/>
+                                <constraint firstItem="3VA-DT-67c" firstAttribute="top" secondItem="g3f-Ty-VkJ" secondAttribute="top" id="ngG-at-F4E"/>
+                                <constraint firstItem="Y5g-fn-XsJ" firstAttribute="top" secondItem="g3f-Ty-VkJ" secondAttribute="top" id="rhd-yo-cMk"/>
+                                <constraint firstItem="j0R-KP-ZDb" firstAttribute="leading" secondItem="g3f-Ty-VkJ" secondAttribute="leading" id="zUn-jQ-D2U"/>
+                            </constraints>
+                        </view>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="optionCell" rowHeight="55" id="ny8-Sx-Gcx" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ny8-Sx-Gcx" id="tnm-Sw-ya2">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="Jfi-W9-tgt">
+                                            <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                             <constraints>
-                                                <constraint firstAttribute="bottomMargin" secondItem="l8I-wl-Hq9" secondAttribute="bottom" constant="-8" id="7PQ-i6-W4R"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="JK1-xi-JfN" secondAttribute="bottom" constant="-8" id="AXS-Wk-HCB"/>
-                                                <constraint firstItem="JK1-xi-JfN" firstAttribute="leading" secondItem="5yy-iT-W7t" secondAttribute="leadingMargin" constant="-8" id="FWh-9w-dwA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="sA4-Z3-khz" secondAttribute="bottom" constant="-8" id="YqW-NR-it8"/>
-                                                <constraint firstItem="l8I-wl-Hq9" firstAttribute="leading" secondItem="JK1-xi-JfN" secondAttribute="trailing" id="aED-JO-Y8c"/>
-                                                <constraint firstItem="sA4-Z3-khz" firstAttribute="top" secondItem="5yy-iT-W7t" secondAttribute="topMargin" constant="-8" id="btm-9K-lPr"/>
-                                                <constraint firstItem="l8I-wl-Hq9" firstAttribute="top" secondItem="5yy-iT-W7t" secondAttribute="topMargin" constant="-8" id="dXx-OS-xxd"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="l8I-wl-Hq9" secondAttribute="trailing" constant="-8" id="nGF-eF-tz7"/>
-                                                <constraint firstItem="JK1-xi-JfN" firstAttribute="top" secondItem="5yy-iT-W7t" secondAttribute="topMargin" constant="-8" id="ra5-Lf-QQp"/>
-                                                <constraint firstItem="sA4-Z3-khz" firstAttribute="trailing" secondItem="5yy-iT-W7t" secondAttribute="trailingMargin" id="yLm-UD-wnf"/>
+                                                <constraint firstAttribute="width" constant="54" id="Zft-rK-Y3q"/>
                                             </constraints>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <outlet property="optionDetail" destination="sA4-Z3-khz" id="bD8-rs-edG"/>
-                                            <outlet property="optionImage" destination="JK1-xi-JfN" id="PC4-dk-uAN"/>
-                                            <outlet property="optionProgress" destination="l8I-wl-Hq9" id="HwO-lo-8PO"/>
-                                            <outlet property="optionTitle" destination="5Mx-lc-Kyn" id="8j0-IB-8Q7"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
+                                        </imageView>
+                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B0G-kf-vW6">
+                                            <rect key="frame" x="54" y="0.0" width="266" height="54"/>
+                                            <color key="progressTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </progressView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Option" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SlD-EI-4Ug">
+                                            <rect key="frame" x="62" y="0.0" width="194" height="54"/>
+                                            <gestureRecognizers/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0人" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z7Y-wu-erw">
+                                            <rect key="frame" x="262" y="0.0" width="50" height="54"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="50" id="0oc-eq-WM4"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="B0G-kf-vW6" firstAttribute="leading" secondItem="Jfi-W9-tgt" secondAttribute="trailing" id="Dqf-d6-Sbh"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Z7Y-wu-erw" secondAttribute="bottom" constant="-8" id="INQ-vl-pqT"/>
+                                        <constraint firstItem="Z7Y-wu-erw" firstAttribute="trailing" secondItem="tnm-Sw-ya2" secondAttribute="trailingMargin" id="K9o-kg-GZ5"/>
+                                        <constraint firstItem="Z7Y-wu-erw" firstAttribute="top" secondItem="tnm-Sw-ya2" secondAttribute="topMargin" constant="-8" id="PnY-Hv-7P3"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="B0G-kf-vW6" secondAttribute="trailing" constant="-8" id="Q5R-Xu-iou"/>
+                                        <constraint firstItem="B0G-kf-vW6" firstAttribute="top" secondItem="tnm-Sw-ya2" secondAttribute="topMargin" constant="-8" id="UZs-LR-Guo"/>
+                                        <constraint firstItem="Jfi-W9-tgt" firstAttribute="leading" secondItem="tnm-Sw-ya2" secondAttribute="leadingMargin" constant="-8" id="VDW-yM-Up0"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Jfi-W9-tgt" secondAttribute="bottom" constant="-8" id="Whe-Ll-0eF"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="B0G-kf-vW6" secondAttribute="bottom" constant="-8" id="jJ4-nA-BZ8"/>
+                                        <constraint firstItem="Jfi-W9-tgt" firstAttribute="top" secondItem="tnm-Sw-ya2" secondAttribute="topMargin" constant="-8" id="r7z-NG-vAZ"/>
+                                    </constraints>
+                                </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="dataSource" destination="Ah7-4n-0Wa" id="MaJ-lr-tcN"/>
-                                    <outlet property="delegate" destination="Ah7-4n-0Wa" id="Z6p-C8-psd"/>
+                                    <outlet property="optionDetail" destination="Z7Y-wu-erw" id="TET-9z-5e9"/>
+                                    <outlet property="optionImage" destination="Jfi-W9-tgt" id="cUA-07-caT"/>
+                                    <outlet property="optionProgress" destination="B0G-kf-vW6" id="gJO-Nk-9MD"/>
+                                    <outlet property="optionTitle" destination="SlD-EI-4Ug" id="6cs-Ru-j7M"/>
                                 </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="j0R-KP-ZDb" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="0T2-Pb-Cf3"/>
-                            <constraint firstItem="3VA-DT-67c" firstAttribute="leading" secondItem="Y5g-fn-XsJ" secondAttribute="trailing" constant="8" id="BFo-82-iD5"/>
-                            <constraint firstItem="3k4-cB-J9c" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="BG9-Jb-pe7"/>
-                            <constraint firstItem="Y5g-fn-XsJ" firstAttribute="top" secondItem="Z6z-0j-46q" secondAttribute="bottom" id="CDf-yR-11Y"/>
-                            <constraint firstItem="3VA-DT-67c" firstAttribute="trailing" secondItem="MMQ-IT-qOo" secondAttribute="trailingMargin" id="Fiw-4a-TCp"/>
-                            <constraint firstItem="IjR-vi-x8M" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="Gzn-n5-5QW"/>
-                            <constraint firstItem="3VA-DT-67c" firstAttribute="top" secondItem="Z6z-0j-46q" secondAttribute="bottom" id="JdK-lt-P4a"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="j0R-KP-ZDb" secondAttribute="trailing" constant="-16" id="Nst-bT-1c0"/>
-                            <constraint firstItem="Y5g-fn-XsJ" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="V6k-tJ-zYD"/>
-                            <constraint firstItem="IjR-vi-x8M" firstAttribute="top" secondItem="j0R-KP-ZDb" secondAttribute="bottom" id="Yk9-0V-KNc"/>
-                            <constraint firstItem="3k4-cB-J9c" firstAttribute="top" secondItem="Y5g-fn-XsJ" secondAttribute="bottom" id="hC6-5O-w3t"/>
-                            <constraint firstItem="C7H-2x-uT8" firstAttribute="top" secondItem="IjR-vi-x8M" secondAttribute="bottom" id="j0j-Hw-eS7"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="IjR-vi-x8M" secondAttribute="trailing" constant="-16" id="jpc-Cx-3lS"/>
-                            <constraint firstItem="j0R-KP-ZDb" firstAttribute="leading" secondItem="MMQ-IT-qOo" secondAttribute="leadingMargin" constant="-16" id="lNM-UZ-YY5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="3k4-cB-J9c" secondAttribute="trailing" constant="-16" id="sXk-oQ-fJU"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="cra-N8-TIN"/>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="vxY-pj-SY4" id="Mv7-QY-8qs"/>
+                            <outlet property="delegate" destination="vxY-pj-SY4" id="ZU2-ns-AWN"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="O40-Ds-lbU"/>
                     <connections>
-                        <outlet property="optionTableView" destination="IjR-vi-x8M" id="N2Q-xZ-HCr"/>
-                        <outlet property="voteImage" destination="Y5g-fn-XsJ" id="wLw-ee-ASg"/>
-                        <outlet property="voteSegment" destination="3k4-cB-J9c" id="XqX-h3-U8k"/>
-                        <outlet property="voteTitle" destination="3VA-DT-67c" id="QwG-2A-z6J"/>
-                        <outlet property="waiveButton" destination="j0R-KP-ZDb" id="hbT-cZ-GTv"/>
+                        <outlet property="voteImage" destination="Y5g-fn-XsJ" id="2bC-j0-QXv"/>
+                        <outlet property="voteSegment" destination="3k4-cB-J9c" id="Sac-2v-vKQ"/>
+                        <outlet property="voteTitle" destination="3VA-DT-67c" id="awg-P0-M9F"/>
+                        <outlet property="waiveButton" destination="j0R-KP-ZDb" id="H4a-4A-q5p"/>
                     </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lrm-kH-fPn" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="34E-MP-xLH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1646" y="56"/>
+            <point key="canvasLocation" x="1509" y="56"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -504,7 +497,7 @@
         <!--热点-->
         <scene sceneID="93J-vX-Cxb">
             <objects>
-                <tableViewController id="bQ0-Aw-XyS" customClass="VoteListViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bQ0-Aw-XyS" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUA-cA-hb2">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -772,10 +765,10 @@
             </objects>
             <point key="canvasLocation" x="854" y="2173"/>
         </scene>
-        <!--参选人-->
+        <!--我的关注-->
         <scene sceneID="ADj-fZ-5Xh">
             <objects>
-                <tableViewController id="kLs-jY-tF5" customClass="MyConcernViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="kLs-jY-tF5" customClass="ContactListViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" id="ifS-C6-Wkh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -797,13 +790,13 @@
                             <outlet property="delegate" destination="kLs-jY-tF5" id="cwy-vE-QnP"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="参选人" id="abm-WA-mhL"/>
+                    <navigationItem key="navigationItem" title="我的关注" id="abm-WA-mhL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1383" y="1853"/>
         </scene>
-        <!--New Vote Table View Controller-->
+        <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
             <objects>
                 <tableViewController id="tEt-l1-TGs" customClass="NewVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -915,7 +908,7 @@
                             <outlet property="delegate" destination="tEt-l1-TGs" id="5ne-Yc-sfq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="T3z-Yx-p25"/>
+                    <navigationItem key="navigationItem" title="发起投票" id="T3z-Yx-p25"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

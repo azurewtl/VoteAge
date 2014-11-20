@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserDetailViewControllerTableViewController: UITableViewController {
+class UserDetailTableViewController: UITableViewController {
 
     @IBOutlet weak var authorImage: UIImageView!
     @IBOutlet weak var authorName: UILabel!

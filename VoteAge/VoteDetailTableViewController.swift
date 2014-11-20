@@ -12,11 +12,10 @@ protocol VoteDetailDelegate{
     func changevalue(status:Int)
 }
 
-class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class VoteDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
-    @IBOutlet weak var optionTableView: UITableView!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
  
@@ -39,7 +38,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         if(voteDetail!["hasVoted"] as Int == 0){
-            optionTableView.allowsSelection = false
+            tableView.allowsSelection = false
             waiveButton.userInteractionEnabled = false
             voteSegment.userInteractionEnabled = false
             timeCount()
@@ -75,7 +74,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             time = 0
             waiveButton.userInteractionEnabled = true
             waiveButton .setTitle("放弃投票", forState: UIControlState.Normal)
-            self.optionTableView.allowsSelection = true
+            self.tableView.allowsSelection = true
             voteSegment.userInteractionEnabled = true
             timer.invalidate()
         }
@@ -84,14 +83,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - totalVoted
     func voteTotalperson() {
-        let rowCount = optionTableView.numberOfRowsInSection(0)
+        let rowCount = tableView.numberOfRowsInSection(0)
         var cell: OptionTableViewCell?
-        optionTableView.allowsSelection = false
+        tableView.allowsSelection = false
         // add count to men or women
         //
         //
         for row in 0...rowCount-1{
-            cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+            cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
             if ((cell) != nil) {
                 var percentage = optionArray[row]["menCount"] as CGFloat
                 percentage += optionArray[row]["womenCount"] as CGFloat
@@ -136,15 +135,19 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Table View
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.optionArray.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 55
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
         configureCell(cell, atIndexPath: indexPath)
         var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
@@ -160,7 +163,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Table VIew Selection
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.delegate?.changevalue(1)
         self.voteTotalperson()
         waiveButton.hidden = true
@@ -172,13 +175,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func voteSegment(sender: UISegmentedControl) {
         println()
         
-        let rowCount = optionTableView.numberOfRowsInSection(0)
+        let rowCount = tableView.numberOfRowsInSection(0)
         
         switch(sender.selectedSegmentIndex) {
         case 0: // men only
             var cell: OptionTableViewCell?
             for row in 0...rowCount-1{
-                cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
                     
                     var percentage = optionArray[row]["menCount"] as CGFloat
@@ -196,7 +199,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         case 2: // women only
             var cell: OptionTableViewCell?
             for row in 0...rowCount-1{
-                cell = optionTableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
                 if ((cell) != nil) {
                     var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
                     var percentage = optionArray[row]["womenCount"] as CGFloat

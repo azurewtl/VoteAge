@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class MyConcernViewController: UITableViewController {
+class ContactListTableViewController: UITableViewController {
     var managedObjectContext = NSManagedObjectContext()
     var realSectionArray = NSMutableArray()
     var initialArray = NSMutableArray()
