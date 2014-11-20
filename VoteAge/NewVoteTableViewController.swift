@@ -52,16 +52,22 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return true
     }
      func textViewDidChange(textView: UITextView) {
-    
+        var str = NSMutableString(string: textView.text)
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
-       
         let label = cell?.contentView.viewWithTag(103) as UILabel
         if(textView.text != ""){
+           
             label.hidden = true
         }else{
             label.hidden = false
         }
-      
+        if(str.length < 30){
+            
+            textView.text = str
+        }else{
+           str.deleteCharactersInRange(NSMakeRange(29, str.length - 29))
+            textView.text = str
+        }
         
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -106,9 +112,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
       
-       
         
     }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         
         switch (indexPath.section) {
