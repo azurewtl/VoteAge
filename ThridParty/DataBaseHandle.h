@@ -17,7 +17,8 @@
 -(void)closeDB;
 -(void)createTable;
 -(void)insertTab:(NSString *)initLetter uname:(NSString *)uname uid:(NSString *)uid uimage:(NSString *)uimage ugender:(NSString *)ugender ucity:(NSString *)ucity udescibe:(NSString *)udescribe;
--(void)updateTab:(NSString *)img idd:(NSString *)idd;
+-(void)updateT:(NSString *)name str:(NSString *)str pid:(NSString *)pid ima:(NSString *)ima gender:(NSString *)gender city:(NSString *)city descri:(NSString *)descri;
+
 -(void)deleteTab:(NSString *)idd;
 -(NSMutableArray *)selectAll:(NSString *)pID;
 @end

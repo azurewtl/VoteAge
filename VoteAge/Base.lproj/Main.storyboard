@@ -251,7 +251,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nx-7s-lf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1950" y="779"/>
+            <point key="canvasLocation" x="1587" y="873"/>
         </scene>
         <!--Vote Detail View Controller-->
         <scene sceneID="Cn3-H9-jdl">
@@ -470,6 +470,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
+                        <outlet property="passWordText" destination="DGT-7y-AwB" id="yYA-QM-aae"/>
+                        <outlet property="userLogtext" destination="ERK-Lo-wo1" id="BgB-B9-e11"/>
                         <segue destination="660-7C-4iM" kind="modal" identifier="login" id="TJ4-hX-mjN"/>
                     </connections>
                 </viewController>
@@ -995,6 +997,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="diD-ek-DxV"/>
+        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>
