@@ -47,6 +47,7 @@
 		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
+		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
@@ -139,6 +140,7 @@
 		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
+		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -313,6 +315,7 @@
 				18687D131A1DD1DD00CF3434 /* UserDetailTableViewController.swift */,
 				18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */,
 				181C4D611A1CA2E00077B682 /* NewVoteTableViewController.swift */,
+				18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -486,6 +489,7 @@
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,
 				184BB44E1A1C54BE006DF06C /* SDWebImageDownloaderOperation.m in Sources */,
 				184BB4431A1C54BE006DF06C /* AFURLConnectionOperation.m in Sources */,
+				18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */,
 				184BB43F1A1C54BE006DF06C /* AFHTTPRequestOperationManager.m in Sources */,
 				184BB4501A1C54BE006DF06C /* SDWebImagePrefetcher.m in Sources */,
 				18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */,
