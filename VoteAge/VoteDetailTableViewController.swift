@@ -151,17 +151,14 @@ class VoteDetailTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
-        configureCell(cell, atIndexPath: indexPath)
         var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
+        cell.optionImage.image = nil
+       
         
         return cell
     }
     
-    func configureCell(cell: OptionTableViewCell, atIndexPath indexPath: NSIndexPath) {
-        cell.optionTitle.text = "option1"
-        
-    }
     
     // MARK: - Table VIew Selection
     
@@ -175,7 +172,6 @@ class VoteDetailTableViewController: UITableViewController {
     // MARK: - Segment Control
     
     @IBAction func voteSegment(sender: UISegmentedControl) {
-        println()
         
         let rowCount = tableView.numberOfRowsInSection(0)
         

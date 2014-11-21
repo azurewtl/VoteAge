@@ -33,6 +33,31 @@
         }
     ],
     
+    
+    "myAccount":[
+                 {
+        "userID":"32423423",
+        "userNickName":"asdasdsa",
+        "userPhone":"121321234",
+        "userCity":"长沙",
+        "userDescription":"VS打双打",
+        "userImage":"http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg"
+                 }
+    ],
+    
+    "adVote":[
+        [
+            {
+            "title": "夏天去哪玩",
+            "option": ["新天地", "上海动物园"]
+            },
+             {
+             "title": "晚饭吃什么",
+             "option": ["肯德基", "麦当劳"]
+             }
+        ]
+    ],
+    
     "friendlist": [
                 {
                    "userName": "千军",

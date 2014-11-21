@@ -53,21 +53,21 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
      func textViewDidChange(textView: UITextView) {
         var str = NSMutableString(string: textView.text)
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
-        let label = cell?.contentView.viewWithTag(103) as UILabel
+        let placeholder = cell?.contentView.viewWithTag(103) as UILabel
         let countlabeL = cell?.contentView.viewWithTag(104) as UILabel
         if(textView.text != ""){
-           
-            label.hidden = true
+            placeholder.hidden = true
         }else{
-            label.hidden = false
+            placeholder.hidden = false
         }
+        
         if(str.length <= 30){
-            
             textView.text = str
         }else{
            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
             textView.text = str
         }
+        
         countlabeL.text = (30 - str.length).description
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -77,7 +77,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
 
     func textFieldDidEndEditing(textField: UITextField) {
-        
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         if(lastTextField.text != ""){
@@ -101,6 +100,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteOptionCell", forIndexPath: indexPath) as UITableViewCell
             let textfield = cell.contentView.viewWithTag(102) as UITextField
             textfield.delegate = self
+            
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
         default:

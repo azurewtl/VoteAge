@@ -8,33 +8,30 @@
 
 import UIKit
 
-class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate {
+class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
     
-    @IBAction func saveButton(sender: UIButton) {
-//        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-//        let cell2 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
-//        let cell3 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2))
-//        let cell4 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
-//        let imageView = cell?.contentView.viewWithTag(101) as UIImageView
-//        let nameText = cell?.contentView.viewWithTag(102) as UITextField
-//        let locationText = cell2?.contentView.viewWithTag(101) as UITextField
-//        let sexText = cell3?.contentView.viewWithTag(101) as UITextField
-//        let detailTextview = cell4?.contentView.viewWithTag(101) as UITextView
-// 
-//            detailTextview.editable = false
-//            nameText.enabled = false
-//            locationText.enabled = false
-//            sexText.enabled = false
-      
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            
-        })
-
-        
+ 
+    @IBOutlet weak var userImage: UIImageView!
+    @IBOutlet weak var userNickName: UITextField!
+    @IBOutlet weak var userID: UITextField!
+    @IBOutlet weak var userCity: UITextField!
+  
+    @IBOutlet weak var genderSeg: UISegmentedControl!
+    @IBAction func genderSegment(sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0 {
+            print("男")
+        }
+        if sender.selectedSegmentIndex == 1 {
+            print("女")
+        }
     }
+    @IBOutlet weak var userDescription: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+       self.userImage.layer.masksToBounds = true
+    self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
+        userDescription.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -43,27 +40,84 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate 
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        if genderSeg.selectedSegmentIndex == 0 {
+            print("男")
+        }else if genderSeg.selectedSegmentIndex == 1 {
+            print("女")
+        }
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         let imageView = cell?.contentView.viewWithTag(101) as UIImageView
         var imageGesture = UITapGestureRecognizer(target: self, action: "tapGesture")
         imageView.userInteractionEnabled = true
         imageView.addGestureRecognizer(imageGesture)
     }
+    
     func tapGesture() {
         var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
         photoSheet.showInView(self.view)
     }
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        var btnTitle = actionSheet.buttonTitleAtIndex(buttonIndex)
+        if buttonIndex != actionSheet.cancelButtonIndex {
+            if btnTitle.hasPrefix("拍照") {
+                getPhotoByType("camera")
+            }
+            if btnTitle.hasPrefix("相册") {
+                getPhotoByType("album")
+            }
+            
+        }
+    }
+    func getPhotoByType(type:NSString) {
+        if (type == "camera" && !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)) {
+        print("不支持摄像头")
+            return
+        }
+        var  picker = UIImagePickerController()
+        picker.delegate = self
+        picker.allowsEditing = true
+    
+        if(type == "album") {
+            picker.sourceType = UIImagePickerControllerSourceType.PhotoLibrary
+        }else{
+            picker.sourceType = UIImagePickerControllerSourceType.Camera
+        }
+        if(picker.sourceType == UIImagePickerControllerSourceType.Camera) {
+            if(CGSizeEqualToSize(UIScreen.mainScreen().currentMode!.size, CGSizeMake(640, 960)) || CGSizeEqualToSize(UIScreen.mainScreen().currentMode!.size, CGSizeMake(320, 480))) {
+                picker.videoQuality = UIImagePickerControllerQualityType.TypeLow
+            }else {
+                picker.videoQuality = UIImagePickerControllerQualityType.TypeMedium
+            }
+        }
+        presentViewController(picker, animated: true) { () -> Void in
+            
+        }
+    }
+    @IBAction func saveButton(sender: UIButton) {
+    self.navigationController?.popViewControllerAnimated(true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
+    func textViewDidChange(textView: UITextView) {
+        var str = NSMutableString(string: textView.text)
+        if(str.length <= 30){
+            textView.text = str
+        }else{
+            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
+            textView.text = str
+        }
 
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 3
+        return 2
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,17 +125,26 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate 
         // Return the number of rows in the section.
         switch section {
         case 0:
-        return 1
+            return 1
         case 1:
-        return 1
-        case 2:
-        return 3
+            return 4
         default:
-        return 0
+            return 0
         }
     }
-
-
+    func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
+        picker .dismissViewControllerAnimated(false, completion: { () -> Void in
+            
+        })
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+        var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
+           dispatch_async(dispatch_get_main_queue(), { () -> Void in
+            self.userImage.image = resizeImg
+           })
+        })
+        
+    }
+    
 //    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCellWithIdentifier("meCell", forIndexPath: indexPath) as UITableViewCell
 //
@@ -91,19 +154,10 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate 
 //    }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
-    let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-    let cell2 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2))
-    let cell3 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 2))
-    let cell4 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 2))
-    let nameText = cell?.contentView.viewWithTag(102) as UITextField
-    let locationText = cell2?.contentView.viewWithTag(101) as UITextField
-    let sexText = cell3?.contentView.viewWithTag(101) as UITextField
-    let detailTextview = cell4?.contentView.viewWithTag(101) as UITextView
-        nameText.resignFirstResponder()
-        locationText.resignFirstResponder()
-        sexText.resignFirstResponder()
-        detailTextview.resignFirstResponder()
+        userNickName.resignFirstResponder()
+        userID.resignFirstResponder()
+        userDescription.resignFirstResponder()
+
         
     }
     /*

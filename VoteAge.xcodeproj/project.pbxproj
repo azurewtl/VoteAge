@@ -46,8 +46,10 @@
 		18687D171A1DD2C500CF3434 /* VoteDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D151A1DD2C500CF3434 /* VoteDetailTableViewController.swift */; };
 		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
+		1871987B1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
+		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
@@ -139,8 +141,10 @@
 		18687D151A1DD2C500CF3434 /* VoteDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteDetailTableViewController.swift; sourceTree = "<group>"; };
 		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
+		1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRegisterTableViewController.swift; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
+		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		184BB3FD1A1C54BE006DF06C /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */,
 				181C4D5E1A1C9DB90077B682 /* DataBaseHandle.h */,
 				181C4D5F1A1C9DB90077B682 /* DataBaseHandle.m */,
 				184BB3FE1A1C54BE006DF06C /* AFJS */,
@@ -308,6 +313,7 @@
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				181C4D5A1A1C98180077B682 /* LogInViewController.swift */,
+				1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */,
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
 				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
@@ -470,6 +476,7 @@
 				BB7208BB1A0BC6B200A97FCD /* OptionTableViewCell.swift in Sources */,
 				BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */,
 				BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */,
+				18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */,
 				18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
@@ -500,6 +507,7 @@
 				184BB44F1A1C54BE006DF06C /* SDWebImageManager.m in Sources */,
 				184BB4491A1C54BE006DF06C /* NSData+ImageContentType.m in Sources */,
 				184BB4421A1C54BE006DF06C /* AFSecurityPolicy.m in Sources */,
+				1871987B1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift in Sources */,
 				BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */,
 				184BB4571A1C54BE006DF06C /* UIView+WebCacheOperation.m in Sources */,
 				184BB4551A1C54BE006DF06C /* UIImageView+HighlightedWebCache.m in Sources */,
