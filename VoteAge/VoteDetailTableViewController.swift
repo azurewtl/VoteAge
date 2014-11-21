@@ -16,6 +16,8 @@ class VoteDetailTableViewController: UITableViewController {
     
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
+    @IBOutlet weak var expireDate: UILabel!
+    @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
  
@@ -69,11 +71,11 @@ class VoteDetailTableViewController: UITableViewController {
     
     func timeFire(){
         time++
-        waiveButton .setTitle((4 - time).description + "秒后开始", forState: UIControlState.Normal)
-        if(time > 3){
+        waiveButton .setTitle((3 - time).description + "秒后可以投票", forState: UIControlState.Normal)
+        if(time > 2){
             time = 0
             waiveButton.userInteractionEnabled = true
-            waiveButton .setTitle("放弃投票", forState: UIControlState.Normal)
+            waiveButton .setTitle("放弃投票,查看结果", forState: UIControlState.Normal)
             self.tableView.allowsSelection = true
             voteSegment.userInteractionEnabled = true
             timer.invalidate()
