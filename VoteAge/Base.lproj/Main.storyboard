@@ -281,8 +281,8 @@
                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
-                                    <rect key="frame" x="0.0" y="100" width="320" height="56"/>
+                                <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="3k4-cB-J9c">
+                                    <rect key="frame" x="0.0" y="100" width="320" height="29"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="55" id="Qg9-sF-Gdx"/>
                                     </constraints>
@@ -816,7 +816,7 @@
                                                 <constraint firstAttribute="width" constant="100" id="nwv-UN-qUc"/>
                                             </constraints>
                                         </imageView>
-                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="102" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-0I-7ET">
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="102" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nfC-0I-7ET">
                                             <rect key="frame" x="108" y="9" width="204" height="83"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
