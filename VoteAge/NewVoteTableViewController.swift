@@ -12,8 +12,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var rowCount = 1
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
+               // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
@@ -55,20 +54,21 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var str = NSMutableString(string: textView.text)
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         let label = cell?.contentView.viewWithTag(103) as UILabel
+        let countlabeL = cell?.contentView.viewWithTag(104) as UILabel
         if(textView.text != ""){
            
             label.hidden = true
         }else{
             label.hidden = false
         }
-        if(str.length < 30){
+        if(str.length <= 30){
             
             textView.text = str
         }else{
-           str.deleteCharactersInRange(NSMakeRange(29, str.length - 29))
+           str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
             textView.text = str
         }
-        
+        countlabeL.text = (30 - str.length).description
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         

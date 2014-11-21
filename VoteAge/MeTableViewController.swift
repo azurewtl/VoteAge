@@ -33,7 +33,7 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         let  cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as UITableViewCell?
-        if(logDefault.objectForKey("userID") as NSString == "guest") {
+        if(logDefault.objectForKey("userID") as NSString == "guest" || logDefault.objectForKey("userID")as NSString == "") {
             cell?.textLabel.text = "登录"
 
         }else{
