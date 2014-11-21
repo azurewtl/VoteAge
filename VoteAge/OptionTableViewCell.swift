@@ -20,6 +20,7 @@ class OptionTableViewCell: UITableViewCell {
         // Initialization code
         optionProgress.progress = 0
         optionDetail.text = ""
+
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
