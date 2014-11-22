@@ -153,7 +153,6 @@ class VoteDetailTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
         var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
-        cell.optionImage.image = nil
        
         
         return cell

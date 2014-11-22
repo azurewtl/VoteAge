@@ -33,9 +33,10 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         let  cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as UITableViewCell?
-        if(logDefault.objectForKey("userID") as NSString == "guest" || logDefault.objectForKey("userID")as NSString == "") {
+        if(logDefault.objectForKey("userID") as NSString == "guest") {
             cell?.textLabel.text = "登录"
-
+        print(logDefault.objectForKey("userID"))
+    
         }else{
             cell?.textLabel.text = "退出登录"
         }
@@ -63,7 +64,6 @@ class MeTableViewController: UITableViewController {
         }
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        logDefault.setObject("", forKey: "userID")
         if(indexPath.section == 4 ) {
             dismissViewControllerAnimated(true, completion: { () -> Void in
             })

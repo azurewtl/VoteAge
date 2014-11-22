@@ -91,10 +91,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as UITableViewCell?
 //        print(rowCount)
         var imageAnswerView = cell1?.contentView.viewWithTag(101) as UIImageView
-        if(rowCount > 1) {
-        let cell2 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
-        var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-        }
+
   
 //      var index = tableView.indexPathForCell(supercell) as NSIndexPath?
 //      print(cell1?.frame)
@@ -102,15 +99,35 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if self.tapYN == 1 {
-                   imageAskView.image = resizeImg
-                }else if self.tapYN == 2 {
-                    imageAnswerView.image = resizeImg
-                }else if self.tapYN == 3 {
-                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
+                switch self.tapYN {
+                case 1:
+                imageAskView.image = resizeImg
+                case 2:
+                imageAnswerView.image = resizeImg
+                case 3:
+                let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
                     var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
                     imag1.image = resizeImg
+                case 4:
+                let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:2, inSection: 1))
+                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
+                    imag1.image = resizeImg
+                case 5:
+                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:3, inSection: 1))
+                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
+                    imag1.image = resizeImg
+                case 6:
+                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:4, inSection: 1))
+                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
+                    imag1.image = resizeImg
+                case 7:
+                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:5, inSection: 1))
+                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
+                    imag1.image = resizeImg
+                default:
+                return
                 }
+            
             })
         })
         
@@ -181,14 +198,40 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }
         }
         tableView.reloadData()
-        if rowCount >= 2 {
+        switch rowCount {
+        case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
             var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap2")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
+        case 3:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap3")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 4:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap4")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 5:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap5")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 6:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap6")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        default:
+            return
         }
-  
         
     }
     func tap2() {
@@ -196,6 +239,30 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
         photoSheet.showInView(self.view)
 
+    }
+    func tap3() {
+        tapYN = 4
+        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
+        photoSheet.showInView(self.view)
+        
+    }
+    func tap4() {
+        tapYN = 5
+        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
+        photoSheet.showInView(self.view)
+        
+    }
+    func tap5() {
+        tapYN = 6
+        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
+        photoSheet.showInView(self.view)
+        
+    }
+    func tap6() {
+        tapYN = 7
+        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
+        photoSheet.showInView(self.view)
+        
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
