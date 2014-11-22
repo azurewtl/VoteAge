@@ -65,6 +65,7 @@ class MeTableViewController: UITableViewController {
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
+           logDefault.setObject("", forKey: "userID")
             dismissViewControllerAnimated(true, completion: { () -> Void in
             })
 //            if(cell?.textLabel.text == "退出登录") {

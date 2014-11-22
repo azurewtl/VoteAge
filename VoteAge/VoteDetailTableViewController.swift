@@ -20,7 +20,7 @@ class VoteDetailTableViewController: UITableViewController {
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
- 
+    
     var delegate = VoteDetailDelegate?()
     var menCount = CGFloat()
     var womenCount = CGFloat()
@@ -35,6 +35,7 @@ class VoteDetailTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         print(voteDetail!["hasVoted"] as Int)
+      
         
     }
     override func viewWillAppear(animated: Bool) {

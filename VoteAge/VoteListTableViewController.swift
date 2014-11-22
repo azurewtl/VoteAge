@@ -9,7 +9,8 @@
 import UIKit
 import CoreData
 
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate {
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
+  
     
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -54,8 +55,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             
             
         }
-        
-        
+
         
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
@@ -106,7 +106,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return voteArray.count
     }
-    
+
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
@@ -114,10 +114,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         cell.voteTitle.text = voteItem["voteTitle"] as NSString
         cell.voteAuthor.setTitle(voteItem["voteAuthorName"] as NSString, forState: UIControlState.Normal)
         cell.authorID = voteItem["voteAuthorID"] as NSString
-        
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
         cell.voteImage.sd_setImageWithURL(imageUrl)
-
+        
         return cell
     }
     
