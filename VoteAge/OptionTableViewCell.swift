@@ -20,7 +20,7 @@ class OptionTableViewCell: UITableViewCell {
         // Initialization code
         optionProgress.progress = 0
         optionDetail.text = ""
-       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0.001, constant: 0))
+       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
     }
 
     override func setSelected(selected: Bool, animated: Bool) {

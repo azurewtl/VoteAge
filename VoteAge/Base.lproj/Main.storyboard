@@ -769,7 +769,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <segue destination="tEt-l1-TGs" kind="push" id="HAr-8C-xVZ"/>
+                                            <segue destination="tEt-l1-TGs" kind="push" identifier="newvote" id="HAr-8C-xVZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1293,6 +1293,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="SGg-dd-0wa"/>
+        <segue reference="diD-ek-DxV"/>
     </inferredMetricsTieBreakers>
 </document>

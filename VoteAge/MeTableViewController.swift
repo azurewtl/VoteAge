@@ -9,13 +9,17 @@
 import UIKit
 
 class MeTableViewController: UITableViewController {
-
+    var addVoteArray = NSMutableArray()
     var logDefault = NSUserDefaults.standardUserDefaults()
     override func viewDidLayoutSubviews() {
         
         super.viewDidLoad()
-
-//        var userpwd = logDefault.valueForKey("pwd") as? NSString
+        var path = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+        var data = NSData(contentsOfFile: path!)
+        var dic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+        addVoteArray = dic["adVote"] as NSMutableArray
+        
+ //        var userpwd = logDefault.valueForKey("pwd") as? NSString
 
  
         // Uncomment the following line to preserve selection between presentations
@@ -68,18 +72,7 @@ class MeTableViewController: UITableViewController {
            logDefault.setObject("", forKey: "userID")
             dismissViewControllerAnimated(true, completion: { () -> Void in
             })
-//            if(cell?.textLabel.text == "退出登录") {
-//            logDefault.removeObjectForKey("name")
-////            logDefault.removeObjectForKey("pwd")
-//            let alert = UIAlertView(title: "提示", message: "注销成功", delegate: nil, cancelButtonTitle: "确定")
-//            cell?.textLabel.text = "登录"
-//            alert.show()
-//            self.view.addSubview(alert)
-//            }else{
-//             
-//                cell?.textLabel.text = "退出登录"
-//                
-//            }
+
         }
         
     }
@@ -128,14 +121,18 @@ class MeTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
+        if segue.identifier == "newvote" {
+            (segue.destinationViewController as NewVoteTableViewController).footViewArray = addVoteArray
+        }
+        
     }
-    */
+
 
 }

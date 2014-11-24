@@ -10,7 +10,10 @@ import UIKit
 
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     var rowCount = 1
+    var recordArray = NSMutableArray()
     var tapYN = 0
+    var footViewArray = NSMutableArray()
+    var footAnswer = NSMutableArray()
     override func viewDidLoad() {
         super.viewDidLoad()
                        // Uncomment the following line to preserve selection between presentations
@@ -188,8 +191,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         textField.resignFirstResponder()
         return true
     }
-
+    func textFieldDidBeginEditing(textField: UITextField) {
+    
+    }
     func textFieldDidEndEditing(textField: UITextField) {
+        
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         if(lastTextField.text != ""){
@@ -305,10 +311,160 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
     }
     
-    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+          var footView = UIView()
+        
+        if section == 0 {
+            var moreCount = 0
+            var mainCount = 0
+             footView.layer.borderWidth = 1
+//            footView.backgroundColor = UIColor.cyanColor()
+            for(var index = 0; index < footViewArray.count; index++) {
+                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
+                btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
+                mainCount++
+                if mainCount > 2 {
+                    mainCount = 0
+                    moreCount++
+                }
+              
+                btn.setTitle(footViewArray.objectAtIndex(index)["title"] as NSString, forState: UIControlState.Normal)
+                btn.tag = index + 1
+                btn.layer.masksToBounds = true
+                btn.layer.cornerRadius = 5
+                btn.backgroundColor = UIColor(red: 255 / 255, green: 182 / 255, blue: 193 / 255, alpha: 1)
+                btn.addTarget(self, action: "btn:", forControlEvents: UIControlEvents.TouchUpInside)
+                footView.addSubview(btn)
+                }
+            
+        }
+        if section == 1 {
+            var moreCount = 0
+            var mainCount = 0
+            if footAnswer.count != 0{
+            footView.layer.borderWidth = 1
+            for index in 0...footAnswer.count - 1 {
+                var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
+                
+                btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
+                mainCount++
+                if mainCount > 2 {
+                    mainCount = 0
+                    moreCount++
+                }
+                btn.setTitle(footAnswer.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
+                btn.tag = index + 10000
+                btn.layer.masksToBounds = true
+                btn.layer.cornerRadius = 5
+                btn.backgroundColor = UIColor(red: 255 / 255, green: 182 / 255, blue: 193 / 255, alpha: 1)
+                btn.addTarget(self, action: "btnAnswer:", forControlEvents: UIControlEvents.TouchUpInside)
+                for str in recordArray {
+                    if btn.currentTitle == str as NSString {
+                        btn.enabled = false
+                    }
+                }
+                footView.addSubview(btn)
+            }
+        }
+        }
+        return footView
+    }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            var height = footViewArray.count / 3 * 40
+            if(footViewArray.count % 3 != 0 && footViewArray.count / 3 < 1){
+                return 40
+            }else if(footViewArray.count % 3 == 0 && footViewArray.count / 3 >= 1) {
+                return CGFloat(height)
+            }else if(footViewArray.count % 3 != 0 && footViewArray.count / 3 >= 1){
+                return CGFloat(height + 40)
+            }
+           
+        }
+        if section == 1 {
+            var height = footAnswer.count / 3 * 40
+            if(footAnswer.count % 3 != 0 && footAnswer.count / 3 < 1){
+                return 40
+            }else if(footAnswer.count % 3 == 0 && footAnswer.count / 3 >= 1) {
+                return CGFloat(height)
+            }else if(footAnswer.count % 3 != 0 && footAnswer.count / 3 >= 1){
+                return CGFloat(height + 40)
+            }
+        }
         return 20
     }
+    func clearAnswer() {
+        recordArray.removeAllObjects()
+
+        for index in 0...rowCount - 1 {
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
+            let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            lastTextField.text = ""
+            imageAnswerView.image = UIImage(named: "dummyImage")
+            tableView.reloadData()
+        }
+        rowCount = 1
+        
+    }
+    func btn(btn:UIButton) {
+        clearAnswer()
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
+        let textView = cell?.contentView.viewWithTag(102) as UITextView
+        let label = cell?.contentView.viewWithTag(103) as  UILabel
+        label.hidden = true
+        textView.text = btn.currentTitle
+        var i = btn.tag - 1
+        footAnswer = footViewArray.objectAtIndex(i)["option"] as NSMutableArray
+        tableView.reloadData()
+    }
+    func btnAnswer(btn:UIButton) {
+        recordArray.addObject(btn.currentTitle!)
+        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
+        let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
+        lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
+//        if(lastTextField.text != ""){
+            if rowCount < 5 {
+                rowCount++
+            }
+//        }
+        tableView.reloadData()
+        switch rowCount {
+        case 2:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap2")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 3:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap3")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 4:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap4")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 5:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap5")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        case 6:
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 1))
+            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap6")
+            imageAnswerView.userInteractionEnabled = true
+            imageAnswerView.addGestureRecognizer(gesTure1)
+        default:
+            return
+        }
+    }
+   
     
     /*
     // Override to support conditional editing of the table view.
