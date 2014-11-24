@@ -9,13 +9,38 @@
 import UIKit
 
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    var borT = 0
+    
+    //notification
+    
+    var chooseArray = NSMutableArray()
+    var sendDic = NSMutableDictionary()
+    //
     var rowCount = 1
     var recordArray = NSMutableArray()
     var tapYN = 0
     var footViewArray = NSMutableArray()
     var footAnswer = NSMutableArray()
+    @IBAction func sendVote(sender: UIBarButtonItem) {
+     
+        sendDic.setObject("12345678", forKey: "voteID")
+        sendDic.setObject("caiyang", forKey: "voteAuthorName")
+        sendDic.setObject("373789", forKey: "voteAuthorID")
+        sendDic.setObject(0, forKey: "hasVoted")
+        sendDic.setObject("http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg", forKey: "voteImage")
+        sendDic.setObject(chooseArray, forKey: "options")
+        print(sendDic["options"])
+        if (sendDic["voteTitle"] != nil && sendDic["options"] as NSArray != []) {
+            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: sendDic)
+            self.navigationController!.tabBarController?.selectedIndex = 0
+        }
+        
+        
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
                        // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -185,6 +210,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         
         countlabeL.text = (30 - str.length).description
+        sendDic.setObject(textView.text, forKey: "voteTitle")
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
@@ -192,16 +218,33 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-    
+       var v = self.view.viewWithTag(5000)
+        for item in v!.subviews {
+            (item as UIButton).enabled = false
+        }
+        
+//        print(footView.frame)
+     
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        
+        var v = self.view.viewWithTag(5000)
+        for item in v!.subviews {
+            (item as UIButton).enabled = true
+        }
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         if(lastTextField.text != ""){
             if rowCount < 5 {
                 rowCount++
             }
+            var dic = NSMutableDictionary()
+            dic.setObject(lastTextField.text, forKey: "title")
+            var num1 = arc4random() % 10 + 1
+            var num2 = arc4random() % 10 + 1
+            dic.setObject(Int(num1), forKey: "menCount")
+            dic.setObject(Int(num2), forKey: "womenCount")
+            chooseArray.addObject(dic)
+
         }
         tableView.reloadData()
         switch rowCount {
@@ -312,8 +355,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-          var footView = UIView()
-        
+    var footView = UIView()
+       
         if section == 0 {
             var moreCount = 0
             var mainCount = 0
@@ -339,10 +382,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             
         }
         if section == 1 {
+            var footView1 = UIView()
+            footView1.tag = 5000
             var moreCount = 0
             var mainCount = 0
             if footAnswer.count != 0{
-            footView.layer.borderWidth = 1
+            footView1.layer.borderWidth = 1
             for index in 0...footAnswer.count - 1 {
                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                 
@@ -363,9 +408,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                         btn.enabled = false
                     }
                 }
-                footView.addSubview(btn)
+                footView1.addSubview(btn)
             }
         }
+            return footView1
         }
         return footView
     }
@@ -414,6 +460,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let label = cell?.contentView.viewWithTag(103) as  UILabel
         label.hidden = true
         textView.text = btn.currentTitle
+        sendDic.setObject(textView.text, forKey: "voteTitle")
         var i = btn.tag - 1
         footAnswer = footViewArray.objectAtIndex(i)["option"] as NSMutableArray
         tableView.reloadData()
@@ -423,6 +470,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
+        var dic = NSMutableDictionary()
+        dic.setObject(lastTextField.text, forKey: "title")
+        var num1 = arc4random() % 10 + 1
+        var num2 = arc4random() % 10 + 1
+        dic.setObject(Int(num1), forKey: "menCount")
+        dic.setObject(Int(num2), forKey: "womenCount")
+        chooseArray.addObject(dic)
 //        if(lastTextField.text != ""){
             if rowCount < 5 {
                 rowCount++

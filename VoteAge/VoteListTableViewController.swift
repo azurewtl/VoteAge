@@ -11,7 +11,7 @@ import CoreData
 
 class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
   
-    
+    var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
@@ -19,7 +19,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         super.awakeFromNib()
         
     }
-    
+    func noti(noti:NSNotification) {
+       
+        self.voteArray.addObject(noti.userInfo!)
+       
+        tableView.reloadData()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
@@ -49,10 +54,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             var data1 = NSData(contentsOfFile: path1!)
             
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
-            self.voteArray = votedic.objectForKey("hotlist") as NSMutableArray
+            voteArray = votedic.objectForKey("hotlist") as NSMutableArray
 //            print(voteArray)
-       
             
+             sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
+           
             
         }
 
@@ -67,8 +73,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     func changevalue(status: Int) {
         if let indexPath = self.tableView.indexPathForSelectedRow() {
-            let vote = voteArray[indexPath.row] as NSMutableDictionary
-           vote["hasVoted"] = 1
+            var vote = voteArray[indexPath.row] as NSMutableDictionary
+            print(indexPath.row)
+             vote["hasVoted"] = 1
         }
     }
     override func didReceiveMemoryWarning() {

@@ -1071,6 +1071,9 @@
                     <navigationItem key="navigationItem" title="发起投票" id="T3z-Yx-p25">
                         <barButtonItem key="rightBarButtonItem" title="发起" id="PHT-Mm-29X">
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <action selector="sendVote:" destination="tEt-l1-TGs" id="xTG-Re-uzD"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>
