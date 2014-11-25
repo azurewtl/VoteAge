@@ -35,7 +35,10 @@ class VoteDetailTableViewController: UITableViewController {
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         print(voteDetail!["hasVoted"] as Int)
-      
+      self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "选项", style: UIBarButtonItemStyle.Done, target: self, action: "selected")
+        
+    }
+    func selected() {
         
     }
     override func viewWillAppear(animated: Bool) {

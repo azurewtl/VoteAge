@@ -24,7 +24,23 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         sendDic.setObject("caiyang", forKey: "voteAuthorName")
         sendDic.setObject("373789", forKey: "voteAuthorID")
         sendDic.setObject(0, forKey: "hasVoted")
-        sendDic.setObject("http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg", forKey: "voteImage")
+        
+        
+        
+        for index in 0...rowCount - 1 {
+            var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
+            let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
+            var dic = NSMutableDictionary()
+            if lastTextField.text != "" {
+            dic.setObject(lastTextField.text, forKey: "title")
+            var num1 = arc4random() % 10 + 1
+            var num2 = arc4random() % 10 + 1
+            dic.setObject(Int(num1), forKey: "menCount")
+            dic.setObject(Int(num2), forKey: "womenCount")
+            chooseArray.addObject(dic)
+            }
+        }
+         
         sendDic.setObject(chooseArray, forKey: "options")
         print(sendDic["options"])
         if (sendDic["voteTitle"] != nil && sendDic["options"] as NSArray != []) {
@@ -37,12 +53,21 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+       NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden"), name: UIKeyboardWillHideNotification, object: nil)
                        // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    func keyboardWasShown() {
+        tableView.contentInset = UIEdgeInsetsMake(0, 0, 150, 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 150, 0)
+    }
+    func keyboardWillBeHidden() {
+        tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0)
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
@@ -121,6 +146,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                self.selectedImageview.image = resizeImg
+              var str = ((editingInfo as NSDictionary).valueForKey(UIImagePickerControllerReferenceURL) as NSURL).absoluteString
+                self.sendDic.setObject(str!, forKey: "voteImage")
+                
             })
         })
         
@@ -399,13 +427,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
-        var dic = NSMutableDictionary()
-        dic.setObject(lastTextField.text, forKey: "title")
-        var num1 = arc4random() % 10 + 1
-        var num2 = arc4random() % 10 + 1
-        dic.setObject(Int(num1), forKey: "menCount")
-        dic.setObject(Int(num2), forKey: "womenCount")
-        chooseArray.addObject(dic)
+        
 //        if(lastTextField.text != ""){
             if rowCount < 5 {
                 rowCount++
