@@ -9,7 +9,7 @@
 import UIKit
 
 protocol VoteDetailDelegate{
-    func changevalue(status:Int)
+    func setVoted(status:Int)
 }
 
 class VoteDetailTableViewController: UITableViewController {
@@ -62,7 +62,7 @@ class VoteDetailTableViewController: UITableViewController {
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
         self.voteTotalperson()
-     self.delegate?.changevalue(1)
+     self.delegate?.setVoted(1)
     }
     
     func timeCount() {
@@ -163,7 +163,7 @@ class VoteDetailTableViewController: UITableViewController {
     // MARK: - Table VIew Selection
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.delegate?.changevalue(1)
+        self.delegate?.setVoted(1)
         self.voteTotalperson()
         waiveButton.hidden = true
         voteSegment.selectedSegmentIndex = 1;

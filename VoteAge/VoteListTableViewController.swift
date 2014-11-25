@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
-  
+    var receiveDic = NSDictionary()
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -20,11 +20,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
     }
     func noti(noti:NSNotification) {
-       
-        self.voteArray.addObject(noti.userInfo!)
-       
+         voteArray.addObject(noti.userInfo!)
         tableView.reloadData()
+        
     }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
@@ -71,10 +71,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     // MARK: - protocol
 
-    func changevalue(status: Int) {
+    func setVoted(status: Int) {
         if let indexPath = self.tableView.indexPathForSelectedRow() {
             var vote = voteArray[indexPath.row] as NSMutableDictionary
-            print(indexPath.row)
+    
              vote["hasVoted"] = 1
         }
     }
@@ -142,6 +142,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func insertNewObject() {
         
     }
+
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
     //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String

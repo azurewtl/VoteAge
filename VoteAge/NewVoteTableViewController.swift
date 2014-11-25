@@ -360,7 +360,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         if section == 0 {
             var moreCount = 0
             var mainCount = 0
-             footView.layer.borderWidth = 1
+             footView.backgroundColor = UIColor.grayColor()
 //            footView.backgroundColor = UIColor.cyanColor()
             for(var index = 0; index < footViewArray.count; index++) {
                  var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
@@ -387,7 +387,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var moreCount = 0
             var mainCount = 0
             if footAnswer.count != 0{
-            footView1.layer.borderWidth = 1
+            footView1.backgroundColor = UIColor.grayColor()
             for index in 0...footAnswer.count - 1 {
                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                 
