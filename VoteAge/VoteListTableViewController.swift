@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 
 class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
-    var receiveDic = NSDictionary()
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -20,9 +19,17 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
     }
     func noti(noti:NSNotification) {
-         voteArray.addObject(noti.userInfo!)
-        tableView.reloadData()
+        var receiveDiction = NSMutableDictionary()
+        receiveDiction.setObject("12345678", forKey: "voteID")
+        receiveDiction.setObject("caiyang", forKey: "voteAuthorName")
+        receiveDiction.setObject("373789", forKey: "voteAuthorID")
+        receiveDiction.setObject(0, forKey: "hasVoted")
+        receiveDiction.setObject("http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg", forKey: "voteImage")
+        receiveDiction.setObject((noti.userInfo! as NSDictionary)["options"]!, forKey: "options")
+        receiveDiction.setObject((noti.userInfo! as NSDictionary)["voteTitle"]!, forKey: "voteTitle")
+        voteArray.addObject(receiveDiction)
         
+        tableView.reloadData()
     }
    
     override func viewDidLoad() {
@@ -45,7 +52,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                     var str = NSString()
                     self.voteArray = result?.objectForKey("entries") as NSMutableArray
                     self.activityIndicator.stopAnimating()
-                    
                 })
             })
         }else{
@@ -57,12 +63,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             voteArray = votedic.objectForKey("hotlist") as NSMutableArray
 //            print(voteArray)
             
-             sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
+            
            
             
         }
 
-        
+        sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
@@ -74,7 +80,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func setVoted(status: Int) {
         if let indexPath = self.tableView.indexPathForSelectedRow() {
             var vote = voteArray[indexPath.row] as NSMutableDictionary
-    
              vote["hasVoted"] = 1
         }
     }

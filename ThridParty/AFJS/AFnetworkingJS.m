@@ -21,7 +21,8 @@
         id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         block(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"%@错误", error);
+        NSString *result = @"0";
+        block(result);
     }];
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             [queue addOperation:operation];
