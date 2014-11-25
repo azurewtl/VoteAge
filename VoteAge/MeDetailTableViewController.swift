@@ -10,7 +10,7 @@ import UIKit
 
 class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
     
- 
+   
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userNickName: UITextField!
     @IBOutlet weak var userID: UITextField!

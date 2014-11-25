@@ -9,16 +9,13 @@
 import UIKit
 
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    var borT = 0
-    
     //notification
-    
+    var selectedImageview = UIImageView()
     var chooseArray = NSMutableArray()
     var sendDic = NSMutableDictionary()
     //
     var rowCount = 1
     var recordArray = NSMutableArray()
-    var tapYN = 0
     var footViewArray = NSMutableArray()
     var footAnswer = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
@@ -51,27 +48,23 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         super.viewWillAppear(true)
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         var imageAskView = cell?.contentView.viewWithTag(101) as UIImageView
-        var gesTure = UITapGestureRecognizer(target: self, action: "tap")
+        var gesTure = UITapGestureRecognizer(target: self, action: "tap:")
         imageAskView.userInteractionEnabled = true
         imageAskView.addGestureRecognizer(gesTure)
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as UITableViewCell?
         
         var imageAnswerView = cell1?.contentView.viewWithTag(101) as UIImageView
-        var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap1")
+        var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
         imageAnswerView.userInteractionEnabled = true
         imageAnswerView.addGestureRecognizer(gesTure1)
 
     }
-    func tap() {
-        tapYN = 1
+    func tap(sender:UITapGestureRecognizer) {
+        selectedImageview = sender.view as UIImageView
         var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
         photoSheet.showInView(self.view)
     }
-    func tap1() {
-        tapYN = 2
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
-    }
+  
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         var btnTitle = actionSheet.buttonTitleAtIndex(buttonIndex)
         if buttonIndex != actionSheet.cancelButtonIndex {
@@ -127,35 +120,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                switch self.tapYN {
-                case 1:
-                imageAskView.image = resizeImg
-                case 2:
-                imageAnswerView.image = resizeImg
-                case 3:
-                let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
-                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-                    imag1.image = resizeImg
-                case 4:
-                let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:2, inSection: 1))
-                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-                    imag1.image = resizeImg
-                case 5:
-                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:3, inSection: 1))
-                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-                    imag1.image = resizeImg
-                case 6:
-                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:4, inSection: 1))
-                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-                    imag1.image = resizeImg
-                case 7:
-                    let cell2 = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow:5, inSection: 1))
-                    var imag1 = cell2?.contentView.viewWithTag(101) as UIImageView
-                    imag1.image = resizeImg
-                default:
-                return
-                }
-            
+               self.selectedImageview.image = resizeImg
             })
         })
         
@@ -251,66 +216,36 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap2")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 3:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap3")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 4:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap4")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 5:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap5")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 6:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap6")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         default:
             return
         }
-        
-    }
-    func tap2() {
-        tapYN = 3
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
-
-    }
-    func tap3() {
-        tapYN = 4
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
-        
-    }
-    func tap4() {
-        tapYN = 5
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
-        
-    }
-    func tap5() {
-        tapYN = 6
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
-        
-    }
-    func tap6() {
-        tapYN = 7
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
-        photoSheet.showInView(self.view)
         
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -403,14 +338,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 btn.layer.cornerRadius = 5
                 btn.backgroundColor = UIColor(red: 255 / 255, green: 182 / 255, blue: 193 / 255, alpha: 1)
                 btn.addTarget(self, action: "btnAnswer:", forControlEvents: UIControlEvents.TouchUpInside)
-                for str in recordArray {
-                    if btn.currentTitle == str as NSString {
-                        btn.enabled = false
-                    }
-                }
                 footView1.addSubview(btn)
+                }
             }
-        }
             return footView1
         }
         return footView
@@ -440,8 +370,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return 20
     }
     func clearAnswer() {
-        recordArray.removeAllObjects()
-
+        chooseArray.removeAllObjects()
         for index in 0...rowCount - 1 {
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
             let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
@@ -466,7 +395,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         tableView.reloadData()
     }
     func btnAnswer(btn:UIButton) {
-        recordArray.addObject(btn.currentTitle!)
+        
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
@@ -487,31 +416,31 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap2")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 3:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 2, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap3")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 4:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 3, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap4")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 5:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 4, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap5")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         case 6:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 5, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap6")
+            var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
             imageAnswerView.userInteractionEnabled = true
             imageAnswerView.addGestureRecognizer(gesTure1)
         default:
