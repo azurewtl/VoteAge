@@ -15,10 +15,10 @@
 +(DataBaseHandle *)shareInstance;
 -(void)openDB;
 -(void)closeDB;
--(void)createTable;
--(void)insertTab:(NSString *)initLetter uname:(NSString *)uname uid:(NSString *)uid uimage:(NSString *)uimage ugender:(NSString *)ugender ucity:(NSString *)ucity udescibe:(NSString *)udescribe;
--(void)updateT:(NSString *)name str:(NSString *)str pid:(NSString *)pid ima:(NSString *)ima gender:(NSString *)gender city:(NSString *)city descri:(NSString *)descri;
+-(void)createTable:(NSString *)list;
+-(void)insertTab:(NSString *)insertsql;
+-(void)updateT:(NSString *)sql;
 
--(void)deleteTab:(NSString *)idd;
--(NSMutableArray *)selectAll:(NSString *)pID;
+-(void)deleteTab:(NSString *)sql;
+-(NSMutableArray *)selectAll:(NSString *)sql;
 @end

@@ -22,7 +22,7 @@ class ContactListTableViewController: UITableViewController {
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
         db.openDB()
-        db.createTable()
+        db.createTable("create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)")
         let app = UIApplication.sharedApplication().delegate as AppDelegate
         managedObjectContext = app.managedObjectContext!
         // For Test
@@ -31,7 +31,6 @@ class ContactListTableViewController: UITableViewController {
         
         var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
         //
-        
         friendArray = votedic["friendlist"] as NSMutableArray
         self.presentingViewController
         var sortDiscriptor = NSSortDescriptor(key: "description", ascending: true)
@@ -43,7 +42,8 @@ class ContactListTableViewController: UITableViewController {
         
         for var i = 0; i < initialArray.count; i++  {
             var dic = NSMutableDictionary()
-            dic.setObject(db.selectAll(initialArray[i] as NSString), forKey: "letter")
+            var str = (initialArray[i] as NSString)
+            dic.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
             totalArray.addObject(dic)
         }
         
@@ -89,6 +89,7 @@ class ContactListTableViewController: UITableViewController {
         cell.textLabel.text = stringname
         var arimage = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
+        print(strimage)
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
         
@@ -138,8 +139,10 @@ class ContactListTableViewController: UITableViewController {
                 firstLetter = "#"
             }
             initialSet.addObject(firstLetter)
-            db.insertTab(firstLetter, uname: strrUsername, uid: strrUserID, uimage: strrUserImage, ugender: strrgender, ucity: strrcity, udescibe: strrdescribe)
-            db.updateT(strrUsername, str: firstLetter, pid: strrUserID, ima: strrUserImage, gender: strrgender, city: strrcity, descri: strrdescribe)
+            var strinsert = "insert into Contact values('\(strrUsername)', '\(firstLetter)', '\(strrUserID)','\(strrUserImage)', '\(strrgender)', '\(strrcity)', '\(strrdescribe)')"
+            db.insertTab(strinsert)
+            var strupdate = "update Contact set userName = '\(strrUsername)', userInital = '\(firstLetter)', userImage = '\(strrUserImage)', gender = '\(strrgender)', city = '\(strrcity)', descibed = '\(strrdescribe)' where userID = '\(strrUserID)'"
+            db.updateT(strupdate)
         }
     }
 

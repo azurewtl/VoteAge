@@ -27,31 +27,33 @@
     int result = sqlite3_close(dbPoint);
     NSLog(@"%d", result);
 }
--(void)createTable{
-    NSString *sql = @"create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)";
-
+-(void)createTable:(NSString *)list{
+//    NSString *sql = @"create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)";
+   NSString *sql = list;
     int result = sqlite3_exec(dbPoint, [sql UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
--(void)insertTab:(NSString *)initLetter uname:(NSString *)uname uid:(NSString *)uid uimage:(NSString *)uimage ugender:(NSString *)ugender ucity:(NSString *)ucity udescibe:(NSString *)udescribe{
-    NSString *s = [NSString stringWithFormat:@"insert into Contact values('%@', '%@', '%@','%@', '%@', '%@', '%@')",initLetter, uname, uid, uimage, ugender, ucity, udescribe];
+-(void)insertTab:(NSString *)insertsql{
+//    NSString *s = [NSString stringWithFormat:@"insert into Contact values('%@', '%@', '%@','%@', '%@', '%@', '%@')",initLetter, uname, uid, uimage, ugender, ucity, udescribe];
+    NSString *s = insertsql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
--(void)updateT:(NSString *)name str:(NSString *)str pid:(NSString *)pid ima:(NSString *)ima gender:(NSString *)gender city:(NSString *)city descri:(NSString *)descri{
-    NSString *s = [NSString stringWithFormat:@"update Contact set userName = '%@', userInital = '%@', userImage = '%@', gender = '%@', city = '%@', descibed = '%@' where userID = '%@'", name, str,  ima, gender, city, descri, pid];
+-(void)updateT:(NSString *)sql{
+//    NSString *s = [NSString stringWithFormat:@"update Contact set userName = '%@', userInital = '%@', userImage = '%@', gender = '%@', city = '%@', descibed = '%@' where userID = '%@'", name, str,  ima, gender, city, descri, pid];
+    NSString *s = sql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
 
--(void)deleteTab:(NSString *)idd{
-    NSString *s = [NSString stringWithFormat:@"delete from Contact where pid = '%@'", idd];
+-(void)deleteTab:(NSString *)sql{
+    NSString *s = sql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
     NSLog(@"%d", result);
 }
--(NSMutableArray *)selectAll:(NSString *)pID{
+-(NSMutableArray *)selectAll:(NSString *)sql{
     NSMutableArray *arr = [NSMutableArray array];
-    NSString *sql = [NSString stringWithFormat:@"select * from Contact where userInital = '%@'", pID];
+//    NSString *s = [NSString stringWithFormat:@"select * from Contact where userInital = '%@'", pID];
     sqlite3_stmt *stmt = nil;
     int result = sqlite3_prepare_v2(dbPoint, [sql UTF8String], -1, &stmt, NULL);
     if(result == SQLITE_OK){
