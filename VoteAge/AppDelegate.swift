@@ -12,10 +12,10 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-  
-    
+    var appkey = "4682729a0788"
+    var appsecret = "14e6b542fb4780ec57c1ca6544c6a303"
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        
+        SMS_SDK.registerApp(appkey, withSecret: appsecret)
         // Override point for customization after application launch.
 //        let tabBarController = self.window!.rootViewController as UITabBarController
 //        

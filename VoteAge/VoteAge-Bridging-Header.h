@@ -10,3 +10,5 @@
 #import "sqlite3.h"
 #import <time.h>
 #import "DataBaseHandle.h"
+#import <SMS_SDK/SMS_SDK.h>
+#import "Vertify.h"

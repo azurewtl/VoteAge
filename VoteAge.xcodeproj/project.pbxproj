@@ -52,6 +52,16 @@
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
 		18D2DBAA1A256BD8006F74B1 /* HasVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */; };
+		18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */; };
+		18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */; };
+		18D2DBB01A25AEFE006F74B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */; };
+		18D2DBB21A25AF06006F74B1 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB11A25AF06006F74B1 /* libz.dylib */; };
+		18D2DBB41A25AF0F006F74B1 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */; };
+		18D2DBB61A25AF41006F74B1 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB51A25AF41006F74B1 /* AddressBook.framework */; };
+		18D2DBB81A25AF47006F74B1 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */; };
+		18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB91A25AF53006F74B1 /* MessageUI.framework */; };
+		18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */; };
+		18D2DBC21A25C012006F74B1 /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBC11A25C012006F74B1 /* Vertify.m */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
@@ -149,6 +159,17 @@
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasVoteTableViewController.swift; sourceTree = "<group>"; };
+		18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		18D2DBB11A25AF06006F74B1 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		18D2DBB51A25AF41006F74B1 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		18D2DBB91A25AF53006F74B1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
+		18D2DBC01A25C012006F74B1 /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertify.h; path = ../Vertify.h; sourceTree = "<group>"; };
+		18D2DBC11A25C012006F74B1 /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vertify.m; path = ../Vertify.m; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -168,6 +189,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */,
+				18D2DBB81A25AF47006F74B1 /* AddressBookUI.framework in Frameworks */,
+				18D2DBB61A25AF41006F74B1 /* AddressBook.framework in Frameworks */,
+				18D2DBB41A25AF0F006F74B1 /* libicucore.dylib in Frameworks */,
+				18D2DBB21A25AF06006F74B1 /* libz.dylib in Frameworks */,
+				18D2DBB01A25AEFE006F74B1 /* CoreGraphics.framework in Frameworks */,
+				18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */,
+				18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */,
+				18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */,
 				184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,6 +215,8 @@
 		184BB3FD1A1C54BE006DF06C /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				18D2DBC01A25C012006F74B1 /* Vertify.h */,
+				18D2DBC11A25C012006F74B1 /* Vertify.m */,
 				18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */,
 				181C4D5E1A1C9DB90077B682 /* DataBaseHandle.h */,
 				181C4D5F1A1C9DB90077B682 /* DataBaseHandle.m */,
@@ -293,6 +325,15 @@
 		BB7208421A0B600100A97FCD = {
 			isa = PBXGroup;
 			children = (
+				18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */,
+				18D2DBB91A25AF53006F74B1 /* MessageUI.framework */,
+				18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */,
+				18D2DBB51A25AF41006F74B1 /* AddressBook.framework */,
+				18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */,
+				18D2DBB11A25AF06006F74B1 /* libz.dylib */,
+				18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */,
+				18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */,
+				18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */,
 				184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */,
 				BB72084D1A0B600100A97FCD /* VoteAge */,
 				184BB3FD1A1C54BE006DF06C /* ThridParty */,
@@ -502,6 +543,7 @@
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,
+				18D2DBC21A25C012006F74B1 /* Vertify.m in Sources */,
 				184BB44E1A1C54BE006DF06C /* SDWebImageDownloaderOperation.m in Sources */,
 				184BB4431A1C54BE006DF06C /* AFURLConnectionOperation.m in Sources */,
 				18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */,
@@ -642,6 +684,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VoteAge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -656,6 +702,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = VoteAge/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

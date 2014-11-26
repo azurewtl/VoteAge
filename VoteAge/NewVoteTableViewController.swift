@@ -29,7 +29,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var titleimageview = titlecell?.contentView.viewWithTag(101) as UIImageView
         if(titleimageview.image != UIImage(named: "dummyImage")) {
         var titleimageData = UIImageJPEGRepresentation(titleimageview.image, 0.75)
-        print(titleimageData.length)
+//        print(titleimageData.length)
         }
         for index in 0...rowCount - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
@@ -48,6 +48,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 dic.setObject(Int(num1), forKey: "menCount")
                 dic.setObject(Int(num2), forKey: "womenCount")
                 chooseArray.addObject(dic)
+                print(chooseArray.count)
             }
         }
         
@@ -249,7 +250,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var num2 = arc4random() % 10 + 1
             dic.setObject(Int(num1), forKey: "menCount")
             dic.setObject(Int(num2), forKey: "womenCount")
-            chooseArray.addObject(dic)
             
         }
         tableView.reloadData()
@@ -360,18 +360,18 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         if section == 1 {
             var footView1 = UIView()
             footView1.tag = 5000
-            var moreCount = 0
-            var mainCount = 0
+            var rowCount = 0
+            var colCount = 0
             if footAnswer.count != 0{
                 footView1.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                 for index in 0...footAnswer.count - 1 {
                     var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                     
-                    btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
-                    mainCount++
-                    if mainCount > 2 {
-                        mainCount = 0
-                        moreCount++
+                    btn.frame = CGRectMake(CGFloat(6 + colCount * 100), CGFloat(5 + 35 * rowCount), 95, 30)
+                    colCount++
+                    if colCount > 2 {
+                        colCount = 0
+                        rowCount++
                     }
                     btn.setTitle(footAnswer.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
                     btn.tag = index + 10000

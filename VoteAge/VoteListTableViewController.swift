@@ -51,6 +51,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             dispatch_group_notify(group, queue, {
                 AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
                     var str = NSString()
+                   
                     self.voteArray = result?.objectForKey("entries") as NSMutableArray
                     self.activityIndicator.stopAnimating()
                 })
