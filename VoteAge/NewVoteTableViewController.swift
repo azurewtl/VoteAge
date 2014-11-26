@@ -64,8 +64,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     func keyboardWasShown() {
         tableView.contentInset = UIEdgeInsetsMake(0, 0, 150, 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 150, 0)
+        self.navigationController?.navigationBar.hidden = true
     }
     func keyboardWillBeHidden() {
+        self.navigationController?.navigationBar.hidden = false
         tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
         tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0)
     }
@@ -86,7 +88,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     func tap(sender:UITapGestureRecognizer) {
         selectedImageview = sender.view as UIImageView
-        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册")
+        var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册", "清除")
         photoSheet.showInView(self.view)
     }
   
@@ -98,6 +100,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }
             if btnTitle.hasPrefix("相册") {
                 getPhotoByType("album")
+            }
+            if btnTitle.hasPrefix("清除") {
+                selectedImageview.image = UIImage(named: "dummyImage")
             }
             
         }
