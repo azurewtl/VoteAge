@@ -9,15 +9,16 @@
 import UIKit
 
 class UserDetailTableViewController: UITableViewController {
-
+    
     @IBOutlet weak var authorImage: UIImageView!
     @IBOutlet weak var authorName: UILabel!
     @IBOutlet weak var authorID: UILabel!
     @IBOutlet weak var subscribeButton: UIButton!
     var voteFeed: NSDictionary = NSDictionary()
-    
+    var buttonTitle = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
+        subscribeButton.setTitle(buttonTitle, forState: UIControlState.Normal)
 //        authorName.text = voteFeed["voteAuthor"] as NSString
 //        authorID.text = voteFeed["authorID"] as NSString
         // Uncomment the following line to preserve selection between presentations

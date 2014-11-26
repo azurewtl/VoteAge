@@ -14,6 +14,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var chooseArray = NSMutableArray()
     var sendDic = NSMutableDictionary()
     //
+    var edittextfield = false
+    var taptextfield = UITextField()
     var rowCount = 1
     var recordArray = NSMutableArray()
     var footViewArray = NSMutableArray()
@@ -225,19 +227,19 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-        var v = self.view.viewWithTag(5000)
-        for item in v!.subviews {
-            (item as UIButton).enabled = false
-        }
-        
-        //        print(footView.frame)
-        
+//        var v = self.view.viewWithTag(5000)
+//        for item in v!.subviews {
+//            (item as UIButton).enabled = false
+//        }
+        edittextfield = true;
+        taptextfield = textField
     }
     func textFieldDidEndEditing(textField: UITextField) {
-        var v = self.view.viewWithTag(5000)
-        for item in v!.subviews {
-            (item as UIButton).enabled = true
-        }
+//        var v = self.view.viewWithTag(5000)
+//        for item in v!.subviews {
+//            (item as UIButton).enabled = true
+//        }
+        edittextfield = false
         let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         if(lastTextField.text != ""){
@@ -359,7 +361,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         if section == 1 {
             var footView1 = UIView()
-            footView1.tag = 5000
+//            footView1.tag = 5000
             var rowCount = 0
             var colCount = 0
             if footAnswer.count != 0{
@@ -436,17 +438,21 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         tableView.reloadData()
     }
     func btnAnswer(btn:UIButton) {
-        
-        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
-        let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
-        lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
-        
-        //        if(lastTextField.text != ""){
-        if rowCount < 5 {
-            rowCount++
+        if edittextfield == false {
+            let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
+            let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
+            lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
+            
+            //        if(lastTextField.text != ""){
+            if rowCount < 5 {
+                rowCount++
+            }
+            //        }
+            tableView.reloadData()
+        }else {
+            taptextfield.text = taptextfield.text.stringByAppendingString(footAnswer.objectAtIndex(btn.tag - 10000) as NSString)
         }
-        //        }
-        tableView.reloadData()
+       
         switch rowCount {
         case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))

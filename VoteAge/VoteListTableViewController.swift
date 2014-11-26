@@ -111,7 +111,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             let indexPath = tableView.indexPathForCell(cell)
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
             (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+            (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "关注"
         }
+        
     }
     
     // MARK: - Table View

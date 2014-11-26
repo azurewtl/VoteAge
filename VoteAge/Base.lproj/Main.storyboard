@@ -842,7 +842,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="1NT-h6-jRF" kind="push" id="SGg-dd-0wa"/>
+                                    <segue destination="1NT-h6-jRF" kind="push" identifier="contactDetail" id="SGg-dd-0wa"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
