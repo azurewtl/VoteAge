@@ -25,7 +25,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         receiveDiction.setObject("caiyang", forKey: "voteAuthorName")
         receiveDiction.setObject("373789", forKey: "voteAuthorID")
         receiveDiction.setObject(0, forKey: "hasVoted")
-        receiveDiction.setObject((noti.userInfo! as NSDictionary)["voteImage"]!, forKey: "voteImage")
+        receiveDiction.setObject("http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg", forKey: "voteImage")
         receiveDiction.setObject((noti.userInfo! as NSDictionary)["options"]!, forKey: "options")
         receiveDiction.setObject((noti.userInfo! as NSDictionary)["voteTitle"]!, forKey: "voteTitle")
         voteArray.addObject(receiveDiction)
@@ -131,7 +131,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         cell.voteAuthor.setTitle(voteItem["voteAuthorName"] as NSString, forState: UIControlState.Normal)
         cell.authorID = voteItem["voteAuthorID"] as NSString
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-        print(imageUrl)
+       
         cell.voteImage.sd_setImageWithURL(imageUrl)
         
         return cell

@@ -19,30 +19,39 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var footViewArray = NSMutableArray()
     var footAnswer = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
-     
+        
         sendDic.setObject("12345678", forKey: "voteID")
         sendDic.setObject("caiyang", forKey: "voteAuthorName")
         sendDic.setObject("373789", forKey: "voteAuthorID")
         sendDic.setObject(0, forKey: "hasVoted")
-        
-        
-        
+    
+        var titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        var titleimageview = titlecell?.contentView.viewWithTag(101) as UIImageView
+        if(titleimageview.image != UIImage(named: "dummyImage")) {
+        var titleimageData = UIImageJPEGRepresentation(titleimageview.image, 0.75)
+        print(titleimageData.length)
+        }
         for index in 0...rowCount - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
+            var imageview = cell?.contentView.viewWithTag(101) as UIImageView
+//            if(imageview.image != UIImage(named: "dummyImage")) {
+//                
+//            var imageData = UIImageJPEGRepresentation(imageview.image, 0.75)
+//               print(imageData.length)
+//            }
             var dic = NSMutableDictionary()
             if lastTextField.text != "" {
-            dic.setObject(lastTextField.text, forKey: "title")
-            var num1 = arc4random() % 10 + 1
-            var num2 = arc4random() % 10 + 1
-            dic.setObject(Int(num1), forKey: "menCount")
-            dic.setObject(Int(num2), forKey: "womenCount")
-            chooseArray.addObject(dic)
+                dic.setObject(lastTextField.text, forKey: "title")
+                var num1 = arc4random() % 10 + 1
+                var num2 = arc4random() % 10 + 1
+                dic.setObject(Int(num1), forKey: "menCount")
+                dic.setObject(Int(num2), forKey: "womenCount")
+                chooseArray.addObject(dic)
             }
         }
-         
+        
         sendDic.setObject(chooseArray, forKey: "options")
-        print(sendDic["options"])
         if (sendDic["voteTitle"] != nil && sendDic["options"] as NSArray != []) {
             NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: sendDic)
             self.navigationController!.tabBarController?.selectedIndex = 0
@@ -53,11 +62,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-       NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown"), name: UIKeyboardDidShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown"), name: UIKeyboardDidShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden"), name: UIKeyboardWillHideNotification, object: nil)
-                       // Uncomment the following line to preserve selection between presentations
+        // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
+        
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
@@ -84,14 +93,14 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var  gesTure1 = UITapGestureRecognizer(target: self, action: "tap:")
         imageAnswerView.userInteractionEnabled = true
         imageAnswerView.addGestureRecognizer(gesTure1)
-
+        
     }
     func tap(sender:UITapGestureRecognizer) {
         selectedImageview = sender.view as UIImageView
         var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册", "清除")
         photoSheet.showInView(self.view)
     }
-  
+    
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         var btnTitle = actionSheet.buttonTitleAtIndex(buttonIndex)
         if buttonIndex != actionSheet.cancelButtonIndex {
@@ -140,20 +149,19 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         var imageAskView = cell?.contentView.viewWithTag(101) as UIImageView
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as UITableViewCell?
-//        print(rowCount)
+        //        print(rowCount)
         var imageAnswerView = cell1?.contentView.viewWithTag(101) as UIImageView
-
-  
-//      var index = tableView.indexPathForCell(supercell) as NSIndexPath?
-//      print(cell1?.frame)
+        
+        
+        //      var index = tableView.indexPathForCell(supercell) as NSIndexPath?
+        //      print(cell1?.frame)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
+            
+            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(100, 100))
+            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-               self.selectedImageview.image = resizeImg
-              var str = ((editingInfo as NSDictionary).valueForKey(UIImagePickerControllerReferenceURL) as NSURL).absoluteString
-                self.sendDic.setObject(str!, forKey: "voteImage")
-                
+                self.selectedImageview.image = resizeImg
             })
         })
         
@@ -162,13 +170,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch (section) {
         case 0:
@@ -189,7 +197,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         return true
     }
-     func textViewDidChange(textView: UITextView) {
+    func textViewDidChange(textView: UITextView) {
         var str = NSMutableString(string: textView.text)
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         let placeholder = cell?.contentView.viewWithTag(103) as UILabel
@@ -203,7 +211,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         if(str.length <= 30){
             textView.text = str
         }else{
-           str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
+            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
             textView.text = str
         }
         
@@ -216,13 +224,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return true
     }
     func textFieldDidBeginEditing(textField: UITextField) {
-       var v = self.view.viewWithTag(5000)
+        var v = self.view.viewWithTag(5000)
         for item in v!.subviews {
             (item as UIButton).enabled = false
         }
         
-//        print(footView.frame)
-     
+        //        print(footView.frame)
+        
     }
     func textFieldDidEndEditing(textField: UITextField) {
         var v = self.view.viewWithTag(5000)
@@ -242,7 +250,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             dic.setObject(Int(num1), forKey: "menCount")
             dic.setObject(Int(num2), forKey: "womenCount")
             chooseArray.addObject(dic)
-
+            
         }
         tableView.reloadData()
         switch rowCount {
@@ -290,7 +298,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteTitleCell", forIndexPath: indexPath) as UITableViewCell
             let textv = cell.contentView.viewWithTag(102) as UITextView
             textv.delegate = self
-
+            
         case 1:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteOptionCell", forIndexPath: indexPath) as UITableViewCell
             let textfield = cell.contentView.viewWithTag(102) as UITextField
@@ -306,7 +314,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-
+        
         
     }
     
@@ -323,30 +331,30 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-    var footView = UIView()
-       
+        var footView = UIView()
+        
         if section == 0 {
             var moreCount = 0
             var mainCount = 0
-             footView.backgroundColor = UIColor.grayColor()
-//            footView.backgroundColor = UIColor.cyanColor()
-            for(var index = 0; index < footViewArray.count; index++) {
-                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
+            footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+            //            footView.backgroundColor = UIColor.cyanColor()
+            for index in 0...footViewArray.count-1 {
+                var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                 btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
                 mainCount++
                 if mainCount > 2 {
                     mainCount = 0
                     moreCount++
                 }
-              
+                
                 btn.setTitle(footViewArray.objectAtIndex(index)["title"] as NSString, forState: UIControlState.Normal)
                 btn.tag = index + 1
                 btn.layer.masksToBounds = true
-                btn.layer.cornerRadius = 5
-                btn.backgroundColor = UIColor(red: 255 / 255, green: 182 / 255, blue: 193 / 255, alpha: 1)
+                btn.layer.cornerRadius = btn.frame.height / 2
+                btn.backgroundColor = UIColor.whiteColor()
                 btn.addTarget(self, action: "btn:", forControlEvents: UIControlEvents.TouchUpInside)
                 footView.addSubview(btn)
-                }
+            }
             
         }
         if section == 1 {
@@ -355,23 +363,23 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var moreCount = 0
             var mainCount = 0
             if footAnswer.count != 0{
-            footView1.backgroundColor = UIColor.grayColor()
-            for index in 0...footAnswer.count - 1 {
-                var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
-                
-                btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
-                mainCount++
-                if mainCount > 2 {
-                    mainCount = 0
-                    moreCount++
-                }
-                btn.setTitle(footAnswer.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
-                btn.tag = index + 10000
-                btn.layer.masksToBounds = true
-                btn.layer.cornerRadius = 5
-                btn.backgroundColor = UIColor(red: 255 / 255, green: 182 / 255, blue: 193 / 255, alpha: 1)
-                btn.addTarget(self, action: "btnAnswer:", forControlEvents: UIControlEvents.TouchUpInside)
-                footView1.addSubview(btn)
+                footView1.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+                for index in 0...footAnswer.count - 1 {
+                    var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
+                    
+                    btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
+                    mainCount++
+                    if mainCount > 2 {
+                        mainCount = 0
+                        moreCount++
+                    }
+                    btn.setTitle(footAnswer.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
+                    btn.tag = index + 10000
+                    btn.layer.masksToBounds = true
+                    btn.layer.cornerRadius = btn.frame.height / 2
+                    btn.backgroundColor = UIColor.whiteColor()
+                    btn.addTarget(self, action: "btnAnswer:", forControlEvents: UIControlEvents.TouchUpInside)
+                    footView1.addSubview(btn)
                 }
             }
             return footView1
@@ -388,7 +396,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }else if(footViewArray.count % 3 != 0 && footViewArray.count / 3 >= 1){
                 return CGFloat(height + 40)
             }
-           
+            
         }
         if section == 1 {
             var height = footAnswer.count / 3 * 40
@@ -433,11 +441,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
         
-//        if(lastTextField.text != ""){
-            if rowCount < 5 {
-                rowCount++
-            }
-//        }
+        //        if(lastTextField.text != ""){
+        if rowCount < 5 {
+            rowCount++
+        }
+        //        }
         tableView.reloadData()
         switch rowCount {
         case 2:
@@ -474,51 +482,51 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return
         }
     }
-   
+    
     
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the specified item to be editable.
-        return true
+    // Return NO if you do not want the specified item to be editable.
+    return true
     }
     */
-
+    
     /*
     // Override to support editing the table view.
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            // Delete the row from the data source
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    if editingStyle == .Delete {
+    // Delete the row from the data source
+    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+    } else if editingStyle == .Insert {
+    // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+    }
     }
     */
-
+    
     /*
     // Override to support rearranging the table view.
     override func tableView(tableView: UITableView, moveRowAtIndexPath fromIndexPath: NSIndexPath, toIndexPath: NSIndexPath) {
-
+    
     }
     */
-
+    
     /*
     // Override to support conditional rearranging of the table view.
     override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return NO if you do not want the item to be re-orderable.
-        return true
+    // Return NO if you do not want the item to be re-orderable.
+    return true
     }
     */
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
