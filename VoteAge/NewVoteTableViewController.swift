@@ -336,17 +336,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var footView = UIView()
         
         if section == 0 {
-            var moreCount = 0
-            var mainCount = 0
+            var rowCount = 0
+            var colCount = 0
             footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             //            footView.backgroundColor = UIColor.cyanColor()
             for index in 0...footViewArray.count-1 {
                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
-                btn.frame = CGRectMake(CGFloat(6 + mainCount * 100), CGFloat(5 + 35 * moreCount), 95, 30)
-                mainCount++
-                if mainCount > 2 {
-                    mainCount = 0
-                    moreCount++
+                btn.frame = CGRectMake(CGFloat(6 + colCount * 100), CGFloat(5 + 35 * rowCount), 95, 30)
+                colCount++
+                if colCount > 2 {
+                    colCount = 0
+                    rowCount++
                 }
                 
                 btn.setTitle(footViewArray.objectAtIndex(index)["title"] as NSString, forState: UIControlState.Normal)
