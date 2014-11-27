@@ -19,6 +19,7 @@ class ContactListTableViewController: UITableViewController {
     
      override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.hidden = true
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
         db.openDB()

@@ -19,6 +19,8 @@ class UserDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribeButton.setTitle(buttonTitle, forState: UIControlState.Normal)
+        self.tabBarController?.tabBar.hidden = true
+        
 //        authorName.text = voteFeed["voteAuthor"] as NSString
 //        authorID.text = voteFeed["authorID"] as NSString
         // Uncomment the following line to preserve selection between presentations

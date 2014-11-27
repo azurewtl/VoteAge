@@ -29,8 +29,9 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       self.userImage.layer.masksToBounds = true
-    self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
+        self.tabBarController?.tabBar.hidden = true
+        self.userImage.layer.masksToBounds = true
+        self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
         userDescription.delegate = self
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

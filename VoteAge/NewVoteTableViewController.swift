@@ -65,26 +65,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWasShown"), name: UIKeyboardDidShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("keyboardWillBeHidden"), name: UIKeyboardWillHideNotification, object: nil)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    func keyboardWasShown() {
-        tableView.contentInset = UIEdgeInsetsMake(0, 0, 150, 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(0, 0, 150, 0)
-        self.navigationController?.navigationBar.hidden = true
-    }
-    func keyboardWillBeHidden() {
-        self.navigationController?.navigationBar.hidden = false
-        tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
-        tableView.scrollIndicatorInsets = UIEdgeInsetsMake(64, 0, 0, 0)
-    }
+   
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         var imageAskView = cell?.contentView.viewWithTag(101) as UIImageView
         var gesTure = UITapGestureRecognizer(target: self, action: "tap:")

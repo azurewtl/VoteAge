@@ -20,6 +20,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = false
         self.setupCamera()
         self.session.startRunning()
    

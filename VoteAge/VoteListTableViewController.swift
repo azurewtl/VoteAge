@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
-    
+
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -32,9 +32,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         tableView.reloadData()
     }
-   
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
