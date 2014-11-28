@@ -12,18 +12,14 @@ protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
+class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate{
  
-    @IBAction func optionitem(sender: UIBarButtonItem) {
-        
-           }
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
-    
     var delegate = VoteDetailDelegate?()
     var menCount = CGFloat()
     var womenCount = CGFloat()
@@ -32,10 +28,20 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
     var timer = NSTimer()
     let animationDuration = 0.15
     
+    @IBAction func optionitem(sender: UIBarButtonItem) {
+        
+        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位", "分享")
+        selectSheet.showInView(self.view)
+    }
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex == 3 {
+            
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true
-   
+      
     
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
