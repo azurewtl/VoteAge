@@ -13,7 +13,10 @@ protocol VoteDetailDelegate{
 }
 
 class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
-    
+ 
+    @IBAction func optionitem(sender: UIBarButtonItem) {
+        
+           }
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
@@ -32,8 +35,8 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true
+   
     
-
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         if(voteDetail!["hasVoted"] as Int == 0){

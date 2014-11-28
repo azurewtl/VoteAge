@@ -89,7 +89,9 @@
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="热点" id="tQt-TN-PWz"/>
+                    <navigationItem key="navigationItem" title="热点" id="tQt-TN-PWz">
+                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI"/>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
@@ -448,7 +450,13 @@
                             <outlet property="delegate" destination="vxY-pj-SY4" id="ZU2-ns-AWN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="O40-Ds-lbU"/>
+                    <navigationItem key="navigationItem" id="O40-Ds-lbU">
+                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="noJ-no-YQq">
+                            <connections>
+                                <action selector="optionitem:" destination="vxY-pj-SY4" id="zUF-lf-kIg"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="expireDate" destination="sQq-Nb-dP7" id="6P4-Xb-4f0"/>
                         <outlet property="voteCount" destination="hEu-Ka-YZW" id="HTe-nd-Dc2"/>
@@ -468,11 +476,11 @@
             </objects>
             <point key="canvasLocation" x="1509" y="55"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--关注-->
         <scene sceneID="fkt-CA-BMg">
             <objects>
                 <navigationController id="S6W-LG-0Ru" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="favorites" id="bKP-ZA-SQB"/>
+                    <tabBarItem key="tabBarItem" title="关注" image="iocn_contact" id="bKP-ZA-SQB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fXC-Qw-a0v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1035,11 +1043,11 @@
             </objects>
             <point key="canvasLocation" x="1647" y="2700"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--我-->
         <scene sceneID="xab-K3-35P">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eAs-K5-hih" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="history" id="26a-k9-QGp"/>
+                    <tabBarItem key="tabBarItem" title="我" image="icon_me" id="26a-k9-QGp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1059,11 +1067,11 @@
             </objects>
             <point key="canvasLocation" x="453" y="2173"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--扫一扫-->
         <scene sceneID="u0h-Ph-MV2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wr0-9c-Iej" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="recents" id="Dhe-dY-Fdp"/>
+                    <tabBarItem key="tabBarItem" title="扫一扫" image="icon_QRC" id="Dhe-dY-Fdp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BJf-xc-qrB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1600,6 +1608,10 @@
     </scenes>
     <resources>
         <image name="dummyImage" width="132" height="132"/>
+        <image name="icon_QRC" width="32" height="32"/>
+        <image name="icon_me" width="32" height="32"/>
+        <image name="icon_more" width="32" height="32"/>
+        <image name="iocn_contact" width="32" height="32"/>
         <image name="user1" width="200" height="200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -67,22 +67,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-//            print(voteArray)
-            
-            
-           
+
             
         }
 
         sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
-        // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject")
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分类", style: UIBarButtonItemStyle.Done, target: self, action: "insertNewObject")
-        
-        
-//        self.navigationItem.rightBarButtonItem = addButton
+    
     }
     // MARK: - protocol
 
@@ -156,9 +146,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-    func insertNewObject() {
-        
-    }
+
 
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject

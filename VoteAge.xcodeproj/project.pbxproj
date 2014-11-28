@@ -191,16 +191,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18D2DBB41A25AF0F006F74B1 /* libicucore.dylib in Frameworks */,
+				18D2DBB21A25AF06006F74B1 /* libz.dylib in Frameworks */,
+				184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */,
 				18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */,
 				18D2DBB81A25AF47006F74B1 /* AddressBookUI.framework in Frameworks */,
 				18D2DBB61A25AF41006F74B1 /* AddressBook.framework in Frameworks */,
-				18D2DBB41A25AF0F006F74B1 /* libicucore.dylib in Frameworks */,
-				18D2DBB21A25AF06006F74B1 /* libz.dylib in Frameworks */,
 				18D2DBB01A25AEFE006F74B1 /* CoreGraphics.framework in Frameworks */,
 				18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */,
 				18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */,
 				18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */,
-				184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,20 +324,28 @@
 			path = SQLiteDB;
 			sourceTree = "<group>";
 		};
-		BB7208421A0B600100A97FCD = {
+		18ED9C5E1A2851A300463101 /* framework */ = {
 			isa = PBXGroup;
 			children = (
+				18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */,
+				18D2DBB11A25AF06006F74B1 /* libz.dylib */,
+				184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */,
 				18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */,
 				18D2DBB91A25AF53006F74B1 /* MessageUI.framework */,
 				18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */,
 				18D2DBB51A25AF41006F74B1 /* AddressBook.framework */,
-				18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */,
-				18D2DBB11A25AF06006F74B1 /* libz.dylib */,
 				18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */,
 				18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */,
 				18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */,
-				184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */,
+			);
+			name = framework;
+			sourceTree = "<group>";
+		};
+		BB7208421A0B600100A97FCD = {
+			isa = PBXGroup;
+			children = (
 				BB72084D1A0B600100A97FCD /* VoteAge */,
+				18ED9C5E1A2851A300463101 /* framework */,
 				184BB3FD1A1C54BE006DF06C /* ThridParty */,
 				BB7208681A0B600100A97FCD /* VoteAgeTests */,
 				BB72084C1A0B600100A97FCD /* Products */,
