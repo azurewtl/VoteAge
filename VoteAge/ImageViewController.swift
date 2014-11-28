@@ -8,29 +8,41 @@
 
 import UIKit
 
-class ImageViewController: UIViewController {
+class ImageViewController: UIViewController, UIScrollViewDelegate {
 
     @IBAction func backTapGesture(sender: UITapGestureRecognizer) {
         dismissViewControllerAnimated(true, completion: { () -> Void in
         })
     }
-    
+    var scrollView = UIScrollView()
     var photoView = UIImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
-     self.view.backgroundColor = UIColor.whiteColor()
-        photoView.frame = self.view.bounds
-        self.view.addSubview(photoView)
+        scrollView.frame = self.view.bounds
+        self.view.backgroundColor = UIColor.blackColor()
+        photoView.frame = scrollView.frame
+        photoView.contentMode = UIViewContentMode.ScaleAspectFit
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 0.7
+        scrollView.maximumZoomScale = 3.0
+        scrollView.contentSize = CGSizeMake(780, 960)
+        scrollView.addSubview(photoView)
+        self.view.addSubview(scrollView)
+        scrollView.userInteractionEnabled = true
         var gesture = UITapGestureRecognizer(target: self, action: "tap")
         photoView.userInteractionEnabled = true
         photoView.addGestureRecognizer(gesture)
-        // Do any additional setup after loading the view.
+              // Do any additional setup after loading the view.
+    }
+    
+    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+        return photoView
     }
     func tap() {
         dismissViewControllerAnimated(true, completion: { () -> Void in
-            
         })
     }
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

@@ -1425,14 +1425,20 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="vDc-SC-Xwe" id="1xv-43-9tL">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MOr-1X-j8M">
-                                                    <rect key="frame" x="85" y="0.0" width="150" height="43"/>
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="MOr-1X-j8M">
+                                                    <rect key="frame" x="85" y="1" width="150" height="43"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="Tqb-Lc-Vjx"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nL9-hm-9Pb">
+                                                    <rect key="frame" x="248" y="13" width="64" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="MOr-1X-j8M" secondAttribute="bottom" constant="-8" id="J5p-0K-c16"/>
@@ -1564,13 +1570,14 @@
                         <outlet property="passwordVerifyTextField" destination="SMX-Ua-fmX" id="qMP-Ca-TPu"/>
                         <outlet property="phoneTextField" destination="Ufo-b0-5Zq" id="6UR-xf-Nqb"/>
                         <outlet property="senderVertiButton" destination="rCD-AB-K5A" id="jku-Vy-cBQ"/>
+                        <outlet property="timeLabel" destination="nL9-hm-9Pb" id="Ce5-2G-ELt"/>
                         <outlet property="verificationTextField" destination="MOr-1X-j8M" id="S0y-yI-QRi"/>
                         <outlet property="vertiButton" destination="yAd-3B-G4y" id="scZ-l7-Ks5"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXI-eA-zdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-857" y="2485"/>
+            <point key="canvasLocation" x="-857" y="2483"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ftE-FV-q4X">

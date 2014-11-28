@@ -29,25 +29,13 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
     var timer = NSTimer()
     let animationDuration = 0.15
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true
+    
+
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
-        print(voteDetail!["hasVoted"] as Int)
-      self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "选项", style: UIBarButtonItemStyle.Done, target: self, action: "selected")
-        
-    }
-    
-    func selected() {
-
-        tableView.setContentOffset(CGPointMake(0, -120), animated: true)
-        
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
         if(voteDetail!["hasVoted"] as Int == 0){
             tableView.allowsSelection = false
             waiveButton.userInteractionEnabled = false
@@ -57,6 +45,17 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
             self.voteTotalperson()
             waiveButton.hidden = true
         }
+        
+    }
+    
+
+
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+       
         
         
     }

@@ -10,6 +10,9 @@ import UIKit
 
 class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var timeLabel: UILabel!
+    var timeInterval = Int()
+    var timer = NSTimer()
     var rowCount = 3
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -21,6 +24,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
             Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
                 if result == 1 {
                     sender.setTitle("发送成功", forState: UIControlState.Normal)
+                    self.vertiButton.enabled = true
+                    self.timeraction()
                     sender.enabled = false
                     self.rowCount = 5
                     self.tableView.reloadData()
@@ -43,6 +48,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         Vertify.getvertifynumber(verificationTextField.text, block: { (var result:Int32) -> Void in
             if result == 1 {
                 sender.setTitle("验证成功", forState: UIControlState.Normal)
+                self.timer.invalidate()
+                self.timeLabel.hidden = true
                 sender.enabled = false
                 self.rowCount = 9
                 self.tableView.reloadData()
@@ -80,14 +87,33 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        
        phoneTextField.delegate = self
        verificationTextField.delegate = self
+        phoneTextField.keyboardType = UIKeyboardType.PhonePad
+        verificationTextField.keyboardType = UIKeyboardType.PhonePad
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "back")
     }
     func back() {
         dismissViewControllerAnimated(true, completion: { () -> Void in
             
         })
+    }
+    func timeraction() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timegoing", userInfo: nil, repeats: true)
+        timer.fire()
+        
+    }
+    func timegoing() {
+        timeInterval++
+        timeLabel.text = (60 - timeInterval).description + "秒倒计时"
+        if timeInterval > 60 {
+            timer.invalidate()
+            timeInterval = 0
+            timeLabel.text = "超时,请重发"
+            senderVertiButton.enabled = true
+            vertiButton.enabled = false
+        }
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
