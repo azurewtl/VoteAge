@@ -62,6 +62,7 @@
 		18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB91A25AF53006F74B1 /* MessageUI.framework */; };
 		18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */; };
 		18D2DBC21A25C012006F74B1 /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBC11A25C012006F74B1 /* Vertify.m */; };
+		18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
@@ -170,6 +171,7 @@
 		18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		18D2DBC01A25C012006F74B1 /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertify.h; path = ../Vertify.h; sourceTree = "<group>"; };
 		18D2DBC11A25C012006F74B1 /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vertify.m; path = ../Vertify.m; sourceTree = "<group>"; };
+		18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -369,6 +371,7 @@
 				18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */,
 				1818D9231A259B4000AAC458 /* RegisterTableViewController.swift */,
 				18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */,
+				18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -559,6 +562,7 @@
 				184BB4421A1C54BE006DF06C /* AFSecurityPolicy.m in Sources */,
 				1871987B1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift in Sources */,
 				BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */,
+				18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */,
 				184BB4571A1C54BE006DF06C /* UIView+WebCacheOperation.m in Sources */,
 				184BB4551A1C54BE006DF06C /* UIImageView+HighlightedWebCache.m in Sources */,
 				184BB43D1A1C54BE006DF06C /* AFnetworkingJS.m in Sources */,

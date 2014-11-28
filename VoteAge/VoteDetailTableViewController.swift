@@ -12,7 +12,7 @@ protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController {
+class VoteDetailTableViewController: UITableViewController, ImagesendDelegate {
     
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
@@ -39,9 +39,13 @@ class VoteDetailTableViewController: UITableViewController {
       self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "选项", style: UIBarButtonItemStyle.Done, target: self, action: "selected")
         
     }
+    
     func selected() {
+
+        tableView.setContentOffset(CGPointMake(0, -120), animated: true)
         
     }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         if(voteDetail!["hasVoted"] as Int == 0){
@@ -105,6 +109,7 @@ class VoteDetailTableViewController: UITableViewController {
                 cell?.optionProgress.setProgress(Float(percentage), animated: true)
                 let perInt = Int(percentage * 100)
                 cell?.optionDetail.text = perInt.description + "%"
+                
             }
         }
 
@@ -153,13 +158,28 @@ class VoteDetailTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 55
     }
-    
+    func setSelect(number: Int) {
+        var imagevc = ImageViewController()
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: number, inSection: 0)) as OptionTableViewCell?
+        imagevc.photoView.image = cell?.optionImage.image
+        imagevc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        presentViewController(imagevc, animated: true) { () -> Void in
+            
+        }
+    }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "titleImage" {
+           
+            (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
+        }
+    }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
         var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
-       
-        
+       cell.delegate = self
+        cell.imagenumber = indexPath.row
+    
         return cell
     }
     

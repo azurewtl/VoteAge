@@ -330,10 +330,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var rowCount = 0
             var colCount = 0
             footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+            var width = (self.view.frame.width - 40) / 3
             //            footView.backgroundColor = UIColor.cyanColor()
             for index in 0...footViewArray.count-1 {
                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
-                btn.frame = CGRectMake(CGFloat(6 + colCount * 100), CGFloat(5 + 35 * rowCount), 95, 30)
+                var x = CGFloat(10 * (colCount + 1)) + width * CGFloat(colCount)
+                btn.frame = CGRectMake(x, CGFloat(5 + 35 * rowCount), width, 30)
                 colCount++
                 if colCount > 2 {
                     colCount = 0
@@ -357,10 +359,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var colCount = 0
             if footAnswer.count != 0{
                 footView1.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+                var width = (self.view.frame.width - 40) / 3
                 for index in 0...footAnswer.count - 1 {
                     var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
-                    
-                    btn.frame = CGRectMake(CGFloat(6 + colCount * 100), CGFloat(5 + 35 * rowCount), 95, 30)
+                    var x = CGFloat(10 * (colCount + 1)) + width * CGFloat(colCount)
+                    btn.frame = CGRectMake(x, CGFloat(5 + 35 * rowCount), width, 30)
                     colCount++
                     if colCount > 2 {
                         colCount = 0
