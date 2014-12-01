@@ -12,3 +12,5 @@
 #import "DataBaseHandle.h"
 #import <SMS_SDK/SMS_SDK.h>
 #import "Vertify.h"
+#import "ShareSDK/ShareSDK.h"
+#import "WXApi.h"
