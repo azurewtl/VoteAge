@@ -10,7 +10,11 @@ import UIKit
 
 class UserDetailTableViewController: UITableViewController {
     
+    @IBOutlet weak var authorlocation: UILabel!
     @IBOutlet weak var authorImage: UIImageView!
+    
+    @IBOutlet weak var simpleintroduce: UILabel!
+    @IBOutlet weak var authorgender: UILabel!
     @IBOutlet weak var authorName: UILabel!
     @IBOutlet weak var authorID: UILabel!
     @IBOutlet weak var subscribeButton: UIButton!
@@ -18,9 +22,17 @@ class UserDetailTableViewController: UITableViewController {
     var buttonTitle = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
+        if voteFeed.count != 0 {
         subscribeButton.setTitle(buttonTitle, forState: UIControlState.Normal)
         self.tabBarController?.tabBar.hidden = true
-        
+        authorName.text = voteFeed["userName"] as NSString
+        var url = NSURL(string: voteFeed["userImage"] as NSString)
+        authorImage.sd_setImageWithURL(url)
+        authorID.text = voteFeed["userID"] as NSString
+        authorlocation.text = voteFeed["city"] as NSString
+        authorgender.text = voteFeed["gender"] as NSString
+        simpleintroduce.text = voteFeed["describe"] as NSString
+        }
 //        authorName.text = voteFeed["voteAuthor"] as NSString
 //        authorID.text = voteFeed["authorID"] as NSString
         // Uncomment the following line to preserve selection between presentations

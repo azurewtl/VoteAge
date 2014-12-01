@@ -145,15 +145,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as UITableViewCell?
         //        print(rowCount)
         var imageAnswerView = cell1?.contentView.viewWithTag(101) as UIImageView
-        
-        
         //      var index = tableView.indexPathForCell(supercell) as NSIndexPath?
         //      print(cell1?.frame)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(100, 100))
-            
+        
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.selectedImageview.image = resizeImg
             })

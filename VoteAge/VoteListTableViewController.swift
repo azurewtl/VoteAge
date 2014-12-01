@@ -104,7 +104,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             let cell = senderButton.superview?.superview as VoteTableViewCell
             let indexPath = tableView.indexPathForCell(cell)
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+//            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
             (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "关注"
         }
         

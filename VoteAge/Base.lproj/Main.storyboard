@@ -252,6 +252,9 @@
                         <outlet property="authorID" destination="f1v-T5-4eM" id="jTh-nK-cb2"/>
                         <outlet property="authorImage" destination="VDa-3E-Snd" id="TbS-ON-wqG"/>
                         <outlet property="authorName" destination="JDG-0g-vd2" id="apM-Sx-Fzz"/>
+                        <outlet property="authorgender" destination="O0t-Bl-bfy" id="wNY-wd-fet"/>
+                        <outlet property="authorlocation" destination="B0k-f1-ba1" id="YfL-3p-L4c"/>
+                        <outlet property="simpleintroduce" destination="MbM-OP-asH" id="eeA-y9-N6Q"/>
                         <outlet property="subscribeButton" destination="FY7-UP-Nrm" id="dDS-Nc-g74"/>
                     </connections>
                 </tableViewController>

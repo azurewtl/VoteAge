@@ -42,6 +42,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
             UIGraphicsEndImageContext();
             UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
+        
             var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
             var documentdirectory = paths.objectAtIndex(0) as NSString
             var picName = "screenShow.png"
