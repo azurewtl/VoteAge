@@ -35,10 +35,22 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     }
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 3 {
-            var publishContent = ShareSDK.content("adasd", defaultContent: "VoteAge", image: nil, title: "VoteAge", url: "http://www.sharesdk.cn", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            var viewimage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+            UIGraphicsEndImageContext();
+            UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
+            var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
+            var documentdirectory = paths.objectAtIndex(0) as NSString
+            var picName = "screenShow.png"
+            var savepath = documentdirectory.stringByAppendingPathComponent(picName)
+            imageviewdata.writeToFile(savepath, atomically: true)
+            var publishContent = ShareSDK.content("adasd", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.sharesdk.cn", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
             
             ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
-              
+                
                 if Int(state.value) == 2{
                     var alert = UIAlertView(title: "提示", message: "分享失败", delegate: nil, cancelButtonTitle: "确定")
                     alert.show()
