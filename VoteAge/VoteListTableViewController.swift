@@ -60,10 +60,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 })
             })
         }else{
-//            var str = "http://127.0.0.1:8000/API/votefeed/"
-//            AFnetworkingJS.netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
-//                print(result)
-//            })
+          
             var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
             var data1 = NSData(contentsOfFile: path1!)
             

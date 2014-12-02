@@ -14,3 +14,6 @@
 #import "Vertify.h"
 #import "ShareSDK/ShareSDK.h"
 #import "WXApi.h"
+#import "AFHTTPRequestOperationManager.h"
+#import "AFURLResponseSerialization.h"
+#import "AFHTTPRequestOperation.h"

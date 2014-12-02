@@ -11,4 +11,6 @@
 @interface AFnetworkingJS : NSObject
 -(void)getDataWithURL:(NSString *)urlStr resultBlock:(void(^)(id result))block;
 +(void)netWorkWithURL:(NSString *)urlStr resultBlock:(void(^)(id result))block;
+-(void)upJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void(^)(int result))block;
++(void)uploadJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void(^)(int result))block;
 @end

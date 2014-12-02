@@ -27,7 +27,7 @@
 
 #import <Availability.h>
 #import <Security/Security.h>
-
+#import "VoteAge-Swift.h"
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import <UIKit/UIKit.h>
 #endif
