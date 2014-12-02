@@ -63,7 +63,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             var picName = "screenShow.png"
             var savepath = documentdirectory.stringByAppendingPathComponent(picName)
             imageviewdata.writeToFile(savepath, atomically: true)
-            var publishContent = ShareSDK.content("adasd", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.sharesdk.cn", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
+            var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.baidu.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
             
             ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
                 

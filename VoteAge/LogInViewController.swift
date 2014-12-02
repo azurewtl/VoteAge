@@ -19,20 +19,26 @@ class LogInViewController: UIViewController{
                // Do any additional setup after loading the view.
         var str = "http://127.0.0.1:8000/API/votefeed/"
         AFnetworkingJS.netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
-            print(result)
+//            print(result)
         })
         
     }
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         userLogtext.resignFirstResponder()
         passWordText.resignFirstResponder()
-        var dic = ["title":"caocao", "author":"cao", "option":[], "user1":"image"] as NSDictionary
-        var af = AFnetworkingJS()
-        af.upJson(dic, url: "http://127.0.0.1:8000/API/votefeed/") { (result:Int32) -> Void in
-            print(result)
-        }
+        var dic1 = ["title":"caocao", "author":"caosbsx", "option":[]] as NSDictionary
+        //add:
+//        AFnetworkingJS.uploadJson(dic, url: "http://127.0.0.1:8000/API/votefeed/") { (result:Int32!) -> Void in
+//            print(result)
+//        }
     
-
+        //delete:
+//        AFnetworkingJS.removeJson("http://127.0.0.1:8000/API/votefeed/7/", resultBlock: { (result:Int32!) -> Void in
+//            print(result)
+//        })
+        AFnetworkingJS.updateJson("http:127.0.0.1:8000/API/votefeed/8/", dic: dic1) { (result:Int32!) -> Void in
+        print(result)
+        }
         
     }
     override func viewDidLayoutSubviews() {

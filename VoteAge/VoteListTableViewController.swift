@@ -9,14 +9,21 @@
 import UIKit
 import CoreData
 
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate{
 
+    @IBAction func optionButton(sender: UIBarButtonItem) {
+        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "生活", "情感", "娱乐")
+        sheet.showInView(self.view)
+    }
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+    }
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         
     }
     func noti(noti:NSNotification) {

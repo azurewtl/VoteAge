@@ -91,7 +91,11 @@
                         <sections/>
                     </tableView>
                     <navigationItem key="navigationItem" title="热点" id="tQt-TN-PWz">
-                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI"/>
+                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI">
+                            <connections>
+                                <action selector="optionButton:" destination="pGg-6v-bdr" id="X4n-SL-6tY"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
