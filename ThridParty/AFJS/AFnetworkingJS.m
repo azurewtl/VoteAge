@@ -26,6 +26,9 @@
     }];
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             [queue addOperation:operation];
+    
+
+    
 }
 +(void)netWorkWithURL:(NSString *)urlStr resultBlock:(void (^)(id))block{
     

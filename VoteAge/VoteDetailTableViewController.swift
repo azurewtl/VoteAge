@@ -7,12 +7,12 @@
 //
 
 import UIKit
-
+import CoreLocation
 protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate{
+class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate{
  
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
@@ -27,13 +27,28 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     var time = NSTimeInterval()
     var timer = NSTimer()
     let animationDuration = 0.15
-    
+    var locMgr = CLLocationManager()
     @IBAction func optionitem(sender: UIBarButtonItem) {
         
         var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位", "分享")
         selectSheet.showInView(self.view)
     }
+    func logMgr() -> CLLocationManager {
+            locMgr = CLLocationManager()
+            locMgr.delegate = self
+        if UIDevice.currentDevice().systemVersion >= "8.0" {
+            locMgr.requestWhenInUseAuthorization()
+        }
+        locMgr.startUpdatingLocation()
+        return locMgr
+    }
+   
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex == 2 {
+        locMgr.desiredAccuracy = kCLLocationAccuracyBest
+        locMgr.distanceFilter = 100.0
+        logMgr()
+        }
         if buttonIndex == 3 {
             UIGraphicsBeginImageContext(self.view.frame.size)
             self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
@@ -64,6 +79,14 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             })
         }
     }
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var loc = locations.last as CLLocation
+        var coord = loc.coordinate
+        print(coord.latitude)
+        print(coord.longitude)
+        locMgr.stopUpdatingLocation()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.hidden = true

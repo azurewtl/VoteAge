@@ -82,6 +82,7 @@
 		182E845A1A2C0F540048069C /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 182E84181A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.bundle */; };
 		182E845B1A2C0F540048069C /* ShareSDKiPhoneSimpleShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E84191A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.framework */; };
 		182E845C1A2C0F540048069C /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */; };
+		182E84611A2C6A100048069C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E84601A2C6A100048069C /* MapKit.framework */; };
 		184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */; };
 		184BB43D1A1C54BE006DF06C /* AFnetworkingJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4001A1C54BE006DF06C /* AFnetworkingJS.m */; };
 		184BB43E1A1C54BE006DF06C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4031A1C54BE006DF06C /* AFHTTPRequestOperation.m */; };
@@ -239,6 +240,7 @@
 		182E84181A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDKiPhoneSimpleShareViewUI.bundle; sourceTree = "<group>"; };
 		182E84191A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPhoneSimpleShareViewUI.framework; sourceTree = "<group>"; };
 		182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
+		182E84601A2C6A100048069C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoteAge-Bridging-Header.h"; sourceTree = "<group>"; };
 		184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		184BB3FF1A1C54BE006DF06C /* AFnetworkingJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFnetworkingJS.h; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 				182E84381A2C0F540048069C /* TwitterConnection.framework in Frameworks */,
 				182E84201A2C0F540048069C /* FlickrConnection.framework in Frameworks */,
 				182E84291A2C0F540048069C /* LinkedInConnection.framework in Frameworks */,
+				182E84611A2C6A100048069C /* MapKit.framework in Frameworks */,
 				182E842D1A2C0F540048069C /* PocketConnection.framework in Frameworks */,
 				182E841D1A2C0F540048069C /* DropboxConnection.framework in Frameworks */,
 				182E83BD1A2C0E9D0048069C /* CoreTelephony.framework in Frameworks */,
@@ -737,6 +740,7 @@
 		BB7208421A0B600100A97FCD = {
 			isa = PBXGroup;
 			children = (
+				182E84601A2C6A100048069C /* MapKit.framework */,
 				182E83C01A2C0EB80048069C /* Security.framework */,
 				182E83BE1A2C0EAC0048069C /* libz.1.2.5.dylib */,
 				182E83BC1A2C0E9D0048069C /* CoreTelephony.framework */,
@@ -871,6 +875,11 @@
 				TargetAttributes = {
 					BB72084A1A0B600100A97FCD = {
 						CreatedOnToolsVersion = 6.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 					BB7208641A0B600100A97FCD = {
 						CreatedOnToolsVersion = 6.1;

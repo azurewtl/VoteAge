@@ -46,7 +46,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         self.view.addSubview(activityIndicator)
         var ceshi:Int = 0
         if(ceshi == 1){
-            var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
+            var str = "http://127.0.0.1:8000/API/votefeed/"
             let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
             let group = dispatch_group_create()
             dispatch_group_async(group, queue, {
@@ -55,13 +55,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             dispatch_group_notify(group, queue, {
                 AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
                     var str = NSString()
-                   
                     self.voteArray = result?.objectForKey("entries") as NSMutableArray
                     self.activityIndicator.stopAnimating()
                 })
             })
         }else{
-            
+//            var str = "http://127.0.0.1:8000/API/votefeed/"
+//            AFnetworkingJS.netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
+//                print(result)
+//            })
             var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
             var data1 = NSData(contentsOfFile: path1!)
             
