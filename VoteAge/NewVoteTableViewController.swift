@@ -10,22 +10,21 @@ import UIKit
 
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     //notification
-    var selectedImageview = UIImageView()
-    var chooseArray = NSMutableArray()
-    var sendDic = NSMutableDictionary()
+    var selectedImageView = UIImageView()
+    var optionArray = NSMutableArray()
+    var voteFeedDictionary = NSMutableDictionary()
     //
     var edittextfield = false
     var taptextfield = UITextField()
-    var rowCount = 1
-    var recordArray = NSMutableArray()
-    var footViewArray = NSMutableArray()
-    var footAnswer = NSMutableArray()
+    var optionCellRowCount = 1
+    var titleTagArray = NSMutableArray()
+    var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
         
-        sendDic.setObject("12345678", forKey: "voteID")
-        sendDic.setObject("caiyang", forKey: "voteAuthorName")
-        sendDic.setObject("373789", forKey: "voteAuthorID")
-        sendDic.setObject(0, forKey: "hasVoted")
+        voteFeedDictionary.setObject("12345678", forKey: "voteID")
+        voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")
+        voteFeedDictionary.setObject("373789", forKey: "voteAuthorID")
+        voteFeedDictionary.setObject(0, forKey: "hasVoted")
     
         var titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         var titleimageview = titlecell?.contentView.viewWithTag(101) as UIImageView
@@ -33,7 +32,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var titleimageData = UIImageJPEGRepresentation(titleimageview.image, 0.75)
 //        print(titleimageData.length)
         }
-        for index in 0...rowCount - 1 {
+        for index in 0...optionCellRowCount - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
             var imageview = cell?.contentView.viewWithTag(101) as UIImageView
@@ -49,14 +48,14 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 var num2 = arc4random() % 10 + 1
                 dic.setObject(Int(num1), forKey: "menCount")
                 dic.setObject(Int(num2), forKey: "womenCount")
-                chooseArray.addObject(dic)
-                print(chooseArray.count)
+                optionArray.addObject(dic)
+                print(optionArray.count)
             }
         }
         
-        sendDic.setObject(chooseArray, forKey: "options")
-        if (sendDic["voteTitle"] != nil && sendDic["options"] as NSArray != []) {
-            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: sendDic)
+        voteFeedDictionary.setObject(optionArray, forKey: "options")
+        if (voteFeedDictionary["voteTitle"] != nil && voteFeedDictionary["options"] as NSArray != []) {
+            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: voteFeedDictionary)
             self.navigationController!.tabBarController?.selectedIndex = 0
         }
         
@@ -90,7 +89,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
     }
     func tap(sender:UITapGestureRecognizer) {
-        selectedImageview = sender.view as UIImageView
+        selectedImageView = sender.view as UIImageView
         var photoSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "拍照","相册", "清除")
         photoSheet.showInView(self.view)
     }
@@ -105,7 +104,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 getPhotoByType("album")
             }
             if btnTitle.hasPrefix("清除") {
-                selectedImageview.image = UIImage(named: "dummyImage")
+                selectedImageView.image = UIImage(named: "dummyImage")
             }
             
         }
@@ -153,7 +152,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(100, 100))
         
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                self.selectedImageview.image = resizeImg
+                self.selectedImageView.image = resizeImg
             })
         })
         
@@ -174,7 +173,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         case 0:
             return 1
         case 1:
-            return rowCount
+            return optionCellRowCount
             
         case 2:
             return 1
@@ -208,7 +207,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         
         countlabeL.text = (30 - str.length).description
-        sendDic.setObject(textView.text, forKey: "voteTitle")
+        voteFeedDictionary.setObject(textView.text, forKey: "voteTitle")
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         
@@ -229,11 +228,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
 //            (item as UIButton).enabled = true
 //        }
         edittextfield = false
-        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
+        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: optionCellRowCount-1, inSection: 1)) as UITableViewCell?
         let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
         if(lastTextField.text != ""){
-            if rowCount < 5 {
-                rowCount++
+            if optionCellRowCount < 5 {
+                optionCellRowCount++
             }
             var dic = NSMutableDictionary()
             dic.setObject(lastTextField.text, forKey: "title")
@@ -244,7 +243,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             
         }
         tableView.reloadData()
-        switch rowCount {
+        switch optionCellRowCount {
         case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
@@ -330,7 +329,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
             var width = (self.view.frame.width - 40) / 3
             //            footView.backgroundColor = UIColor.cyanColor()
-            for index in 0...footViewArray.count-1 {
+            for index in 0...titleTagArray.count-1 {
                 var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                 var x = CGFloat(10 * (colCount + 1)) + width * CGFloat(colCount)
                 btn.frame = CGRectMake(x, CGFloat(5 + 35 * rowCount), width, 30)
@@ -340,7 +339,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                     rowCount++
                 }
                 
-                btn.setTitle(footViewArray.objectAtIndex(index)["title"] as NSString, forState: UIControlState.Normal)
+                btn.setTitle(titleTagArray.objectAtIndex(index)["title"] as NSString, forState: UIControlState.Normal)
                 btn.tag = index + 1
                 btn.layer.masksToBounds = true
                 btn.layer.cornerRadius = btn.frame.height / 2
@@ -355,10 +354,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
 //            footView1.tag = 5000
             var rowCount = 0
             var colCount = 0
-            if footAnswer.count != 0{
+            if optionTagArray.count != 0{
                 footView1.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
                 var width = (self.view.frame.width - 40) / 3
-                for index in 0...footAnswer.count - 1 {
+                for index in 0...optionTagArray.count - 1 {
                     var btn = UIButton.buttonWithType(UIButtonType.System) as UIButton
                     var x = CGFloat(10 * (colCount + 1)) + width * CGFloat(colCount)
                     btn.frame = CGRectMake(x, CGFloat(5 + 35 * rowCount), width, 30)
@@ -367,7 +366,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                         colCount = 0
                         rowCount++
                     }
-                    btn.setTitle(footAnswer.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
+                    btn.setTitle(optionTagArray.objectAtIndex(index) as NSString, forState: UIControlState.Normal)
                     btn.tag = index + 10000
                     btn.layer.masksToBounds = true
                     btn.layer.cornerRadius = btn.frame.height / 2
@@ -382,70 +381,70 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
-            var height = footViewArray.count / 3 * 40
-            if(footViewArray.count % 3 != 0 && footViewArray.count / 3 < 1){
+            var height = titleTagArray.count / 3 * 40
+            if(titleTagArray.count % 3 != 0 && titleTagArray.count / 3 < 1){
                 return 40
-            }else if(footViewArray.count % 3 == 0 && footViewArray.count / 3 >= 1) {
+            }else if(titleTagArray.count % 3 == 0 && titleTagArray.count / 3 >= 1) {
                 return CGFloat(height)
-            }else if(footViewArray.count % 3 != 0 && footViewArray.count / 3 >= 1){
+            }else if(titleTagArray.count % 3 != 0 && titleTagArray.count / 3 >= 1){
                 return CGFloat(height + 40)
             }
             
         }
         if section == 1 {
-            var height = footAnswer.count / 3 * 40
-            if(footAnswer.count % 3 != 0 && footAnswer.count / 3 < 1){
+            var height = optionTagArray.count / 3 * 40
+            if(optionTagArray.count % 3 != 0 && optionTagArray.count / 3 < 1){
                 return 40
-            }else if(footAnswer.count % 3 == 0 && footAnswer.count / 3 >= 1) {
+            }else if(optionTagArray.count % 3 == 0 && optionTagArray.count / 3 >= 1) {
                 return CGFloat(height)
-            }else if(footAnswer.count % 3 != 0 && footAnswer.count / 3 >= 1){
+            }else if(optionTagArray.count % 3 != 0 && optionTagArray.count / 3 >= 1){
                 return CGFloat(height + 40)
             }
         }
         return 20
     }
-    func clearAnswer() {
-        chooseArray.removeAllObjects()
-        for index in 0...rowCount - 1 {
-            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
-            let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
-            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
-            lastTextField.text = ""
-            imageAnswerView.image = UIImage(named: "dummyImage")
-            tableView.reloadData()
-        }
-        rowCount = 1
-        
-    }
+//    func clearAnswer() {
+//        optionArray.removeAllObjects()
+//        for index in 0...optionCellRowCount - 1 {
+//            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
+//            let lastTextField = cell?.contentView.viewWithTag(102) as UITextField
+//            var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView
+//            lastTextField.text = ""
+//            imageAnswerView.image = UIImage(named: "dummyImage")
+//            tableView.reloadData()
+//        }
+//        optionCellRowCount = 1
+//        
+//    }
     func btn(btn:UIButton) {
-        clearAnswer()
+//        clearAnswer()
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         let textView = cell?.contentView.viewWithTag(102) as UITextView
         let label = cell?.contentView.viewWithTag(103) as  UILabel
         label.hidden = true
         textView.text = btn.currentTitle
-        sendDic.setObject(textView.text, forKey: "voteTitle")
+        voteFeedDictionary.setObject(textView.text, forKey: "voteTitle")
         var i = btn.tag - 1
-        footAnswer = footViewArray.objectAtIndex(i)["option"] as NSMutableArray
+        optionTagArray = titleTagArray.objectAtIndex(i)["option"] as NSMutableArray
         tableView.reloadData()
     }
     func btnAnswer(btn:UIButton) {
         if edittextfield == false {
-            let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: rowCount-1, inSection: 1)) as UITableViewCell?
+            let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: optionCellRowCount-1, inSection: 1)) as UITableViewCell?
             let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
-            lastTextField.text = footAnswer.objectAtIndex(btn.tag - 10000) as NSString
+            lastTextField.text = optionTagArray.objectAtIndex(btn.tag - 10000) as NSString
             
             //        if(lastTextField.text != ""){
-            if rowCount < 5 {
-                rowCount++
+            if optionCellRowCount < 5 {
+                optionCellRowCount++
             }
             //        }
             tableView.reloadData()
         }else {
-            taptextfield.text = taptextfield.text.stringByAppendingString(footAnswer.objectAtIndex(btn.tag - 10000) as NSString)
+            taptextfield.text = taptextfield.text.stringByAppendingString(optionTagArray.objectAtIndex(btn.tag - 10000) as NSString)
         }
        
-        switch rowCount {
+        switch optionCellRowCount {
         case 2:
             let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 1))
             var imageAnswerView = cell?.contentView.viewWithTag(101) as UIImageView

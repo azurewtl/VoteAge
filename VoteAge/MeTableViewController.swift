@@ -130,7 +130,7 @@ class MeTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "newvote" {
-            (segue.destinationViewController as NewVoteTableViewController).footViewArray = addVoteArray
+            (segue.destinationViewController as NewVoteTableViewController).titleTagArray = addVoteArray
         }
         
     }

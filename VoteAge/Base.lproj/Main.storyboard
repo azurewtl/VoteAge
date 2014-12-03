@@ -1018,22 +1018,13 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="H4J-3P-VPe">
-                                            <rect key="frame" x="0.0" y="33" width="320" height="162"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="162" id="VNE-FC-gTA"/>
-                                            </constraints>
-                                            <date key="date" timeIntervalSinceReferenceDate="438149189.30494398">
-                                                <!--2014-11-20 04:06:29 +0000-->
-                                            </date>
-                                        </datePicker>
+                                        <pickerView tag="101" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yjR-7G-r41">
+                                            <rect key="frame" x="0.0" y="32" width="320" height="162"/>
+                                        </pickerView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="H4J-3P-VPe" firstAttribute="top" secondItem="1Lq-io-ydh" secondAttribute="bottom" id="TOH-t1-5Wo"/>
                                         <constraint firstItem="1Lq-io-ydh" firstAttribute="top" secondItem="aOp-Vh-0pi" secondAttribute="topMargin" id="Yga-qN-91A"/>
                                         <constraint firstAttribute="centerX" secondItem="1Lq-io-ydh" secondAttribute="centerX" id="bw0-wc-qyu"/>
-                                        <constraint firstItem="H4J-3P-VPe" firstAttribute="leading" secondItem="aOp-Vh-0pi" secondAttribute="leadingMargin" constant="-8" id="ugF-Tc-Fcv"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="H4J-3P-VPe" secondAttribute="trailing" constant="-8" id="vNc-Ww-j1J"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
