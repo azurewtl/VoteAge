@@ -84,7 +84,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         var coord = loc.coordinate
         print(coord.latitude)
         print(coord.longitude)
-        locMgr.stopUpdatingLocation()
+        manager.stopUpdatingLocation()
     }
     
     override func viewDidLoad() {

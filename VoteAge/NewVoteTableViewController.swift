@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
     //notification
+    var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
     var voteFeedDictionary = NSMutableDictionary()
@@ -20,7 +21,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
-        
+    
         voteFeedDictionary.setObject("12345678", forKey: "voteID")
         voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")
         voteFeedDictionary.setObject("373789", forKey: "voteAuthorID")
@@ -49,7 +50,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 dic.setObject(Int(num1), forKey: "menCount")
                 dic.setObject(Int(num2), forKey: "womenCount")
                 optionArray.addObject(dic)
-                print(optionArray.count)
+//                print(optionArray.count)
             }
         }
         
@@ -62,9 +63,21 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         
     }
+    //pickerView
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1;
+    }
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerArray.count;
+    }
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
+        return (pickerArray.objectAtIndex(row) as NSString)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        pickerArray = ["1天", "3天", "5天", "10天", "15天", "30天", "60天", "90天"]
+       
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
@@ -74,6 +87,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        let pickercell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+        var pickerView = pickercell?.contentView.viewWithTag(101) as UIPickerView
+        print(pickerView.frame)
+        pickerView.delegate = self
+        pickerView.dataSource = self
         self.tabBarController?.tabBar.hidden = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         var imageAskView = cell?.contentView.viewWithTag(101) as UIImageView
