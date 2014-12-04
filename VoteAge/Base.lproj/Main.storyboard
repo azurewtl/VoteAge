@@ -451,6 +451,55 @@
                                     <outlet property="optionTitle" destination="SlD-EI-4Ug" id="6cs-Ru-j7M"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="toolBarCell" rowHeight="45" id="Ayq-Vh-jru" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ayq-Vh-jru" id="pke-9n-fXY">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gea-YI-YpP">
+                                            <rect key="frame" x="8" y="0.0" width="304" height="44"/>
+                                            <state key="normal" title="评论">
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottomMargin" secondItem="Gea-YI-YpP" secondAttribute="bottom" constant="-8" id="0FQ-2k-Icr"/>
+                                        <constraint firstItem="Gea-YI-YpP" firstAttribute="leading" secondItem="pke-9n-fXY" secondAttribute="leadingMargin" id="5pq-ON-Pbo"/>
+                                        <constraint firstItem="Gea-YI-YpP" firstAttribute="trailing" secondItem="pke-9n-fXY" secondAttribute="trailingMargin" id="Xw4-fq-iHr"/>
+                                        <constraint firstItem="Gea-YI-YpP" firstAttribute="top" secondItem="pke-9n-fXY" secondAttribute="topMargin" constant="-8" id="fQK-Ww-TZs"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="118" id="mGx-Jv-Cnh" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mGx-Jv-Cnh" id="KTO-ae-eVE">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-nD-xPc">
+                                            <rect key="frame" x="8" y="8" width="100" height="30"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="190-LK-0ZD"/>
+                                                <constraint firstAttribute="width" constant="100" id="cvP-79-45T"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                            <state key="normal" title="Button"/>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VJ-kk-Ip3">
+                                            <rect key="frame" x="8" y="46" width="304" height="64"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="top" secondItem="KTO-ae-eVE" secondAttribute="topMargin" id="BfJ-ob-yM4"/>
+                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="leading" secondItem="KTO-ae-eVE" secondAttribute="leadingMargin" id="tZP-5r-6oF"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <sections/>
                         <connections>
@@ -482,7 +531,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1509" y="55"/>
+            <point key="canvasLocation" x="1509" y="48"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -1445,8 +1494,12 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nL9-hm-9Pb">
-                                                    <rect key="frame" x="248" y="13" width="64" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" enabled="NO" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nL9-hm-9Pb">
+                                                    <rect key="frame" x="248" y="11" width="64" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="64" id="JAO-ZP-hV8"/>
+                                                        <constraint firstAttribute="height" constant="21" id="mYd-0P-ODf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
@@ -1454,8 +1507,10 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="MOr-1X-j8M" secondAttribute="bottom" constant="-8" id="J5p-0K-c16"/>
+                                                <constraint firstItem="nL9-hm-9Pb" firstAttribute="trailing" secondItem="1xv-43-9tL" secondAttribute="trailingMargin" id="NUo-fQ-gfU"/>
                                                 <constraint firstItem="MOr-1X-j8M" firstAttribute="top" secondItem="1xv-43-9tL" secondAttribute="topMargin" constant="-8" id="RBh-kv-zFy"/>
                                                 <constraint firstAttribute="centerX" secondItem="MOr-1X-j8M" secondAttribute="centerX" id="qCn-SG-xbw"/>
+                                                <constraint firstAttribute="centerY" secondItem="nL9-hm-9Pb" secondAttribute="centerY" id="t04-Vx-iLn"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>

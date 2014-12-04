@@ -21,11 +21,11 @@ class OptionTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        optionProgress.progress = 0
-        optionDetail.text = ""
+        optionProgress?.progress = 0
+        optionDetail?.text = ""
         var tap = UITapGestureRecognizer(target: self, action: "tap")
-        optionImage.userInteractionEnabled = true
-        optionImage.addGestureRecognizer(tap)
+        optionImage?.userInteractionEnabled = true
+        optionImage?.addGestureRecognizer(tap)
 //       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
     }
     func tap() {

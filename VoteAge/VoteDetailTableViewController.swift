@@ -107,7 +107,6 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     }
     
 
-
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -205,14 +204,27 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     // MARK: - Table View
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 0:
         return self.optionArray.count
+        case 1:
+        return 1
+        case 2:
+        return 1
+        default:
+        return 0
+        }
+      
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section == 2 {
+            return 100
+        }
         return 55
     }
     func setSelect(number: Int) {
@@ -231,23 +243,31 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         }
     }
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
-        var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
-        cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
-       cell.delegate = self
-        cell.imagenumber = indexPath.row
-    
+        if indexPath.section == 0 {
+           let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
+            var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
+            cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
+            cell.delegate = self
+            cell.imagenumber = indexPath.row
+            return cell
+        }else if indexPath.section == 1 {
+           let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
+            return cell
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         return cell
+        
     }
-    
-    
+
     // MARK: - Table VIew Selection
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section == 0 {
         self.delegate?.setVoted(1)
         self.voteTotalperson()
         waiveButton.hidden = true
         voteSegment.selectedSegmentIndex = 1;
+        }
     }
     
     // MARK: - Segment Control
