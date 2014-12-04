@@ -144,8 +144,6 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
        exitView.hidden = true
        exitTextfield.resignFirstResponder()
        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
-       var textf = cell?.contentView.viewWithTag(102) as UITextField
-       textf.resignFirstResponder()
        commnetCountArray .addObject(exitTextfield.text)
        tableView.reloadData()
        let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: commnetCountArray.count - 1, inSection: 2))
@@ -296,8 +294,8 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             return cell
         }else if indexPath.section == 1 {
            let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
-            var textfield = cell.contentView.viewWithTag(102) as UITextField
-            textfield.delegate = self
+            var commentbtn = cell.contentView.viewWithTag(101) as UIButton
+            commentbtn.addTarget(self, action: "Comment", forControlEvents: UIControlEvents.TouchUpInside)
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
@@ -305,6 +303,9 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
        
         return cell
         
+    }
+    func Comment() {
+        exitTextfield.becomeFirstResponder()
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
