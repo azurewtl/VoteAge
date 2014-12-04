@@ -287,7 +287,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1989" y="56"/>
+            <point key="canvasLocation" x="1982" y="46"/>
         </scene>
         <!--Vote Detail Table View Controller-->
         <scene sceneID="svg-bJ-LXD">
@@ -463,6 +463,11 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <textField opaque="NO" clipsSubviews="YES" alpha="0.44999999999999962" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YP3-kU-rFv">
+                                            <rect key="frame" x="18" y="8" width="294" height="30"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <textInputTraits key="textInputTraits"/>
+                                        </textField>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="bottomMargin" secondItem="Gea-YI-YpP" secondAttribute="bottom" constant="-8" id="0FQ-2k-Icr"/>
@@ -472,31 +477,39 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="118" id="mGx-Jv-Cnh" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="mGx-Jv-Cnh" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mGx-Jv-Cnh" id="KTO-ae-eVE">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-nD-xPc">
-                                            <rect key="frame" x="8" y="8" width="100" height="30"/>
+                                        <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-nD-xPc">
+                                            <rect key="frame" x="8" y="8" width="69" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="190-LK-0ZD"/>
-                                                <constraint firstAttribute="width" constant="100" id="cvP-79-45T"/>
+                                                <constraint firstAttribute="height" constant="30" id="XLZ-vc-8Bu"/>
+                                                <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="50" id="yXW-ML-AsY"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                            <state key="normal" title="Button"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                            <state key="normal" title="userName">
+                                                <color key="titleColor" red="0.35634732904401434" green="0.26562488488684821" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VJ-kk-Ip3">
-                                            <rect key="frame" x="8" y="46" width="304" height="64"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VJ-kk-Ip3">
+                                            <rect key="frame" x="8" y="38" width="304" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" relation="greaterThanOrEqual" priority="750" constant="21" id="kb9-x1-dYS"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="top" secondItem="KTO-ae-eVE" secondAttribute="topMargin" id="BfJ-ob-yM4"/>
-                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="leading" secondItem="KTO-ae-eVE" secondAttribute="leadingMargin" id="tZP-5r-6oF"/>
+                                        <constraint firstItem="3VJ-kk-Ip3" firstAttribute="top" secondItem="7BT-nD-xPc" secondAttribute="bottom" id="HEq-3j-XFN"/>
+                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="top" secondItem="KTO-ae-eVE" secondAttribute="topMargin" id="JzR-b2-Hv0"/>
+                                        <constraint firstItem="7BT-nD-xPc" firstAttribute="leading" secondItem="KTO-ae-eVE" secondAttribute="leadingMargin" id="Y4d-Gd-SaP"/>
+                                        <constraint firstItem="3VJ-kk-Ip3" firstAttribute="trailing" secondItem="KTO-ae-eVE" secondAttribute="trailingMargin" id="Zyz-yZ-DWc"/>
+                                        <constraint firstItem="3VJ-kk-Ip3" firstAttribute="leading" secondItem="KTO-ae-eVE" secondAttribute="leadingMargin" id="dcG-nA-HiN"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -531,7 +544,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1509" y="48"/>
+            <point key="canvasLocation" x="1509" y="41"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">

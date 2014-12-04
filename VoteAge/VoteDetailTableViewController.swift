@@ -12,8 +12,13 @@ protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate{
- 
+class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, UITextFieldDelegate{
+ //MARK: - Keyboard
+    var exitButton = UIButton()
+    var exitView = UIView()
+    var exitTextfield = UITextField()
+    var commnetCountArray = NSMutableArray()
+    
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
@@ -89,9 +94,24 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+          NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
         self.tabBarController?.tabBar.hidden = true
-      
-    
+        exitView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
+        exitView.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, 70)
+        self.view.addSubview(exitView)
+        exitButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        exitTextfield.frame = CGRectMake(0, 0, 0.75 * exitView.frame.width, 70)
+        exitTextfield.placeholder = "说点什么吧"
+        exitTextfield.delegate = self
+        exitTextfield.layer.borderWidth = 0.5
+        exitTextfield.layer.borderColor = UIColor.whiteColor().CGColor
+        exitView.addSubview(exitTextfield)
+        exitButton.frame = CGRectMake(exitTextfield.frame.width, 0, 0.25 * exitView.frame.width,
+            70)
+        exitButton.setTitle("发表", forState: UIControlState.Normal)
+        exitButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
+        exitView.addSubview(exitButton)
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         if(voteDetail!["hasVoted"] as Int == 0){
@@ -105,16 +125,40 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         }
         
     }
-    
-
+   
+    func handleKeyboardDidShow(notification:NSNotification) {
+        var dic = notification.userInfo as NSDictionary!
+        var kbsize = dic.objectForKey(UIKeyboardFrameEndUserInfoKey)!.CGRectValue().size
+        var animationValue = dic.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as NSValue
+        var duration = NSTimeInterval()
+        animationValue.getValue(&duration)
+        UIView.beginAnimations("animal", context: nil)
+        UIView.setAnimationDuration(duration)
+        adjustHeight(kbsize.height)
+        UIView.commitAnimations()
+        exitView.hidden = false
+        
+    }
+   
+    func sendInform() {
+       exitView.hidden = true
+       exitTextfield.resignFirstResponder()
+       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
+       var textf = cell?.contentView.viewWithTag(102) as UITextField
+       textf.resignFirstResponder()
+       commnetCountArray .addObject(exitTextfield.text)
+       tableView.reloadData()
+       let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: commnetCountArray.count - 1, inSection: 2))
+       var commentlabel = cell1?.contentView.viewWithTag(102) as UILabel
+       commentlabel.text =  exitTextfield.text
+      
+        exitTextfield.text = ""
+     }
+    func adjustHeight(height:CGFloat) {
+        exitView.frame = CGRectMake(0, self.view.frame.height - height + 35, self.view.frame.width, 70)
+    }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
-    }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-       
-        
-        
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -214,16 +258,16 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         case 1:
         return 1
         case 2:
-        return 1
+        return commnetCountArray.count
         default:
         return 0
         }
       
     }
-    
+//    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 2 {
-            return 100
+            return 120
         }
         return 55
     }
@@ -252,13 +296,21 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             return cell
         }else if indexPath.section == 1 {
            let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
+            var textfield = cell.contentView.viewWithTag(102) as UITextField
+            textfield.delegate = self
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
+        var label = cell.contentView.viewWithTag(102) as UILabel
+       
         return cell
         
     }
-
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        exitView.hidden = true
+        return true
+    }
     // MARK: - Table VIew Selection
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
