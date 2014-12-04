@@ -12,11 +12,11 @@ protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, UITextFieldDelegate{
+class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate{
  //MARK: - Keyboard
     var exitButton = UIButton()
     var exitView = UIView()
-    var exitTextfield = UITextField()
+    var exitTextfield = UITextView()
     var commnetCountArray = NSMutableArray()
     
     @IBOutlet weak var voteImage: UIImageView!
@@ -101,10 +101,10 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         self.view.addSubview(exitView)
         exitButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         exitTextfield.frame = CGRectMake(0, 0, 0.75 * exitView.frame.width, 70)
-        exitTextfield.placeholder = "说点什么吧"
         exitTextfield.delegate = self
         exitTextfield.layer.borderWidth = 0.5
         exitTextfield.layer.borderColor = UIColor.whiteColor().CGColor
+        exitTextfield.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
         exitView.addSubview(exitTextfield)
         exitButton.frame = CGRectMake(exitTextfield.frame.width, 0, 0.25 * exitView.frame.width,
             70)
@@ -139,21 +139,21 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         exitView.hidden = false
         
     }
-   
+   //MARK: - 发送评论
     func sendInform() {
        exitView.hidden = true
        exitTextfield.resignFirstResponder()
-       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
-       commnetCountArray .addObject(exitTextfield.text)
+       commnetCountArray.addObject(exitTextfield.text)
        tableView.reloadData()
-       let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: commnetCountArray.count - 1, inSection: 2))
-       var commentlabel = cell1?.contentView.viewWithTag(102) as UILabel
-       commentlabel.text =  exitTextfield.text
-      
+//       let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: commnetCountArray.count - 1, inSection: 2)) as UITableViewCell?
+//       var commentlabel = cell1?.contentView.viewWithTag(102) as UILabel
+//       commentlabel.text =  exitTextfield.text
         exitTextfield.text = ""
+        tableView.scrollEnabled = true
      }
     func adjustHeight(height:CGFloat) {
-        exitView.frame = CGRectMake(0, self.view.frame.height - height + 35, self.view.frame.width, 70)
+  
+        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70 + tableView.contentOffset.y, self.view.frame.width, 70)
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -300,18 +300,16 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var label = cell.contentView.viewWithTag(102) as UILabel
-       
+//        print(indexPath.row)
+        label.text = commnetCountArray.objectAtIndex(indexPath.row) as NSString
         return cell
         
     }
     func Comment() {
         exitTextfield.becomeFirstResponder()
+        tableView.scrollEnabled = false
     }
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        exitView.hidden = true
-        return true
-    }
+    
     // MARK: - Table VIew Selection
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
