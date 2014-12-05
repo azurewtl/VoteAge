@@ -14,12 +14,20 @@ protocol VoteDetailDelegate{
 
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
  //MARK: - Keyboard
+    
     var showKeyboardtop = true
     var exitButton = UIButton()
     var exitView = UIView()
     var exitTextfield = UITextView()
     var commnetCountArray = NSMutableArray()
     var lengthArray = NSMutableArray()
+    var delegate = VoteDetailDelegate?()
+    var menCount = CGFloat()
+    var womenCount = CGFloat()
+    var optionArray = NSMutableArray()
+    var time = NSTimeInterval()
+    var timer = NSTimer()
+       var locationManager = CLLocationManager()
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
@@ -27,66 +35,82 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
-    var delegate = VoteDetailDelegate?()
-    var menCount = CGFloat()
-    var womenCount = CGFloat()
-    var optionArray = NSMutableArray()
-    var time = NSTimeInterval()
-    var timer = NSTimer()
-    let animationDuration = 0.15
-    var locMgr = CLLocationManager()
+
     @IBAction func optionitem(sender: UIBarButtonItem) {
         
-        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位", "分享")
+        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位")
         selectSheet.showInView(self.view)
     }
-    func logMgr() -> CLLocationManager {
-            locMgr = CLLocationManager()
-            locMgr.delegate = self
-        if UIDevice.currentDevice().systemVersion >= "8.0" {
-            locMgr.requestWhenInUseAuthorization()
-        }
-        locMgr.startUpdatingLocation()
-        return locMgr
+    // MARK: - 分享评论按钮
+    @IBAction func shareOnClick(sender: UIBarButtonItem) {
+        showKeyboardtop = false
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        var viewimage = UIGraphicsGetImageFromCurrentImageContext()
         
+        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+        UIGraphicsEndImageContext();
+        UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
+        
+        var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
+        var documentdirectory = paths.objectAtIndex(0) as NSString
+        var picName = "screenShow.png"
+        var savepath = documentdirectory.stringByAppendingPathComponent(picName)
+        imageviewdata.writeToFile(savepath, atomically: true)
+        var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.baidu.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
+        
+        ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
+            
+            if Int(state.value) == 2{
+                var alert = UIAlertView(title: "提示", message: "分享失败", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
+                self.view.addSubview(alert)
+            }else if Int(state.value) == 1 {
+                var alert = UIAlertView(title: "提示", message: "分享成功", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
+                self.view.addSubview(alert)
+            }
+        })
     }
-   
-    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        if buttonIndex == 2 {
-        locMgr.desiredAccuracy = kCLLocationAccuracyBest
-        locMgr.distanceFilter = 100.0
-        logMgr()
-        }
-        if buttonIndex == 3 {
-            showKeyboardtop = false
-            UIGraphicsBeginImageContext(self.view.frame.size)
-            self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-            var viewimage = UIGraphicsGetImageFromCurrentImageContext()
+    
+    @IBAction func commentOnClick(sender: UIBarButtonItem) {
+        showKeyboardtop = true
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
+        exitTextfield.becomeFirstResponder()
+        if lengthArray.count >= 1 {
+            var cellheight = lengthArray.objectAtIndex(0) as CGFloat
+            var totalheight = cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height + cellheight + 25
+            if totalheight < cell?.frame.origin.y {
+                tableView.contentOffset.y = totalheight
+            }else {
+                tableView.contentOffset.y = cell!.frame.origin.y - 64
+            }
             
-            var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
-            UIGraphicsEndImageContext();
-            UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
+        }else {
+            tableView.contentOffset.y =  cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height
+        }
         
-            var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
-            var documentdirectory = paths.objectAtIndex(0) as NSString
-            var picName = "screenShow.png"
-            var savepath = documentdirectory.stringByAppendingPathComponent(picName)
-            imageviewdata.writeToFile(savepath, atomically: true)
-            var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.baidu.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
-            
-            ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
-                
-                if Int(state.value) == 2{
-                    var alert = UIAlertView(title: "提示", message: "分享失败", delegate: nil, cancelButtonTitle: "确定")
-                    alert.show()
-                    self.view.addSubview(alert)
-                }else if Int(state.value) == 1 {
-                    var alert = UIAlertView(title: "提示", message: "分享成功", delegate: nil, cancelButtonTitle: "确定")
-                    alert.show()
-                    self.view.addSubview(alert)
-                }
-            })
+        tableView.scrollEnabled = false
+    }
+    func updateLocation(locationManager: CLLocationManager) {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 100.0
+        locationManager.delegate = self
+        if UIDevice.currentDevice().systemVersion >= "8.0" {
+            locationManager.requestWhenInUseAuthorization()
         }
+        locationManager.startUpdatingLocation()
+    }
+    
+    
+    
+    
+    
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex == 2 { // GPS Location
+            updateLocation(locationManager)
+        }
+      
     }
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
@@ -95,7 +119,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         print(coord.longitude)
         manager.stopUpdatingLocation()
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
           NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
@@ -308,8 +332,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }else if indexPath.section == 1 {
            let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
-            var commentbtn = cell.contentView.viewWithTag(101) as UIButton
-            commentbtn.addTarget(self, action: "commentOnClick", forControlEvents: UIControlEvents.TouchUpInside)
+            var toolBar = cell.contentView.viewWithTag(101) as UIToolbar
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
@@ -320,36 +343,18 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         return cell
         
     }
-   // MARK: - 评论按钮
-    func commentOnClick() {
-        showKeyboardtop = true
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
-        exitTextfield.becomeFirstResponder()
-        if lengthArray.count >= 1 {
-            var cellheight = lengthArray.objectAtIndex(0) as CGFloat
-            var totalheight = cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height + cellheight + 25
-            if totalheight < cell?.frame.origin.y {
-              tableView.contentOffset.y = totalheight
-            }else {
-                tableView.contentOffset.y = cell!.frame.origin.y - 64
-            }
-            
-        }else {
-            tableView.contentOffset.y =  cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height
-        }
-        
-           tableView.scrollEnabled = false
-    }
 
     // MARK: - Table VIew Selection
 
      func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         if indexPath.section == 0 {
         self.delegate?.setVoted(1)
         self.voteTotalperson()
         waiveButton.hidden = true
         voteSegment.selectedSegmentIndex = 1;
         }
+        
     }
     
     // MARK: - Segment Control
