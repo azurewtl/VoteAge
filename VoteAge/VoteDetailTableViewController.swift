@@ -18,7 +18,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     var exitView = UIView()
     var exitTextfield = UITextView()
     var commnetCountArray = NSMutableArray()
-    
+    var lengthArray = NSMutableArray()
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
@@ -46,6 +46,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         }
         locMgr.startUpdatingLocation()
         return locMgr
+        
     }
    
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
@@ -102,6 +103,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         exitButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
         exitTextfield.frame = CGRectMake(0, 0, 0.75 * exitView.frame.width, 70)
         exitTextfield.delegate = self
+        exitTextfield.font = UIFont.boldSystemFontOfSize(15)
         exitTextfield.layer.borderWidth = 0.5
         exitTextfield.layer.borderColor = UIColor.whiteColor().CGColor
         exitTextfield.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
@@ -123,7 +125,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             self.voteTotalperson()
             waiveButton.hidden = true
         }
-        
+
     }
    
     func handleKeyboardDidShow(notification:NSNotification) {
@@ -137,23 +139,29 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         adjustHeight(kbsize.height)
         UIView.commitAnimations()
         exitView.hidden = false
-        
+      
     }
    //MARK: - 发送评论
     func sendInform() {
        exitView.hidden = true
        exitTextfield.resignFirstResponder()
        commnetCountArray.addObject(exitTextfield.text)
-       tableView.reloadData()
-//       let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: commnetCountArray.count - 1, inSection: 2)) as UITableViewCell?
-//       var commentlabel = cell1?.contentView.viewWithTag(102) as UILabel
-//       commentlabel.text =  exitTextfield.text
+//        var size = exitTextfield.text
+        var label1 = UILabel()
+        label1.numberOfLines = 0
+        label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
+        label1.text = exitTextfield.text
+        label1.sizeToFit()
+        lengthArray.addObject(label1.frame.height + 40)
+        tableView.reloadData()
         exitTextfield.text = ""
         tableView.scrollEnabled = true
+        
      }
+    
     func adjustHeight(height:CGFloat) {
   
-        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70 + tableView.contentOffset.y, self.view.frame.width, 70)
+        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70 + 140, self.view.frame.width, 70)
     }
     override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
@@ -265,7 +273,10 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
 //    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 2 {
-            return 120
+//            var label = cell?.viewWithTag(102) as? UILabel
+//            print(label?.frame.height)
+//            return lengthArray.objectAtIndex(indexPath.row) as CGFloat
+            return lengthArray.objectAtIndex(indexPath.row) as CGFloat
         }
         return 55
     }
@@ -295,23 +306,26 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         }else if indexPath.section == 1 {
            let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
             var commentbtn = cell.contentView.viewWithTag(101) as UIButton
-            commentbtn.addTarget(self, action: "Comment", forControlEvents: UIControlEvents.TouchUpInside)
+            commentbtn.addTarget(self, action: "commentOnClick", forControlEvents: UIControlEvents.TouchUpInside)
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var label = cell.contentView.viewWithTag(102) as UILabel
 //        print(indexPath.row)
-        label.text = commnetCountArray.objectAtIndex(indexPath.row) as NSString
+   
+       label.text = commnetCountArray.objectAtIndex(indexPath.row) as NSString
         return cell
         
     }
-    func Comment() {
-        exitTextfield.becomeFirstResponder()
+   // MARK: - 评论按钮
+    func commentOnClick() {
+       exitTextfield.becomeFirstResponder()
         tableView.scrollEnabled = false
+        print(exitView.frame.origin.y)
     }
-    
+
     // MARK: - Table VIew Selection
-    
+
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
         self.delegate?.setVoted(1)

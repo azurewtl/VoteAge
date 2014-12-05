@@ -472,10 +472,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="mGx-Jv-Cnh" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="mGx-Jv-Cnh" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="mGx-Jv-Cnh" id="KTO-ae-eVE">
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" tableViewCell="mGx-Jv-Cnh" id="KTO-ae-eVE">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7BT-nD-xPc">
@@ -1687,7 +1687,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="diD-ek-DxV"/>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>
