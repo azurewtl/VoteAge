@@ -100,8 +100,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let vote = voteArray[indexPath.row] as NSMutableDictionary
-                (segue.destinationViewController as VoteDetailTableViewController).voteDetail = vote
-                (segue.destinationViewController as VoteDetailTableViewController).delegate = self
+                (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
+                (segue.destinationViewController as VoteDetailViewController).delegate = self
             }
         }
         

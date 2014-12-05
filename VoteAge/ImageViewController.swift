@@ -9,13 +9,15 @@
 import UIKit
 
 class ImageViewController: UIViewController, UIScrollViewDelegate {
+    
+    var scrollView = UIScrollView()
+    var photoView = UIImageView()
 
     @IBAction func backTapGesture(sender: UITapGestureRecognizer) {
         dismissViewControllerAnimated(true, completion: { () -> Void in
         })
     }
-    var scrollView = UIScrollView()
-    var photoView = UIImageView()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.frame = self.view.bounds

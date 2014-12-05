@@ -12,13 +12,15 @@ protocol VoteDetailDelegate{
     func setVoted(status:Int)
 }
 
-class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate{
+class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
  //MARK: - Keyboard
+    var showKeyboardtop = true
     var exitButton = UIButton()
     var exitView = UIView()
     var exitTextfield = UITextView()
     var commnetCountArray = NSMutableArray()
     var lengthArray = NSMutableArray()
+    @IBOutlet var tableView: UITableView!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
@@ -56,6 +58,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         logMgr()
         }
         if buttonIndex == 3 {
+            showKeyboardtop = false
             UIGraphicsBeginImageContext(self.view.frame.size)
             self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
             var viewimage = UIGraphicsGetImageFromCurrentImageContext()
@@ -130,6 +133,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
    
     func handleKeyboardDidShow(notification:NSNotification) {
         var dic = notification.userInfo as NSDictionary!
+        if showKeyboardtop == true {
         var kbsize = dic.objectForKey(UIKeyboardFrameEndUserInfoKey)!.CGRectValue().size
         var animationValue = dic.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as NSValue
         var duration = NSTimeInterval()
@@ -139,31 +143,31 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         adjustHeight(kbsize.height)
         UIView.commitAnimations()
         exitView.hidden = false
+        }
       
     }
    //MARK: - 发送评论
     func sendInform() {
        exitView.hidden = true
        exitTextfield.resignFirstResponder()
-       commnetCountArray.addObject(exitTextfield.text)
-//        var size = exitTextfield.text
+        commnetCountArray.insertObject(exitTextfield.text, atIndex: 0)
         var label1 = UILabel()
         label1.numberOfLines = 0
         label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
         label1.text = exitTextfield.text
         label1.sizeToFit()
-        lengthArray.addObject(label1.frame.height + 40)
+        lengthArray.insertObject(label1.frame.height + 40, atIndex: 0)
         tableView.reloadData()
         exitTextfield.text = ""
         tableView.scrollEnabled = true
-        
+      
      }
     
     func adjustHeight(height:CGFloat) {
   
-        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70 + 140, self.view.frame.width, 70)
+        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70, self.view.frame.width, 70)
     }
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
     override func didReceiveMemoryWarning() {
@@ -253,11 +257,10 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
     
     // MARK: - Table View
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
         return self.optionArray.count
@@ -271,7 +274,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
       
     }
 //    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section == 2 {
 //            var label = cell?.viewWithTag(102) as? UILabel
 //            print(label?.frame.height)
@@ -295,7 +298,7 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
             (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
         }
     }
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
            let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
             var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
@@ -312,21 +315,35 @@ class VoteDetailTableViewController: UITableViewController, ImagesendDelegate, U
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var label = cell.contentView.viewWithTag(102) as UILabel
 //        print(indexPath.row)
-   
+       
        label.text = commnetCountArray.objectAtIndex(indexPath.row) as NSString
         return cell
         
     }
    // MARK: - 评论按钮
     func commentOnClick() {
-       exitTextfield.becomeFirstResponder()
-        tableView.scrollEnabled = false
-        print(exitView.frame.origin.y)
+        showKeyboardtop = true
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
+        exitTextfield.becomeFirstResponder()
+        if lengthArray.count >= 1 {
+            var cellheight = lengthArray.objectAtIndex(0) as CGFloat
+            var totalheight = cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height + cellheight + 25
+            if totalheight < cell?.frame.origin.y {
+              tableView.contentOffset.y = totalheight
+            }else {
+                tableView.contentOffset.y = cell!.frame.origin.y - 64
+            }
+            
+        }else {
+            tableView.contentOffset.y =  cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height
+        }
+        
+           tableView.scrollEnabled = false
     }
 
     // MARK: - Table VIew Selection
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
         self.delegate?.setVoted(1)
         self.voteTotalperson()
