@@ -14,7 +14,7 @@ protocol VoteDetailDelegate{
 
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
  //MARK: - Keyboard
-    
+    var keyBoardShouldBack = false
     var showKeyboardtop = true
     var exitButton = UIButton()
     var exitView = UIView()
@@ -74,6 +74,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func commentOnClick(sender: UIBarButtonItem) {
+        keyBoardShouldBack = true
         showKeyboardtop = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
         exitTextfield.becomeFirstResponder()
@@ -90,8 +91,18 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             tableView.contentOffset.y =  cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height
         }
         
-        tableView.scrollEnabled = false
+        
     }
+    
+    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if keyBoardShouldBack ==  true {
+            exitTextfield.resignFirstResponder()
+            exitView.hidden = true
+            scrollView.contentOffset.y = -64
+            keyBoardShouldBack = false
+        }
+    }
+    
     func updateLocation(locationManager: CLLocationManager) {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 100.0
@@ -101,10 +112,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         locationManager.startUpdatingLocation()
     }
-    
-    
-    
-    
     
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 2 { // GPS Location
@@ -172,8 +179,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
    //MARK: - 发送评论
     func sendInform() {
-       exitView.hidden = true
-       exitTextfield.resignFirstResponder()
+        exitView.hidden = true
+        exitTextfield.resignFirstResponder()
+         keyBoardShouldBack = false
         commnetCountArray.insertObject(exitTextfield.text, atIndex: 0)
         var label1 = UILabel()
         label1.numberOfLines = 0
@@ -183,7 +191,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         lengthArray.insertObject(label1.frame.height + 40, atIndex: 0)
         tableView.reloadData()
         exitTextfield.text = ""
-        tableView.scrollEnabled = true
+        
       
      }
     
