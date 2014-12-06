@@ -12,8 +12,8 @@ import CoreData
 class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
     
     @IBOutlet var addSearchBar: UISearchBar!
+    var beginSearch = false
     var selectedCell = NSDictionary()
-    
     var managedObjectContext = NSManagedObjectContext()
     var realSectionArray = NSMutableArray()
     var initialArray = NSMutableArray()
@@ -53,25 +53,23 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
             totalArray.addObject(dic)
         }
         
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
-        
-        return true
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        beginSearch = true
+        tableView.reloadData()
     }
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        beginSearch = false
         searchBar.resignFirstResponder()
         searchBar.text = ""
+        tableView.reloadData()
         
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        beginSearch = false
         searchBar.resignFirstResponder()
         searchBar.text = ""
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -98,21 +96,20 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
+        if beginSearch == false {
         let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as UITableViewCell
-        
         // Configure the cell...
         var arname = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringname = arname.objectAtIndex(indexPath.row)["userName"] as NSString
-        
         cell.textLabel.text = stringname
         var arimage = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
      
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
-        
-        
+        return cell
+        }
+       let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as UITableViewCell
         return cell
     }
     
