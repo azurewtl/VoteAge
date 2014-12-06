@@ -977,6 +977,25 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="x3b-c9-HTf">
+                            <rect key="frame" x="0.0" y="64" width="320" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <searchBar contentMode="redraw" ambiguous="YES" misplaced="YES" placeholder="搜索所有人" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2i7-lc-MCN">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                    <scopeButtonTitles>
+                                        <string>Title</string>
+                                        <string>Title</string>
+                                    </scopeButtonTitles>
+                                </searchBar>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="2i7-lc-MCN" firstAttribute="leading" secondItem="x3b-c9-HTf" secondAttribute="leading" id="QwD-Me-5do"/>
+                                <constraint firstAttribute="trailing" secondItem="2i7-lc-MCN" secondAttribute="trailing" constant="15" id="ZXf-36-zbo"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ContactCell" rowHeight="67" id="3Oz-Fg-Fxq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -988,6 +1007,13 @@
                                     <segue destination="1NT-h6-jRF" kind="push" identifier="contactDetail" id="SGg-dd-0wa"/>
                                 </connections>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchCell" id="Geq-29-b3t">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Geq-29-b3t" id="50B-84-9Bt">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="kLs-jY-tF5" id="LtC-Tc-ud0"/>
@@ -995,6 +1021,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="我的关注" id="abm-WA-mhL"/>
+                    <connections>
+                        <outlet property="addSearchBar" destination="2i7-lc-MCN" id="DDw-yy-t9S"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1717,7 +1746,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="diD-ek-DxV"/>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

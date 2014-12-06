@@ -9,8 +9,9 @@
 import UIKit
 import CoreData
 
-class ContactListTableViewController: UITableViewController {
+class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
     
+    @IBOutlet var addSearchBar: UISearchBar!
     var selectedCell = NSDictionary()
     
     var managedObjectContext = NSManagedObjectContext()
@@ -22,6 +23,7 @@ class ContactListTableViewController: UITableViewController {
     
      override func viewDidLoad() {
         super.viewDidLoad()
+        addSearchBar.delegate = self
         self.tabBarController?.tabBar.hidden = true
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
@@ -57,6 +59,19 @@ class ContactListTableViewController: UITableViewController {
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+    }
+    func searchBar(searchBar: UISearchBar, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        return true
+    }
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        
+    }
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
     }
     
     override func didReceiveMemoryWarning() {
