@@ -8,11 +8,11 @@
 
 import UIKit
 import CoreData
-
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate{
-
+import CoreLocation
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate, CLLocationManagerDelegate{
+    var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
-        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "生活", "情感", "娱乐")
+        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "情感", "娱乐")
         sheet.showInView(self.view)
     }
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
@@ -24,7 +24,25 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
     }
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        
+        if buttonIndex == 1 {
+        updateLocation(locationManager)
+        }
+    }
+    func updateLocation(locationManager: CLLocationManager) {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 100.0
+        locationManager.delegate = self
+        if UIDevice.currentDevice().systemVersion >= "8.0" {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        locationManager.startUpdatingLocation()
+    }
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var loc = locations.last as CLLocation
+        var coord = loc.coordinate
+        print(coord.latitude)
+        print(coord.longitude)
+        manager.stopUpdatingLocation()
     }
     func noti(noti:NSNotification) {
         var receiveDiction = NSMutableDictionary()

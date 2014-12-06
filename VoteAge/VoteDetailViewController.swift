@@ -27,7 +27,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var optionArray = NSMutableArray()
     var time = NSTimeInterval()
     var timer = NSTimer()
-       var locationManager = CLLocationManager()
+    var locationManager = CLLocationManager()
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
