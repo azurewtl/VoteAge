@@ -124,6 +124,7 @@
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
 		18D06E9B1A35563B0054A2CE /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D06E9A1A35563B0054A2CE /* Vertify.m */; };
+		18D06F801A35A0430054A2CE /* VoteAddPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D06F7F1A35A0430054A2CE /* VoteAddPersonCell.swift */; };
 		18D2DBAA1A256BD8006F74B1 /* HasVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */; };
 		18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */; };
 		18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */; };
@@ -313,6 +314,7 @@
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		18D06E991A35562F0054A2CE /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertify.h; sourceTree = "<group>"; };
 		18D06E9A1A35563B0054A2CE /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vertify.m; sourceTree = "<group>"; };
+		18D06F7F1A35A0430054A2CE /* VoteAddPersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteAddPersonCell.swift; sourceTree = "<group>"; };
 		18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasVoteTableViewController.swift; sourceTree = "<group>"; };
 		18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -822,6 +824,7 @@
 			children = (
 				BB7208751A0B7F0300A97FCD /* VoteTableViewCell.swift */,
 				BB7208BA1A0BC6B100A97FCD /* OptionTableViewCell.swift */,
+				18D06F7F1A35A0430054A2CE /* VoteAddPersonCell.swift */,
 			);
 			name = CustomizedCell;
 			sourceTree = "<group>";
@@ -962,6 +965,7 @@
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
 				184BB4531A1C54BE006DF06C /* UIImage+MultiFormat.m in Sources */,
+				18D06F801A35A0430054A2CE /* VoteAddPersonCell.swift in Sources */,
 				184BB4521A1C54BE006DF06C /* UIImage+GIF.m in Sources */,
 				184BB44D1A1C54BE006DF06C /* SDWebImageDownloader.m in Sources */,
 				184BB4461A1C54BE006DF06C /* AFURLSessionManager.m in Sources */,

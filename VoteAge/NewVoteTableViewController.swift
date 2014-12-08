@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //notification
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
@@ -89,7 +89,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         super.viewWillAppear(true)
         let pickercell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
         var pickerView = pickercell?.contentView.viewWithTag(101) as UIPickerView
-        print(pickerView.frame)
         pickerView.delegate = self
         pickerView.dataSource = self
         self.tabBarController?.tabBar.hidden = true
@@ -339,9 +338,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var footView = UIView()
         
+         var footView = UIView()
         if section == 0 {
+           
             var rowCount = 0
             var colCount = 0
             footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
@@ -365,6 +365,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 btn.addTarget(self, action: "btn:", forControlEvents: UIControlEvents.TouchUpInside)
                 footView.addSubview(btn)
             }
+            return footView
             
         }
         if section == 1 {
@@ -395,7 +396,30 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }
             return footView1
         }
+        if section == 2 {
+        var collectionview = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionview.backgroundColor = UIColor.whiteColor()
+        collectionview.delegate = self
+        collectionview.dataSource = self
+        collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
+        return collectionview
+        }
         return footView
+    }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("addperson", forIndexPath: indexPath) as VoteAddPersonCell
+        cell.backgroundColor = UIColor.yellowColor()
+        cell.image.image = UIImage(named: "add")
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
+        return CGSizeMake(70, 70)
+    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+        return UIEdgeInsetsMake(10, 10, 10, 10)
     }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -418,6 +442,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }else if(optionTagArray.count % 3 != 0 && optionTagArray.count / 3 >= 1){
                 return CGFloat(height + 40)
             }
+        }
+        if section == 2 {
+            
+            return 70
         }
         return 20
     }
