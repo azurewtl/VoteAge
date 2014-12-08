@@ -10,9 +10,7 @@ import UIKit
 import CoreData
 
 class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
-    
-    @IBOutlet var addSearchBar: UISearchBar!
-    var beginSearch = false
+ 
     var selectedCell = NSDictionary()
     var managedObjectContext = NSManagedObjectContext()
     var realSectionArray = NSMutableArray()
@@ -23,7 +21,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     
      override func viewDidLoad() {
         super.viewDidLoad()
-        addSearchBar.delegate = self
+        tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0)
         self.tabBarController?.tabBar.hidden = true
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
@@ -55,18 +53,18 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         
     }
     func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        beginSearch = true
+ 
         tableView.reloadData()
     }
     func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        beginSearch = false
+    
         searchBar.resignFirstResponder()
         searchBar.text = ""
         tableView.reloadData()
         
     }
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        beginSearch = false
+        
         searchBar.resignFirstResponder()
         searchBar.text = ""
         tableView.reloadData()
@@ -96,7 +94,6 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if beginSearch == false {
         let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as UITableViewCell
         // Configure the cell...
         var arname = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
@@ -108,9 +105,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
         return cell
-        }
-       let cell = tableView.dequeueReusableCellWithIdentifier("SearchCell", forIndexPath: indexPath) as UITableViewCell
-        return cell
+      
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
