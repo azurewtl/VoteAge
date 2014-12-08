@@ -123,6 +123,7 @@
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
+		18D06E9B1A35563B0054A2CE /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D06E9A1A35563B0054A2CE /* Vertify.m */; };
 		18D2DBAA1A256BD8006F74B1 /* HasVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */; };
 		18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */; };
 		18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */; };
@@ -133,7 +134,6 @@
 		18D2DBB81A25AF47006F74B1 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */; };
 		18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB91A25AF53006F74B1 /* MessageUI.framework */; };
 		18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */; };
-		18D2DBC21A25C012006F74B1 /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBC11A25C012006F74B1 /* Vertify.m */; };
 		18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
@@ -311,6 +311,8 @@
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
+		18D06E991A35562F0054A2CE /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertify.h; sourceTree = "<group>"; };
+		18D06E9A1A35563B0054A2CE /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vertify.m; sourceTree = "<group>"; };
 		18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasVoteTableViewController.swift; sourceTree = "<group>"; };
 		18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -321,8 +323,6 @@
 		18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		18D2DBB91A25AF53006F74B1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
-		18D2DBC01A25C012006F74B1 /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vertify.h; path = ../Vertify.h; sourceTree = "<group>"; };
-		18D2DBC11A25C012006F74B1 /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Vertify.m; path = ../Vertify.m; sourceTree = "<group>"; };
 		18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -428,6 +428,8 @@
 		182E83C21A2C0F530048069C /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
+				18D06E9A1A35563B0054A2CE /* Vertify.m */,
+				18D06E991A35562F0054A2CE /* Vertify.h */,
 				182E83C31A2C0F530048069C /* Connection */,
 				182E83E71A2C0F530048069C /* Core */,
 				182E83EE1A2C0F530048069C /* Extend */,
@@ -613,8 +615,6 @@
 			isa = PBXGroup;
 			children = (
 				182E83C21A2C0F530048069C /* ShareSDK */,
-				18D2DBC01A25C012006F74B1 /* Vertify.h */,
-				18D2DBC11A25C012006F74B1 /* Vertify.m */,
 				18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */,
 				181C4D5E1A1C9DB90077B682 /* DataBaseHandle.h */,
 				181C4D5F1A1C9DB90077B682 /* DataBaseHandle.m */,
@@ -726,6 +726,12 @@
 				18D2DBB31A25AF0F006F74B1 /* libicucore.dylib */,
 				18D2DBB11A25AF06006F74B1 /* libz.dylib */,
 				184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */,
+				182E83BE1A2C0EAC0048069C /* libz.1.2.5.dylib */,
+				182E84601A2C6A100048069C /* MapKit.framework */,
+				182E83C01A2C0EB80048069C /* Security.framework */,
+				182E83BC1A2C0E9D0048069C /* CoreTelephony.framework */,
+				182E83B71A2C0E2C0048069C /* SystemConfiguration.framework */,
+				182E83B91A2C0E5D0048069C /* QuartzCore.framework */,
 				18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */,
 				18D2DBB91A25AF53006F74B1 /* MessageUI.framework */,
 				18D2DBB71A25AF47006F74B1 /* AddressBookUI.framework */,
@@ -740,12 +746,6 @@
 		BB7208421A0B600100A97FCD = {
 			isa = PBXGroup;
 			children = (
-				182E84601A2C6A100048069C /* MapKit.framework */,
-				182E83C01A2C0EB80048069C /* Security.framework */,
-				182E83BE1A2C0EAC0048069C /* libz.1.2.5.dylib */,
-				182E83BC1A2C0E9D0048069C /* CoreTelephony.framework */,
-				182E83B71A2C0E2C0048069C /* SystemConfiguration.framework */,
-				182E83B91A2C0E5D0048069C /* QuartzCore.framework */,
 				BB72084D1A0B600100A97FCD /* VoteAge */,
 				18ED9C5E1A2851A300463101 /* framework */,
 				184BB3FD1A1C54BE006DF06C /* ThridParty */,
@@ -968,6 +968,7 @@
 				181C4D621A1CA2E00077B682 /* NewVoteTableViewController.swift in Sources */,
 				184BB4561A1C54BE006DF06C /* UIImageView+WebCache.m in Sources */,
 				184BB4511A1C54BE006DF06C /* UIButton+WebCache.m in Sources */,
+				18D06E9B1A35563B0054A2CE /* Vertify.m in Sources */,
 				184BB4401A1C54BE006DF06C /* AFHTTPSessionManager.m in Sources */,
 				18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */,
 				184BB4411A1C54BE006DF06C /* AFNetworkReachabilityManager.m in Sources */,
@@ -975,7 +976,6 @@
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,
-				18D2DBC21A25C012006F74B1 /* Vertify.m in Sources */,
 				184BB44E1A1C54BE006DF06C /* SDWebImageDownloaderOperation.m in Sources */,
 				184BB4431A1C54BE006DF06C /* AFURLConnectionOperation.m in Sources */,
 				18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */,
