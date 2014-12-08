@@ -7,22 +7,30 @@
 //
 
 import UIKit
-
+protocol ImagesendDelegate {
+    func setSelect(number:Int)
+}
 class OptionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var optionImage: UIImageView!
     @IBOutlet var optionProgress: UIProgressView!
     @IBOutlet weak var optionTitle: UILabel!
     @IBOutlet weak var optionDetail: UILabel!
-    
+    var imagenumber = Int()
+    var delegate = ImagesendDelegate?()
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        optionProgress.progress = 0
-        optionDetail.text = ""
-       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+        optionProgress?.progress = 0
+        optionDetail?.text = ""
+        var tap = UITapGestureRecognizer(target: self, action: "tap")
+        optionImage?.userInteractionEnabled = true
+        optionImage?.addGestureRecognizer(tap)
+//       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
     }
-
+    func tap() {
+        self.delegate?.setSelect(imagenumber)
+    }
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

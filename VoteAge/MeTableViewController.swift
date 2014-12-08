@@ -36,6 +36,7 @@ class MeTableViewController: UITableViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = false
         let  cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as UITableViewCell?
         if(logDefault.objectForKey("userID") as NSString == "guest") {
             cell?.textLabel.text = "登录"
@@ -129,7 +130,7 @@ class MeTableViewController: UITableViewController {
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "newvote" {
-            (segue.destinationViewController as NewVoteTableViewController).footViewArray = addVoteArray
+            (segue.destinationViewController as NewVoteTableViewController).titleTagArray = addVoteArray
         }
         
     }

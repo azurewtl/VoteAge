@@ -21,7 +21,7 @@
 // THE SOFTWARE.
 
 #import "AFURLRequestSerialization.h"
-
+#import "VoteAge-Swift.h"
 extern NSString * const AFNetworkingErrorDomain;
 
 typedef NSString * (^AFQueryStringSerializationBlock)(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error);

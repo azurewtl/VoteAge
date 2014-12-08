@@ -22,6 +22,7 @@
 //                   NSLog(@"%@", path);
                    int result = sqlite3_open([path UTF8String], &dbPoint);
                    NSLog(@"%d", result);
+    
 }
 -(void)closeDB{
     int result = sqlite3_close(dbPoint);

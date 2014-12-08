@@ -9,14 +9,21 @@
 import UIKit
 import CoreData
 
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate{
-    
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate{
+
+    @IBAction func optionButton(sender: UIBarButtonItem) {
+        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "生活", "情感", "娱乐")
+        sheet.showInView(self.view)
+    }
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+    }
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         
     }
     func noti(noti:NSNotification) {
@@ -32,9 +39,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         tableView.reloadData()
     }
-   
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        self.tabBarController?.tabBar.hidden = false
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
@@ -42,7 +53,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         self.view.addSubview(activityIndicator)
         var ceshi:Int = 0
         if(ceshi == 1){
-            var str = "http://api.douban.com/v2/movie/coming?apikey=0df993c66c0c636e29ecbb5344252a4a&client=e:iPhone4,1|y:iPhoneOS_6.1|s:mobile|f:doubanmovie_2|v:3.3.1|m:PP_market|udid:aa1b815b8a4d1e961347304e74b9f9593d95e1c5&alt=json&version=2&app_name=doubanmovie&start=1"
+            var str = "http://127.0.0.1:8000/API/votefeed/"
             let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
             let group = dispatch_group_create()
             dispatch_group_async(group, queue, {
@@ -56,28 +67,18 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 })
             })
         }else{
-            
+          
             var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
             var data1 = NSData(contentsOfFile: path1!)
             
             var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
             voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-//            print(voteArray)
-            
-            
-           
+
             
         }
 
         sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
-        // Do any additional setup after loading the view, typically from a nib.
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject")
-    self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分类", style: UIBarButtonItemStyle.Done, target: self, action: "insertNewObject")
-        
-        
-//        self.navigationItem.rightBarButtonItem = addButton
+    
     }
     // MARK: - protocol
 
@@ -99,8 +100,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 let vote = voteArray[indexPath.row] as NSMutableDictionary
-                (segue.destinationViewController as VoteDetailTableViewController).voteDetail = vote
-                (segue.destinationViewController as VoteDetailTableViewController).delegate = self
+                (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
+                (segue.destinationViewController as VoteDetailViewController).delegate = self
             }
         }
         
@@ -109,8 +110,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             let cell = senderButton.superview?.superview as VoteTableViewCell
             let indexPath = tableView.indexPathForCell(cell)
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+//            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+            (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "关注"
         }
+        
     }
     
     // MARK: - Table View
@@ -149,9 +152,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-    func insertNewObject() {
-        
-    }
+
 
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject

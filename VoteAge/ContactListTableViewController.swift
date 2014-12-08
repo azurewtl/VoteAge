@@ -10,6 +10,9 @@ import UIKit
 import CoreData
 
 class ContactListTableViewController: UITableViewController {
+    
+    var selectedCell = NSDictionary()
+    
     var managedObjectContext = NSManagedObjectContext()
     var realSectionArray = NSMutableArray()
     var initialArray = NSMutableArray()
@@ -19,6 +22,7 @@ class ContactListTableViewController: UITableViewController {
     
      override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.hidden = true
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
         db.openDB()
@@ -89,7 +93,7 @@ class ContactListTableViewController: UITableViewController {
         cell.textLabel.text = stringname
         var arimage = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
-        print(strimage)
+     
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
         
@@ -113,6 +117,10 @@ class ContactListTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+//        selectedCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)) as UITableViewCell!
+       var array = totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
+        selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
+   
     }
     
     func updateDataBase() {
@@ -182,14 +190,23 @@ class ContactListTableViewController: UITableViewController {
     }
     */
     
-    /*
+    
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+        if segue.identifier == "contactDetail" {
+           (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "取消关注"
+             var indexPath = tableView.indexPathForCell(sender as UITableViewCell) as NSIndexPath!
+            var array = totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
+            selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
+               (segue.destinationViewController as UserDetailTableViewController).voteFeed = selectedCell
+            
+            
+            
+        }
     }
-    */
-    
+
 }

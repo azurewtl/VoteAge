@@ -8,25 +8,113 @@
 
 import UIKit
 
-class RegisterTableViewController: UITableViewController {
+class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
 
-    
+    @IBOutlet weak var timeLabel: UILabel!
+    var timeInterval = Int()
+    var timer = NSTimer()
+    var rowCount = 3
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var sendVerificationButton: UIButton!
+
+    @IBOutlet weak var senderVertiButton: UIButton!
+    @IBAction func sendVertificationButton(sender: UIButton) {
+        
+        if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
+            Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
+                if result == 1 {
+                    sender.setTitle("发送成功", forState: UIControlState.Normal)
+                    self.vertiButton.enabled = true
+                    self.timeraction()
+                    sender.enabled = false
+                    self.rowCount = 5
+                    self.tableView.reloadData()
+                }else {
+                   sender.setTitle("发送失败", forState: UIControlState.Normal)
+                }
+                
+         })
+    
+        }else {
+            sender.setTitle("手机号错误", forState: UIControlState.Normal)
+        }
+        
+    }
     @IBOutlet weak var verificationTextField: UITextField!
     
-    @IBOutlet weak var verificationButton: UIButton!
+    @IBOutlet weak var vertiButton: UIButton!
+    @IBAction func vertificationButton(sender: UIButton) {
+        
+        Vertify.getvertifynumber(verificationTextField.text, block: { (var result:Int32) -> Void in
+            if result == 1 {
+                sender.setTitle("验证成功", forState: UIControlState.Normal)
+                self.timer.invalidate()
+                self.timeLabel.hidden = true
+                sender.enabled = false
+                self.rowCount = 9
+                self.tableView.reloadData()
+            }else {
+                sender.setTitle("验证失败", forState: UIControlState.Normal)
+            }
+        })
+        
+        
+    }
+    
     @IBOutlet weak var genderSegmentControl: UISegmentedControl!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordVerifyTextField: UITextField!
-    @IBOutlet weak var submitButton: UIButton!
+  
     
+    @IBAction func submitButton(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        phoneTextField.resignFirstResponder()
+        verificationTextField.resignFirstResponder()
+        return true
+    }
+     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        if textField == phoneTextField && senderVertiButton.enabled == true {
+           senderVertiButton.setTitle("发送验证码", forState: UIControlState.Normal)
+        }else if textField == verificationTextField && vertiButton.enabled == true {
+           vertiButton.setTitle("验证", forState: UIControlState.Normal)
+        }
+        return true
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+       phoneTextField.delegate = self
+       verificationTextField.delegate = self
+        phoneTextField.keyboardType = UIKeyboardType.PhonePad
+        verificationTextField.keyboardType = UIKeyboardType.PhonePad
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "back")
     }
-
+    func back() {
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
+    func timeraction() {
+        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timegoing", userInfo: nil, repeats: true)
+        timer.fire()
+        
+    }
+    func timegoing() {
+        timeInterval++
+        timeLabel.text = (60 - timeInterval).description + "秒倒计时"
+        if timeInterval > 60 {
+            timer.invalidate()
+            timeInterval = 0
+            timeLabel.text = "超时,请重发"
+            senderVertiButton.enabled = true
+            vertiButton.enabled = false
+        }
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -43,9 +131,11 @@ class RegisterTableViewController: UITableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return 6
+        return rowCount
     }
-
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as UITableViewCell

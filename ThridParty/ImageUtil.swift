@@ -9,6 +9,7 @@
 import UIKit
 
 class ImageUtil: NSObject {
+    
   class  func fitSize(thissize:CGSize, insize asize:CGSize)->CGSize{
         var scale = CGFloat()
         var newSize = CGSize()
