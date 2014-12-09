@@ -998,7 +998,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486" y="1836"/>
+            <point key="canvasLocation" x="1694" y="1884"/>
         </scene>
         <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
@@ -1090,7 +1090,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteExpireDateCell" rowHeight="195" id="T8q-hx-gqi">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteExpireDateCell" rowHeight="127" id="T8q-hx-gqi">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T8q-hx-gqi" id="aOp-Vh-0pi">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1115,6 +1115,46 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteAddCell" rowHeight="77" id="4ad-3x-t9w">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ad-3x-t9w" id="Q2t-FE-tVe">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lzd-tr-vig">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7hc-I7-KYU">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NG5-fj-P8N">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <segue destination="kLs-jY-tF5" kind="push" identifier="contact" id="Jtg-IW-Xz3"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lzd-tr-vig" firstAttribute="top" secondItem="Q2t-FE-tVe" secondAttribute="topMargin" id="9Pi-Pw-7l9"/>
+                                        <constraint firstItem="lzd-tr-vig" firstAttribute="leading" secondItem="Q2t-FE-tVe" secondAttribute="leadingMargin" id="S82-U6-i2U"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="lzd-tr-vig" secondAttribute="bottom" id="Xi3-1d-4oL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="lzd-tr-vig" secondAttribute="trailing" id="tJB-dj-xmx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="tEt-l1-TGs" id="v7U-hN-Nlx"/>
@@ -1132,7 +1172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1486" y="2493"/>
+            <point key="canvasLocation" x="1386" y="2716"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1718,6 +1758,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="Jtg-IW-Xz3"/>
         <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

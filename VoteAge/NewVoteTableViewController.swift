@@ -183,7 +183,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,6 +194,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return optionCellRowCount
             
         case 2:
+            return 1
+        case 3:
             return 1
         default:
             return 0
@@ -314,6 +316,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
+        case 3:
+            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteAddCell", forIndexPath: indexPath) as UITableViewCell
+            var collectionview = cell.contentView.viewWithTag(101) as UICollectionView
+            collectionview.delegate = self
+            collectionview.dataSource = self
+            collectionview.scrollEnabled = false
+            collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
         default:
             break
         }
@@ -332,8 +341,18 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return 100
         case 1:
             return 55
-        default:
+        case 2:
             return 195
+        case 3:
+            var height = collectioncellCount / 4 * 90
+            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
+                return 90
+            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
+                return CGFloat(height)
+            }
+            return CGFloat(height + 90)
+        default:
+            return 100
         }
     }
     
@@ -396,16 +415,16 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }
             return footView1
         }
-        if section == 2 {
-        var collectionview = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
-        collectionview.scrollEnabled = false
-        collectionview.backgroundColor = UIColor.whiteColor()
-        collectionview.delegate = self
-        collectionview.dataSource = self
-        collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
-        return collectionview
-        }
-        
+//        if section == 2 {
+//        var collectionview = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
+//        collectionview.scrollEnabled = false
+//        collectionview.backgroundColor = UIColor.whiteColor()
+//        collectionview.delegate = self
+//        collectionview.dataSource = self
+//        collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
+//        return collectionview
+//        }
+//        
         return footView
     }
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -418,14 +437,16 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
+//        
         if indexPath.item == collectioncellCount - 1 {
             collectioncellCount++
             let cell = collectionView.cellForItemAtIndexPath(indexPath) as VoteAddPersonCell
             collectionView.reloadData()
             tableView.reloadData()
             cell.image.image = UIImage(named: "add")
+            self.performSegueWithIdentifier("contact", sender: true)
         }
+        
     }
  
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
@@ -456,17 +477,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 return CGFloat(height + 40)
             }
         }
-        if section == 2 {
-            var height = collectioncellCount / 4 * 90
-            
-            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
-                return 90
-            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
-               return CGFloat(height)
-            }else if(collectioncellCount % 4 != 0 && collectioncellCount / 4 >= 1){
-                return CGFloat(height + 90)
-            }
-        }
+//        if section == 2 {
+//            var height = collectioncellCount / 4 * 90
+//            
+//            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
+//                return 90
+//            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
+//               return CGFloat(height)
+//            }else if(collectioncellCount % 4 != 0 && collectioncellCount / 4 >= 1){
+//                return CGFloat(height + 90)
+//            }
+//        }
         return 20
     }
 //    func clearAnswer() {
