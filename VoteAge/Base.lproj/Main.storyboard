@@ -868,7 +868,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kLs-jY-tF5" kind="push" id="w1p-qS-yrD"/>
+                                            <segue destination="kLs-jY-tF5" kind="push" identifier="contact" id="w1p-qS-yrD"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="3ct-HP-Pb0" style="IBUITableViewCellStyleDefault" id="T4B-Bk-Qdw">
@@ -998,7 +998,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="2015"/>
+            <point key="canvasLocation" x="1486" y="1836"/>
         </scene>
         <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
@@ -1132,7 +1132,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="2700"/>
+            <point key="canvasLocation" x="1486" y="2493"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1364,7 +1364,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0p-nN-kIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="1322"/>
+            <point key="canvasLocation" x="1495" y="1154"/>
         </scene>
         <!--热点-->
         <scene sceneID="I4k-sk-q9d">
