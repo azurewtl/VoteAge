@@ -8,8 +8,9 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource{
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //notification
+    var collectioncellCount = 1
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
@@ -89,7 +90,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         super.viewWillAppear(true)
         let pickercell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
         var pickerView = pickercell?.contentView.viewWithTag(101) as UIPickerView
-        print(pickerView.frame)
         pickerView.delegate = self
         pickerView.dataSource = self
         self.tabBarController?.tabBar.hidden = true
@@ -183,7 +183,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -194,6 +194,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return optionCellRowCount
             
         case 2:
+            return 1
+        case 3:
             return 1
         default:
             return 0
@@ -314,6 +316,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
+        case 3:
+            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteAddCell", forIndexPath: indexPath) as UITableViewCell
+            var collectionview = cell.contentView.viewWithTag(101) as UICollectionView
+            collectionview.delegate = self
+            collectionview.dataSource = self
+            collectionview.scrollEnabled = false
+            collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
         default:
             break
         }
@@ -322,7 +331,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
         
     }
     
@@ -333,15 +341,26 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return 100
         case 1:
             return 55
-        default:
+        case 2:
             return 195
+        case 3:
+            var height = collectioncellCount / 4 * 90
+            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
+                return 90
+            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
+                return CGFloat(height)
+            }
+            return CGFloat(height + 90)
+        default:
+            return 100
         }
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var footView = UIView()
         
+         var footView = UIView()
         if section == 0 {
+           
             var rowCount = 0
             var colCount = 0
             footView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
@@ -365,6 +384,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 btn.addTarget(self, action: "btn:", forControlEvents: UIControlEvents.TouchUpInside)
                 footView.addSubview(btn)
             }
+            return footView
             
         }
         if section == 1 {
@@ -395,7 +415,45 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             }
             return footView1
         }
+//        if section == 2 {
+//        var collectionview = UICollectionView(frame: CGRectMake(0, 0, 0, 0), collectionViewLayout: UICollectionViewFlowLayout())
+//        collectionview.scrollEnabled = false
+//        collectionview.backgroundColor = UIColor.whiteColor()
+//        collectionview.delegate = self
+//        collectionview.dataSource = self
+//        collectionview.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
+//        return collectionview
+//        }
+//        
         return footView
+    }
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return collectioncellCount
+    }
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
+        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("addperson", forIndexPath: indexPath) as VoteAddPersonCell
+        cell.backgroundColor = UIColor.yellowColor()
+        cell.image.image = UIImage(named: "add")
+        return cell
+    }
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        
+        if indexPath.item == collectioncellCount - 1 {
+            collectioncellCount++
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as VoteAddPersonCell
+            collectionView.reloadData()
+            tableView.reloadData()
+            cell.image.image = UIImage(named: "add")
+            self.performSegueWithIdentifier("contact", sender: true)
+        }
+        
+    }
+ 
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
+        return CGSizeMake(70, 70)
+    }
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
+        return UIEdgeInsetsMake(10, 10, 10, 10)
     }
     override func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
@@ -419,6 +477,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 return CGFloat(height + 40)
             }
         }
+//        if section == 2 {
+//            var height = collectioncellCount / 4 * 90
+//            
+//            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
+//                return 90
+//            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
+//               return CGFloat(height)
+//            }else if(collectioncellCount % 4 != 0 && collectioncellCount / 4 >= 1){
+//                return CGFloat(height + 90)
+//            }
+//        }
         return 20
     }
 //    func clearAnswer() {
@@ -534,14 +603,15 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     */
     
-    /*
+ 
     // MARK: - Navigation
     
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+     
+        
     }
-    */
-    
+
 }

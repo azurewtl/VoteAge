@@ -464,18 +464,31 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z8a-uq-PVD" id="xc4-MJ-PfU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odd-Mj-XQ0">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="44"/>
-                                                    <state key="normal" title="评论">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                </button>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                    <items>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="I7V-k0-awj"/>
+                                                        <barButtonItem tag="101" title="分享" id="XK8-Qq-la2">
+                                                            <connections>
+                                                                <action selector="shareOnClick:" destination="A6m-Tk-UQa" id="6mi-5C-Koz"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="N61-h4-LBZ"/>
+                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="EMc-0M-Jjx"/>
+                                                        <barButtonItem tag="102" title="评论" id="PL4-iw-4um">
+                                                            <connections>
+                                                                <action selector="commentOnClick:" destination="A6m-Tk-UQa" id="VJS-JC-3PW"/>
+                                                            </connections>
+                                                        </barButtonItem>
+                                                        <barButtonItem systemItem="flexibleSpace" id="Vqu-LN-tqF"/>
+                                                    </items>
+                                                </toolbar>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Odd-Mj-XQ0" firstAttribute="leading" secondItem="xc4-MJ-PfU" secondAttribute="leadingMargin" id="Gvn-Sb-6li"/>
-                                                <constraint firstItem="Odd-Mj-XQ0" firstAttribute="top" secondItem="xc4-MJ-PfU" secondAttribute="topMargin" constant="-8" id="bJV-nX-ckO"/>
-                                                <constraint firstItem="Odd-Mj-XQ0" firstAttribute="trailing" secondItem="xc4-MJ-PfU" secondAttribute="trailingMargin" id="gmL-EG-z1U"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Odd-Mj-XQ0" secondAttribute="bottom" constant="-8" id="xac-bH-qOn"/>
+                                                <constraint firstItem="ptO-et-qiq" firstAttribute="leading" secondItem="xc4-MJ-PfU" secondAttribute="leadingMargin" constant="-8" id="Kmg-fQ-0RG"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ptO-et-qiq" secondAttribute="trailing" constant="-8" id="Mav-yn-GH1"/>
+                                                <constraint firstItem="ptO-et-qiq" firstAttribute="top" secondItem="xc4-MJ-PfU" secondAttribute="topMargin" constant="-8" id="Soe-l7-cEv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ptO-et-qiq" secondAttribute="bottom" constant="-8" id="YK3-MA-lSf"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -855,7 +868,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="kLs-jY-tF5" kind="push" id="w1p-qS-yrD"/>
+                                            <segue destination="kLs-jY-tF5" kind="push" identifier="contact" id="w1p-qS-yrD"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="3ct-HP-Pb0" style="IBUITableViewCellStyleDefault" id="T4B-Bk-Qdw">
@@ -985,7 +998,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="2015"/>
+            <point key="canvasLocation" x="1694" y="1884"/>
         </scene>
         <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
@@ -1077,7 +1090,7 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteExpireDateCell" rowHeight="195" id="T8q-hx-gqi">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteExpireDateCell" rowHeight="127" id="T8q-hx-gqi">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T8q-hx-gqi" id="aOp-Vh-0pi">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -1102,6 +1115,46 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteAddCell" rowHeight="77" id="4ad-3x-t9w">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ad-3x-t9w" id="Q2t-FE-tVe">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lzd-tr-vig">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
+                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7hc-I7-KYU">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells>
+                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NG5-fj-P8N">
+                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                        <autoresizingMask key="autoresizingMask"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <color key="backgroundColor" red="1" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <connections>
+                                                        <segue destination="kLs-jY-tF5" kind="push" identifier="contact" id="Jtg-IW-Xz3"/>
+                                                    </connections>
+                                                </collectionViewCell>
+                                            </cells>
+                                        </collectionView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="lzd-tr-vig" firstAttribute="top" secondItem="Q2t-FE-tVe" secondAttribute="topMargin" id="9Pi-Pw-7l9"/>
+                                        <constraint firstItem="lzd-tr-vig" firstAttribute="leading" secondItem="Q2t-FE-tVe" secondAttribute="leadingMargin" id="S82-U6-i2U"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="lzd-tr-vig" secondAttribute="bottom" id="Xi3-1d-4oL"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="lzd-tr-vig" secondAttribute="trailing" id="tJB-dj-xmx"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="tEt-l1-TGs" id="v7U-hN-Nlx"/>
@@ -1119,7 +1172,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="2700"/>
+            <point key="canvasLocation" x="1386" y="2716"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1351,7 +1404,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0p-nN-kIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1647" y="1322"/>
+            <point key="canvasLocation" x="1495" y="1154"/>
         </scene>
         <!--热点-->
         <scene sceneID="I4k-sk-q9d">
@@ -1704,7 +1757,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="diD-ek-DxV"/>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

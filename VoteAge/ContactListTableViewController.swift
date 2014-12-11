@@ -9,10 +9,9 @@
 import UIKit
 import CoreData
 
-class ContactListTableViewController: UITableViewController {
-    
+class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
+ 
     var selectedCell = NSDictionary()
-    
     var managedObjectContext = NSManagedObjectContext()
     var realSectionArray = NSMutableArray()
     var initialArray = NSMutableArray()
@@ -22,6 +21,7 @@ class ContactListTableViewController: UITableViewController {
     
      override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0)
         self.tabBarController?.tabBar.hidden = true
         print(NSTemporaryDirectory())
         let db = DataBaseHandle.shareInstance()
@@ -51,12 +51,23 @@ class ContactListTableViewController: UITableViewController {
             totalArray.addObject(dic)
         }
         
+    }
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+ 
+        tableView.reloadData()
+    }
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        tableView.reloadData()
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+    }
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        searchBar.resignFirstResponder()
+        searchBar.text = ""
+        tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -83,22 +94,18 @@ class ContactListTableViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("ContactCell", forIndexPath: indexPath) as UITableViewCell
-        
         // Configure the cell...
         var arname = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringname = arname.objectAtIndex(indexPath.row)["userName"] as NSString
-        
         cell.textLabel.text = stringname
         var arimage = self.totalArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
      
         var url = NSURL(string: strimage)
         cell.imageView.sd_setImageWithURL(url)
-        
-        
         return cell
+      
     }
     
     override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
