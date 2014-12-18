@@ -13,18 +13,22 @@ protocol VoteDetailDelegate{
 }
 
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
- //MARK: - Keyboard
-    var keyBoardShouldBack = false
-    var showKeyboardtop = true
-    var exitButton = UIButton()
-    var exitView = UIView()
-    var exitTextfield = UITextView()
-    var commnetCountArray = NSMutableArray()
-    var lengthArray = NSMutableArray()
+    
     var delegate = VoteDetailDelegate?()
+    // MARK: - configureView
+    var voteDetail = NSDictionary()
+    // For textField above keyboard
+    var showKeyboardTextView = true // If the textview about keyboard needed to be shown
+    var keyboardView = UIView()
+    var keyboardButton = UIButton()
+    var keyboardTextView = UITextView()
+    var commnetArray = NSMutableArray()
+    var commentCellHeightArray = NSMutableArray()
+    // For vote count
     var menCount = CGFloat()
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
+    // For countdown
     var time = NSTimeInterval()
     var timer = NSTimer()
     var locationManager = CLLocationManager()
@@ -35,19 +39,63 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
-
-    @IBAction func optionitem(sender: UIBarButtonItem) {
-        
+    
+    @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
         var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位")
         selectSheet.showInView(self.view)
     }
-    // MARK: - 分享评论按钮
-    @IBAction func shareOnClick(sender: UIBarButtonItem) {
-        showKeyboardtop = false
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        self.view.layer.renderInContext(UIGraphicsGetCurrentContext())
-        var viewimage = UIGraphicsGetImageFromCurrentImageContext()
+    // MARK: - Segment Control
+    
+    @IBAction func voteSegment(sender: UISegmentedControl) {
         
+        let rowCount = tableView.numberOfRowsInSection(0)
+        
+        switch(sender.selectedSegmentIndex) {
+        case 0: // men only
+            var cell: OptionTableViewCell?
+            for row in 0...rowCount-1{
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+                if ((cell) != nil) {
+                    
+                    var percentage = optionArray[row]["menCount"] as CGFloat
+                    percentage = percentage / menCount
+                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    let perInt = Int(percentage * 100)
+                    cell?.optionDetail.text = perInt.description + "%"
+                }
+            }
+            
+            
+        case 1: // everyone
+            self.voteTotalperson()
+            
+        case 2: // women only
+            var cell: OptionTableViewCell?
+            for row in 0...rowCount-1{
+                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
+                if ((cell) != nil) {
+                    var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
+                    var percentage = optionArray[row]["womenCount"] as CGFloat
+                    percentage = percentage / womenCount
+                    
+                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    let perInt = Int(percentage * 100)
+                    cell?.optionDetail.text = perInt.description + "%"
+                }
+            }
+            
+        default:
+            println("Segment Control Error")
+        }
+    }
+
+    // MARK: - 分享评论按钮
+    
+    @IBAction func shareOnClick(sender: UIBarButtonItem) {
+        showKeyboardTextView = false
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext())
+        var viewimage = UIGraphicsGetImageFromCurrentImageContext()
         var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
         UIGraphicsEndImageContext();
         UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
@@ -74,13 +122,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func commentOnClick(sender: UIBarButtonItem) {
-        keyBoardShouldBack = true
-        showKeyboardtop = true
+        showKeyboardTextView = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
-        exitTextfield.becomeFirstResponder()
-        if lengthArray.count >= 1 {
-            var cellheight = lengthArray.objectAtIndex(0) as CGFloat
-            var totalheight = cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height + cellheight + 25
+        keyboardTextView.becomeFirstResponder()
+        if commentCellHeightArray.count >= 1 {
+            var cellheight = commentCellHeightArray.objectAtIndex(0) as CGFloat
+            var totalheight = cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height + cellheight + 25
             if totalheight < cell?.frame.origin.y {
                 tableView.contentOffset.y = totalheight
             }else {
@@ -88,19 +135,60 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
         }else {
-            tableView.contentOffset.y =  cell!.frame.origin.y - exitView.frame.origin.y + cell!.frame.height
+            tableView.contentOffset.y =  cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height
         }
-        
-        
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
+        self.tabBarController?.tabBar.hidden = true
+        keyboardView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
+        keyboardView.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, 70)
+        self.view.addSubview(keyboardView)
+        keyboardButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        keyboardTextView.frame = CGRectMake(0, 0, 0.75 * keyboardView.frame.width, 70)
+        keyboardTextView.delegate = self
+        keyboardTextView.font = UIFont.boldSystemFontOfSize(15)
+        keyboardTextView.layer.borderWidth = 0.5
+        keyboardTextView.layer.borderColor = UIColor.whiteColor().CGColor
+        keyboardTextView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
+        keyboardView.addSubview(keyboardTextView)
+        keyboardButton.frame = CGRectMake(keyboardTextView.frame.width, 0, 0.25 * keyboardView.frame.width,
+            70)
+        keyboardButton.setTitle("发表", forState: UIControlState.Normal)
+        keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
+        keyboardView.addSubview(keyboardButton)
+
+        self.configureView()
+        if(voteDetail["hasVoted"] as Int == 0){
+            tableView.allowsSelection = false
+            waiveButton.userInteractionEnabled = false
+            voteSegment.userInteractionEnabled = false
+            timeCount()
+        }else{
+            self.voteTotalperson()
+            waiveButton.hidden = true
+        }
+    }
+    
+    func configureView() {
+        if(voteTitle != nil) {
+            voteTitle.text = voteDetail.objectForKey("voteTitle") as NSString
+            var imageUrl = NSURL(string: voteDetail["voteImage"] as NSString)
+            voteImage.sd_setImageWithURL(imageUrl)
+            self.optionArray = voteDetail.objectForKey("options") as NSMutableArray
+            for option in optionArray{
+                menCount += option["menCount"] as CGFloat
+                womenCount += option["womenCount"] as CGFloat
+            }
+        }
     }
     
     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        if keyBoardShouldBack ==  true {
-            exitTextfield.resignFirstResponder()
-            exitView.hidden = true
-            scrollView.contentOffset.y = -64
-            keyBoardShouldBack = false
-        }
+        keyboardTextView.resignFirstResponder()
+        keyboardView.hidden = true
+        scrollView.contentOffset.y = -64
     }
     
     func updateLocation(locationManager: CLLocationManager) {
@@ -117,8 +205,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         if buttonIndex == 2 { // GPS Location
             updateLocation(locationManager)
         }
-      
     }
+    
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
@@ -126,79 +214,43 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         print(coord.longitude)
         manager.stopUpdatingLocation()
     }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-          NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
-        self.tabBarController?.tabBar.hidden = true
-        exitView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
-        exitView.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, 70)
-        self.view.addSubview(exitView)
-        exitButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        exitTextfield.frame = CGRectMake(0, 0, 0.75 * exitView.frame.width, 70)
-        exitTextfield.delegate = self
-        exitTextfield.font = UIFont.boldSystemFontOfSize(15)
-        exitTextfield.layer.borderWidth = 0.5
-        exitTextfield.layer.borderColor = UIColor.whiteColor().CGColor
-        exitTextfield.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
-        exitView.addSubview(exitTextfield)
-        exitButton.frame = CGRectMake(exitTextfield.frame.width, 0, 0.25 * exitView.frame.width,
-            70)
-        exitButton.setTitle("发表", forState: UIControlState.Normal)
-        exitButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
-        exitView.addSubview(exitButton)
-        
-        // Do any additional setup after loading the view, typically from a nib.
-        self.configureView()
-        if(voteDetail!["hasVoted"] as Int == 0){
-            tableView.allowsSelection = false
-            waiveButton.userInteractionEnabled = false
-            voteSegment.userInteractionEnabled = false
-            timeCount()
-        }else{
-            self.voteTotalperson()
-            waiveButton.hidden = true
-        }
-
-    }
-   
+    
     func handleKeyboardDidShow(notification:NSNotification) {
         var dic = notification.userInfo as NSDictionary!
-        if showKeyboardtop == true {
-        var kbsize = dic.objectForKey(UIKeyboardFrameEndUserInfoKey)!.CGRectValue().size
-        var animationValue = dic.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as NSValue
-        var duration = NSTimeInterval()
-        animationValue.getValue(&duration)
-        UIView.beginAnimations("animal", context: nil)
-        UIView.setAnimationDuration(duration)
-        adjustHeight(kbsize.height)
-        UIView.commitAnimations()
-        exitView.hidden = false
+        if showKeyboardTextView == true {
+            var keyboardHeight = dic.objectForKey(UIKeyboardFrameEndUserInfoKey)!.CGRectValue().size.height
+            var animationValue = dic.objectForKey(UIKeyboardAnimationDurationUserInfoKey) as NSValue
+            var duration = NSTimeInterval()
+            animationValue.getValue(&duration)
+            UIView.beginAnimations("animal", context: nil)
+            UIView.setAnimationDuration(duration)
+            keyboardView.frame = CGRectMake(0, self.view.frame.height - keyboardHeight - 70, self.view.frame.width, 70)
+            UIView.commitAnimations()
+            keyboardView.hidden = false
         }
-      
+        
     }
-   //MARK: - 发送评论
+    //MARK: - 发送评论
     func sendInform() {
-        exitView.hidden = true
-        exitTextfield.resignFirstResponder()
-         keyBoardShouldBack = false
-        commnetCountArray.insertObject(exitTextfield.text, atIndex: 0)
+        keyboardView.hidden = true
+        keyboardTextView.resignFirstResponder()
+        commnetArray.insertObject(keyboardTextView.text, atIndex: 0)
         var label1 = UILabel()
         label1.numberOfLines = 0
         label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
-        label1.text = exitTextfield.text
+        label1.text = keyboardTextView.text
         label1.sizeToFit()
-        lengthArray.insertObject(label1.frame.height + 40, atIndex: 0)
+        commentCellHeightArray.insertObject(label1.frame.height + 40, atIndex: 0)
         tableView.reloadData()
-        exitTextfield.text = ""
+        keyboardTextView.text = ""
         
-      
-     }
-    
-    func adjustHeight(height:CGFloat) {
-  
-        exitView.frame = CGRectMake(0, self.view.frame.height - height - 70, self.view.frame.width, 70)
+        
     }
+    
+    
+    
+    
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
@@ -212,7 +264,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
         self.voteTotalperson()
-     self.delegate?.setVoted(1)
+        self.delegate?.setVoted(1)
     }
     
     func timeCount() {
@@ -239,9 +291,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let rowCount = tableView.numberOfRowsInSection(0)
         var cell: OptionTableViewCell?
         tableView.allowsSelection = false
-        // add count to men or women
-        //
-        //
         for row in 0...rowCount-1{
             cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
             if ((cell) != nil) {
@@ -251,41 +300,11 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 cell?.optionProgress.setProgress(Float(percentage), animated: true)
                 let perInt = Int(percentage * 100)
                 cell?.optionDetail.text = perInt.description + "%"
-                
             }
         }
+    }
+    
 
-    }
-    
-    
-    
-    
-    // MARK: - configureView
-    
-    var voteDetail: NSDictionary? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
-    
-    func configureView() {
-        if let detail: AnyObject = self.voteDetail {
-            
-            if(voteTitle != nil) {
-                voteTitle.text = detail.objectForKey("voteTitle") as NSString
-                var str = detail["voteImage"] as NSString
-                var url = NSURL(string: str)
-                voteImage.sd_setImageWithURL(url)
-                self.optionArray = detail.objectForKey("options") as NSMutableArray
-                for option in optionArray{
-                    menCount += option["menCount"] as CGFloat
-                    womenCount += option["womenCount"] as CGFloat
-                }
-                
-            }
-        }
-    }
     
     // MARK: - Table View
     
@@ -295,121 +314,73 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-        return self.optionArray.count
+            return self.optionArray.count
         case 1:
-        return 1
+            return 1
         case 2:
-        return commnetCountArray.count
+            return commnetArray.count
         default:
-        return 0
-        }
-      
-    }
-//    
-     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 2 {
-//            var label = cell?.viewWithTag(102) as? UILabel
-//            print(label?.frame.height)
-//            return lengthArray.objectAtIndex(indexPath.row) as CGFloat
-            return lengthArray.objectAtIndex(indexPath.row) as CGFloat
-        }
-        return 55
-    }
-    func setSelect(number: Int) {
-        var imagevc = ImageViewController()
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: number, inSection: 0)) as OptionTableViewCell?
-        imagevc.photoView.image = cell?.optionImage.image
-        imagevc.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
-        presentViewController(imagevc, animated: true) { () -> Void in
-            
+            return 0
         }
     }
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "titleImage" {
-           
-            (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
+    
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.section {
+        case 0:
+            return 55
+        case 1:
+            return 45
+        case 2:
+            return commentCellHeightArray.objectAtIndex(indexPath.row) as CGFloat
+        default:
+            return 55
         }
     }
-     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-           let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("optionCell", forIndexPath: indexPath) as OptionTableViewCell
             var dicAppear = self.optionArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.optionTitle.text = dicAppear.objectForKey("title") as NSString
             cell.delegate = self
             cell.imagenumber = indexPath.row
             return cell
         }else if indexPath.section == 1 {
-           let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
+            let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
             var toolBar = cell.contentView.viewWithTag(101) as UIToolbar
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var label = cell.contentView.viewWithTag(102) as UILabel
-//        print(indexPath.row)
-       
-       label.text = commnetCountArray.objectAtIndex(indexPath.row) as NSString
+        label.text = commnetArray.objectAtIndex(indexPath.row) as NSString
         return cell
-        
     }
-
-    // MARK: - Table VIew Selection
-
-     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-
+    
+    func setSelect(number: Int) {
+        var imageViewController = ImageViewController()
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: number, inSection: 0)) as OptionTableViewCell?
+        imageViewController.photoView.image = cell?.optionImage.image
+        imageViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
+        presentViewController(imageViewController, animated: true) { () -> Void in
+        }
+    }
+    
+    // MARK: - Option Cell Selection
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-        self.delegate?.setVoted(1)
-        self.voteTotalperson()
-        waiveButton.hidden = true
-        voteSegment.selectedSegmentIndex = 1;
+            self.delegate?.setVoted(1)
+            self.voteTotalperson()
+            waiveButton.hidden = true
+            voteSegment.selectedSegmentIndex = 1;
         }
-        
     }
     
-    // MARK: - Segment Control
-    
-    @IBAction func voteSegment(sender: UISegmentedControl) {
-        
-        let rowCount = tableView.numberOfRowsInSection(0)
-        
-        switch(sender.selectedSegmentIndex) {
-        case 0: // men only
-            var cell: OptionTableViewCell?
-            for row in 0...rowCount-1{
-                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
-                if ((cell) != nil) {
-                    
-                    var percentage = optionArray[row]["menCount"] as CGFloat
-                    percentage = percentage / menCount
-                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
-                    let perInt = Int(percentage * 100)
-                    cell?.optionDetail.text = perInt.description + "%"
-                }
-            }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "titleImage" {
             
-            
-        case 1: // everyone
-         self.voteTotalperson()
-            
-        case 2: // women only
-            var cell: OptionTableViewCell?
-            for row in 0...rowCount-1{
-                cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: row, inSection: 0)) as OptionTableViewCell?
-                if ((cell) != nil) {
-                    var backTab = CGRectMake(54, 0, self.view.frame.width - 54, 54)
-                    var percentage = optionArray[row]["womenCount"] as CGFloat
-                    percentage = percentage / womenCount
-                    
-                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
-                    let perInt = Int(percentage * 100)
-                    cell?.optionDetail.text = perInt.description + "%"
-                }
-            }
-            
-        default:
-            println("Segment Control Error")
+            (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
         }
-        
-        
     }
+    
 }
-
