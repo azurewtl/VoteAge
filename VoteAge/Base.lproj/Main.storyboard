@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -124,7 +125,7 @@
                         <sections>
                             <tableViewSection id="eWR-OL-wGE">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="100" id="rom-oJ-Ybk">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="100" id="rom-oJ-Ybk">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rom-oJ-Ybk" id="44i-bz-aA3">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -165,7 +166,7 @@
                             </tableViewSection>
                             <tableViewSection id="MDC-jk-1ng">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="mdN-lo-z4L" style="IBUITableViewCellStyleDefault" id="9xr-fU-9cQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="mdN-lo-z4L" style="IBUITableViewCellStyleDefault" id="9xr-fU-9cQ">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9xr-fU-9cQ" id="qc0-b2-70N">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -203,24 +204,32 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="hSy-TB-J26">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="150" id="hSy-TB-J26">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hSy-TB-J26" id="OdD-aX-m1t">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" fixedFrame="YES" text="个人简介" translatesAutoresizingMaskIntoConstraints="NO" id="LLV-5S-Tb3">
-                                                    <rect key="frame" x="67" y="8" width="245" height="134"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="简介" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YaQ-9W-OEB">
                                                     <rect key="frame" x="18" y="14" width="34" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="个人简介" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ofw-aY-kQG">
+                                                    <rect key="frame" x="88" y="14" width="185" height="120"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="Ofw-aY-kQG" secondAttribute="height" multiplier="37:24" id="6cW-W5-IU0"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ofw-aY-kQG" firstAttribute="top" secondItem="OdD-aX-m1t" secondAttribute="topMargin" constant="6" id="1oa-cy-8wU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Ofw-aY-kQG" secondAttribute="bottom" constant="8" id="D7R-EX-qUP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Ofw-aY-kQG" secondAttribute="trailing" constant="39" id="LTh-Mr-5dy"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -236,12 +245,14 @@
                         <outlet property="authorID" destination="f1v-T5-4eM" id="jTh-nK-cb2"/>
                         <outlet property="authorImage" destination="VDa-3E-Snd" id="TbS-ON-wqG"/>
                         <outlet property="authorName" destination="JDG-0g-vd2" id="apM-Sx-Fzz"/>
+                        <outlet property="authorgender" destination="LJ0-G4-daT" id="gcc-hp-7Si"/>
+                        <outlet property="simpleintroduce" destination="Ofw-aY-kQG" id="cuC-St-cKp"/>
                         <outlet property="subscribeButton" destination="FY7-UP-Nrm" id="dDS-Nc-g74"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nx-7s-lf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2479" y="1375"/>
+            <point key="canvasLocation" x="2518" y="1407"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
@@ -1706,8 +1717,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="diD-ek-DxV"/>
         <segue reference="ERR-bz-Jha"/>
-        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="w1p-qS-yrD"/>
+        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -190,7 +190,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardView.hidden = true
         scrollView.contentOffset.y = -64
     }
-    
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            keyboardView.hidden = true
+            tableView.contentOffset.y = -64
+        }
+        return true
+    }
     func updateLocation(locationManager: CLLocationManager) {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.distanceFilter = 100.0

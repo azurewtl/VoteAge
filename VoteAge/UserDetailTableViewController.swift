@@ -12,8 +12,11 @@ class UserDetailTableViewController: UITableViewController {
     
 
     @IBOutlet weak var authorImage: UIImageView!
-    @IBOutlet weak var simpleintroduce: UILabel!
-    @IBOutlet weak var authorgender: UILabel!
+   
+   
+    @IBOutlet var simpleintroduce: UILabel!
+ 
+    @IBOutlet var authorgender: UILabel!
     @IBOutlet weak var authorName: UILabel!
     @IBOutlet weak var authorID: UILabel!
     @IBOutlet weak var subscribeButton: UIButton!
@@ -21,6 +24,7 @@ class UserDetailTableViewController: UITableViewController {
     var buttonTitle = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
+
         if voteFeed.count != 0 {
         subscribeButton.setTitle(buttonTitle, forState: UIControlState.Normal)
         self.tabBarController?.tabBar.hidden = true
@@ -54,7 +58,7 @@ class UserDetailTableViewController: UITableViewController {
         switch section {
             case 0: return 1
             case 1: return 1
-            case 2: return 3
+            case 2: return 2
         default: return 0
         }
     }

@@ -26,17 +26,17 @@ class LogInViewController: UIViewController{
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         userLogtext.resignFirstResponder()
         passWordText.resignFirstResponder()
-//        var dic1 = ["title":"qweqwe", "author":"caosbsx", "option":[]] as NSDictionary
-        //add:
-//        AFnetworkingJS.uploadJson(dic, url: "http://127.0.0.1:8000/API/votefeed/") { (result:Int32!) -> Void in
-//            print(result)
-//        }
-    
+//        var dic1:NSDictionary = ["mobile":"13716458904", "password":"123456","gender":2] as NSDictionary
+//        //add:
+        AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/register") { (result:Int32!) -> Void in
+            print(result)
+        }
+
         //delete:
 //        AFnetworkingJS.removeJson("http://127.0.0.1:8000/API/votefeed/7/", resultBlock: { (result:Int32!) -> Void in
 //            print(result)
 //        })
-        
+    
         //put(update)
 //        AFnetworkingJS.updateJson("http:127.0.0.1:8000/API/votefeed/8/", dic: dic1) { (result:Int32!) -> Void in
 //        print(result)

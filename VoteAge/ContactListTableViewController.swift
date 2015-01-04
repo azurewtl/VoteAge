@@ -152,8 +152,8 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         //        selectedCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: indexPath.section)) as UITableViewCell!
-        var array = contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
-        selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
+//        var array = contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
+//        selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
         
     }
 

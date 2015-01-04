@@ -305,8 +305,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return 100
         }
     }
-    
-    func createTag(tagArray: NSArray) ->UIView {
+    func createTag(tagArray: NSArray, tag:Int, str:Selector, chosen:Int) ->UIView {
         var footerView = UIView()
         if tagArray.count != 0 {
             footerView.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
@@ -326,12 +325,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                     colCount = 0
                     rowCount++
                 }
+                if chosen == 0 {
                 tagButton.setTitle(tagArray.objectAtIndex(i)["title"] as NSString, forState: UIControlState.Normal)
-                tagButton.tag = i + 1
+                }else{
+                      tagButton.setTitle(tagArray.objectAtIndex(i) as NSString, forState: UIControlState.Normal)
+                }
+                
+                tagButton.tag = i + tag
                 tagButton.layer.masksToBounds = true
                 tagButton.layer.cornerRadius = tagButton.frame.height / 2
                 tagButton.backgroundColor = UIColor.whiteColor()
-                tagButton.addTarget(self, action: "btn:", forControlEvents: UIControlEvents.TouchUpInside)
+                tagButton.addTarget(self, action:str, forControlEvents: UIControlEvents.TouchUpInside)
                 footerView.addSubview(tagButton)
             }
         }
@@ -341,9 +345,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         switch (section) {
         case 0:
-            return createTag(titleTagArray)
+            return createTag(titleTagArray, tag: 1, str:"btn:", chosen:0)
         case 1:
-            return createTag(optionTagArray)
+            return createTag(optionTagArray, tag: 10000, str:"btnAnswer:", chosen:1)
         default:
             return UIView()
         }
