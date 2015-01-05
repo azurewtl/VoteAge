@@ -13,7 +13,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     var timeInterval = Int()
     var timer = NSTimer()
-    var rowCount = 3
+    var rowCount = 7
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
 
@@ -51,7 +51,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 self.timer.invalidate()
                 self.timeLabel.hidden = true
                 sender.enabled = false
-                self.rowCount = 9
+                self.rowCount = 7
                 self.tableView.reloadData()
             }else {
                 sender.setTitle("验证失败", forState: UIControlState.Normal)
@@ -67,9 +67,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            
-        })
+      
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         phoneTextField.resignFirstResponder()

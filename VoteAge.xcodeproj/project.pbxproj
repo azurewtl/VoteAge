@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1818D9241A259B4000AAC458 /* RegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1818D9231A259B4000AAC458 /* RegisterTableViewController.swift */; };
-		181C4D5B1A1C98180077B682 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C4D5A1A1C98180077B682 /* LogInViewController.swift */; };
 		181C4D601A1C9DB90077B682 /* DataBaseHandle.m in Sources */ = {isa = PBXBuildFile; fileRef = 181C4D5F1A1C9DB90077B682 /* DataBaseHandle.m */; };
 		181C4D621A1CA2E00077B682 /* NewVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 181C4D611A1CA2E00077B682 /* NewVoteTableViewController.swift */; };
 		182E83BA1A2C0E5D0048069C /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E83B91A2C0E5D0048069C /* QuartzCore.framework */; };
@@ -158,7 +157,6 @@
 
 /* Begin PBXFileReference section */
 		1818D9231A259B4000AAC458 /* RegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterTableViewController.swift; sourceTree = "<group>"; };
-		181C4D5A1A1C98180077B682 /* LogInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		181C4D5E1A1C9DB90077B682 /* DataBaseHandle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataBaseHandle.h; sourceTree = "<group>"; };
 		181C4D5F1A1C9DB90077B682 /* DataBaseHandle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataBaseHandle.m; sourceTree = "<group>"; };
 		181C4D611A1CA2E00077B682 /* NewVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewVoteTableViewController.swift; sourceTree = "<group>"; };
@@ -771,7 +769,6 @@
 				18773A081A1495AD00A05745 /* testData1.json */,
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
-				181C4D5A1A1C98180077B682 /* LogInViewController.swift */,
 				1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */,
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
@@ -976,7 +973,6 @@
 				184BB4401A1C54BE006DF06C /* AFHTTPSessionManager.m in Sources */,
 				18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */,
 				184BB4411A1C54BE006DF06C /* AFNetworkReachabilityManager.m in Sources */,
-				181C4D5B1A1C98180077B682 /* LogInViewController.swift in Sources */,
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,

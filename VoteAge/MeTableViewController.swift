@@ -10,7 +10,6 @@ import UIKit
 
 class MeTableViewController: UITableViewController {
     var addVoteArray = NSMutableArray()
-    var logDefault = NSUserDefaults.standardUserDefaults()
     override func viewDidLayoutSubviews() {
         
         super.viewDidLoad()
@@ -31,14 +30,7 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
-        let  cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 4)) as UITableViewCell?
-        if(logDefault.objectForKey("userID") as NSString == "guest") {
-            cell?.textLabel.text = "登录"
-        print(logDefault.objectForKey("userID"))
-    
-        }else{
-            cell?.textLabel.text = "退出登录"
-        }
+       
     }
 
     // MARK: - Table view data source
@@ -61,7 +53,6 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
-           logDefault.setObject("", forKey: "userID")
             dismissViewControllerAnimated(true, completion: { () -> Void in
             })
         }
