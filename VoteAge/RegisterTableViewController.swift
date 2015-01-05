@@ -13,10 +13,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     var timeInterval = Int()
     var timer = NSTimer()
-    var rowCount = 7
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
-
     @IBOutlet weak var senderVertiButton: UIButton!
     @IBAction func sendVertificationButton(sender: UIButton) {
         
@@ -27,7 +25,11 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                     self.vertiButton.enabled = true
                     self.timeraction()
                     sender.enabled = false
-                    self.rowCount = 5
+                    for index in 0...2 {
+                        let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
+                        cell?.hidden = false
+                    }
+                    
                     self.tableView.reloadData()
                 }else {
                    sender.setTitle("发送失败", forState: UIControlState.Normal)
@@ -51,7 +53,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 self.timer.invalidate()
                 self.timeLabel.hidden = true
                 sender.enabled = false
-                self.rowCount = 7
+                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+                cell?.hidden = false
                 self.tableView.reloadData()
             }else {
                 sender.setTitle("验证失败", forState: UIControlState.Normal)
@@ -62,8 +65,6 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBOutlet weak var genderSegmentControl: UISegmentedControl!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var passwordVerifyTextField: UITextField!
   
     
     @IBAction func submitButton(sender: UIButton) {
@@ -85,12 +86,20 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-       phoneTextField.delegate = self
-       verificationTextField.delegate = self
+        phoneTextField.delegate = self
+        verificationTextField.delegate = self
         phoneTextField.keyboardType = UIKeyboardType.PhonePad
         verificationTextField.keyboardType = UIKeyboardType.PhonePad
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "back")
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        for index in 0...2 {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
+        cell?.hidden = true
+        }
+       let cell1 =  tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+        cell1?.hidden = true
     }
     func back() {
         dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -123,13 +132,22 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         // #warning Potentially incomplete method implementation.
         // Return the number of sections.
-        return 1
+        return 3
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        return rowCount
+        switch section {
+        case 0:
+            return 3
+        case 1:
+            return 3
+        case 2:
+            return 1
+        default:
+            return 0
+        }
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
