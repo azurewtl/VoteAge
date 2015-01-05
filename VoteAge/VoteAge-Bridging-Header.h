@@ -17,3 +17,4 @@
 #import "AFHTTPRequestOperationManager.h"
 #import "AFURLResponseSerialization.h"
 #import "AFHTTPRequestOperation.h"
+#import <CommonCrypto/CommonDigest.h>

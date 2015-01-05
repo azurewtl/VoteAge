@@ -23,15 +23,32 @@ class LogInViewController: UIViewController{
         })
         
     }
+
     override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
         userLogtext.resignFirstResponder()
         passWordText.resignFirstResponder()
-//        var dic1:NSDictionary = ["mobile":"13716458904", "password":"123456","gender":2] as NSDictionary
+        
+//        var dic1:NSDictionary = ["mobile":"15590308970", "password":"15590308973", "gender":1] as NSDictionary
 //        //add:
-        AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/register") { (result:Int32!) -> Void in
-            print(result)
-        }
+//      AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/register/") { (result) -> Void in
+//            print(result.valueForKey("message"))
+//        }
+//        var dic = ["mobile":"15590308972", "password":"123456", "gender":1] as NSDictionary
+//        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login/") { (result) -> Void in
+//            print(result)
+//        }
 
+//        var urlstr = "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/register/"
+//        var url = NSURL(string: urlstr)
+//        var request = NSMutableURLRequest(URL: url!)
+//        request.HTTPMethod = "POST"
+//    
+//        var paramStr = "mobile=15590285743&password=654321&gender=2"
+//        var paramData = paramStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)
+//        request.HTTPBody = paramData
+//        var data = NSURLConnection.sendSynchronousRequest(request, returningResponse: nil, error: nil)
+//        var result = NSString(data: data!, encoding: NSUTF8StringEncoding)
+//        print(result!)
         //delete:
 //        AFnetworkingJS.removeJson("http://127.0.0.1:8000/API/votefeed/7/", resultBlock: { (result:Int32!) -> Void in
 //            print(result)

@@ -8,11 +8,10 @@
 
 import UIKit
 
-class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate {
+class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userNickName: UITextField!
-    @IBOutlet weak var userID: UITextField!
     @IBOutlet weak var genderSeg: UISegmentedControl!
     @IBOutlet weak var userDescription: UITextView!
     
@@ -27,6 +26,7 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        userNickName.delegate = self
         self.tabBarController?.tabBar.hidden = true
         self.userImage.layer.masksToBounds = true
         self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
@@ -41,6 +41,9 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
             print("女")
         }
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
+        let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
+        let phonetextfield = cell1?.contentView.viewWithTag(101) as UITextField
+        phonetextfield.delegate = self
         let imageView = cell?.contentView.viewWithTag(101) as UIImageView
         var imageGesture = UITapGestureRecognizer(target: self, action: "tapGesture")
         imageView.userInteractionEnabled = true
@@ -106,12 +109,23 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
 
     func textViewDidChange(textView: UITextView) {
         var str = NSMutableString(string: textView.text)
-        if(str.length <= 30){
+        if(str.length <= 60){
             textView.text = str
         }else{
-            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
+            str.deleteCharactersInRange(NSMakeRange(60, str.length - 60))
             textView.text = str
         }
+    }
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            tableView.contentOffset.y = -64
+        }
+        return true
+    }
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -143,7 +157,6 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         userNickName.resignFirstResponder()
-        userID.resignFirstResponder()
         userDescription.resignFirstResponder()
     }
 }
