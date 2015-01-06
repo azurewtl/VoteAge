@@ -10,6 +10,7 @@ import UIKit
 
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     //notification
+    var tokenDefult = NSUserDefaults.standardUserDefaults()
     var collectioncellCount = 1
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
@@ -21,6 +22,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
+        var img = UIImage(named: "user1")
+        var data = UIImageJPEGRepresentation(img, 0.7)
+        var encodeStr = data.base64EncodedStringWithOptions(nil)
+        var dic = ["option":"吃包子","image":encodeStr] as NSDictionary
+//        var dic1 = ["option":"不知道","image":encodeStr] as NSDictionary
+        var ar = [dic] as NSArray
+        var senddic = ["title":"吃什么", "voteImage":encodeStr,"option":ar,"latitude":"31","longtitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
         
         voteFeedDictionary.setObject("12345678", forKey: "voteID")
         voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")

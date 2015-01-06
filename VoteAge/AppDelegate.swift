@@ -10,11 +10,14 @@ import UIKit
 import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
+    
+    var accessTokenDefault = NSUserDefaults.standardUserDefaults()
     var window: UIWindow?
     var appkey = "4682729a0788"
     var appsecret = "14e6b542fb4780ec57c1ca6544c6a303"
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        accessTokenDefault.setValue("", forKey: "accessToken")
         SMS_SDK.registerApp(appkey, withSecret: appsecret)
         ShareSDK.registerApp(appkey)
         ShareSDK.connectSinaWeiboWithAppKey("585583252", appSecret: "99347fc7fb789eff3243655dd4b539b5", redirectUri: "http://www.lanou3g.com")

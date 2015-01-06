@@ -600,7 +600,7 @@
                         <segue destination="rS3-R9-Ivy" kind="relationship" relationship="viewControllers" id="yGT-nh-E4A"/>
                         <segue destination="S6W-LG-0Ru" kind="relationship" relationship="viewControllers" id="kF8-ok-KYn"/>
                         <segue destination="Wr0-9c-Iej" kind="relationship" relationship="viewControllers" id="Wov-Uv-7B3"/>
-                        <segue destination="uw1-ba-kha" kind="relationship" relationship="viewControllers" id="AL5-HE-p9T"/>
+                        <segue destination="eAs-K5-hih" kind="relationship" relationship="viewControllers" id="lSu-i4-B9G"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bs7-9M-M7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1325,7 +1325,7 @@
         <!--Item-->
         <scene sceneID="g7N-YT-fur">
             <objects>
-                <tableViewController id="uw1-ba-kha" customClass="RegisterTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="login" id="uw1-ba-kha" customClass="RegisterTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="Ui5-sV-p9K">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1515,7 +1515,6 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="submitButton:" destination="uw1-ba-kha" eventType="touchUpInside" id="hvF-IK-44G"/>
-                                                        <segue destination="eAs-K5-hih" kind="modal" id="uNP-QP-rr1"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1548,7 +1547,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXI-eA-zdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-202" y="2124"/>
+            <point key="canvasLocation" x="454" y="2855"/>
         </scene>
     </scenes>
     <resources>
@@ -1565,8 +1564,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="w1p-qS-yrD"/>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="Jtg-IW-Xz3"/>
         <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

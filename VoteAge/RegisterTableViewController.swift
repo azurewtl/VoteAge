@@ -13,6 +13,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var timeLabel: UILabel!
     var timeInterval = Int()
     var timer = NSTimer()
+    var tokenDefult = NSUserDefaults.standardUserDefaults()
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var senderVertiButton: UIButton!
@@ -68,7 +69,15 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
-      
+      var dic = ["mobile":"15590285733", "password":"15590285734", "gender":2] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
+            print(result)
+            self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
+            print(result.valueForKey("message"))
+        }
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         phoneTextField.resignFirstResponder()
@@ -94,18 +103,14 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        for index in 0...2 {
-        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
-        cell?.hidden = true
-        }
-       let cell1 =  tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
-        cell1?.hidden = true
+//        for index in 0...2 {
+//        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
+//        cell?.hidden = true
+//        }
+//       let cell1 =  tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+//        cell1?.hidden = true
     }
-    func back() {
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            
-        })
-    }
+
     func timeraction() {
         timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timegoing", userInfo: nil, repeats: true)
         timer.fire()

@@ -10,9 +10,18 @@ import UIKit
 
 class MeTableViewController: UITableViewController {
     var addVoteArray = NSMutableArray()
+    var tokenDefult = NSUserDefaults.standardUserDefaults()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+        self.presentViewController(logVc, animated: true) { () -> Void in
+            
+        }
+    }
     override func viewDidLayoutSubviews() {
         
-        super.viewDidLoad()
+        super.viewDidLayoutSubviews()
         var path = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
         var data = NSData(contentsOfFile: path!)
         var dic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
@@ -53,8 +62,13 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
-            dismissViewControllerAnimated(true, completion: { () -> Void in
-            })
+            
+            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+            self.presentViewController(logVc, animated: true) { () -> Void in
+                
+            }
+
         }
     }
 

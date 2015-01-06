@@ -9,6 +9,7 @@
 import UIKit
 
 class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate, UITextFieldDelegate {
+    var tokenDefult = NSUserDefaults.standardUserDefaults()//accessToken 单例
     
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userNickName: UITextField!
@@ -102,6 +103,15 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     }
     
     @IBAction func saveButton(sender: UIButton) {
+        var img = UIImage(named: "add")
+        var data = UIImageJPEGRepresentation(img, 0.7)
+        var encodeStr = data.base64EncodedStringWithOptions(nil)
+        var dic1 = ["gender":1,"name":"haha", "image":encodeStr,"description":"asdasd","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/updateUser") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
+
         self.navigationController?.popViewControllerAnimated(true)
     }
     
