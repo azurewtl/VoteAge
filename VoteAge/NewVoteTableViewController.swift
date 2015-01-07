@@ -28,7 +28,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var dic = ["option":"吃包子","image":encodeStr] as NSDictionary
 //        var dic1 = ["option":"不知道","image":encodeStr] as NSDictionary
         var ar = [dic] as NSArray
-        var senddic = ["title":"吃什么", "voteImage":encodeStr,"option":ar,"latitude":"31","longtitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+        var senddic = ["title":"吃什么", "voteImage":encodeStr,"option":ar,"latitude":"31","longitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))

@@ -39,7 +39,6 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
-       
     }
 
     // MARK: - Table view data source
@@ -62,13 +61,17 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
+            var dic = ["method":"delete","voteId":"32" ,"accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+            print(tokenDefult.valueForKey("accessToken"))
+          AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+            print(result)
+//            print(result.valueForKey("message"))
+          })
             
             var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
             var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
             self.presentViewController(logVc, animated: true) { () -> Void in
-                
             }
-
         }
     }
 

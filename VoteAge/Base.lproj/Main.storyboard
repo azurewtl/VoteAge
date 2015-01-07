@@ -563,7 +563,7 @@
         <scene sceneID="fkt-CA-BMg">
             <objects>
                 <navigationController id="S6W-LG-0Ru" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="关注" image="iocn_contact" id="bKP-ZA-SQB"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="关注" image="iocn_contact" id="bKP-ZA-SQB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fXC-Qw-a0v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -580,10 +580,10 @@
             </objects>
             <point key="canvasLocation" x="454" y="756"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Tabbar Controller-->
         <scene sceneID="Qce-eb-XAR">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="660-7C-4iM" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="660-7C-4iM" customClass="TabbarController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MQh-rV-LLw">
@@ -605,7 +605,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bs7-9M-M7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-397" y="988"/>
+            <point key="canvasLocation" x="-397" y="1004"/>
         </scene>
         <!--热点-->
         <scene sceneID="93J-vX-Cxb">
@@ -681,12 +681,6 @@
                     <view key="view" contentMode="scaleToFill" id="UXA-Nv-VeP">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="pNJ-Ln-xEj">
-                                <rect key="frame" x="16" y="153" width="288" height="270"/>
-                                <color key="backgroundColor" red="0.97462910353535359" green="0.77542500076528398" blue="0.56994087977735497" alpha="1" colorSpace="calibratedRGB"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="二维码" id="jrr-0w-3Wf"/>
@@ -1086,7 +1080,7 @@
         <scene sceneID="xab-K3-35P">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eAs-K5-hih" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我" image="icon_me" id="26a-k9-QGp"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="我" image="icon_me" id="26a-k9-QGp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1099,18 +1093,18 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="9PZ-bg-fbZ" kind="relationship" relationship="rootViewController" id="eQ3-ZF-6jx"/>
+                        <segue destination="9PZ-bg-fbZ" kind="relationship" relationship="rootViewController" id="Wa5-Wd-8uS"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXi-OV-8MS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="2124"/>
+            <point key="canvasLocation" x="437" y="2181"/>
         </scene>
         <!--扫一扫-->
         <scene sceneID="u0h-Ph-MV2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wr0-9c-Iej" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="扫一扫" image="icon_QRC" id="Dhe-dY-Fdp"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="扫一扫" image="icon_QRC" id="Dhe-dY-Fdp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BJf-xc-qrB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1257,7 +1251,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0p-nN-kIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1527" y="1018"/>
+            <point key="canvasLocation" x="1763" y="1490"/>
         </scene>
         <!--热点-->
         <scene sceneID="I4k-sk-q9d">
@@ -1330,6 +1324,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="GDl-W4-HRy">
+                            <rect key="frame" x="0.0" y="393" width="320" height="179"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhF-bj-UwQ">
+                                    <rect key="frame" x="8" y="71" width="304" height="56"/>
+                                    <color key="backgroundColor" red="0.0" green="0.36078431372549019" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <state key="normal" title="还想再看看">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="backOnclick:" destination="uw1-ba-kha" eventType="touchUpInside" id="Wcc-24-TGW"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="yhF-bj-UwQ" secondAttribute="trailing" constant="8" id="5Yy-MQ-3F3"/>
+                                <constraint firstAttribute="bottom" secondItem="yhF-bj-UwQ" secondAttribute="bottom" constant="52" id="8dq-04-ds4"/>
+                                <constraint firstItem="yhF-bj-UwQ" firstAttribute="top" secondItem="GDl-W4-HRy" secondAttribute="top" constant="71" id="KWi-2J-qlz"/>
+                                <constraint firstItem="yhF-bj-UwQ" firstAttribute="leading" secondItem="GDl-W4-HRy" secondAttribute="leading" constant="8" id="kQI-wE-QWa"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="DQC-7u-Kgr">
                                 <cells>
@@ -1536,6 +1554,7 @@
                     <tabBarItem key="tabBarItem" title="Item" image="icon_me" id="vKA-qL-q8K"/>
                     <navigationItem key="navigationItem" id="rcu-h9-cJg"/>
                     <connections>
+                        <outlet property="backButton" destination="yhF-bj-UwQ" id="3Hk-cj-4Me"/>
                         <outlet property="countryTextField" destination="Rp0-kw-BMf" id="gfY-nk-zsl"/>
                         <outlet property="genderSegmentControl" destination="lNI-7u-K2e" id="zQu-Cs-Y3l"/>
                         <outlet property="phoneTextField" destination="Ufo-b0-5Zq" id="6UR-xf-Nqb"/>
@@ -1547,7 +1566,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXI-eA-zdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="2855"/>
+            <point key="canvasLocation" x="437" y="2929"/>
         </scene>
     </scenes>
     <resources>
@@ -1564,8 +1583,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="diD-ek-DxV"/>
+        <segue reference="w1p-qS-yrD"/>
         <segue reference="ERR-bz-Jha"/>
-        <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -135,6 +135,7 @@
 		18D2DBBA1A25AF53006F74B1 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBB91A25AF53006F74B1 /* MessageUI.framework */; };
 		18D2DBBC1A25AF9D006F74B1 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */; };
 		18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */; };
+		18EDD6E31A5D1E6C00C796EC /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
 		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
@@ -324,6 +325,7 @@
 		18D2DBB91A25AF53006F74B1 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		18D2DBBB1A25AF9D006F74B1 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabbarController.swift; sourceTree = "<group>"; };
 		BB72084B1A0B600100A97FCD /* VoteAge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VoteAge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -769,6 +771,7 @@
 				18773A081A1495AD00A05745 /* testData1.json */,
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
+				18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */,
 				1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */,
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
@@ -950,6 +953,7 @@
 				184BB44C1A1C54BE006DF06C /* SDWebImageDecoder.m in Sources */,
 				184BB4471A1C54BE006DF06C /* pinyin.c in Sources */,
 				184BB4481A1C54BE006DF06C /* MKAnnotationView+WebCache.m in Sources */,
+				18EDD6E31A5D1E6C00C796EC /* TabbarController.swift in Sources */,
 				181C4D601A1C9DB90077B682 /* DataBaseHandle.m in Sources */,
 				184BB4581A1C54BE006DF06C /* SQLiteDB.swift in Sources */,
 				184BB43E1A1C54BE006DF06C /* AFHTTPRequestOperation.m in Sources */,

@@ -13,8 +13,8 @@
 +(void)netWorkWithURL:(NSString *)urlStr resultBlock:(void(^)(id result))block;
 -(void)upJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void(^)(id result))block;
 +(void)uploadJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void(^)(id result))block;
--(void)deleteJson:(NSString *)url resultBlock:(void(^)(int result))block;
-+(void)removeJson:(NSString *)url resultBlock:(void(^)(int result))block;
+-(void)deleteJson:(NSString *)url resultBlock:(void(^)(id result))block;
++(void)removeJson:(NSString *)url resultBlock:(void(^)(id result))block;
 -(void)changeJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void(^)(int result))block;
 +(void)updateJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void(^)(int result))block;
 @end

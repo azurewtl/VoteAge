@@ -17,6 +17,14 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var senderVertiButton: UIButton!
+    
+    @IBOutlet var backButton: UIButton!
+    
+    @IBAction func backOnclick(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
     @IBAction func sendVertificationButton(sender: UIButton) {
         
         if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
@@ -69,14 +77,16 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
-      var dic = ["mobile":"15590285733", "password":"15590285734", "gender":2] as NSDictionary
+      var dic = ["mobile":"15590285735", "password":"15590285736", "gender":2] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
+           
             self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
             print(result.valueForKey("message"))
+            
         }
         dismissViewControllerAnimated(true, completion: { () -> Void in
-            
+    
         })
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -95,11 +105,13 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableFooterView?.backgroundColor = tableView.backgroundColor
         phoneTextField.delegate = self
         verificationTextField.delegate = self
         phoneTextField.keyboardType = UIKeyboardType.PhonePad
         verificationTextField.keyboardType = UIKeyboardType.PhonePad
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Cancel, target: self, action: "back")
+        backButton.clipsToBounds = true
+        backButton.layer.cornerRadius = 15
     }
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)

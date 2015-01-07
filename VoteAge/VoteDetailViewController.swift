@@ -381,6 +381,17 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             waiveButton.hidden = true
             voteSegment.selectedSegmentIndex = 1;
         }
+        var deviceId = UIDevice.currentDevice().identifierForVendor
+        print(deviceId.UUIDString)
+        
+        var dic = ["voteId":33,"optionId":27,"gender":1,"deviceId":deviceId.UUIDString,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
+            print(result)
+//            print("***")
+//            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
+            print(result.valueForKey("message"))
+        }
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

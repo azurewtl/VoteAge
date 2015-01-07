@@ -12,9 +12,10 @@ import CoreLocation
 class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
-        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "情感", "娱乐")
+        var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var tokenDefult = NSUserDefaults.standardUserDefaults()
     var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -26,6 +27,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
         updateLocation(locationManager)
+        }
+        if buttonIndex == 2 {
+            print("hot")
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -61,10 +65,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
     }
+   
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        activityIndicator.frame = CGRectMake(130, 200, 50, 50)
+         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
         activityIndicator.layer.cornerRadius = 5
@@ -96,6 +100,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
 
         sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
+        
+         var dic = ["startIndex":"0","endIndex":"10","userId":"15590285733"] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
+        
     
     }
     // MARK: - protocol
@@ -152,12 +163,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         cell.voteAuthor.setTitle(voteItem["voteAuthorName"] as NSString, forState: UIControlState.Normal)
         cell.authorID = voteItem["voteAuthorID"] as NSString
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-       
         cell.voteImage.sd_setImageWithURL(imageUrl)
         
         return cell
     }
-    
+  
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true

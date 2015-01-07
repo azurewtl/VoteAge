@@ -13,19 +13,37 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
     var layer: AVCaptureVideoPreviewLayer?
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-    
+        var line = UIView()
+        line.frame = CGRectMake(0, 150, view.frame.width, 10)
+        line.backgroundColor = UIColor.greenColor()
+        self.view.addSubview(line)
+        self.setupCamera()
+        UIView.beginAnimations("id", context: nil)
+        UIView.setAnimationDuration(4)
+        UIView.setAnimationCurve(UIViewAnimationCurve.Linear)
+        UIView.setAnimationRepeatCount(100)
+        line.frame = CGRectMake(0, 450, view.frame.width,10)
+        UIView.commitAnimations()
+       
         // Do any additional setup after loading the view.
     }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
+    override func viewDidAppear(animated: Bool) {
+        
+        super.viewDidAppear(true)
         self.tabBarController?.tabBar.hidden = false
-        self.setupCamera()
-        self.session.startRunning()
+        session.startRunning()
+    
    
     }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(true)
+        session.stopRunning()
+    }
     func setupCamera() {
+        
         self.session.sessionPreset = AVCaptureSessionPresetHigh
         var error: NSError?
         let input = AVCaptureDeviceInput(device: device, error: &error)
@@ -37,8 +55,9 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         layer = AVCaptureVideoPreviewLayer(session: session)
         layer!.videoGravity = AVLayerVideoGravityResizeAspectFill
-        layer!.frame = CGRectMake(20, 150, 300, 300)
+        layer!.frame = CGRectMake(0, 150, view.frame.width, 300)
         self.view.layer.insertSublayer(self.layer, atIndex: 0)
+        
         let output = AVCaptureMetadataOutput()
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         if session.canAddOutput(output) {
@@ -65,6 +84,9 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         alertView.message = "扫到的二维码内容为:\(stringValue)"
         alertView.addButtonWithTitle("确认")
         alertView.show()
+//        var url = NSURL(string: stringValue!)
+//        UIApplication.sharedApplication().openURL(url!)
+        
     }
     
 

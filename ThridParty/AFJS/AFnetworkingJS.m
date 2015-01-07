@@ -64,15 +64,16 @@
     AFnetworkingJS *afjs = [[AFnetworkingJS alloc] init];
     [afjs upJson:dic url:url1 resultBlock:block];
 }
-- (void)deleteJson:(NSString *)url resultBlock:(void (^)(int))block{
+- (void)deleteJson:(NSString *)url resultBlock:(void (^)(id))block{
     AFHTTPRequestOperationManager *manager =  [AFHTTPRequestOperationManager manager];
-    [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        block(0);
+       [manager DELETE:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        block(1);
+        NSLog(@"%@", error);
+        block(@"0");
     }];
 }
-+ (void)removeJson:(NSString *)url resultBlock:(void (^)(int))block{
++ (void)removeJson:(NSString *)url resultBlock:(void (^)(id))block{
     AFnetworkingJS *js = [[AFnetworkingJS alloc]init];
     [js deleteJson:url resultBlock:block];
 }
