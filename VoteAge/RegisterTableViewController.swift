@@ -77,16 +77,21 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
-      var dic = ["mobile":"15590285735", "password":"15590285736", "gender":2] as NSDictionary
+//      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
+//        var textfield = cell?.contentView.viewWithTag(102) as UITextField
+   
+      var dic = ["mobile":"15590285735", "password":"15590285736", "gender":2, "deviceId":tokenDefult.objectForKey("userId") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
            
             self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
+            self.tokenDefult.setValue("15590285735", forKey: "userId")
             print(result.valueForKey("message"))
             
         }
         dismissViewControllerAnimated(true, completion: { () -> Void in
-    
+            var logoutDic = ["logout":"1"] as NSDictionary
+            NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
         })
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {

@@ -21,12 +21,12 @@
     NSString *path = [s stringByAppendingPathComponent:@"ConTact.db"];
 //                   NSLog(@"%@", path);
                    int result = sqlite3_open([path UTF8String], &dbPoint);
-                   NSLog(@"%d", result);
+//                   NSLog(@"%d", result);
     
 }
 -(void)closeDB{
     int result = sqlite3_close(dbPoint);
-    NSLog(@"%d", result);
+//    NSLog(@"%d", result);
 }
 -(void)createTable:(NSString *)list{
 //    NSString *sql = @"create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)";

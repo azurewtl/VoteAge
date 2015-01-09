@@ -57,7 +57,8 @@
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        block(@"0");
+        NSDictionary *dic = @{@"message": @"网络出故障啦！"};
+        block(dic);
     }];
 }
 + (void)uploadJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void (^)(id))block{
@@ -70,7 +71,6 @@
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", error);
-        block(@"0");
     }];
 }
 + (void)removeJson:(NSString *)url resultBlock:(void (^)(id))block{

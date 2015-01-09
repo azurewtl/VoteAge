@@ -13,11 +13,11 @@ class MeTableViewController: UITableViewController {
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
-        self.presentViewController(logVc, animated: true) { () -> Void in
-            
-        }
+//        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//        var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+//        self.presentViewController(logVc, animated: true) { () -> Void in
+//            
+//        }
     }
     override func viewDidLayoutSubviews() {
         
@@ -61,18 +61,33 @@ class MeTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
-            var dic = ["method":"delete","voteId":"32" ,"accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+            var dic = ["method":"delete", "voteId":"38","accessToken":tokenDefult.valueForKey("accessToken") as NSString, "deviceId":tokenDefult.valueForKey("userId") as NSString] as NSDictionary
             print(tokenDefult.valueForKey("accessToken"))
           AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
             print(result)
-//            print(result.valueForKey("message"))
+            print(result.valueForKey("message"))
           })
-            
-            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
-            self.presentViewController(logVc, animated: true) { () -> Void in
+            self.tabBarController?.selectedIndex = 0
+            tokenDefult.setValue("", forKey: "userId")
+            NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: ["logout":"0"] as NSDictionary)
+//            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+//            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+//            self.presentViewController(logVc, animated: true) { () -> Void in
+//            }
+        }
+        
+        if indexPath.section == 2 {
+            if indexPath.row == 0 {
+               var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"10","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
+                    print(result)
+                    print(result.valueForKey("message"))
+                })
+                
             }
         }
+        
+        
     }
 
     // MARK: - Segues

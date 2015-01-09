@@ -118,7 +118,6 @@
 		18687D171A1DD2C500CF3434 /* VoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */; };
 		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
-		1871987B1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
@@ -307,7 +306,6 @@
 		18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteDetailViewController.swift; sourceTree = "<group>"; };
 		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
-		1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneRegisterTableViewController.swift; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
@@ -772,7 +770,6 @@
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */,
-				1871987A1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift */,
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
 				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
@@ -994,7 +991,6 @@
 				184BB44F1A1C54BE006DF06C /* SDWebImageManager.m in Sources */,
 				184BB4491A1C54BE006DF06C /* NSData+ImageContentType.m in Sources */,
 				184BB4421A1C54BE006DF06C /* AFSecurityPolicy.m in Sources */,
-				1871987B1A1F1466004D1F41 /* PhoneRegisterTableViewController.swift in Sources */,
 				BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */,
 				18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */,
 				184BB4571A1C54BE006DF06C /* UIView+WebCacheOperation.m in Sources */,

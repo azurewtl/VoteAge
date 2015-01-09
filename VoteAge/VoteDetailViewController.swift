@@ -122,6 +122,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     @IBAction func commentOnClick(sender: UIBarButtonItem) {
+        var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var dic = ["deviceId":deviceId,"voteId":"33", "content":"这个投票不错","accessToken":((NSUserDefaults.standardUserDefaults()).objectForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/addComment/") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
+        
+        
         showKeyboardTextView = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
         keyboardTextView.becomeFirstResponder()
@@ -141,6 +149,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       var str = NSString()
+        var dic = ["voteId":"33","startIndex":"0","endIndex":"10"] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getCommentList/") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
         self.tabBarController?.tabBar.hidden = true
         keyboardView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)

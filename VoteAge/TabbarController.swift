@@ -8,15 +8,42 @@
 
 import UIKit
 
-class TabbarController: UITabBarController {
-
+class TabbarController: UITabBarController, UITabBarControllerDelegate{
+     var userDefault = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+         self.delegate = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "noti:", name: "logout", object: nil)
         // Do any additional setup after loading the view.
     }
+    func noti(noti:NSNotification) {
+        if (noti.userInfo! as NSDictionary).objectForKey("logout") as NSString == "1" {
+            self.selectedIndex = 3
+        }
+    }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
-        print(item.tag)
+        if item.tag == 3 {
+            if userDefault.objectForKey("userId") as NSString == "" {
+                var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+                presentViewController(logVc, animated: true, completion: { () -> Void in
+                    
+                })
+            }
+           
+            
+        }
+    }
+    func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
+       
+        if viewController.tabBarItem.tag == 3 {
+         if userDefault.objectForKey("userId") as NSString == ""{
+            return false
+         }else {
+            return true
+            }
+    }
+    return true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

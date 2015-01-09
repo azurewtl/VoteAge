@@ -13,7 +13,6 @@ class UserDetailTableViewController: UITableViewController {
 
     @IBOutlet weak var authorImage: UIImageView!
    
-   
     @IBOutlet var simpleintroduce: UILabel!
  
     @IBOutlet var authorgender: UILabel!
@@ -46,6 +45,17 @@ class UserDetailTableViewController: UITableViewController {
     
     @IBAction func subscribeButton(sender: UIButton) {
         println("subscribe clicked")
+        if sender.currentTitle == "关注" {
+        sender.setTitle("取消关注", forState: UIControlState.Normal)
+        }else {
+            sender.setTitle("关注", forState: UIControlState.Normal)
+        }
+        var dic = ["userId":"15590285735","contactId":"13789567112", "relationship":2,"accessToken":((NSUserDefaults.standardUserDefaults()).objectForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/subscribeContact") { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+        }
+        
     }
     
     // MARK: - Table view data source

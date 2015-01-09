@@ -101,10 +101,14 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
         sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
         
-         var dic = ["startIndex":"0","endIndex":"10","userId":"15590285733"] as NSDictionary
+         var dic = ["startIndex":"0","endIndex":"20","userId":"15590285735"] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
             print(result)
-            print(result.valueForKey("message"))
+            if result.valueForKey("message") as NSString == "网络故障" {
+                print("网络故障")
+            }else {
+               print(result.valueForKey("message"))
+            }
         }
         
     
@@ -135,6 +139,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         
         if segue.identifier == "showAuthorDetail" {
+            var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"contactId":"13789567112","accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString]
+            
+            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getRelationship", resultBlock: { (result) -> Void in
+                print(result)
+               print(result.valueForKey("message"))
+            })
+            
+            
+            
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
             let indexPath = tableView.indexPathForCell(cell)
