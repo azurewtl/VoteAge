@@ -13,22 +13,20 @@ class MeTableViewController: UITableViewController {
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-//        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//        var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
-//        self.presentViewController(logVc, animated: true) { () -> Void in
-//            
-//        }
+
     }
     override func viewDidLayoutSubviews() {
         
         super.viewDidLayoutSubviews()
-        var path = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-        var data = NSData(contentsOfFile: path!)
-        var dic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
-        addVoteArray = dic["adVote"] as NSMutableArray
+//        var path = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+//        var data = NSData(contentsOfFile: path!)
+//        var dic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
+//        addVoteArray = dic["adVote"] as NSMutableArray
         
- //        var userpwd = logDefault.valueForKey("pwd") as? NSString
-
+        var dic = ["userId":"15590285735", "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
+            self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+        })
     }
 
     override func didReceiveMemoryWarning() {
@@ -69,6 +67,7 @@ class MeTableViewController: UITableViewController {
           })
             self.tabBarController?.selectedIndex = 0
             tokenDefult.setValue("", forKey: "userId")
+            tokenDefult.setValue("", forKey: "accessToken")
             NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: ["logout":"0"] as NSDictionary)
 //            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
 //            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController

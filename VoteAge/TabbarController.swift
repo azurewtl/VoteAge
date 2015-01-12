@@ -23,7 +23,9 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         if item.tag == 3 {
+            print(userDefault.objectForKey("userId") as NSString)
             if userDefault.objectForKey("userId") as NSString == "" {
+                
                 var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
                 var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
                 presentViewController(logVc, animated: true, completion: { () -> Void in

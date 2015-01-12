@@ -16,8 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var appkey = "4682729a0788"
     var appsecret = "14e6b542fb4780ec57c1ca6544c6a303"
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        accessTokenDefault.setValue("", forKey: "accessToken")
-        accessTokenDefault.setValue("", forKey: "userId")
+        if  accessTokenDefault.valueForKey("accessToken") == nil {
+             accessTokenDefault.setValue("", forKey: "accessToken")
+        }
+        if accessTokenDefault.valueForKey("userId") == nil {
+          accessTokenDefault.setValue("", forKey: "userId")
+        }
         SMS_SDK.registerApp(appkey, withSecret: appsecret)
         ShareSDK.registerApp(appkey)
         ShareSDK.connectSinaWeiboWithAppKey("585583252", appSecret: "99347fc7fb789eff3243655dd4b539b5", redirectUri: "http://www.lanou3g.com")

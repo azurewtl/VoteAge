@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate {
     //notification
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var collectioncellCount = 1
@@ -22,29 +22,32 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
-        var img = UIImage(named: "user1")
-        var data = UIImageJPEGRepresentation(img, 0.7)
+        let titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
+        
+        var titleTextView = titlecell?.contentView.viewWithTag(102) as UITextView//问题
+        var titleImageView = titlecell?.contentView.viewWithTag(101) as UIImageView
+//        if(titleImageView.image != UIImage(named: "dummyImage")) {
+//            var titleimageData = UIImageJPEGRepresentation(titleImageView.image, 0.5)
+//        }
+//        var img = UIImage(named: "user1")
+        var data = UIImageJPEGRepresentation(titleImageView.image, 0.5)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
-        var dic = ["option":"吃包子","image":encodeStr] as NSDictionary
-//        var dic1 = ["option":"不知道","image":encodeStr] as NSDictionary
-        var ar = [dic] as NSArray
-        var senddic = ["title":"吃什么", "voteImage":encodeStr,"option":ar,"latitude":"31","longitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
+        
+        var dic = ["option":"去","image":encodeStr] as NSDictionary
+        var dic1 = ["option":"不去","image":encodeStr] as NSDictionary
+        var ar = [dic, dic1] as NSArray
+        
+        var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":ar,"latitude":"31","longitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
         }
-        
-        voteFeedDictionary.setObject("12345678", forKey: "voteID")
-        voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")
-        voteFeedDictionary.setObject("373789", forKey: "voteAuthorID")
-        voteFeedDictionary.setObject(0, forKey: "hasVoted")
-        
-        var titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
-        var titleimageview = titlecell?.contentView.viewWithTag(101) as UIImageView
-        if(titleimageview.image != UIImage(named: "dummyImage")) {
-            var titleimageData = UIImageJPEGRepresentation(titleimageview.image, 0.75)
-            //        print(titleimageData.length)
-        }
+//        
+//        voteFeedDictionary.setObject("12345678", forKey: "voteID")
+//        voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")
+//        voteFeedDictionary.setObject("373789", forKey: "voteAuthorID")
+//        voteFeedDictionary.setObject(0, forKey: "hasVoted")
+     
         for index in 0...optionCellRowCount - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let optionTitle = cell?.contentView.viewWithTag(102) as UITextField
@@ -61,9 +64,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         
         voteFeedDictionary.setObject(optionArray, forKey: "options")
+        
         if (voteFeedDictionary["voteTitle"] != nil && voteFeedDictionary["options"] as NSArray != []) {
-            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: voteFeedDictionary)
-            self.navigationController!.tabBarController?.selectedIndex = 0
+//            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: voteFeedDictionary)
+//            self.navigationController!.tabBarController?.selectedIndex = 0
+            var alert = UIAlertView(title: "温馨提示", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
+            alert.show()
         }
         
     }
@@ -192,7 +198,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         
         countlabeL.text = (30 - str.length).description
-        voteFeedDictionary.setObject(textView.text, forKey: "voteTitle")
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -215,11 +220,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 optionCellRowCount++
             }
             var dic = NSMutableDictionary()
-            dic.setObject(lastTextField.text, forKey: "title")
-            var num1 = arc4random() % 10 + 1
-            var num2 = arc4random() % 10 + 1
-            dic.setObject(Int(num1), forKey: "menCount")
-            dic.setObject(Int(num2), forKey: "womenCount")
+            dic.setObject(lastTextField.text, forKey: "option")
         }
         tableView.reloadData()
     }
@@ -257,7 +258,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             let titleImageTapGesture = UITapGestureRecognizer(target: self, action: "tap:")
             image.userInteractionEnabled = true
             image.addGestureRecognizer(titleImageTapGesture)
-            
+    
             let textView = cell.contentView.viewWithTag(102) as UITextView
             textView.delegate = self
             
@@ -416,7 +417,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         let label = cell?.contentView.viewWithTag(103) as  UILabel
         label.hidden = true
         textView.text = btn.currentTitle
-        voteFeedDictionary.setObject(textView.text, forKey: "voteTitle")
         var i = btn.tag - 1
         optionTagArray = titleTagArray.objectAtIndex(i)["option"] as NSMutableArray
         tableView.reloadData()

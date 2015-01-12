@@ -9,14 +9,14 @@
 import UIKit
 import CoreData
 import CoreLocation
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate, VoteDetailDelegate, UIActionSheetDelegate, CLLocationManagerDelegate{
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, allowVoteDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var allowvoteDic = NSMutableDictionary()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
-    var sendNotificationCenter = NSNotificationCenter.defaultCenter()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
@@ -48,79 +48,60 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         print(coord.longitude)
         manager.stopUpdatingLocation()
     }
-    func noti(noti:NSNotification) {
-        var receiveDiction = NSMutableDictionary()
-        receiveDiction.setObject("12345678", forKey: "voteID")
-        receiveDiction.setObject("caiyang", forKey: "voteAuthorName")
-        receiveDiction.setObject("373789", forKey: "voteAuthorID")
-        receiveDiction.setObject(0, forKey: "hasVoted")
-        receiveDiction.setObject("http://img3.douban.com/view/movie_poster_cover/lpst/public/p2204980911.jpg", forKey: "voteImage")
-        receiveDiction.setObject((noti.userInfo! as NSDictionary)["options"]!, forKey: "options")
-        receiveDiction.setObject((noti.userInfo! as NSDictionary)["voteTitle"]!, forKey: "voteTitle")
-        voteArray.addObject(receiveDiction)
-        
-        tableView.reloadData()
-    }
-    override func viewWillAppear(animated: Bool) {
+       override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
     }
    
     override func viewDidLoad() {
         super.viewDidLoad()
-         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
+//        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
+        activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
         activityIndicator.layer.cornerRadius = 5
         self.view.addSubview(activityIndicator)
-        var ceshi:Int = 0
+        var ceshi:Int = 1
         if(ceshi == 1){
-            var str = "http://127.0.0.1:8000/API/votefeed/"
+//            var str = "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/"
             let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
             let group = dispatch_group_create()
             dispatch_group_async(group, queue, {
                 self.activityIndicator.startAnimating()
+            
             })
             dispatch_group_notify(group, queue, {
-                AFnetworkingJS .netWorkWithURL(str, resultBlock: { (var result:AnyObject?) -> Void in
-                    var str = NSString()
-                    self.voteArray = result?.objectForKey("entries") as NSMutableArray
+                var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+                    print(result)
+                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                        print("网络故障")
+                    }else {
+                        print(result.valueForKey("message"))
+
+                        self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                        self.tableView.reloadData()
+                    }
                     self.activityIndicator.stopAnimating()
-                })
+                }
+                
             })
+            
+            
         }else{
           
-            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-            var data1 = NSData(contentsOfFile: path1!)
-            
-            var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
-            voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-
-            
+//            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+//            var data1 = NSData(contentsOfFile: path1!)
+//            
+//            var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
+//            voteArray = votedic.objectForKey("hotlist") as NSMutableArray
         }
 
-        sendNotificationCenter.addObserver(self, selector: "noti:", name: "sendVote", object: nil)
-        
-         var dic = ["startIndex":"0","endIndex":"20","userId":"15590285735"] as NSDictionary
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-            print(result)
-            if result.valueForKey("message") as NSString == "网络故障" {
-                print("网络故障")
-            }else {
-               print(result.valueForKey("message"))
-            }
-        }
         
     
     }
     // MARK: - protocol
 
-    func setVoted(status: Int) {
-        if let indexPath = self.tableView.indexPathForSelectedRow() {
-            var vote = voteArray[indexPath.row] as NSMutableDictionary
-             vote["hasVoted"] = 1
-        }
-    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -128,31 +109,40 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     
     
     // MARK: - Segues
-    
+    func haveVote() {
+        let indexPath = self.tableView.indexPathForSelectedRow()
+        let vote = voteArray[indexPath!.row] as NSMutableDictionary
+      
+    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
+                if voteArray.count > 0 {
                 let vote = voteArray[indexPath.row] as NSMutableDictionary
+//                print(vote)
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
                 (segue.destinationViewController as VoteDetailViewController).delegate = self
+                }
             }
         }
         
         if segue.identifier == "showAuthorDetail" {
             var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"contactId":"13789567112","accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString]
             
-            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getRelationship", resultBlock: { (result) -> Void in
-                print(result)
-               print(result.valueForKey("message"))
-            })
+//            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getRelationship", resultBlock: { (result) -> Void in
+//                print(result)
+//               print(result.valueForKey("message"))
+//            })
             
             
             
             let senderButton = sender as UIButton
             let cell = senderButton.superview?.superview as VoteTableViewCell
             let indexPath = tableView.indexPathForCell(cell)
+            if voteArray.count > 0 {
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
-//            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+            }
             (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "关注"
         }
         
@@ -170,17 +160,23 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
+        if voteArray.count > 0 {
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
-        
-        cell.voteTitle.text = voteItem["voteTitle"] as NSString
-        cell.voteAuthor.setTitle(voteItem["voteAuthorName"] as NSString, forState: UIControlState.Normal)
-        cell.authorID = voteItem["voteAuthorID"] as NSString
+        cell.voteTitle.text = voteItem["title"] as? NSString
+        cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
+        cell.authorID = voteItem["authorId"] as? NSString
+        if voteItem["voteImage"] as NSString == "" {
+           cell.voteImage?.image = UIImage(named: "dummyImage")
+        }else {
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-        cell.voteImage.sd_setImageWithURL(imageUrl)
-        
+        cell.voteImage?.sd_setImageWithURL(imageUrl)
+        }
+        }
         return cell
     }
   
+    
+    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
@@ -189,12 +185,16 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             var deleteItem = NSArray(objects: indexPath)
-            self.voteArray.removeObjectAtIndex(indexPath.row)
+//            self.voteArray.removeObjectAtIndex(indexPath.row)
             tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
-
-
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+    
+    
+    
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
     //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String

@@ -12,15 +12,15 @@ class VoteTableViewCell: UITableViewCell {
     
     
     @IBOutlet weak var voteTitle: UILabel!
-    @IBOutlet weak var voteImage: UIImageView!
+    @IBOutlet weak var voteImage: UIImageView?
     @IBOutlet var voteAuthor: UIButton!
-    var authorID: NSString = NSString()
+    var authorID: NSString? = NSString()
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        voteImage.layer.cornerRadius = voteImage.frame.width / 2
-        voteImage.clipsToBounds = true
+        voteImage!.layer.cornerRadius = voteImage!.frame.width / 2
+        voteImage!.clipsToBounds = true
      
     }
    
