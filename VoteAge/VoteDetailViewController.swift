@@ -273,7 +273,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         var commtDic = NSMutableDictionary()
         commtDic.setValue(keyboardTextView.text, forKey: "content")
         commtArray.insertObject(commtDic, atIndex: 0)
-        var dic = ["voteId":voteDetail["Id"] as NSString, "content":keyboardTextView.text,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content":keyboardTextView.text,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/addComment") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
@@ -430,19 +430,16 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 //            print("***")
 //            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
             print(result.valueForKey("message"))
+            
         }
-        var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
-            var url =
-        AFnetworkingJS.uploadJson(getSingleDic, url: "", resultBlock: { (result) -> Void in
-            
-        })
-            
+        var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":voteDetail.objectForKey("Id") as NSString] as NSDictionary
+//        AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+//            print(result)
+//            print(result.valueForKey("message"))
+//        })
             
     }
-        
-        
     }
-    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "titleImage" {
             

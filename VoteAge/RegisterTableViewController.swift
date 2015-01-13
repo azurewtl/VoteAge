@@ -17,7 +17,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var countryTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
     @IBOutlet weak var senderVertiButton: UIButton!
-    
+    var cellCount = 0
+    var cellCount1 = 0
     @IBOutlet var backButton: UIButton!
     
     @IBAction func backOnclick(sender: UIButton) {
@@ -38,7 +39,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
                         cell?.hidden = false
                     }
-                    
+                    self.cellCount = 3
                     self.tableView.reloadData()
                 }else {
                    sender.setTitle("发送失败", forState: UIControlState.Normal)
@@ -64,6 +65,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 sender.enabled = false
                 let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
                 cell?.hidden = false
+                self.cellCount1 = 1
                 self.tableView.reloadData()
             }else {
                 sender.setTitle("验证失败", forState: UIControlState.Normal)
@@ -77,15 +79,15 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
-//      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
-//        var textfield = cell?.contentView.viewWithTag(102) as UITextField
-   
-      var dic = ["mobile":"15590285735", "password":"15590285736", "gender":2, "deviceId":tokenDefult.objectForKey("userId") as NSString] as NSDictionary
+     print(genderSegmentControl.selectedSegmentIndex)
+      let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
+        var textfield = cell?.contentView.viewWithTag(102) as UITextField
+      var dic = ["mobile":textfield.text, "password":((textfield.text as NSString).integerValue + 1).description , "gender":genderSegmentControl.selectedSegmentIndex + 1, "deviceId":tokenDefult.objectForKey("userId") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
            
             self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
-            self.tokenDefult.setValue("15590285735", forKey: "userId")
+            self.tokenDefult.setValue(textfield.text, forKey: "userId")
             print(result.valueForKey("message"))
             
         }
@@ -164,9 +166,9 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         case 0:
             return 3
         case 1:
-            return 3
+            return cellCount
         case 2:
-            return 1
+            return cellCount1
         default:
             return 0
         }

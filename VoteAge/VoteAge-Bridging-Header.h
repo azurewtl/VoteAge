@@ -18,3 +18,4 @@
 #import "AFURLResponseSerialization.h"
 #import "AFHTTPRequestOperation.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <UIKit/UIKit.h>

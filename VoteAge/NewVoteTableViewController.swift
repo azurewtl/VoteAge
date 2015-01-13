@@ -8,10 +8,9 @@
 
 import UIKit
 
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIAlertViewDelegate {
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UIAlertViewDelegate {
     //notification
     var tokenDefult = NSUserDefaults.standardUserDefaults()
-    var collectioncellCount = 1
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
@@ -55,9 +54,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
                     print(result)
                     print(result.valueForKey("message"))
+                    var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
+                    alert.show()
                 }
-            var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
-            alert.show()
+            
             }else{
                 var alert = UIAlertView(title: "", message: "选项至少两个", delegate: nil, cancelButtonTitle: "确定")
                 alert.show()
@@ -224,7 +224,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 4
+        return 3
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -234,8 +234,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         case 1:
             return optionCellRowCount
         case 2:
-            return 1
-        case 3:
             return 1
         default:
             return 0
@@ -274,16 +272,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             let expireDatePickerView = cell.contentView.viewWithTag(101) as UIPickerView
             expireDatePickerView.delegate = self
             expireDatePickerView.dataSource = self
-            
-        case 3:
-            cell = tableView.dequeueReusableCellWithIdentifier("NewVoteAddCell", forIndexPath: indexPath) as UITableViewCell
-            var collectionView = cell.contentView.viewWithTag(101) as UICollectionView
-            collectionView.delegate = self
-            collectionView.dataSource = self
-            collectionView.scrollEnabled = false
-            collectionView.registerClass(VoteAddPersonCell.classForCoder(), forCellWithReuseIdentifier: "addperson")
-            
-        default:
+            default:
             break
         }
         
@@ -302,14 +291,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             return 55
         case 2:
             return 195
-        case 3:
-            var height = collectioncellCount / 4 * 90
-            if(collectioncellCount % 4 != 0 && collectioncellCount / 4 < 1){
-                return 90
-            }else if(collectioncellCount % 4 == 0 && collectioncellCount / 4 >= 1) {
-                return CGFloat(height)
-            }
-            return CGFloat(height + 90)
         default:
             return 100
         }
@@ -375,37 +356,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
     }
     
-    // MARK: - Collection View
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return collectioncellCount
-    }
-    
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell{
-        var cell = collectionView.dequeueReusableCellWithReuseIdentifier("addperson", forIndexPath: indexPath) as VoteAddPersonCell
-        cell.backgroundColor = UIColor.yellowColor()
-        cell.image.image = UIImage(named: "add")
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.item == collectioncellCount - 1 {
-            collectioncellCount++
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as VoteAddPersonCell
-            collectionView.reloadData()
-            tableView.reloadData()
-            cell.image.image = UIImage(named: "add")
-            self.performSegueWithIdentifier("contact", sender: true)
-        }
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize{
-        return CGSizeMake(70, 70)
-    }
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets{
-        return UIEdgeInsetsMake(10, 10, 10, 10)
-    }
     
     func btn(btn:UIButton) {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?

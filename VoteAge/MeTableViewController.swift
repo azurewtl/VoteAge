@@ -13,20 +13,16 @@ class MeTableViewController: UITableViewController {
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-    }
-    override func viewDidLayoutSubviews() {
-        
-        super.viewDidLayoutSubviews()
-//        var path = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-//        var data = NSData(contentsOfFile: path!)
-//        var dic = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers, error: nil) as NSDictionary
-//        addVoteArray = dic["adVote"] as NSMutableArray
         
         var dic = ["userId":"15590285735", "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
             self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
         })
+    }
+    override func viewDidLayoutSubviews() {
+        
+        super.viewDidLayoutSubviews()
+      
     }
 
     override func didReceiveMemoryWarning() {
