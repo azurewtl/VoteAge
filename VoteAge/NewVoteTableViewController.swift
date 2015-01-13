@@ -15,7 +15,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
-    var voteFeedDictionary = NSMutableDictionary()
     var edittextfield = false
     var taptextfield = UITextField()
     var optionCellRowCount = 1
@@ -32,43 +31,39 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
 //        var img = UIImage(named: "user1")
         var data = UIImageJPEGRepresentation(titleImageView.image, 0.5)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
-        
-        var dic = ["option":"去","image":encodeStr] as NSDictionary
-        var dic1 = ["option":"不去","image":encodeStr] as NSDictionary
-        var ar = [dic, dic1] as NSArray
-        
-        var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":ar,"latitude":"31","longitude":"120","expireDate":"2015-1-10","accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
-            print(result)
-            print(result.valueForKey("message"))
-        }
-//        
-//        voteFeedDictionary.setObject("12345678", forKey: "voteID")
-//        voteFeedDictionary.setObject("caiyang", forKey: "voteAuthorName")
-//        voteFeedDictionary.setObject("373789", forKey: "voteAuthorID")
-//        voteFeedDictionary.setObject(0, forKey: "hasVoted")
-     
         for index in 0...optionCellRowCount - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let optionTitle = cell?.contentView.viewWithTag(102) as UITextField
             var imageview = cell?.contentView.viewWithTag(101) as UIImageView
+            var data1 = UIImageJPEGRepresentation(imageview.image, 0.5)
+            var encodeStr1 = data1.base64EncodedStringWithOptions(nil)
             var dic = NSMutableDictionary()
             if optionTitle.text != "" {
-                dic.setObject(optionTitle.text, forKey: "title")
-                var num1 = arc4random() % 10 + 1
-                var num2 = arc4random() % 10 + 1
-                dic.setObject(Int(num1), forKey: "menCount")
-                dic.setObject(Int(num2), forKey: "womenCount")
+                dic.setObject(optionTitle.text, forKey: "option")
+                dic.setObject(encodeStr1, forKey: "image")
                 optionArray.addObject(dic)
             }
         }
-        
-        voteFeedDictionary.setObject(optionArray, forKey: "options")
-        
-        if (voteFeedDictionary["voteTitle"] != nil && voteFeedDictionary["options"] as NSArray != []) {
-//            NSNotificationCenter.defaultCenter().postNotificationName("sendVote", object: nil, userInfo: voteFeedDictionary)
-//            self.navigationController!.tabBarController?.selectedIndex = 0
-            var alert = UIAlertView(title: "温馨提示", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
+     var pickerCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+     var picker = pickerCell?.contentView.viewWithTag(101) as UIPickerView
+     var selectPicker = pickerArray.objectAtIndex(picker.selectedRowInComponent(0)) as NSString
+    var date = NSDate(timeIntervalSinceNow: (8 + selectPicker.doubleValue * 24) * 60 * 60)
+    var dateArray = date.description.componentsSeparatedByString(" ") as NSArray
+    var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":optionArray,"latitude":"31","longitude":"120","expireDate":dateArray.firstObject as NSString,"accessToken":tokenDefult.valueForKey("accessToken") as NSString,"allowComment":1] as NSDictionary
+        if (senddic["title"] as NSString != "") {
+            if optionArray.count > 1 {
+                AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
+                    print(result)
+                    print(result.valueForKey("message"))
+                }
+            var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
+            alert.show()
+            }else{
+                var alert = UIAlertView(title: "", message: "选项至少两个", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
+            }
+        }else{
+           var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
             alert.show()
         }
         
@@ -88,7 +83,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        pickerArray = ["1天", "3天", "5天", "10天", "15天", "30天", "60天", "90天"]
+        var now = NSDate(timeIntervalSinceNow: 8 * 60 * 60)
+        var array = now.description.componentsSeparatedByString(" ") as NSArray
+        print(array.firstObject as NSString)
+        pickerArray = ["1", "3", "5", "10", "15", "30", "60", "90"]
         
     }
     
@@ -219,8 +217,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             if optionCellRowCount < 5 {
                 optionCellRowCount++
             }
-            var dic = NSMutableDictionary()
-            dic.setObject(lastTextField.text, forKey: "option")
         }
         tableView.reloadData()
     }

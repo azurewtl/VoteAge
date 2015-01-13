@@ -18,6 +18,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        print(NSTemporaryDirectory())
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
         self.tabBarController?.tabBar.hidden = true
         

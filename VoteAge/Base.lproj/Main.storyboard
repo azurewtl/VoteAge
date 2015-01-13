@@ -1002,13 +1002,19 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjR-7G-r41">
-                                            <rect key="frame" x="85" y="33" width="150" height="162"/>
+                                        <pickerView tag="101" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yjR-7G-r41">
+                                            <rect key="frame" x="85" y="34" width="150" height="162"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="150" id="nLU-3D-TpI"/>
                                                 <constraint firstAttribute="height" constant="162" id="nMq-ju-hhf"/>
                                             </constraints>
                                         </pickerView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="天" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdm-A1-e9v">
+                                            <rect key="frame" x="243" y="86" width="69" height="58"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                            <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="centerX" secondItem="yjR-7G-r41" secondAttribute="centerX" id="08r-Jr-zMY"/>
@@ -1074,7 +1080,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2231" y="2630"/>
+            <point key="canvasLocation" x="2231" y="2626"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1314,7 +1320,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEl-lT-riU" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1559" y="2913"/>
+            <point key="canvasLocation" x="1351" y="2921"/>
         </scene>
         <!--Item-->
         <scene sceneID="g7N-YT-fur">

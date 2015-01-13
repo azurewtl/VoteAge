@@ -23,16 +23,24 @@ class UserDetailTableViewController: UITableViewController {
     var buttonTitle = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+    
+        var contactDic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "contactId":"13713098766", "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(contactDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getRelationship") { (result) -> Void in
+            print(result)
+            print(result.objectForKey("message"))
+        }
+        
+        
+        
         if voteFeed.count != 0 {
         subscribeButton.setTitle(buttonTitle, forState: UIControlState.Normal)
         self.tabBarController?.tabBar.hidden = true
-        authorName.text = voteFeed["userName"] as NSString
-        var url = NSURL(string: voteFeed["userImage"] as NSString)
-        authorImage.sd_setImageWithURL(url)
-        authorID.text = voteFeed["userID"] as NSString
-        authorgender.text = voteFeed["gender"] as NSString
-        simpleintroduce.text = voteFeed["describe"] as NSString
+//        authorName.text = voteFeed["authorName"] as NSString
+//        var url = NSURL(string: voteFeed["userImage"] as NSString)
+//        authorImage.sd_setImageWithURL(url)
+//        authorID.text = voteFeed["authorId"] as NSString
+//        authorgender.text = voteFeed["gender"] as NSString
+//        simpleintroduce.text = voteFeed["describe"] as NSString
         }
     }
 

@@ -126,14 +126,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             }
         }
         
-        if segue.identifier == "showAuthorDetail" {
-            var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"contactId":"13789567112","accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString]
-            
-//            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getRelationship", resultBlock: { (result) -> Void in
-//                print(result)
-//               print(result.valueForKey("message"))
-//            })
-            
+        if segue.identifier == "showAuthorDetail" {            
             
             
             let senderButton = sender as UIButton
@@ -174,9 +167,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         return cell
     }
-  
-    
-    
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.
         return true
