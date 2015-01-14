@@ -26,23 +26,32 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         let db = DataBaseHandle.shareInstance()
         db.openDB()
         db.createTable("create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)")
-
-        // For Test
-        var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-        var data1 = NSData(contentsOfFile: path1!)
-        var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
+//         For Test
+//        var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
+//        var data1 = NSData(contentsOfFile: path1!)
+//        var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
+        
+        var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"10","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
+            print(result)
+            print(result.valueForKey("message"))
+            if result.valueForKey("status") as Int == 1 {
+                print(result.valueForKey("list") as NSArray)
+                let friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
+                self.updateDataBaseAndInitialArray(friendArray)
+                // Update contactArray accroding to initalArray
+                for var i = 0; i < self.initialArray.count; i++  {
+                    var contactInfo = NSMutableDictionary()
+                    var str = (self.initialArray[i] as NSString)
+                    contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
+                    self.contactArray.addObject(contactInfo)
+                }
+            }else {
+                print("error")
+            }
+        })
         // test end
-        
-        let friendArray = votedic["friendlist"] as NSMutableArray
-        updateDataBaseAndInitialArray(friendArray)
-        
-        // Update contactArray accroding to initalArray
-        for var i = 0; i < initialArray.count; i++  {
-            var contactInfo = NSMutableDictionary()
-            var str = (initialArray[i] as NSString)
-            contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
-            contactArray.addObject(contactInfo)
-        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -203,11 +212,10 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "contactDetail" {
-            (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "取消关注"
             var indexPath = tableView.indexPathForCell(sender as UITableViewCell) as NSIndexPath!
             var array = contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
             selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).voteFeed = selectedCell
+          
         }
     }
     

@@ -8,23 +8,39 @@
 
 import UIKit
 
-class MeTableViewController: UITableViewController {
+class MeTableViewController: UITableViewController, sendbackInforDelegate {
     var addVoteArray = NSMutableArray()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
+    @IBOutlet var meHeaderImage: UIImageView!
+    
+    @IBOutlet var meNicLabel: UILabel!
+    
+    @IBOutlet var meUserIdLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var dic = ["userId":"15590285735", "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+        var dic = ["userId":tokenDefult.objectForKey("userId") as NSString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
             self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
         })
-    }
-    override func viewDidLayoutSubviews() {
-        
-        super.viewDidLayoutSubviews()
-      
-    }
+        var str = tokenDefult.objectForKey("placeholderImage") as NSString
+        var data = NSData(base64EncodedString: str, options: nil)
+        var placeimg = UIImage(data: data!)
+        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
+        meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+        meNicLabel.text = tokenDefult.objectForKey("name") as NSString
+        meUserIdLabel.text = tokenDefult.objectForKey("userId") as NSString
 
+    }
+     func sendbackInfo(str: NSString, img: UIImage) {
+        meHeaderImage.image = img
+        var strimg = UIImageJPEGRepresentation(img, 1).base64EncodedStringWithOptions(nil)
+        tokenDefult.setObject(strimg, forKey: "placeholderImage")
+        tokenDefult.setObject(strimg, forKey: "image")
+        meNicLabel.text = str
+        tokenDefult.setObject(str, forKey: "name")
+    }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -33,6 +49,7 @@ class MeTableViewController: UITableViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
+     
     }
 
     // MARK: - Table view data source
@@ -64,6 +81,10 @@ class MeTableViewController: UITableViewController {
             self.tabBarController?.selectedIndex = 0
             tokenDefult.setValue("", forKey: "userId")
             tokenDefult.setValue("", forKey: "accessToken")
+            tokenDefult.setValue("", forKey: "name")
+            tokenDefult.setValue("", forKey: "image")
+            tokenDefult.setValue(0, forKey: "gender")
+            tokenDefult.setValue("", forKey: "description")
             NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: ["logout":"0"] as NSDictionary)
 //            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
 //            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
@@ -73,12 +94,7 @@ class MeTableViewController: UITableViewController {
         
         if indexPath.section == 2 {
             if indexPath.row == 0 {
-               var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"10","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
-                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
-                    print(result)
-                    print(result.valueForKey("message"))
-                })
-                
+                               
             }
         }
         
@@ -90,6 +106,9 @@ class MeTableViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "newvote" {
             (segue.destinationViewController as NewVoteTableViewController).titleTagArray = addVoteArray
+        }
+        if segue.identifier == "selfInfo" {
+            (segue.destinationViewController as MeDetailTableViewController).delegate = self
         }
         
     }

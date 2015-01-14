@@ -27,11 +27,12 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         })
     }
     @IBAction func sendVertificationButton(sender: UIButton) {
-        
+         print("成功")
         if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
             Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
                 if result == 1 {
                     sender.setTitle("发送成功", forState: UIControlState.Normal)
+                   
                     self.vertiButton.enabled = true
                     self.timeraction()
                     sender.enabled = false
@@ -79,6 +80,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
   
     
     @IBAction func submitButton(sender: UIButton) {
+    
      print(genderSegmentControl.selectedSegmentIndex)
       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
         var textfield = cell?.contentView.viewWithTag(102) as UITextField
@@ -87,14 +89,24 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
             print(result)
            
             self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
-            self.tokenDefult.setValue(textfield.text, forKey: "userId")
+            var list = result.valueForKey("list") as NSDictionary
+             self.tokenDefult.setValue(textfield.text, forKey: "userId")
+             self.tokenDefult.setValue(list["name"] as NSString, forKey: "name")
+             self.tokenDefult.setValue(list["image"] as NSString, forKey: "image")
+             self.tokenDefult.setValue(list["gender"] as Int, forKey: "gender")
+             self.tokenDefult.setValue(list["description"] as NSString, forKey: "description")
             print(result.valueForKey("message"))
+            if result.valueForKey("status") as Int == 1 {
+                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                    var logoutDic = ["logout":"1"] as NSDictionary
+                    NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
+                })
+            }else {
+                print("error")
+            }
             
         }
-        dismissViewControllerAnimated(true, completion: { () -> Void in
-            var logoutDic = ["logout":"1"] as NSDictionary
-            NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
-        })
+      
     }
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         phoneTextField.resignFirstResponder()

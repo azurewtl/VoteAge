@@ -54,8 +54,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
                     print(result)
                     print(result.valueForKey("message"))
+                    if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     alert.show()
+                    }else {
+                        var alert = UIAlertView(title: "", message: "发起失败", delegate: self, cancelButtonTitle: "重发")
+                        alert.show()
+                    }
                 }
             
             }else{

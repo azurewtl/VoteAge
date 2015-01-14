@@ -8,11 +8,9 @@
 
 import UIKit
 import CoreLocation
-protocol allowVoteDelegate{
-    func haveVote()
-}
+
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
-    var delegate = allowVoteDelegate?()
+   
     // MARK: - configureView
     var voteDetail = NSDictionary()
     // For textField above keyboard
@@ -148,6 +146,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    
         var dic = ["voteId":voteDetail["Id"] as NSString,"startIndex":"0","endIndex":"10"] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getCommentList/") { (result) -> Void in
             print(result)
@@ -418,10 +417,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-            self.delegate?.haveVote()
-            self.voteTotalperson()
-            waiveButton.hidden = true
-            voteSegment.selectedSegmentIndex = 1;
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         var optionDic = optionArray.objectAtIndex(indexPath.row) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":1,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
@@ -430,14 +425,19 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 //            print("***")
 //            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
             print(result.valueForKey("message"))
-            
+            var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":self.voteDetail.objectForKey("Id") as NSString] as NSDictionary
+            AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+                print(result)
+                print(result.valueForKey("message"))
+                self.voteDetail = result.valueForKey("list") as NSDictionary
+                self.configureView()
+                self.voteTotalperson()
+                self.waiveButton.hidden = true
+                self.voteSegment.selectedSegmentIndex = 1;
+            })
         }
-        var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":voteDetail.objectForKey("Id") as NSString] as NSDictionary
-//        AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
-//            print(result)
-//            print(result.valueForKey("message"))
-//        })
-            
+           
+        
     }
     }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

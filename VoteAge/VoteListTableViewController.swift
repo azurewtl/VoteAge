@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import CoreLocation
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, allowVoteDelegate{
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
@@ -140,7 +140,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             
             
         }else{
-          
 //            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
 //            var data1 = NSData(contentsOfFile: path1!)
 //            
@@ -158,21 +157,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         // Dispose of any resources that can be recreated.
     }
     
-    
     // MARK: - Segues
-    func haveVote() {
-        let indexPath = self.tableView.indexPathForSelectedRow()
-        let vote = voteArray[indexPath!.row] as NSMutableDictionary
-      
-    }
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if voteArray.count > 0 {
-                let vote = voteArray[indexPath.row] as NSMutableDictionary
-//                print(vote)
+               let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                (segue.destinationViewController as VoteDetailViewController).delegate = self
                 }
             }
         }
@@ -185,9 +176,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             let indexPath = tableView.indexPathForCell(cell)
             if voteArray.count > 0 {
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).voteFeed = voteFeed
+            (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
             }
-            (segue.destinationViewController as UserDetailTableViewController).buttonTitle = "关注"
         }
         
     }
@@ -208,7 +198,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         if voteArray.count > 0 {
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.voteTitle.text = voteItem["title"] as? NSString
+            if voteItem["authorName"] as NSString == "" {
+              cell.voteAuthor.setTitle("匿名用户", forState: UIControlState.Normal)
+            }else {
         cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
+            }
         cell.authorID = voteItem["authorId"] as? NSString
         if voteItem["voteImage"] as NSString == "" {
            cell.voteImage?.image = UIImage(named: "dummyImage")

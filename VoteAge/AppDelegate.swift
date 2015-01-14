@@ -22,6 +22,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         if accessTokenDefault.valueForKey("userId") == nil {
           accessTokenDefault.setValue("", forKey: "userId")
         }
+        if accessTokenDefault.valueForKey("gender") == nil {
+            accessTokenDefault.setValue(1, forKey: "gender")
+        }
+        if accessTokenDefault.valueForKey("image") == nil {
+            accessTokenDefault.setValue("", forKey: "image")
+        }
+        if accessTokenDefault.valueForKey("name") == nil {
+            accessTokenDefault.setValue("", forKey: "name")
+        }
+        if accessTokenDefault.valueForKey("description") == nil {
+            accessTokenDefault.setValue("", forKey: "description")
+        }
+        if accessTokenDefault.valueForKey("placeholderImage") == nil {
+            var img = UIImage(named: "dummyImage")
+            var data = UIImageJPEGRepresentation(img, 1) as NSData
+            var imgStr = data.base64EncodedStringWithOptions(nil)
+            accessTokenDefault.setValue(imgStr, forKey: "placeholderImage")
+        }
+    
         SMS_SDK.registerApp(appkey, withSecret: appsecret)
         ShareSDK.registerApp(appkey)
         ShareSDK.connectSinaWeiboWithAppKey("585583252", appSecret: "99347fc7fb789eff3243655dd4b539b5", redirectUri: "http://www.lanou3g.com")
