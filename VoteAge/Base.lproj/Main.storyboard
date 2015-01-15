@@ -29,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="453" y="60"/>
         </scene>
-        <!--热点-->
+        <!--全部-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
                 <tableViewController id="pGg-6v-bdr" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -91,7 +91,7 @@
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="热点" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="全部" id="tQt-TN-PWz">
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI">
                             <connections>
                                 <action selector="optionButton:" destination="pGg-6v-bdr" id="X4n-SL-6tY"/>
@@ -607,7 +607,7 @@
             </objects>
             <point key="canvasLocation" x="-397" y="1004"/>
         </scene>
-        <!--热点-->
+        <!--关注-->
         <scene sceneID="93J-vX-Cxb">
             <objects>
                 <tableViewController id="bQ0-Aw-XyS" customClass="ContactVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -664,7 +664,7 @@
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="热点" id="0MB-YU-dmv">
+                    <navigationItem key="navigationItem" title="关注" id="0MB-YU-dmv">
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="fdN-SH-dCU">
                             <connections>
                                 <action selector="optionButton:" destination="bQ0-Aw-XyS" id="YRH-hl-AqS"/>

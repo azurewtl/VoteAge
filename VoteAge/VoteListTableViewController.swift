@@ -30,9 +30,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
         updateLocation(locationManager)
+            self.title = "附近"
         }
         if buttonIndex == 2 {
-            print("hot")
+           self.title = "热点"
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -88,7 +89,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
-                    
+                    self.title = "全部"
                 }
                 
             })
