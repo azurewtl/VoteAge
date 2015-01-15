@@ -8,9 +8,11 @@
 
 import UIKit
 import CoreLocation
-
+protocol haveVoteDelegate {
+    func haveVote()
+}
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
-   
+   var delegate = haveVoteDelegate?()
     // MARK: - configureView
     var voteDetail = NSDictionary()
     // For textField above keyboard
@@ -21,6 +23,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var commtArray = NSMutableArray()
     var commentCellHeightArray = NSMutableArray()
     // For vote count
+    var selectIndex = 0
     var menCount = CGFloat()
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
@@ -37,6 +40,11 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
+    
+    @IBAction func backOnclick(sender: UIBarButtonItem) {
+        self.delegate?.haveVote()
+    }
+    
     
     @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
         var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位")
@@ -336,7 +344,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 }else{
                 percentage = percentage / menCount + womenCount
                 }
-                cell?.optionProgress.setProgress(Float(percentage), animated: false)
+                cell?.optionProgress.setProgress(Float(percentage), animated: true)
                 let perInt = Int(percentage * 100)
                 cell?.optionDetail.text = perInt.description + "%"
             }
@@ -346,6 +354,60 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     // MARK: - Table View
+    
+    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        var nullview = UIView()
+        if section == 0  {
+           var sectionView = UIView()
+            sectionView.backgroundColor = tableView.backgroundColor
+           var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
+            button.frame = CGRectMake(0, 0, view.frame.width, 80)
+            if voteDetail["allowVote"] as Int == 1 {
+            button.setTitle("投票", forState: UIControlState.Normal)
+            button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
+            sectionView.addSubview(button)
+            button.addTarget(self, action: "voteOnclick:", forControlEvents: UIControlEvents.TouchUpInside)
+            }
+        return sectionView
+        }
+        return nullview
+    }
+    func voteOnclick(btn:UIButton) {
+        btn.setTitle("完成", forState: UIControlState.Normal)
+        
+        var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+        var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
+        var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":1,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
+            print(result)
+            //            print("***")
+            //            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
+            print(result.valueForKey("message"))
+            var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":self.voteDetail.objectForKey("Id") as NSString] as NSDictionary
+            AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+                print(result)
+                print(result.valueForKey("message"))
+                self.voteDetail = result.valueForKey("list") as NSDictionary
+                self.configureView()
+                self.voteTotalperson()
+                self.waiveButton.hidden = true
+                self.voteSegment.selectedSegmentIndex = 1;
+                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
+                cell?.checkImageView.hidden = true
+            })
+        }
+        
+        
+    }
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return 40
+        }
+        return 10
+    }
+    
+    
+    
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
@@ -384,7 +446,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.optionTitle.text = dicAppear.objectForKey("option") as NSString
             cell.delegate = self
             cell.imagenumber = indexPath.row
-            
+            cell.checkImageView.hidden = true
             if dicAppear["image"] as NSString == "" {
                 cell.optionImage.image = UIImage(named: "dummyImage")
             }else {
@@ -417,26 +479,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if indexPath.section == 0 {
-        var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
-        var optionDic = optionArray.objectAtIndex(indexPath.row) as NSDictionary
-        var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":1,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
-            print(result)
-//            print("***")
-//            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
-            print(result.valueForKey("message"))
-            var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":self.voteDetail.objectForKey("Id") as NSString] as NSDictionary
-            AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
-                print(result)
-                print(result.valueForKey("message"))
-                self.voteDetail = result.valueForKey("list") as NSDictionary
-                self.configureView()
-                self.voteTotalperson()
-                self.waiveButton.hidden = true
-                self.voteSegment.selectedSegmentIndex = 1;
-            })
-        }
            
+            for index in 0...optionArray.count - 1 {
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 0)) as OptionTableViewCell?
+                cell?.checkImageView.hidden = true
+            }
+            let selectcell = tableView.cellForRowAtIndexPath(indexPath) as OptionTableViewCell?
+             selectcell?.checkImageView.hidden = false
+            selectIndex = indexPath.row
         
     }
     }

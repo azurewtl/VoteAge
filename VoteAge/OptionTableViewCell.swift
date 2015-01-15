@@ -12,6 +12,8 @@ protocol ImagesendDelegate {
 }
 class OptionTableViewCell: UITableViewCell {
 
+    @IBOutlet var checkImageView: UIImageView!
+    
     @IBOutlet weak var optionImage: UIImageView!
     @IBOutlet var optionProgress: UIProgressView!
     @IBOutlet weak var optionTitle: UILabel!

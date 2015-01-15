@@ -393,27 +393,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aw-lY-GXs" id="U3q-f6-ZN1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-7R-Xwn">
-                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-7R-Xwn">
+                                                    <rect key="frame" x="0.0" y="1" width="54" height="54"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="54" id="QkN-N4-wf7"/>
                                                     </constraints>
                                                 </imageView>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Nis-7W-3yh">
-                                                    <rect key="frame" x="54" y="1" width="266" height="53"/>
+                                                    <rect key="frame" x="54" y="2" width="266" height="53"/>
                                                     <color key="progressTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </progressView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Option" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12S-r5-16K">
-                                                    <rect key="frame" x="54" y="1" width="205" height="53"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Option" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12S-r5-16K">
+                                                    <rect key="frame" x="54" y="2" width="205" height="53"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40％" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsD-ht-hML">
-                                                    <rect key="frame" x="267" y="0.0" width="45" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="40％" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsD-ht-hML">
+                                                    <rect key="frame" x="267" y="1" width="45" height="54"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="LuA-DD-d0f"/>
                                                     </constraints>
@@ -421,8 +421,16 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="checked" translatesAutoresizingMaskIntoConstraints="NO" id="617-nf-bws">
+                                                    <rect key="frame" x="272" y="7" width="40" height="40"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="40" id="7lp-te-39A"/>
+                                                        <constraint firstAttribute="height" constant="40" id="XNz-Ia-2XA"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="617-nf-bws" secondAttribute="centerY" id="4aQ-Zk-sLV"/>
                                                 <constraint firstItem="Nis-7W-3yh" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-7" id="5UO-x8-q9J"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="6d6-kU-U20"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="trailing" secondItem="U3q-f6-ZN1" secondAttribute="trailingMargin" id="6is-Ju-R6a"/>
@@ -436,10 +444,12 @@
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="leading" secondItem="12S-r5-16K" secondAttribute="trailing" constant="8" id="pps-nb-xXx"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Nis-7W-3yh" secondAttribute="trailing" constant="-8" id="qAh-3b-pS0"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="wsD-ht-hML" secondAttribute="bottom" constant="-8" id="sHe-rX-OeQ"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="617-nf-bws" secondAttribute="trailing" id="sfe-Ii-MFg"/>
                                                 <constraint firstItem="CYJ-7R-Xwn" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="xTo-x6-Mto"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="checkImageView" destination="617-nf-bws" id="f3G-Xb-gZ9"/>
                                             <outlet property="optionDetail" destination="wsD-ht-hML" id="vG5-Kr-H3g"/>
                                             <outlet property="optionImage" destination="CYJ-7R-Xwn" id="Dk9-XK-snJ"/>
                                             <outlet property="optionProgress" destination="Nis-7W-3yh" id="W4a-yt-ANH"/>
@@ -533,6 +543,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kvF-It-ljf">
+                        <barButtonItem key="leftBarButtonItem" image="back1" id="ECK-rA-aPW">
+                            <connections>
+                                <action selector="backOnclick:" destination="A6m-Tk-UQa" id="n7Z-ns-PZi"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="7dL-Ty-p9C">
                             <connections>
                                 <action selector="optionItemOnClick:" destination="A6m-Tk-UQa" id="Att-dS-fvC"/>
@@ -557,7 +572,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1519" y="56"/>
+            <point key="canvasLocation" x="1519" y="51"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -1585,6 +1600,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back1" width="32" height="32"/>
+        <image name="checked" width="50" height="50"/>
         <image name="dummyImage" width="132" height="132"/>
         <image name="icon_QRC" width="32" height="32"/>
         <image name="icon_me" width="32" height="32"/>
