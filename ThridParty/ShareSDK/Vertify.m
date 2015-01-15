@@ -14,6 +14,7 @@
 -(void)phone:(NSString *)phonestr block:(void (^)(int))block{
 
     [SMS_SDK getVerifyCodeByPhoneNumber:phonestr AndZone:@"86" result:^(enum SMS_GetVerifyCodeResponseState state) {
+        NSLog(@"%d", state);
         if(1 == state){
             block(1);
         }else if(0 == state){

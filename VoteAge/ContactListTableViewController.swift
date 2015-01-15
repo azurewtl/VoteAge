@@ -9,16 +9,16 @@
 import UIKit
 import CoreData
 
-class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
+class ContactListTableViewController: UITableViewController{
     
     var selectedCell = NSDictionary() // store list of selected cell when composing new vote
     var initialArray = NSArray() // store sorted initial of all contacts
     var contactArray = NSMutableArray() // store sorted contact info corresponding to initialArray
-    
+   var friendArray = NSMutableArray()//接口list
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(NSTemporaryDirectory())
+        print(NSTemporaryDirectory())
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
         self.tabBarController?.tabBar.hidden = true
         
@@ -37,14 +37,15 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
             print(result.valueForKey("message"))
             if result.valueForKey("status") as Int == 1 {
                 print(result.valueForKey("list") as NSArray)
-                let friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
-                self.updateDataBaseAndInitialArray(friendArray)
+                self.friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
+                self.updateDataBaseAndInitialArray(self.friendArray)
                 // Update contactArray accroding to initalArray
                 for var i = 0; i < self.initialArray.count; i++  {
                     var contactInfo = NSMutableDictionary()
                     var str = (self.initialArray[i] as NSString)
                     contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
                     self.contactArray.addObject(contactInfo)
+                    self.tableView.reloadData()
                 }
             }else {
                 print("error")
@@ -64,13 +65,14 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     func updateDataBaseAndInitialArray(friendArray: NSArray){
         let db = DataBaseHandle.shareInstance()
         var initialSet = NSMutableSet()
+        if friendArray.count > 0 {
         for index in 0...friendArray.count - 1 {
-            var strrUsername = friendArray.objectAtIndex(index)["userName"] as NSString
-            var strrUserID = friendArray.objectAtIndex(index)["userID"] as NSString
-            var strrUserImage = friendArray.objectAtIndex(index)["userImage"] as NSString
-            var strrgender = friendArray.objectAtIndex(index)["gender"] as NSString
-            var strrcity = friendArray.objectAtIndex(index)["city"] as NSString
-            var strrdescribe = friendArray.objectAtIndex(index)["discription"] as NSString
+            var strrUsername = friendArray.objectAtIndex(index)["name"] as NSString
+            var strrUserID = friendArray.objectAtIndex(index)["userId"] as NSString
+            var strrUserImage = NSString(format: "http://73562.vhost33.cloudvhost.net/VoteAge/Public/Uploads/%@",friendArray.objectAtIndex(index)["image"] as NSString)
+//            var strrgender = friendArray.objectAtIndex(index)["gender"] as NSString
+//            var strrcity = friendArray.objectAtIndex(index)["city"] as NSString
+            var strrdescribe = friendArray.objectAtIndex(index)["description"] as NSString
             var firstLetter = NSString()
             var ff = Int(pinyinFirstLetter(strrUsername.characterAtIndex(0)))
             
@@ -89,35 +91,19 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
             
             initialSet.addObject(firstLetter)
             
-            var strinsert = "insert into Contact values('\(strrUsername)', '\(firstLetter)', '\(strrUserID)','\(strrUserImage)', '\(strrgender)', '\(strrcity)', '\(strrdescribe)')"
+            var strinsert = "insert into Contact values('\(strrUsername)', '\(firstLetter)', '\(strrUserID)','\(strrUserImage)', '\"0\"', '\"0\"', '\(strrdescribe)')"
             db.insertTab(strinsert)
-            var strupdate = "update Contact set userName = '\(strrUsername)', userInital = '\(firstLetter)', userImage = '\(strrUserImage)', gender = '\(strrgender)', city = '\(strrcity)', descibed = '\(strrdescribe)' where userID = '\(strrUserID)'"
+            var strupdate = "update Contact set userName = '\(strrUsername)', userInital = '\(firstLetter)', userImage = '\(strrUserImage)', gender = '0', city = '0', descibed = '\(strrdescribe)' where userID = '\(strrUserID)'"
             db.updateT(strupdate)
         }
         
         let sortDiscriptor = NSSortDescriptor(key: "description", ascending: true)
         initialArray = initialSet.sortedArrayUsingDescriptors([sortDiscriptor])
+        }
     }
     
     // MARK: - Search Bar
     
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
-        
-        tableView.reloadData()
-    }
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        
-        searchBar.resignFirstResponder()
-        searchBar.text = ""
-        tableView.reloadData()
-        
-    }
-    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
-        
-        searchBar.resignFirstResponder()
-        searchBar.text = ""
-        tableView.reloadData()
-    }
     
     // MARK: - Table view data source
     
@@ -212,10 +198,10 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         // Get the new view controller using [segue destinationViewController].
         // Pass the selected object to the new view controller.
         if segue.identifier == "contactDetail" {
-            var indexPath = tableView.indexPathForCell(sender as UITableViewCell) as NSIndexPath!
+            var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
             var array = contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
             selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
-          
+            (segue.destinationViewController as UserDetailTableViewController).contactId = friendArray.objectAtIndex(indexPath.row)["userId"] as NSString
         }
     }
     

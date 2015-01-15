@@ -610,7 +610,7 @@
         <!--热点-->
         <scene sceneID="93J-vX-Cxb">
             <objects>
-                <tableViewController id="bQ0-Aw-XyS" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="bQ0-Aw-XyS" customClass="ContactVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUA-cA-hb2">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -664,7 +664,13 @@
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="热点" id="0MB-YU-dmv"/>
+                    <navigationItem key="navigationItem" title="热点" id="0MB-YU-dmv">
+                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="fdN-SH-dCU">
+                            <connections>
+                                <action selector="optionButton:" destination="bQ0-Aw-XyS" id="YRH-hl-AqS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAT-DF-cO3" sceneMemberID="firstResponder"/>
             </objects>
@@ -875,12 +881,12 @@
         <scene sceneID="ADj-fZ-5Xh">
             <objects>
                 <tableViewController id="kLs-jY-tF5" customClass="ContactListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" id="ifS-C6-Wkh">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="67" sectionHeaderHeight="22" sectionFooterHeight="22" id="ifS-C6-Wkh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="67" id="3Oz-Fg-Fxq">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="contactCell" rowHeight="67" id="3Oz-Fg-Fxq">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Oz-Fg-Fxq" id="uz2-xJ-hJ2">
@@ -1421,11 +1427,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="eTd-Zz-xa3" id="z3C-vF-eZb">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rCD-AB-K5A">
-                                                    <rect key="frame" x="110" y="0.0" width="100" height="43"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="100" id="aF4-q5-It4"/>
-                                                    </constraints>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rCD-AB-K5A">
+                                                    <rect key="frame" x="0.0" y="2" width="320" height="43"/>
                                                     <state key="normal" title="发送验证码">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
@@ -1435,9 +1438,10 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="rCD-AB-K5A" firstAttribute="top" secondItem="z3C-vF-eZb" secondAttribute="topMargin" constant="-8" id="C2C-Sc-eJn"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="rCD-AB-K5A" secondAttribute="bottom" constant="-8" id="leh-jZ-hsa"/>
-                                                <constraint firstAttribute="centerX" secondItem="rCD-AB-K5A" secondAttribute="centerX" id="uN1-bT-4Z2"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rCD-AB-K5A" secondAttribute="trailing" constant="-8" id="5nP-QP-PUZ"/>
+                                                <constraint firstItem="rCD-AB-K5A" firstAttribute="leading" secondItem="z3C-vF-eZb" secondAttribute="leadingMargin" constant="-8" id="TAo-ii-cFu"/>
+                                                <constraint firstItem="rCD-AB-K5A" firstAttribute="top" secondItem="z3C-vF-eZb" secondAttribute="topMargin" constant="-6" id="ZZF-sL-y2i"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="rCD-AB-K5A" secondAttribute="bottom" constant="-9" id="ndy-KR-1Eh"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -1577,7 +1581,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rXI-eA-zdG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="437" y="2929"/>
+            <point key="canvasLocation" x="437" y="2927"/>
         </scene>
     </scenes>
     <resources>
@@ -1594,8 +1598,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ERR-bz-Jha"/>
-        <segue reference="w1p-qS-yrD"/>
         <segue reference="diD-ek-DxV"/>
+        <segue reference="ERR-bz-Jha"/>
+        <segue reference="Jtg-IW-Xz3"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -29,24 +29,33 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        var str = tokenDefult.objectForKey("placeholderImage") as NSString
+        var data = NSData(base64EncodedString: str, options: nil)
+        var placeimg = UIImage(data: data!)
+        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
+        userImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+        userNickName.text = tokenDefult.objectForKey("name") as? NSString
+        userDescription.text = tokenDefult.objectForKey("description") as? NSString
         userNickName.delegate = self
         self.tabBarController?.tabBar.hidden = true
         self.userImage.layer.masksToBounds = true
         self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
         userDescription.delegate = self
+        
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        if genderSeg.selectedSegmentIndex == 0 {
-            print("男")
-        }else if genderSeg.selectedSegmentIndex == 1 {
-            print("女")
-        }
+//        if genderSeg.selectedSegmentIndex == 0 {
+//            print("男")
+//        }else if genderSeg.selectedSegmentIndex == 1 {
+//            print("女")
+//        }
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0))
         let cell1 = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
         let phonetextfield = cell1?.contentView.viewWithTag(101) as UITextField
         phonetextfield.delegate = self
+        phonetextfield.text = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
         let imageView = cell?.contentView.viewWithTag(101) as UIImageView
         var imageGesture = UITapGestureRecognizer(target: self, action: "tapGesture")
         imageView.userInteractionEnabled = true
@@ -113,8 +122,11 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
             print(result)
             print(result.valueForKey("message"))
             if result.valueForKey("status") as Int == 1 {
-                 self.navigationController?.popViewControllerAnimated(true)
-                self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
+            self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
+            self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
+            self.tokenDefult.setValue(encodeStr, forKey: "image")
+            self.navigationController?.popViewControllerAnimated(true)
+            self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
             }else {
                 print("error")
             }

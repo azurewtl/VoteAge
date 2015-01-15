@@ -24,17 +24,18 @@ class UserDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-    
+        
         var contactDic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "contactId":contactId, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(contactDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getUserInfo") { (result) -> Void in
             print(result)
             print(result.objectForKey("message"))
+            if result.valueForKey("status") as Int == 1 {
             var dic = result.valueForKey("list") as NSDictionary
             self.authorName.text = dic["name"] as NSString
             var url = NSURL(string: dic["image"] as NSString)
             self.authorImage.sd_setImageWithURL(url)
             self.authorID.text = dic["userId"] as NSString
-            if dic["gender"] as Int == 0 {
+            if dic["gender"] as Int == 1 {
                 self.authorgender.text = "男"
             }else{
                 self.authorgender.text = "女"
@@ -50,7 +51,9 @@ class UserDetailTableViewController: UITableViewController {
             if self.authorID.text == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
                 self.subscribeButton.hidden = true
             }
-            
+            }else {
+                print("error")
+            }
             
         }
         

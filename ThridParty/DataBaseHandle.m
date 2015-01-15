@@ -32,25 +32,25 @@
 //    NSString *sql = @"create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)";
    NSString *sql = list;
     int result = sqlite3_exec(dbPoint, [sql UTF8String], NULL, NULL, NULL);
-    NSLog(@"%d", result);
+    NSLog(@"建标%d", result);
 }
 -(void)insertTab:(NSString *)insertsql{
 //    NSString *s = [NSString stringWithFormat:@"insert into Contact values('%@', '%@', '%@','%@', '%@', '%@', '%@')",initLetter, uname, uid, uimage, ugender, ucity, udescribe];
     NSString *s = insertsql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
-    NSLog(@"%d", result);
+    NSLog(@"插入%d", result);
 }
 -(void)updateT:(NSString *)sql{
 //    NSString *s = [NSString stringWithFormat:@"update Contact set userName = '%@', userInital = '%@', userImage = '%@', gender = '%@', city = '%@', descibed = '%@' where userID = '%@'", name, str,  ima, gender, city, descri, pid];
     NSString *s = sql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
-    NSLog(@"%d", result);
+    NSLog(@"更新%d", result);
 }
 
 -(void)deleteTab:(NSString *)sql{
     NSString *s = sql;
     int result = sqlite3_exec(dbPoint, [s UTF8String], NULL, NULL, NULL);
-    NSLog(@"%d", result);
+    NSLog(@"删除%d", result);
 }
 -(NSMutableArray *)selectAll:(NSString *)sql{
     NSMutableArray *arr = [NSMutableArray array];

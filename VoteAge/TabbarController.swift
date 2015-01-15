@@ -22,6 +22,23 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
         }
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
+        
+        
+        if item.tag == 1 {
+            if userDefault.objectForKey("userId") as NSString == "" {
+                
+                var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+                var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+                presentViewController(logVc, animated: true, completion: { () -> Void in
+                    
+                })
+            }
+            
+            
+        }
+
+        
+        
         if item.tag == 3 {
             if userDefault.objectForKey("userId") as NSString == "" {
                 
@@ -36,13 +53,23 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
         }
     }
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
-       
+        if viewController.tabBarItem.tag == 1 {
+            if userDefault.objectForKey("userId") as NSString == ""{
+                return false
+            }else {
+                return true
+            }
+        }
         if viewController.tabBarItem.tag == 3 {
          if userDefault.objectForKey("userId") as NSString == ""{
             return false
          }else {
             return true
             }
+            
+            
+            
+            
     }
     return true
     }

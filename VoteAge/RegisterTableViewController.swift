@@ -32,7 +32,6 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
             Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
                 if result == 1 {
                     sender.setTitle("发送成功", forState: UIControlState.Normal)
-                   
                     self.vertiButton.enabled = true
                     self.timeraction()
                     sender.enabled = false
@@ -81,13 +80,18 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func submitButton(sender: UIButton) {
     
-     print(genderSegmentControl.selectedSegmentIndex)
       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
         var textfield = cell?.contentView.viewWithTag(102) as UITextField
-      var dic = ["mobile":textfield.text, "password":((textfield.text as NSString).integerValue + 1).description , "gender":genderSegmentControl.selectedSegmentIndex + 1, "deviceId":tokenDefult.objectForKey("userId") as NSString] as NSDictionary
+//        var password =  ((textfield.text as NSString).integerValue + 1).description
+        var passwordStr = textfield.text
+        var passwordNSStr = passwordStr as NSString
+        var passwordInt = passwordNSStr.longLongValue + 1
+        
+      var dic = ["mobile":textfield.text, "password":passwordInt.description, "gender":genderSegmentControl.selectedSegmentIndex + 1, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+//
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
-           
+            if result.valueForKey("status") as Int == 1 {
             self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
             var list = result.valueForKey("list") as NSDictionary
              self.tokenDefult.setValue(textfield.text, forKey: "userId")
@@ -96,7 +100,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
              self.tokenDefult.setValue(list["gender"] as Int, forKey: "gender")
              self.tokenDefult.setValue(list["description"] as NSString, forKey: "description")
             print(result.valueForKey("message"))
-            if result.valueForKey("status") as Int == 1 {
+           
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
                     var logoutDic = ["logout":"1"] as NSDictionary
                     NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
