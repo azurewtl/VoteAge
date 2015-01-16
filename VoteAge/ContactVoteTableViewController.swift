@@ -10,7 +10,7 @@
 import UIKit
 import CoreData
 import CoreLocation
-class ContactVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate{
+class ContactVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, sendInfoDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
@@ -160,7 +160,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showVoteDetail" {
+        if segue.identifier == "contactVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if voteArray.count > 0 {
                     let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
@@ -169,20 +169,14 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
             }
         }
         
-        if segue.identifier == "showAuthorDetail" {
-            
-            
-            let senderButton = sender as UIButton
-            let cell = senderButton.superview?.superview as VoteTableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            if voteArray.count > 0 {
-                let voteFeed = voteArray[indexPath!.row] as NSDictionary
-                (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
-            }
-        }
-        
     }
-    
+    func sendNumber(num: Int) {
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
+        let voteFeed = voteArray[num] as NSDictionary
+        userDetailVc.contactId = voteFeed["authorId"] as NSString
+        self.navigationController?.pushViewController(userDetailVc, animated: true)
+    }
     // MARK: - Table View
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -197,6 +191,8 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         if voteArray.count > 0 {
+            cell.num = indexPath.row
+            cell.delegate = self
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.voteTitle.text = voteItem["title"] as? NSString
             if voteItem["authorName"] as NSString == "" {

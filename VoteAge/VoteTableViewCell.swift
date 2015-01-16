@@ -7,14 +7,25 @@
 //
 
 import UIKit
-
+protocol sendInfoDelegate {
+    func sendNumber(num:Int)
+}
 class VoteTableViewCell: UITableViewCell {
     
-    
+    var delegate = sendInfoDelegate?()
+    var num = Int()
+    var authorID: NSString? = NSString()
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var voteImage: UIImageView?
     @IBOutlet var voteAuthor: UIButton!
-    var authorID: NSString? = NSString()
+    
+    @IBAction func userOnclick(sender: UIButton) {
+      self.delegate?.sendNumber(num)
+    }
+  
+    @IBAction func contactUserOnclick(sender: UIButton) {
+        self.delegate?.sendNumber(num)
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

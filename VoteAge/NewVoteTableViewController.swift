@@ -166,7 +166,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
-            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(100, 100))
+            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(200, 200))
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.selectedImageView.image = resizeImg

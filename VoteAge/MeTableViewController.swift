@@ -97,8 +97,6 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
                                
             }
         }
-        
-        
     }
 
     // MARK: - Segues

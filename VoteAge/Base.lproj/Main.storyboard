@@ -68,7 +68,7 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <segue destination="1NT-h6-jRF" kind="push" identifier="showAuthorDetail" id="diD-ek-DxV"/>
+                                                <action selector="userOnclick:" destination="m0d-ak-lc9" eventType="touchUpInside" id="wfK-c3-MAK"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -106,7 +106,7 @@
         <!--User Detail Table View Controller-->
         <scene sceneID="6tZ-Bi-EGg">
             <objects>
-                <tableViewController id="1NT-h6-jRF" customClass="UserDetailTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="userDetail" id="1NT-h6-jRF" customClass="UserDetailTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="u7G-0y-Fpd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -626,7 +626,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="qAC-N7-XDe" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="qAC-N7-XDe" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qAC-N7-XDe" id="JbJ-ac-YgF">
@@ -654,6 +654,9 @@
                                             <state key="normal" title="user">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="contactUserOnclick:" destination="qAC-N7-XDe" eventType="touchUpInside" id="BND-rC-YM7"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <constraints>
@@ -669,6 +672,7 @@
                                     <outlet property="voteAuthor" destination="pjz-9r-El4" id="UR7-Wh-h4f"/>
                                     <outlet property="voteImage" destination="REd-yQ-cDZ" id="W7F-dw-0fc"/>
                                     <outlet property="voteTitle" destination="aCW-o1-L03" id="Q37-4A-ug3"/>
+                                    <segue destination="A6m-Tk-UQa" kind="push" identifier="contactVoteDetail" id="oO6-sd-y4b"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1662,7 +1666,7 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="ERR-bz-Jha"/>
+        <segue reference="oO6-sd-y4b"/>
         <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="SGg-dd-0wa"/>
     </inferredMetricsTieBreakers>
 </document>

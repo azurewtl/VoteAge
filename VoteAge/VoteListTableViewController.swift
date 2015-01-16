@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import CoreLocation
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate{
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, sendInfoDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
@@ -152,8 +152,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
     
     }
-    // MARK: - protocol
-    var vote = NSMutableDictionary()
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -170,23 +169,26 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                
             }
         }
-        
-        if segue.identifier == "showAuthorDetail" {            
-            
-            let senderButton = sender as UIButton
-            let  contentview = senderButton.superview
-            let cell = contentview?.superview as VoteTableViewCell
+//        
+//        if segue.identifier == "showAuthorDetail" {
 //            let cell = senderButton.supererview?.superview as VoteTableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            if voteArray.count > 0 {
-            let voteFeed = voteArray[indexPath!.row] as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
-            }
-        }
+//            let indexPath = tableView.indexPathForCell(cell)
+//            if voteArray.count > 0 {
+//            let voteFeed = voteArray[indexPath.row] as NSDictionary
+//            (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
+//            }
+//        }
         
     }
-
+   // MARK: - Table View 自定义cell protocol
+    func sendNumber(num: Int) {
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
+        let voteFeed = voteArray[num] as NSDictionary
+        userDetailVc.contactId = voteFeed["authorId"] as NSString
+        self.navigationController?.pushViewController(userDetailVc, animated: true)
     
+    }
     // MARK: - Table View
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -201,6 +203,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         if voteArray.count > 0 {
+            
+        cell.num = indexPath.row
+        cell.delegate = self
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
         cell.voteTitle.text = voteItem["title"] as? NSString
             if voteItem["authorName"] as NSString == "" {
