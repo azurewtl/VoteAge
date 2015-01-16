@@ -14,9 +14,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
-    var edittextfield = false
     var taptextfield = UITextField()
-    var optionCellRowCount = 1
+//    var optionCellRowCount = 1
+    var optionCellRowCountArray = ["1", "2"] as NSMutableArray
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
@@ -31,7 +31,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
 //        var img = UIImage(named: "user1")
         var data = UIImageJPEGRepresentation(titleImageView.image, 0.5)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
-        for index in 0...optionCellRowCount - 1 {
+        for index in 0...optionCellRowCountArray.count - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let optionTitle = cell?.contentView.viewWithTag(102) as UITextField
             var imageview = cell?.contentView.viewWithTag(101) as UIImageView
@@ -79,7 +79,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("hasVote") as HasVoteTableViewController
         self.navigationController?.pushViewController(meVoteVc, animated: true)
     }
-    //pickerView
+   // MARK: -   Picker view
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1;
@@ -174,11 +174,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         })
         
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
+ 
+    // MARK: -   Text view
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if(text == "\n"){
@@ -207,30 +204,14 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         countlabeL.text = (30 - str.length).description
     }
-    
+    // MARK: -   Textfield
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
-    
     func textFieldDidBeginEditing(textField: UITextField) {
-        edittextfield = true;
         taptextfield = textField
     }
-    
-    func textFieldDidEndEditing(textField: UITextField) {
-        // Add empty option cell if user edit the last option cell
-        edittextfield = false
-        let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: optionCellRowCount-1, inSection: 1)) as UITableViewCell?
-        let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
-        if(lastTextField.text != ""){
-            if optionCellRowCount < 5 {
-                optionCellRowCount++
-            }
-        }
-        tableView.reloadData()
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -242,7 +223,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         case 0:
             return 1
         case 1:
-            return optionCellRowCount
+            return optionCellRowCountArray.count + 1
         case 2:
             return 1
         default:
@@ -267,15 +248,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             textView.delegate = self
             
         case 1:
+            if indexPath.row == optionCellRowCountArray.count{
+            cell = tableView.dequeueReusableCellWithIdentifier("addOptionCell", forIndexPath: indexPath) as UITableViewCell
+            }else {
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteOptionCell", forIndexPath: indexPath) as UITableViewCell
-            
             let image = cell.contentView.viewWithTag(101) as UIImageView
             let optionImageTapGesture = UITapGestureRecognizer(target: self, action: "tap:")
             image.userInteractionEnabled = true
             image.addGestureRecognizer(optionImageTapGesture)
-            
             let textField = cell.contentView.viewWithTag(102) as UITextField
             textField.delegate = self
+            }
             
         case 2:
             cell = tableView.dequeueReusableCellWithIdentifier("NewVoteExpireDateCell", forIndexPath: indexPath) as UITableViewCell
@@ -290,7 +273,17 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
-        
+        if indexPath.section == 1 {
+            if indexPath.row == optionCellRowCountArray.count{
+                if optionCellRowCountArray.count < 5 {
+                optionCellRowCountArray.addObject("1")
+                tableView.reloadData()
+                let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: optionCellRowCountArray.count - 1, inSection: 1)) as UITableViewCell?
+                    let textf = cell?.contentView.viewWithTag(102) as UITextField
+                    textf.becomeFirstResponder()
+                }
+            }
+        }
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -366,6 +359,29 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
     }
     
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        if indexPath.section == 1 {
+            if optionCellRowCountArray.count > 2 && indexPath.row < optionCellRowCountArray.count {
+            return true
+        }
+        }
+        
+        return false
+    }
+    
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            var deleteItem = NSArray(objects: indexPath)
+            self.optionCellRowCountArray.removeObjectAtIndex(indexPath.row)
+            let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: indexPath.row, inSection: 1)) as UITableViewCell?
+            let imgView = cell?.contentView.viewWithTag(101) as UIImageView
+            imgView.image = UIImage(named: "dummyImage")
+            let textfield = cell?.contentView.viewWithTag(102) as UITextField
+            textfield.text = ""
+            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
     
     func btn(btn:UIButton) {
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
@@ -379,19 +395,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     
     func btnAnswer(btn:UIButton) {
-        if edittextfield == false {
-            let lastCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: optionCellRowCount-1, inSection: 1)) as UITableViewCell?
-            let lastTextField = lastCell?.contentView.viewWithTag(102) as UITextField
-            lastTextField.text = optionTagArray.objectAtIndex(btn.tag - 10000) as NSString
-            
-            if optionCellRowCount < 5 {
-                optionCellRowCount++
-            }
-            
-            tableView.reloadData()
-        }else {
-            taptextfield.text = taptextfield.text.stringByAppendingString(optionTagArray.objectAtIndex(btn.tag - 10000) as NSString)
-        }
+        taptextfield.text = taptextfield.text.stringByAppendingString(optionTagArray.objectAtIndex(btn.tag - 10000) as NSString)
+        
     }
     
     
@@ -399,5 +404,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         
     }
-    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 }

@@ -173,9 +173,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         if segue.identifier == "showAuthorDetail" {            
             
-            
             let senderButton = sender as UIButton
-            let cell = senderButton.superview?.superview as VoteTableViewCell
+            let  contentview = senderButton.superview
+            let cell = contentview?.superview as VoteTableViewCell
+//            let cell = senderButton.supererview?.superview as VoteTableViewCell
             let indexPath = tableView.indexPathForCell(cell)
             if voteArray.count > 0 {
             let voteFeed = voteArray[indexPath!.row] as NSDictionary
@@ -217,15 +218,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         return cell
     }
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
+//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        // Return false if you do not want the specified item to be editable.
+//        return true
+//    }
     
 //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
 //        if editingStyle == .Delete {
 //            var deleteItem = NSArray(objects: indexPath)
-////            self.voteArray.removeObjectAtIndex(indexPath.row)
+//            self.voteArray.removeObjectAtIndex(indexPath.row)
 //            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
 //        }
 //    }

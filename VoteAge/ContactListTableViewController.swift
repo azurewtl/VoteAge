@@ -122,6 +122,10 @@ class ContactListTableViewController: UITableViewController{
         var arname = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringname = arname.objectAtIndex(indexPath.row)["userName"] as NSString
         cell.textLabel.text = stringname
+        var arId = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
+        var stringId = arname.objectAtIndex(indexPath.row)["userID"] as NSString
+        cell.detailTextLabel?.text = stringId
+        
         var arimage = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
         
@@ -199,9 +203,9 @@ class ContactListTableViewController: UITableViewController{
         // Pass the selected object to the new view controller.
         if segue.identifier == "contactDetail" {
             var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
-            var array = contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
-            selectedCell = array.objectAtIndex(indexPath.row) as NSDictionary
-            (segue.destinationViewController as UserDetailTableViewController).contactId = friendArray.objectAtIndex(indexPath.row)["userId"] as NSString
+            let cell = tableView.cellForRowAtIndexPath(indexPath)
+            print(friendArray.objectAtIndex(indexPath.row)["userId"] as NSString)
+            (segue.destinationViewController as UserDetailTableViewController).contactId = (cell?.detailTextLabel?.text as NSString!)
         }
     }
     
