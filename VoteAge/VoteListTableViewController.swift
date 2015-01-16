@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import CoreLocation
-class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, haveVoteDelegate{
+class VoteListTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
@@ -153,7 +153,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     
     }
     // MARK: - protocol
-
+    var vote = NSMutableDictionary()
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -167,7 +167,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
                 }
-                (segue.destinationViewController as VoteDetailViewController).delegate = self
+               
             }
         }
         
@@ -184,9 +184,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         
     }
-    func haveVote() {
-        
-    }
+
     
     // MARK: - Table View
     

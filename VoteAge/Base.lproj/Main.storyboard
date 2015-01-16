@@ -543,11 +543,6 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="kvF-It-ljf">
-                        <barButtonItem key="leftBarButtonItem" image="back1" id="ECK-rA-aPW">
-                            <connections>
-                                <action selector="backOnclick:" destination="A6m-Tk-UQa" id="n7Z-ns-PZi"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="7dL-Ty-p9C">
                             <connections>
                                 <action selector="optionItemOnClick:" destination="A6m-Tk-UQa" id="Att-dS-fvC"/>
@@ -1285,10 +1280,10 @@
             </objects>
             <point key="canvasLocation" x="1763" y="1489"/>
         </scene>
-        <!--热点-->
+        <!--我发起的投票-->
         <scene sceneID="I4k-sk-q9d">
             <objects>
-                <tableViewController id="lw6-ly-i3M" customClass="HasVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="hasVote" id="lw6-ly-i3M" customClass="HasVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="CJr-GZ-x3R">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1301,12 +1296,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qC-9D-XeF">
-                                            <rect key="frame" x="8" y="8" width="83" height="83"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="83" id="dWL-r3-Zxm"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MJ-Yw-36u">
                                             <rect key="frame" x="100" y="39" width="212" height="52"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -1323,6 +1312,12 @@
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                         </button>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qC-9D-XeF">
+                                            <rect key="frame" x="8" y="8" width="83" height="83"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="83" id="dWL-r3-Zxm"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="kDa-1I-Su9" firstAttribute="top" secondItem="D0G-F7-iCb" secondAttribute="topMargin" id="1mi-5X-Mzi"/>
@@ -1342,11 +1337,18 @@
                         </prototypes>
                         <sections/>
                     </tableView>
-                    <navigationItem key="navigationItem" title="热点" id="k1w-bZ-gSA"/>
+                    <tabBarItem key="tabBarItem" title="Item" id="SCQ-Nt-0rg"/>
+                    <navigationItem key="navigationItem" title="我发起的投票" id="k1w-bZ-gSA">
+                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="uQG-hz-pJG">
+                            <connections>
+                                <action selector="optionButton:" destination="lw6-ly-i3M" id="Lfc-qv-2uY"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GEl-lT-riU" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1351" y="2921"/>
+            <point key="canvasLocation" x="1343" y="2927"/>
         </scene>
         <!--Item-->
         <scene sceneID="g7N-YT-fur">
@@ -1600,7 +1602,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="back1" width="32" height="32"/>
         <image name="checked" width="50" height="50"/>
         <image name="dummyImage" width="132" height="132"/>
         <image name="icon_QRC" width="32" height="32"/>
@@ -1617,6 +1618,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="diD-ek-DxV"/>
         <segue reference="ERR-bz-Jha"/>
-        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="w1p-qS-yrD"/>
     </inferredMetricsTieBreakers>
 </document>

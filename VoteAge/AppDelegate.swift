@@ -40,7 +40,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             var imgStr = data.base64EncodedStringWithOptions(nil)
             accessTokenDefault.setValue(imgStr, forKey: "placeholderImage")
         }
-    
         SMS_SDK.registerApp(appkey, withSecret: appsecret)
         ShareSDK.registerApp(appkey)
         ShareSDK.connectSinaWeiboWithAppKey("585583252", appSecret: "99347fc7fb789eff3243655dd4b539b5", redirectUri: "http://www.lanou3g.com")

@@ -8,11 +8,8 @@
 
 import UIKit
 import CoreLocation
-protocol haveVoteDelegate {
-    func haveVote()
-}
+
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
-   var delegate = haveVoteDelegate?()
     // MARK: - configureView
     var voteDetail = NSDictionary()
     // For textField above keyboard
@@ -40,11 +37,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteCount: UILabel!
     @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
-    
-    @IBAction func backOnclick(sender: UIBarButtonItem) {
-        self.delegate?.haveVote()
-    }
-    
     
     @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
         var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位")
@@ -192,7 +184,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardButton.setTitle("发表", forState: UIControlState.Normal)
         keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
         keyboardView.addSubview(keyboardButton)
-
         self.configureView()
         if(voteDetail["allowVote"] as Int == 1){
             tableView.allowsSelection = false
@@ -374,7 +365,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     func voteOnclick(btn:UIButton) {
         btn.setTitle("完成", forState: UIControlState.Normal)
-        
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":1,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary

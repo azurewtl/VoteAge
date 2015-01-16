@@ -20,6 +20,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
+        
         let titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         
         var titleTextView = titlecell?.contentView.viewWithTag(102) as UITextView//问题
@@ -73,7 +74,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }
         
     }
-    
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("hasVote") as HasVoteTableViewController
+        self.navigationController?.pushViewController(meVoteVc, animated: true)
+    }
     //pickerView
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
