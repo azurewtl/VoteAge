@@ -23,7 +23,6 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
     }
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem!) {
         
-        
         if item.tag == 1 {
             if userDefault.objectForKey("userId") as NSString == "" {
                 

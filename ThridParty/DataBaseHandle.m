@@ -8,6 +8,7 @@
 
 #import "DataBaseHandle.h"
 #import "VoteAge-Swift.h"
+
 @implementation DataBaseHandle
 +(DataBaseHandle *)shareInstance{
     static DataBaseHandle *dbhandle = nil;
@@ -28,6 +29,7 @@
     int result = sqlite3_close(dbPoint);
 //    NSLog(@"%d", result);
 }
+
 -(void)createTable:(NSString *)list{
 //    NSString *sql = @"create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)";
    NSString *sql = list;

@@ -14,10 +14,9 @@
                     <tabBarItem key="tabBarItem" title="首页" image="first" id="xuk-T8-Qnj"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
@@ -257,7 +256,7 @@
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
             <objects>
-                <viewController id="e2B-gI-aB3" customClass="ImageViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imgView" id="e2B-gI-aB3" customClass="ImageViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5YP-13-02T"/>
                         <viewControllerLayoutGuide type="bottom" id="w4B-We-H9Z"/>
@@ -265,8 +264,25 @@
                     <view key="view" contentMode="scaleToFill" id="y61-zC-Gon">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EY-wT-4Z1">
+                                <rect key="frame" x="16" y="485" width="288" height="40"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1EY-wT-4Z1" firstAttribute="leading" secondItem="y61-zC-Gon" secondAttribute="leadingMargin" id="1ch-l7-42W"/>
+                            <constraint firstItem="1EY-wT-4Z1" firstAttribute="top" secondItem="5YP-13-02T" secondAttribute="bottom" constant="465" id="VLc-Kg-ZEn"/>
+                            <constraint firstItem="1EY-wT-4Z1" firstAttribute="trailing" secondItem="y61-zC-Gon" secondAttribute="trailingMargin" id="bui-hS-MG4"/>
+                            <constraint firstItem="w4B-We-H9Z" firstAttribute="top" secondItem="1EY-wT-4Z1" secondAttribute="bottom" constant="43" id="jWi-6v-urn"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="pageLabel" destination="1EY-wT-4Z1" id="cAW-nh-SPJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="33L-Tc-ojG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tapGestureRecognizer id="BN4-hY-K1a">
@@ -577,9 +593,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fXC-Qw-a0v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -598,11 +614,10 @@
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="MQh-rV-LLw">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="selectedImageTintColor">
-                                <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="value" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                     </tabBar>
@@ -1160,10 +1175,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1184,10 +1198,9 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BJf-xc-qrB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="barTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="textColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1673,6 +1686,6 @@
     <inferredMetricsTieBreakers>
         <segue reference="Odc-lF-DYQ"/>
         <segue reference="sY0-fD-qOm"/>
-        <segue reference="w1p-qS-yrD"/>
+        <segue reference="Jtg-IW-Xz3"/>
     </inferredMetricsTieBreakers>
 </document>

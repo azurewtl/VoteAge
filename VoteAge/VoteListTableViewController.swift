@@ -30,10 +30,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
         updateLocation(locationManager)
-            self.title = "附近"
+        self.title = "附近"
         }
         if buttonIndex == 2 {
            self.title = "热点"
+            refresh(1, longit: "", latit: "")
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -45,9 +46,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         locationManager.startUpdatingLocation()
     }
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        print(error)
+    }
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
+        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description)
         print(coord.latitude)
         print(coord.longitude)
         manager.stopUpdatingLocation()
@@ -101,11 +106,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
-        activityIndicator.frame = CGRectMake(130, 200, 50, 50)
-        activityIndicator.backgroundColor = UIColor.grayColor()
-        activityIndicator.layer.masksToBounds = true
-        activityIndicator.layer.cornerRadius = 5
         self.view.addSubview(activityIndicator)
         //下拉刷新
         dragDownactivity.frame = CGRectMake(150, -24, 50, 50)
@@ -114,43 +114,36 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        var ceshi:Int = 1
-        if(ceshi == 1){
-//            var str = "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/"
-            let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-            let group = dispatch_group_create()
-            dispatch_group_async(group, queue, {
-                self.activityIndicator.startAnimating()
-            
-            })
-            dispatch_group_notify(group, queue, {
-                var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
-                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-                    print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
-                        print("网络故障")
-                    }else {
-                        print(result.valueForKey("message"))
-
-                        self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
-                        self.tableView.reloadData()
-                    }
-                    self.activityIndicator.stopAnimating()
+        refresh(0, longit: "", latit: "")
+    }
+    // MARK: - refresh function
+    func refresh(flag:Int, longit:NSString, latit:NSString) {
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let group = dispatch_group_create()
+        activityIndicator.frame = CGRectMake(0, 150, 50, 50)
+        activityIndicator.center.x = view.center.x
+        activityIndicator.backgroundColor = UIColor.grayColor()
+        activityIndicator.layer.masksToBounds = true
+        activityIndicator.layer.cornerRadius = 5
+        dispatch_group_async(group, queue, {
+            self.activityIndicator.startAnimating()
+        })
+        dispatch_group_notify(group, queue, {
+            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+                print(result)
+                if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    print("网络故障")
+                }else {
+                    print(result.valueForKey("message"))
+                    
+                    self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                    self.tableView.reloadData()
                 }
-                
-            })
+                self.activityIndicator.stopAnimating()
+            }
             
-            
-        }else{
-//            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-//            var data1 = NSData(contentsOfFile: path1!)
-//            
-//            var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
-//            voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-        }
-
-        
-    
+        })
     }
     
     override func didReceiveMemoryWarning() {
@@ -169,15 +162,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                
             }
         }
-//        
-//        if segue.identifier == "showAuthorDetail" {
-//            let cell = senderButton.supererview?.superview as VoteTableViewCell
-//            let indexPath = tableView.indexPathForCell(cell)
-//            if voteArray.count > 0 {
-//            let voteFeed = voteArray[indexPath.row] as NSDictionary
-//            (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
-//            }
-//        }
         
     }
    // MARK: - Table View 自定义cell protocol
@@ -223,18 +207,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         return cell
     }
-//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        // Return false if you do not want the specified item to be editable.
-//        return true
-//    }
-    
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
-//            var deleteItem = NSArray(objects: indexPath)
-//            self.voteArray.removeObjectAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
-//        }
-//    }
+
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }

@@ -53,11 +53,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         print(coord.longitude)
         manager.stopUpdatingLocation()
     }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.tabBarController?.tabBar.hidden = false
-        
-    }
+
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         dragImageView.hidden = false
         dragImageView.image = UIImage(named:"dragUp")
@@ -97,11 +93,11 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
             })
             
             
-            
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.hidden = true
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
@@ -218,13 +214,6 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         return true
     }
     
-    //    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-    //        if editingStyle == .Delete {
-    //            var deleteItem = NSArray(objects: indexPath)
-    ////            self.voteArray.removeObjectAtIndex(indexPath.row)
-    //            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
-    //        }
-    //    }
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }

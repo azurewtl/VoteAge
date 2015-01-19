@@ -18,7 +18,6 @@
 -(void)createTable:(NSString *)list;
 -(void)insertTab:(NSString *)insertsql;
 -(void)updateT:(NSString *)sql;
-
 -(void)deleteTab:(NSString *)sql;
 -(NSMutableArray *)selectAll:(NSString *)sql;
 @end

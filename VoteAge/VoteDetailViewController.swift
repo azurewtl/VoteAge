@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import CoreLocation
-
-class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, CLLocationManagerDelegate, UITextViewDelegate, ImagesendDelegate{
+class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, ImagesendDelegate{
     // MARK: - configureView
     var voteDetail = NSDictionary()
     // For textField above keyboard
@@ -27,7 +25,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // For countdown
     var time = NSTimeInterval()
     var timer = NSTimer()
-    var locationManager = CLLocationManager()
+ 
     
     
     @IBOutlet var tableView: UITableView!
@@ -225,28 +223,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return true
     }
-    func updateLocation(locationManager: CLLocationManager) {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 100.0
-        locationManager.delegate = self
-        if UIDevice.currentDevice().systemVersion >= "8.0" {
-            locationManager.requestWhenInUseAuthorization()
-        }
-        locationManager.startUpdatingLocation()
-    }
+
     
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        if buttonIndex == 2 { // GPS Location
-            updateLocation(locationManager)
-        }
-    }
+        if buttonIndex == 2 {
     
-    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
-        var loc = locations.last as CLLocation
-        var coord = loc.coordinate
-        print(coord.latitude)
-        print(coord.longitude)
-        manager.stopUpdatingLocation()
+        }
     }
     
     func handleKeyboardDidShow(notification:NSNotification) {
@@ -464,9 +446,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func setSelect(number: Int) {
-        var imageViewController = ImageViewController()
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var imageViewController = storyBoard.instantiateViewControllerWithIdentifier("imgView") as ImageViewController
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: number, inSection: 0)) as OptionTableViewCell?
-        imageViewController.photoView.image = cell?.optionImage.image
+//        imageViewController.photoView.image = cell?.optionImage.image
+        imageViewController.imgCount = number
+        imageViewController.optionArr = voteDetail.objectForKey("option") as NSArray
         imageViewController.modalTransitionStyle = UIModalTransitionStyle.CrossDissolve
         presentViewController(imageViewController, animated: true) { () -> Void in
         }
@@ -491,6 +476,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "titleImage" {
             
             (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
+            (segue.destinationViewController as ImageViewController).imgCount = -1
         }
     }
     

@@ -7,35 +7,37 @@
 //
 
 import UIKit
-
-class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UIAlertViewDelegate {
+import CoreLocation
+class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UIAlertViewDelegate, CLLocationManagerDelegate {
     //notification
+    var locationManager = CLLocationManager()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var pickerArray = NSArray()
     var selectedImageView = UIImageView()
     var optionArray = NSMutableArray()
     var taptextfield = UITextField()
+    var longitude:NSString = ""
+    var latitude:NSString = ""
 //    var optionCellRowCount = 1
     var optionCellRowCountArray = ["1", "2"] as NSMutableArray
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     @IBAction func sendVote(sender: UIBarButtonItem) {
-        
+        updateLocation(locationManager)
+    }
+       // 发送的内容function
+    func  sendMessage() {
         let titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         
         var titleTextView = titlecell?.contentView.viewWithTag(102) as UITextView//问题
         var titleImageView = titlecell?.contentView.viewWithTag(101) as UIImageView
-//        if(titleImageView.image != UIImage(named: "dummyImage")) {
-//            var titleimageData = UIImageJPEGRepresentation(titleImageView.image, 0.5)
-//        }
-//        var img = UIImage(named: "user1")
         var data = UIImageJPEGRepresentation(titleImageView.image, 0.5)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
         for index in 0...optionCellRowCountArray.count - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let optionTitle = cell?.contentView.viewWithTag(102) as UITextField
             var imageview = cell?.contentView.viewWithTag(101) as UIImageView
-            var data1 = UIImageJPEGRepresentation(imageview.image, 0.5)
+            var data1 = UIImageJPEGRepresentation(imageview.image, 0.75)
             var encodeStr1 = data1.base64EncodedStringWithOptions(nil)
             var dic = NSMutableDictionary()
             if optionTitle.text != "" {
@@ -44,36 +46,58 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 optionArray.addObject(dic)
             }
         }
-     var pickerCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
-     var picker = pickerCell?.contentView.viewWithTag(101) as UIPickerView
-     var selectPicker = pickerArray.objectAtIndex(picker.selectedRowInComponent(0)) as NSString
-    var date = NSDate(timeIntervalSinceNow: (8 + selectPicker.doubleValue * 24) * 60 * 60)
-    var dateArray = date.description.componentsSeparatedByString(" ") as NSArray
-    var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":optionArray,"latitude":"31","longitude":"120","expireDate":dateArray.firstObject as NSString,"accessToken":tokenDefult.valueForKey("accessToken") as NSString,"allowComment":1] as NSDictionary
+        var pickerCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
+        var picker = pickerCell?.contentView.viewWithTag(101) as UIPickerView
+        var selectPicker = pickerArray.objectAtIndex(picker.selectedRowInComponent(0)) as NSString
+        var date = NSDate(timeIntervalSinceNow: (8 + selectPicker.doubleValue * 24) * 60 * 60)
+        var dateArray = date.description.componentsSeparatedByString(" ") as NSArray
+        var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":optionArray,"latitude":latitude,"longitude":longitude,"expireDate":dateArray.firstObject as NSString,"accessToken":tokenDefult.valueForKey("accessToken") as NSString,"allowComment":1] as NSDictionary
+        
         if (senddic["title"] as NSString != "") {
-            if optionArray.count > 1 {
-                AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
-                    print(result)
-                    print(result.valueForKey("message"))
-                    if result.valueForKey("status") as Int == 1 {
+            AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
+                print(result)
+                print(result.valueForKey("message"))
+                if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     alert.show()
-                    }else {
-                        var alert = UIAlertView(title: "", message: "发起失败", delegate: self, cancelButtonTitle: "重发")
-                        alert.show()
-                    }
+                }else {
+                    var alert = UIAlertView(title: "", message: "发起失败", delegate: self, cancelButtonTitle: "重发")
+                    alert.show()
                 }
-            
-            }else{
-                var alert = UIAlertView(title: "", message: "选项至少两个", delegate: nil, cancelButtonTitle: "确定")
-                alert.show()
             }
         }else{
-           var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
+            var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
             alert.show()
         }
         
+
     }
+    
+    // MARK: - 定位
+    func updateLocation(locationManager: CLLocationManager) {
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 100.0
+        locationManager.delegate = self
+        if UIDevice.currentDevice().systemVersion >= "8.0" {
+            locationManager.requestWhenInUseAuthorization()
+        }
+        locationManager.startUpdatingLocation()
+    }
+    
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        print(error)
+        sendMessage()
+    }
+    func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
+        var loc = locations.last as CLLocation
+        var coord = loc.coordinate
+//        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description)
+        longitude = coord.longitude.description
+        latitude  = coord.latitude.description
+        sendMessage()
+        manager.stopUpdatingLocation()
+    }
+    // MARK: - alertview
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("hasVote") as HasVoteTableViewController
@@ -166,7 +190,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
-            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(200, 200))
+            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(300, 300))
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.selectedImageView.image = resizeImg
@@ -396,7 +420,6 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     
     func btnAnswer(btn:UIButton) {
         taptextfield.text = taptextfield.text.stringByAppendingString(optionTagArray.objectAtIndex(btn.tag - 10000) as NSString)
-        
     }
     
     

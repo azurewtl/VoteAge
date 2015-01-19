@@ -56,7 +56,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         layer = AVCaptureVideoPreviewLayer(session: session)
         layer!.videoGravity = AVLayerVideoGravityResizeAspectFill
-        layer!.frame = CGRectMake(0, 150, view.frame.width, 300)
+        layer!.frame = CGRectMake(0, 0, view.frame.width, view.frame.height)
         self.view.layer.insertSublayer(self.layer, atIndex: 0)
         
         let output = AVCaptureMetadataOutput()
