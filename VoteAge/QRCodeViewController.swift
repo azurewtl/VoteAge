@@ -13,7 +13,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
     let session = AVCaptureSession()
     var layer: AVCaptureVideoPreviewLayer?
-    var line = UIView()
+    var line = UIImageView()
     var imgView = BlurImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,20 +30,22 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         super.viewDidAppear(true)
         self.tabBarController?.tabBar.hidden = false
         session.startRunning()
-        line.frame = CGRectMake(0, 150, view.frame.width, 10)
-        line.backgroundColor = UIColor.greenColor()
+        line.frame = CGRectMake(50, 100, view.frame.width - 100, 3)
+//        line.backgroundColor = UIColor.greenColor()
+        line.image = UIImage(named:"line.png")
         self.view.addSubview(line)
         UIView.beginAnimations("id", context: nil)
         UIView.setAnimationDuration(4)
         UIView.setAnimationCurve(UIViewAnimationCurve.Linear)
         UIView.setAnimationRepeatCount(1000)
-        line.frame = CGRectMake(0, 450, view.frame.width,10)
+        line.frame = CGRectMake(50, 400, view.frame.width - 100,3)
         UIView.commitAnimations()
     
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
         session.stopRunning()
+        line.frame = CGRectMake(50, 100, view.frame.width - 100, 3)
         line.layer.removeAllAnimations()
     }
     func setupCamera() {

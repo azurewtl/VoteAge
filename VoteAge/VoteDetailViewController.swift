@@ -37,7 +37,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteSegment: UISegmentedControl!
     
     @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
-        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "收藏", "定位")
+        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "分享", "定位")
         selectSheet.showInView(self.view)
     }
     // MARK: - Segment Control
@@ -226,8 +226,35 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
     
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-        if buttonIndex == 2 {
-    
+        if buttonIndex == 1 {
+            showKeyboardTextView = false
+            UIGraphicsBeginImageContext(self.view.frame.size)
+            view.layer.renderInContext(UIGraphicsGetCurrentContext())
+            var viewimage = UIGraphicsGetImageFromCurrentImageContext()
+            var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
+            UIGraphicsEndImageContext();
+            UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
+            
+            var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
+            var documentdirectory = paths.objectAtIndex(0) as NSString
+            var picName = "screenShow.png"
+            var savepath = documentdirectory.stringByAppendingPathComponent(picName)
+            imageviewdata.writeToFile(savepath, atomically: true)
+            var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.voteage.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
+            
+            ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
+                
+                if Int(state.value) == 2{
+                    var alert = UIAlertView(title: "提示", message: "分享失败", delegate: nil, cancelButtonTitle: "确定")
+                    alert.show()
+                    self.view.addSubview(alert)
+                }else if Int(state.value) == 1 {
+                    var alert = UIAlertView(title: "提示", message: "分享成功", delegate: nil, cancelButtonTitle: "确定")
+                    alert.show()
+                    self.view.addSubview(alert)
+                }
+            })
+
         }
     }
     
