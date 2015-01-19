@@ -196,7 +196,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.voteTitle.text = voteItem["title"] as? NSString
             if voteItem["authorName"] as NSString == "" {
-                cell.voteAuthor.setTitle("匿名用户", forState: UIControlState.Normal)
+                cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
             }else {
                 cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
             }

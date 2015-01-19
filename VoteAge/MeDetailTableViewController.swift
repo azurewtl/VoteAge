@@ -124,6 +124,7 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
             if result.valueForKey("status") as Int == 1 {
             self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
             self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
+            self.tokenDefult.setValue(self.genderSeg.selectedSegmentIndex + 1, forKey: "gender")
             self.tokenDefult.setValue(encodeStr, forKey: "image")
             self.navigationController?.popViewControllerAnimated(true)
             self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)

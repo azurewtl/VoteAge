@@ -108,6 +108,12 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
         if segue.identifier == "selfInfo" {
             (segue.destinationViewController as MeDetailTableViewController).delegate = self
         }
+        if segue.identifier == "sendVote" {
+            (segue.destinationViewController as HasVoteTableViewController).relationship = 0
+        }
+        if segue.identifier == "hasVote" {
+            (segue.destinationViewController as HasVoteTableViewController).relationship = 2
+        }
         
     }
 

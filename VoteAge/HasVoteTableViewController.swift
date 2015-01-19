@@ -9,12 +9,13 @@
 import UIKit
 import CoreData
 import CoreLocation
-class HasVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate{
+class HasVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, sendInfoDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var relationship = 0
     var allowvoteDic = NSMutableDictionary()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var managedObjectContext: NSManagedObjectContext? = nil
@@ -77,7 +78,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                 scrollView.contentInset = UIEdgeInsetsMake(120, 0, 0, 0)
             })
             dispatch_group_notify(group, queue, {
-                var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.relationship] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
                     if result.valueForKey("message") as NSString == "网络出故障啦！" {
@@ -125,7 +126,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
             })
             dispatch_group_notify(group, queue, {
             
-                var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.relationship] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
                     if result.valueForKey("message") as NSString == "网络出故障啦！" {
@@ -159,30 +160,26 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
     
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showVoteDetail" {
+        if segue.identifier == "hasVotePush" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if voteArray.count > 0 {
                     let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
                     (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
+                    print("**")
+                    print(vote)
                 }
                 
             }
         }
         
-        if segue.identifier == "showAuthorDetail" {
-            
-            
-            let senderButton = sender as UIButton
-            let cell = senderButton.superview?.superview as VoteTableViewCell
-            let indexPath = tableView.indexPathForCell(cell)
-            if voteArray.count > 0 {
-                let voteFeed = voteArray[indexPath!.row] as NSDictionary
-                (segue.destinationViewController as UserDetailTableViewController).contactId = voteFeed.objectForKey("authorId") as NSString
-            }
-        }
-        
     }
-    
+    func sendNumber(num: Int) {
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
+        let voteFeed = voteArray[num] as NSDictionary
+        userDetailVc.contactId = voteFeed["authorId"] as NSString
+        self.navigationController?.pushViewController(userDetailVc, animated: true)
+    }
     
     // MARK: - Table View
     
@@ -197,10 +194,12 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         if voteArray.count > 0 {
+            cell.num = indexPath.row
+            cell.delegate = self
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.voteTitle.text = voteItem["title"] as? NSString
             if voteItem["authorName"] as NSString == "" {
-                cell.voteAuthor.setTitle("匿名用户", forState: UIControlState.Normal)
+                cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
             }else {
                 cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
             }

@@ -7,11 +7,11 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--首页-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
                 <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" systemItem="more" id="xuk-T8-Qnj"/>
+                    <tabBarItem key="tabBarItem" title="首页" image="first" id="xuk-T8-Qnj"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -573,7 +573,7 @@
         <scene sceneID="fkt-CA-BMg">
             <objects>
                 <navigationController id="S6W-LG-0Ru" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="1" title="关注" image="iocn_contact" id="bKP-ZA-SQB"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="关注" image="contact" id="bKP-ZA-SQB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="fXC-Qw-a0v">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1155,7 +1155,7 @@
         <scene sceneID="xab-K3-35P">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eAs-K5-hih" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我" image="icon_me" id="26a-k9-QGp"/>
+                    <tabBarItem key="tabBarItem" tag="3" title="我" image="me" id="26a-k9-QGp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1179,7 +1179,7 @@
         <scene sceneID="u0h-Ph-MV2">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Wr0-9c-Iej" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="2" title="扫一扫" image="icon_QRC" id="Dhe-dY-Fdp"/>
+                    <tabBarItem key="tabBarItem" tag="2" title="扫一扫" image="qrc" id="Dhe-dY-Fdp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BJf-xc-qrB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1359,6 +1359,9 @@
                                             <state key="normal" title="user">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
+                                            <connections>
+                                                <action selector="hasVoteOnclick:" destination="Ynt-ip-FTb" eventType="touchUpInside" id="wWs-4B-GQ6"/>
+                                            </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qC-9D-XeF">
                                             <rect key="frame" x="8" y="8" width="83" height="83"/>
@@ -1380,6 +1383,7 @@
                                     <outlet property="voteAuthor" destination="kDa-1I-Su9" id="F2p-bK-mVa"/>
                                     <outlet property="voteImage" destination="6qC-9D-XeF" id="vjD-tn-boe"/>
                                     <outlet property="voteTitle" destination="5MJ-Yw-36u" id="ANJ-Xu-I84"/>
+                                    <segue destination="A6m-Tk-UQa" kind="push" identifier="hasVotePush" id="Odc-lF-DYQ"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -1651,12 +1655,14 @@
     </scenes>
     <resources>
         <image name="checked" width="50" height="50"/>
+        <image name="contact" width="32" height="32"/>
         <image name="dummyImage" width="132" height="132"/>
-        <image name="icon_QRC" width="32" height="32"/>
+        <image name="first" width="32" height="32"/>
         <image name="icon_me" width="32" height="32"/>
         <image name="icon_more" width="32" height="32"/>
         <image name="iconfont-add" width="64" height="64"/>
-        <image name="iocn_contact" width="32" height="32"/>
+        <image name="me" width="32" height="32"/>
+        <image name="qrc" width="32" height="32"/>
         <image name="user1" width="200" height="200"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -1665,8 +1671,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ERR-bz-Jha"/>
-        <segue reference="oO6-sd-y4b"/>
-        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="Odc-lF-DYQ"/>
+        <segue reference="sY0-fD-qOm"/>
+        <segue reference="w1p-qS-yrD"/>
     </inferredMetricsTieBreakers>
 </document>

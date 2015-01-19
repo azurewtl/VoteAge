@@ -20,10 +20,14 @@ class VoteTableViewCell: UITableViewCell {
     @IBOutlet var voteAuthor: UIButton!
     
     @IBAction func userOnclick(sender: UIButton) {
-      self.delegate?.sendNumber(num)
+        self.delegate?.sendNumber(num)
     }
   
     @IBAction func contactUserOnclick(sender: UIButton) {
+        self.delegate?.sendNumber(num)
+    }
+
+    @IBAction func hasVoteOnclick(sender: UIButton) {
         self.delegate?.sendNumber(num)
     }
 

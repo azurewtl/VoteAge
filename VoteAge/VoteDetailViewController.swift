@@ -367,7 +367,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         btn.setTitle("完成", forState: UIControlState.Normal)
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
-        var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":1,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+        var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
             print(result)
             //            print("***")
@@ -451,7 +451,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             return cell
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
+        var userButton = cell.contentView.viewWithTag(101) as UIButton
         var label = cell.contentView.viewWithTag(102) as UILabel
+        
+        if (commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("userName") as NSString == "" {
+               userButton.setTitle("游客", forState: UIControlState.Normal)
+        }else {
+        userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
+        }
         label.text = (commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("content") as NSString
         return cell
     }
