@@ -14,9 +14,12 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     let session = AVCaptureSession()
     var layer: AVCaptureVideoPreviewLayer?
     var line = UIView()
+    var imgView = BlurImageView()
     override func viewDidLoad() {
         super.viewDidLoad()
-   
+        imgView.blurryImage(UIImage(named: "user1"), withBlurLevel: 5)
+        imgView.frame = self.view.frame
+        self.view.addSubview(imgView)
         self.setupCamera()
         
        
@@ -36,7 +39,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         UIView.setAnimationRepeatCount(1000)
         line.frame = CGRectMake(0, 450, view.frame.width,10)
         UIView.commitAnimations()
-   
+    
     }
     override func viewDidDisappear(animated: Bool) {
         super.viewDidDisappear(true)
@@ -56,9 +59,8 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
         layer = AVCaptureVideoPreviewLayer(session: session)
         layer!.videoGravity = AVLayerVideoGravityResizeAspectFill
-        layer!.frame = CGRectMake(0, 0, view.frame.width, view.frame.height)
-        self.view.layer.insertSublayer(self.layer, atIndex: 0)
-        
+        layer!.frame = CGRectMake(50, 100, view.frame.width - 100, 300)
+        imgView.layer.insertSublayer(self.layer, atIndex: 0)
         let output = AVCaptureMetadataOutput()
         output.setMetadataObjectsDelegate(self, queue: dispatch_get_main_queue())
         if session.canAddOutput(output) {

@@ -19,3 +19,4 @@
 #import "AFHTTPRequestOperation.h"
 #import <CommonCrypto/CommonDigest.h>
 #import <UIKit/UIKit.h>
+#import "BlurImageView.h"

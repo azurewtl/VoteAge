@@ -112,6 +112,8 @@
 		184BB4571A1C54BE006DF06C /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4391A1C54BE006DF06C /* UIView+WebCacheOperation.m */; };
 		184BB4581A1C54BE006DF06C /* SQLiteDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BB43B1A1C54BE006DF06C /* SQLiteDB.swift */; };
 		184BB4591A1C54BE006DF06C /* String-Extras.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184BB43C1A1C54BE006DF06C /* String-Extras.swift */; };
+		1850D86B1A6D11270017AB70 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850D86A1A6D11270017AB70 /* CoreImage.framework */; };
+		1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850D86E1A6D11750017AB70 /* BlurImageView.m */; };
 		18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D841A172C3C00BC44F1 /* MeTableViewController.swift */; };
 		18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D881A172DB500BC44F1 /* QRCodeViewController.swift */; };
 		18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D131A1DD1DD00CF3434 /* UserDetailTableViewController.swift */; };
@@ -301,6 +303,9 @@
 		184BB4391A1C54BE006DF06C /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
 		184BB43B1A1C54BE006DF06C /* SQLiteDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SQLiteDB.swift; sourceTree = "<group>"; };
 		184BB43C1A1C54BE006DF06C /* String-Extras.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String-Extras.swift"; sourceTree = "<group>"; };
+		1850D86A1A6D11270017AB70 /* CoreImage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreImage.framework; path = System/Library/Frameworks/CoreImage.framework; sourceTree = SDKROOT; };
+		1850D86D1A6D11750017AB70 /* BlurImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurImageView.h; sourceTree = "<group>"; };
+		1850D86E1A6D11750017AB70 /* BlurImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurImageView.m; sourceTree = "<group>"; };
 		18623D841A172C3C00BC44F1 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		18623D881A172DB500BC44F1 /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		18687D131A1DD1DD00CF3434 /* UserDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailTableViewController.swift; sourceTree = "<group>"; };
@@ -345,6 +350,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1850D86B1A6D11270017AB70 /* CoreImage.framework in Frameworks */,
 				182E84361A2C0F540048069C /* TencentWeiboConnection.framework in Frameworks */,
 				182E84261A2C0F540048069C /* KaKaoStoryConnection.framework in Frameworks */,
 				182E844E1A2C0F540048069C /* libWeChatSDK.a in Frameworks */,
@@ -616,6 +622,7 @@
 		184BB3FD1A1C54BE006DF06C /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				1850D86C1A6D11650017AB70 /* blurimage */,
 				182E83C21A2C0F530048069C /* ShareSDK */,
 				18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */,
 				181C4D5E1A1C9DB90077B682 /* DataBaseHandle.h */,
@@ -722,6 +729,15 @@
 			path = SQLiteDB;
 			sourceTree = "<group>";
 		};
+		1850D86C1A6D11650017AB70 /* blurimage */ = {
+			isa = PBXGroup;
+			children = (
+				1850D86D1A6D11750017AB70 /* BlurImageView.h */,
+				1850D86E1A6D11750017AB70 /* BlurImageView.m */,
+			);
+			path = blurimage;
+			sourceTree = "<group>";
+		};
 		18ED9C5E1A2851A300463101 /* framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -748,6 +764,7 @@
 		BB7208421A0B600100A97FCD = {
 			isa = PBXGroup;
 			children = (
+				1850D86A1A6D11270017AB70 /* CoreImage.framework */,
 				BB72084D1A0B600100A97FCD /* VoteAge */,
 				18ED9C5E1A2851A300463101 /* framework */,
 				184BB3FD1A1C54BE006DF06C /* ThridParty */,
@@ -979,6 +996,7 @@
 				184BB4401A1C54BE006DF06C /* AFHTTPSessionManager.m in Sources */,
 				18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */,
 				184BB4411A1C54BE006DF06C /* AFNetworkReachabilityManager.m in Sources */,
+				1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */,
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,
