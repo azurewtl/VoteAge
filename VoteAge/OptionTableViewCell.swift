@@ -14,7 +14,7 @@ class OptionTableViewCell: UITableViewCell {
 
     @IBOutlet var checkImageView: UIImageView!
     
-    @IBOutlet weak var optionImage: UIImageView!
+    @IBOutlet weak var optionImage: UIImageView?
     @IBOutlet var optionProgress: UIProgressView!
     @IBOutlet weak var optionTitle: UILabel!
     @IBOutlet weak var optionDetail: UILabel!
@@ -28,8 +28,9 @@ class OptionTableViewCell: UITableViewCell {
         var tap = UITapGestureRecognizer(target: self, action: "tap")
         optionImage?.userInteractionEnabled = true
         optionImage?.addGestureRecognizer(tap)
-//       self.contentView.addConstraint(NSLayoutConstraint(item: optionImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+          
     }
+
     func tap() {
         self.delegate?.setSelect(imagenumber)
     }

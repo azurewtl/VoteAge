@@ -9,6 +9,7 @@
 import UIKit
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
     // MARK: - configureView
+    var section1CellCount = 1//投票评论cell的section里cell的数目
     var voteDetail = NSDictionary()
     // For textField above keyboard
     var showKeyboardTextView = true // If the textview about keyboard needed to be shown
@@ -18,7 +19,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var commtArray = NSMutableArray()
     var commentCellHeightArray = NSMutableArray()
     // For vote count
-    var selectIndex = 0
+    var selectIndex = -1
     var menCount = CGFloat()
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
@@ -94,36 +95,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
     // MARK: - 分享评论按钮
     
-    @IBAction func shareOnClick(sender: UIBarButtonItem) {
-        showKeyboardTextView = false
-        UIGraphicsBeginImageContext(self.view.frame.size)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext())
-        var viewimage = UIGraphicsGetImageFromCurrentImageContext()
-        var paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) as NSArray
-        UIGraphicsEndImageContext();
-        UIImageWriteToSavedPhotosAlbum(viewimage, nil, nil, nil)
-        
-        var imageviewdata = UIImagePNGRepresentation(viewimage) as NSData
-        var documentdirectory = paths.objectAtIndex(0) as NSString
-        var picName = "screenShow.png"
-        var savepath = documentdirectory.stringByAppendingPathComponent(picName)
-        imageviewdata.writeToFile(savepath, atomically: true)
-        var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.voteage.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
-        
-        ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
-            
-            if Int(state.value) == 2{
-                var alert = UIAlertView(title: "提示", message: "分享失败", delegate: nil, cancelButtonTitle: "确定")
-                alert.show()
-                self.view.addSubview(alert)
-            }else if Int(state.value) == 1 {
-                var alert = UIAlertView(title: "提示", message: "分享成功", delegate: nil, cancelButtonTitle: "确定")
-                alert.show()
-                self.view.addSubview(alert)
-            }
-        })
-    }
-    
     @IBAction func commentOnClick(sender: UIBarButtonItem) {
         showKeyboardTextView = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
@@ -184,6 +155,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardView.addSubview(keyboardButton)
         self.configureView()
         if(voteDetail["allowVote"] as Int == 1){
+            section1CellCount = 2
+            tableView.reloadData()
             tableView.allowsSelection = false
             waiveButton.userInteractionEnabled = false
             voteSegment.userInteractionEnabled = false
@@ -357,23 +330,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - Table View
     
-    func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        var nullview = UIView()
-        if section == 0  {
-           var sectionView = UIView()
-            sectionView.backgroundColor = tableView.backgroundColor
-           var button = UIButton.buttonWithType(UIButtonType.System) as UIButton
-            button.frame = CGRectMake(0, 0, view.frame.width, 80)
-            if voteDetail["allowVote"] as Int == 1 {
-            button.setTitle("投票", forState: UIControlState.Normal)
-            button.setTitleColor(UIColor.redColor(), forState: UIControlState.Normal)
-            sectionView.addSubview(button)
-            button.addTarget(self, action: "voteOnclick:", forControlEvents: UIControlEvents.TouchUpInside)
-            }
-        return sectionView
-        }
-        return nullview
-    }
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
             NSUserDefaults.standardUserDefaults().setObject(1, forKey: "gender")
@@ -384,17 +340,22 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             voteAndrefreshSingle()
         }
     }
-    func voteOnclick(btn:UIButton) {
+    // MARK:- 投票ing
+    func votedOnclick(btn:UIButton) {
         if NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int == 0 {
             var alert = UIAlertView(title: "提示", message: "未登录时请选择性别，选好后将不能更改。。", delegate: self, cancelButtonTitle: "再想想", otherButtonTitles: "男", "女")
             alert.show()
         }else {
-        btn.setTitle("完成", forState: UIControlState.Normal)
-        voteAndrefreshSingle()
-          }
+            voteAndrefreshSingle()
+        }
     }
     func voteAndrefreshSingle() {
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
+        if selectIndex == -1 {
+            var alert = UIAlertView()
+            alert.message = "请选择"
+            alert.show()
+        }else {
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
@@ -412,24 +373,16 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.voteSegment.selectedSegmentIndex = 1;
                     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
                     cell?.checkImageView.hidden = true
+                    self.section1CellCount = 1
+                    self.tableView.reloadData()
                 }else {
                     print("error")
                 }
             })
         }
-        
-    }
-    
-    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == 0 {
-            return 40
         }
-        return 10
     }
-    
-    
-    
-    
+    // MARK:- tableview
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 3
     }
@@ -438,7 +391,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         case 0:
             return self.optionArray.count
         case 1:
-            return 1
+            return section1CellCount
         case 2:
             return commtArray.count
         default:
@@ -468,18 +421,29 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.delegate = self
             cell.imagenumber = indexPath.row
             cell.checkImageView.hidden = true
-            if dicAppear["image"] as NSString == "" {
-                cell.optionImage.image = UIImage(named: "dummyImage")
-            }else {
-                var imageUrl = NSURL(string: dicAppear["image"] as NSString)
-                cell.optionImage?.sd_setImageWithURL(imageUrl)
-            }
+            var imageUrl = NSURL(string: dicAppear["image"] as NSString)
+            cell.optionImage?.sd_setImageWithURL(imageUrl)
+            cell.contentView.addConstraint(NSLayoutConstraint(item:cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
 
             return cell
         }else if indexPath.section == 1 {
+            if section1CellCount == 2 {
+                if indexPath.row == 0 {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("voteCell") as UITableViewCell
+                    var button = cell.contentView.viewWithTag(101) as UIButton
+                    button.addTarget(self, action: "votedOnclick:", forControlEvents: UIControlEvents.TouchUpInside)
+                    return cell
+                }else {
+                    let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
+                    var toolBar = cell.contentView.viewWithTag(101) as UIToolbar
+                    return cell
+                }
+                
+            }else {
             let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell
             var toolBar = cell.contentView.viewWithTag(101) as UIToolbar
             return cell
+            }
         }
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var userButton = cell.contentView.viewWithTag(101) as UIButton
@@ -495,7 +459,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return cell
     }
-    
     func setSelect(number: Int) {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var imageViewController = storyBoard.instantiateViewControllerWithIdentifier("imgView") as ImageViewController

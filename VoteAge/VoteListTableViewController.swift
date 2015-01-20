@@ -85,7 +85,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
                         print(result.valueForKey("message"))
@@ -106,11 +106,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         self.view.addSubview(activityIndicator)
         //下拉刷新
-        dragDownactivity.frame = CGRectMake(150, -24, 50, 50)
+        dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
         self.view.addSubview(dragDownactivity)
-        dragImageView.frame = CGRectMake(150, -44, 50, 50)
+        dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
@@ -132,7 +133,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                 print(result)
-                if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                if result.valueForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
                 }else {
                     print(result.valueForKey("message"))
@@ -198,12 +199,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
             }
         cell.authorID = voteItem["authorId"] as? NSString
-        if voteItem["voteImage"] as NSString == "" {
-           cell.voteImage?.image = UIImage(named: "dummyImage")
-        }else {
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
         cell.voteImage?.sd_setImageWithURL(imageUrl)
-        }
         }
         return cell
     }

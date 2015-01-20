@@ -18,7 +18,7 @@ class ContactListTableViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(NSTemporaryDirectory())
+//        print(NSTemporaryDirectory())
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
         self.tabBarController?.tabBar.hidden = true
         
@@ -35,8 +35,10 @@ class ContactListTableViewController: UITableViewController{
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
-            if result.valueForKey("status") as Int == 1 {
-                print(result.valueForKey("list") as NSArray)
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                 print("网络出故障啦!")
+            }else if result.valueForKey("list") != nil {
+                
                 self.friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
                 self.updateDataBaseAndInitialArray(self.friendArray)
                 // Update contactArray accroding to initalArray
@@ -47,8 +49,7 @@ class ContactListTableViewController: UITableViewController{
                     self.contactArray.addObject(contactInfo)
                     self.tableView.reloadData()
                 }
-            }else {
-                print("error")
+               
             }
         })
         // test end

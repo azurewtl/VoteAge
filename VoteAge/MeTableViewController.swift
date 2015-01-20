@@ -21,7 +21,11 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
         
         var dic = ["userId":tokenDefult.objectForKey("userId") as NSString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
-            self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+               print(result.valueForKey("message"))
+            }else if result.valueForKey("list") != nil {
+              self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+            }
         })
         var str = tokenDefult.objectForKey("placeholderImage") as NSString
         var data = NSData(base64EncodedString: str, options: nil)
@@ -92,18 +96,15 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
 //            }
         }
         
-        if indexPath.section == 2 {
-            if indexPath.row == 0 {
-                               
-            }
-        }
     }
 
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "newvote" {
+            if addVoteArray.count > 1 {
             (segue.destinationViewController as NewVoteTableViewController).titleTagArray = addVoteArray
+            }
         }
         if segue.identifier == "selfInfo" {
             (segue.destinationViewController as MeDetailTableViewController).delegate = self

@@ -77,7 +77,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                 var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.relationship] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
                         print(result.valueForKey("message"))
@@ -97,6 +97,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         self.tabBarController?.tabBar.hidden = true
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
@@ -105,9 +106,9 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         activityIndicator.layer.cornerRadius = 5
         self.view.addSubview(activityIndicator)
         //下拉刷新
-        dragDownactivity.frame = CGRectMake(150, -24, 50, 50)
+        dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
         self.view.addSubview(dragDownactivity)
-        dragImageView.frame = CGRectMake(150, -44, 50, 50)
+        dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
@@ -125,7 +126,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                 var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.relationship] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
                         print(result.valueForKey("message"))
@@ -209,15 +210,31 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         }
         return cell
     }
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    
+
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }
-    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if relationship == 0 && voteArray.count > 0 {
+            return true
+        }
+        return false
+    }
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            var deleteItem = NSArray(objects: indexPath)
+            voteArray.removeObjectAtIndex(indexPath.row)
+            var voteid = (voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString
+            var dic = ["voteId":voteid, "method":"delete", "accessToken":tokenDefult.objectForKey("accessToken") as NSString, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+                print(result)
+                print(result.valueForKey("message"))
+                
+            })
+            
+            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
+        }
+    }
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
     //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String

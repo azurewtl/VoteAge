@@ -42,7 +42,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var dic = NSMutableDictionary()
             if optionTitle.text != "" {
                 dic.setObject(optionTitle.text, forKey: "option")
+                if imageview.image == UIImage(named: "dummyImage") {
+                 dic.setObject("", forKey: "image")
+                }else {
                 dic.setObject(encodeStr1, forKey: "image")
+                
+                }
                 optionArray.addObject(dic)
             }
         }
@@ -61,7 +66,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     alert.show()
                 }else {
-                    var alert = UIAlertView(title: "", message: "发起失败", delegate: self, cancelButtonTitle: "重发")
+                    var alert = UIAlertView(title: "", message: "发起失败", delegate: nil, cancelButtonTitle: "重发")
                     alert.show()
                 }
             }
@@ -190,7 +195,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
             
-            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(300, 300))
+            var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(400, 400))
             
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.selectedImageView.image = resizeImg

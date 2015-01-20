@@ -79,7 +79,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":1] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
                         print(result.valueForKey("message"))
@@ -100,6 +100,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
         activityIndicator.backgroundColor = UIColor.grayColor()
@@ -107,9 +108,9 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         activityIndicator.layer.cornerRadius = 5
         self.view.addSubview(activityIndicator)
         //下拉刷新
-        dragDownactivity.frame = CGRectMake(150, -24, 50, 50)
+        dragDownactivity.frame = CGRectMake(150, 50, 50, 50)
         self.view.addSubview(dragDownactivity)
-        dragImageView.frame = CGRectMake(150, -44, 50, 50)
+        dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
@@ -126,7 +127,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":1] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦！" {
+                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
                         print(result.valueForKey("message"))

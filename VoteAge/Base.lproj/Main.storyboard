@@ -51,8 +51,12 @@
                                                 <constraint firstAttribute="width" constant="83" id="PaD-Op-rz4"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s">
-                                            <rect key="frame" x="100" y="39" width="212" height="52"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s">
+                                            <rect key="frame" x="100" y="50" width="212" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="2wk-ur-Z8s" secondAttribute="height" multiplier="53:10" id="8f4-wU-Zfp"/>
+                                                <constraint firstAttribute="width" constant="212" id="hJS-Vd-hlz"/>
+                                            </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
@@ -72,11 +76,13 @@
                                         </button>
                                     </subviews>
                                     <constraints>
+                                        <constraint firstItem="2wk-ur-Z8s" firstAttribute="leading" secondItem="ztz-KA-ALo" secondAttribute="trailing" constant="9" id="1Uj-n1-KGX"/>
                                         <constraint firstItem="ztz-KA-ALo" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="topMargin" id="TbY-IB-KEJ"/>
                                         <constraint firstItem="wIu-pI-M2f" firstAttribute="leading" secondItem="ztz-KA-ALo" secondAttribute="trailing" constant="9" id="WtY-Ns-fko"/>
                                         <constraint firstItem="ztz-KA-ALo" firstAttribute="leading" secondItem="d3P-M7-ByW" secondAttribute="leadingMargin" id="dYZ-fP-CMw"/>
                                         <constraint firstItem="wIu-pI-M2f" firstAttribute="top" secondItem="d3P-M7-ByW" secondAttribute="topMargin" id="g7i-NF-eoI"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="ztz-KA-ALo" secondAttribute="bottom" id="vbW-iW-zoD"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="2wk-ur-Z8s" secondAttribute="bottom" constant="2" id="zDQ-gu-Mx9"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -305,7 +311,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="npW-VL-0G6">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="npW-VL-0G6">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Cbk-15-yMC">
@@ -472,22 +478,44 @@
                                             <outlet property="optionTitle" destination="12S-r5-16K" id="RGp-EO-D4q"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="voteCell" id="MhB-LO-i8Q">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MhB-LO-i8Q" id="w7H-fH-0pH">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT">
+                                                    <rect key="frame" x="16" y="0.0" width="289" height="44"/>
+                                                    <color key="backgroundColor" red="0.66671834184884737" green="0.5176217868072871" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="投票">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                            <integer key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="leading" secondItem="w7H-fH-0pH" secondAttribute="leadingMargin" constant="8" id="2WX-lk-WNW"/>
+                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="top" secondItem="w7H-fH-0pH" secondAttribute="topMargin" constant="-8" id="3eF-6O-Wqe"/>
+                                                <constraint firstAttribute="centerX" secondItem="w4O-hJ-eRT" secondAttribute="centerX" id="Nzh-G1-gSA"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="w4O-hJ-eRT" secondAttribute="bottom" constant="-8" id="c0n-kw-2kB"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="toolBarCell" rowHeight="45" id="z8a-uq-PVD" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z8a-uq-PVD" id="xc4-MJ-PfU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <items>
-                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="I7V-k0-awj"/>
-                                                        <barButtonItem tag="101" title="分享" id="XK8-Qq-la2">
-                                                            <connections>
-                                                                <action selector="shareOnClick:" destination="A6m-Tk-UQa" id="6mi-5C-Koz"/>
-                                                            </connections>
-                                                        </barButtonItem>
-                                                        <barButtonItem style="plain" systemItem="flexibleSpace" id="N61-h4-LBZ"/>
                                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="EMc-0M-Jjx"/>
                                                         <barButtonItem tag="102" title="评论" id="PL4-iw-4um">
                                                             <connections>
@@ -583,7 +611,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1519" y="51"/>
+            <point key="canvasLocation" x="1519" y="47"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -636,10 +664,10 @@
         <scene sceneID="93J-vX-Cxb">
             <objects>
                 <tableViewController id="bQ0-Aw-XyS" customClass="ContactVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="uUA-cA-hb2">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="uUA-cA-hb2">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="qAC-N7-XDe" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -1155,7 +1183,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="发起投票" id="T3z-Yx-p25">
                         <barButtonItem key="rightBarButtonItem" title="发起" id="PHT-Mm-29X">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="sendVote:" destination="tEt-l1-TGs" id="xTG-Re-uzD"/>
                             </connections>
@@ -1345,10 +1373,10 @@
         <scene sceneID="I4k-sk-q9d">
             <objects>
                 <tableViewController storyboardIdentifier="hasVote" id="lw6-ly-i3M" customClass="HasVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="22" sectionFooterHeight="22" id="CJr-GZ-x3R">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CJr-GZ-x3R">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="Ynt-ip-FTb" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -1684,8 +1712,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Odc-lF-DYQ"/>
+        <segue reference="w1p-qS-yrD"/>
+        <segue reference="QJE-fe-Sfl"/>
         <segue reference="sY0-fD-qOm"/>
-        <segue reference="Jtg-IW-Xz3"/>
     </inferredMetricsTieBreakers>
 </document>

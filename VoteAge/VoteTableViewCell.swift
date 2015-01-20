@@ -30,9 +30,10 @@ class VoteTableViewCell: UITableViewCell {
     @IBAction func hasVoteOnclick(sender: UIButton) {
         self.delegate?.sendNumber(num)
     }
-
+ 
     override func awakeFromNib() {
         super.awakeFromNib()
+              self.contentView.addConstraint(NSLayoutConstraint(item: voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
         // Initialization code
 //        voteImage!.layer.cornerRadius = voteImage!.frame.width / 2
 //        voteImage!.clipsToBounds = true

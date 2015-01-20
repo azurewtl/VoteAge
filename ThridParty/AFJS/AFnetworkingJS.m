@@ -57,7 +57,7 @@
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
-        NSDictionary *dic = @{@"message": @"网络出故障啦！"};
+        NSDictionary *dic = @{@"message": @"网络出故障啦!"};
         block(dic);
     }];
 }
