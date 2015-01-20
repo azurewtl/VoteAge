@@ -7,7 +7,7 @@
 //
 
 import UIKit
-class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, ImagesendDelegate{
+class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
     // MARK: - configureView
     var voteDetail = NSDictionary()
     // For textField above keyboard
@@ -279,8 +279,10 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardTextView.resignFirstResponder()
         var commtDic = NSMutableDictionary()
         commtDic.setValue(keyboardTextView.text, forKey: "content")
+    commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString, forKey: "userName")
         commtArray.insertObject(commtDic, atIndex: 0)
-        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content":keyboardTextView.text,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content":keyboardTextView.text,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+        
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/addComment") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
@@ -342,9 +344,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 if menCount + womenCount == 0 {
                     percentage = 0
                 }else{
-                percentage = percentage / menCount + womenCount
-                }
+                percentage = percentage / (menCount + womenCount)
                 cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                }
                 let perInt = Int(percentage * 100)
                 cell?.optionDetail.text = perInt.description + "%"
             }
@@ -372,32 +374,52 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return nullview
     }
+    func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        if buttonIndex == 1 {
+            NSUserDefaults.standardUserDefaults().setObject(1, forKey: "gender")
+            voteAndrefreshSingle()
+        }
+        if buttonIndex == 2 {
+            NSUserDefaults.standardUserDefaults().setObject(2, forKey: "gender")
+            voteAndrefreshSingle()
+        }
+    }
     func voteOnclick(btn:UIButton) {
+        if NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int == 0 {
+            var alert = UIAlertView(title: "提示", message: "未登录时请选择性别，选好后将不能更改。。", delegate: self, cancelButtonTitle: "再想想", otherButtonTitles: "男", "女")
+            alert.show()
+        }else {
         btn.setTitle("完成", forState: UIControlState.Normal)
+        voteAndrefreshSingle()
+          }
+    }
+    func voteAndrefreshSingle() {
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
             print(result)
-            //            print("***")
-            //            print(((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString)
             print(result.valueForKey("message"))
             var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":self.voteDetail.objectForKey("Id") as NSString] as NSDictionary
             AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
-                self.voteDetail = result.valueForKey("list") as NSDictionary
-                self.configureView()
-                self.voteTotalperson()
-                self.waiveButton.hidden = true
-                self.voteSegment.selectedSegmentIndex = 1;
-                let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
-                cell?.checkImageView.hidden = true
+                if result.valueForKey("status") as Int == 1 {
+                    self.voteDetail = result.valueForKey("list") as NSDictionary
+                    self.configureView()
+                    self.voteTotalperson()
+                    self.waiveButton.hidden = true
+                    self.voteSegment.selectedSegmentIndex = 1;
+                    let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
+                    cell?.checkImageView.hidden = true
+                }else {
+                    print("error")
+                }
             })
         }
         
-        
     }
+    
     func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         if section == 0 {
             return 40
@@ -462,13 +484,15 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var userButton = cell.contentView.viewWithTag(101) as UIButton
         var label = cell.contentView.viewWithTag(102) as UILabel
-        
-        if (commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("userName") as NSString == "" {
+    
+        if commtArray.count > 0 {
+        if (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString == "" {
                userButton.setTitle("游客", forState: UIControlState.Normal)
         }else {
-        userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
+        userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
         }
-        label.text = (commtArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("content") as NSString
+        label.text = (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString
+        }
         return cell
     }
     
