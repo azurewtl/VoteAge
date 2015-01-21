@@ -76,12 +76,6 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         if(indexPath.section == 4 ) {
-            var dic = ["method":"delete", "voteId":"38","accessToken":tokenDefult.valueForKey("accessToken") as NSString, "deviceId":tokenDefult.valueForKey("userId") as NSString] as NSDictionary
-            print(tokenDefult.valueForKey("accessToken"))
-          AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
-            print(result)
-            print(result.valueForKey("message"))
-          })
             self.tabBarController?.selectedIndex = 0
             tokenDefult.setValue("", forKey: "userId")
             tokenDefult.setValue("", forKey: "accessToken")

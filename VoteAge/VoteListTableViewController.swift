@@ -200,7 +200,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             }
         cell.authorID = voteItem["authorId"] as? NSString
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
+        if voteItem["voteImage"] as NSString == "" {
+                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+        }else {
         cell.voteImage?.sd_setImageWithURL(imageUrl)
+            }
+          
         }
         return cell
     }

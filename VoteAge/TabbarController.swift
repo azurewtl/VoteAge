@@ -32,12 +32,8 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
                     
                 })
             }
-            
-            
         }
 
-        
-        
         if item.tag == 3 {
             if userDefault.objectForKey("userId") as NSString == "" {
                 

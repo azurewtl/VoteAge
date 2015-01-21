@@ -31,8 +31,13 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         
         var titleTextView = titlecell?.contentView.viewWithTag(102) as UITextView//问题
         var titleImageView = titlecell?.contentView.viewWithTag(101) as UIImageView
-        var data = UIImageJPEGRepresentation(titleImageView.image, 0.5)
-        var encodeStr = data.base64EncodedStringWithOptions(nil)
+        var data = UIImageJPEGRepresentation(titleImageView.image, 0.75)
+        var encodeStr = ""
+        if titleImageView.image == UIImage(named: "dummyImage") {
+            encodeStr = ""
+        }else {
+         encodeStr = data.base64EncodedStringWithOptions(nil)
+        }
         for index in 0...optionCellRowCountArray.count - 1 {
             var cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1))
             let optionTitle = cell?.contentView.viewWithTag(102) as UITextField
@@ -44,11 +49,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 dic.setObject(optionTitle.text, forKey: "option")
                 if imageview.image == UIImage(named: "dummyImage") {
                  dic.setObject("", forKey: "image")
+                    optionArray.addObject(dic)
                 }else {
                 dic.setObject(encodeStr1, forKey: "image")
-                
-                }
                 optionArray.addObject(dic)
+                }
+                
             }
         }
         var pickerCell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
@@ -62,17 +68,23 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
+                if result.valueForKey("messgae") as NSString != "网络出故障啦!" {
                 if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     alert.show()
                 }else {
-                    var alert = UIAlertView(title: "", message: "发起失败", delegate: nil, cancelButtonTitle: "重发")
+                    var alert = UIAlertView(title: "", message: "请重新登录", delegate: nil, cancelButtonTitle: "重发")
+                    alert.show()
+                }
+                }else {
+                    var alert = UIAlertView(title: "温馨提示", message: "网络故障", delegate: nil, cancelButtonTitle: "确定")
                     alert.show()
                 }
             }
         }else{
             var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
             alert.show()
+            
         }
         
 

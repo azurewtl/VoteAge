@@ -30,6 +30,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
          print("成功")
         if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
             Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
+                sender.setTitle("正在发送", forState: UIControlState.Normal)
                 if result == 1 {
                     sender.setTitle("发送成功", forState: UIControlState.Normal)
                     self.vertiButton.enabled = true
@@ -58,6 +59,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func vertificationButton(sender: UIButton) {
         
         Vertify.getvertifynumber(verificationTextField.text, block: { (var result:Int32) -> Void in
+            sender.setTitle("正在验证", forState: UIControlState.Normal)
             if result == 1 {
                 sender.setTitle("验证成功", forState: UIControlState.Normal)
                 self.timer.invalidate()
@@ -174,7 +176,6 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         // Return the number of sections.
         return 3
     }
-
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
@@ -188,6 +189,9 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         default:
             return 0
         }
+    }
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 60
     }
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)

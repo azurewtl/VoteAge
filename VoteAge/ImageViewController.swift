@@ -50,7 +50,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             imgview.contentMode = UIViewContentMode.ScaleAspectFit
             var url = NSURL(string: (optionArr.objectAtIndex(index) as NSDictionary).objectForKey("image") as NSString)
         
-            imgview.sd_setImageWithURL(url)
+            imgview.sd_setImageWithURL(url, placeholderImage: UIImage(named: "dummyImage"))
             scrollView.addSubview(imgview)
             scrollView.contentOffset = CGPointMake(CGFloat(imgCount) * view.frame.width, 0)
             var gest = UITapGestureRecognizer(target: self, action: "tap")

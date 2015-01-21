@@ -202,12 +202,13 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
             }
             cell.authorID = voteItem["authorId"] as? NSString
+            var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
             if voteItem["voteImage"] as NSString == "" {
-                cell.voteImage?.image = UIImage(named: "dummyImage")
-            }else {
-                var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-                cell.voteImage?.sd_setImageWithURL(imageUrl)
+                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }
+
+            cell.voteImage?.sd_setImageWithURL(imageUrl)
+            
         }
         return cell
     }

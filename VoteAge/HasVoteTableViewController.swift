@@ -132,6 +132,8 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                         print(result.valueForKey("message"))
                         
                         self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                        
+
                         self.tableView.reloadData()
                     }
                     self.activityIndicator.stopAnimating()
@@ -201,12 +203,13 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                 cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
             }
             cell.authorID = voteItem["authorId"] as? NSString
+            var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
             if voteItem["voteImage"] as NSString == "" {
-                cell.voteImage?.image = UIImage(named: "dummyImage")
-            }else {
-                var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-                cell.voteImage?.sd_setImageWithURL(imageUrl)
+                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }
+
+            cell.voteImage?.sd_setImageWithURL(imageUrl)
+            
         }
         return cell
     }
@@ -223,16 +226,18 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             var deleteItem = NSArray(objects: indexPath)
-            voteArray.removeObjectAtIndex(indexPath.row)
-            var voteid = (voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString
-            var dic = ["voteId":voteid, "method":"delete", "accessToken":tokenDefult.objectForKey("accessToken") as NSString, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
-            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
-                print(result)
-                print(result.valueForKey("message"))
-                
-            })
+                var voteid = (voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString
+                var dic = ["voteId":voteid, "method":"delete", "accessToken":tokenDefult.objectForKey("accessToken") as NSString, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+                    print(result)
+                    print(result.valueForKey("message"))
+                    if result.valueForKey("status") as Int == 1 {
+                        self.voteArray.removeObjectAtIndex(indexPath.row)
+                        tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
+                    }
+                })
+      
             
-            tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
         }
     }
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {

@@ -177,12 +177,9 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     func imagePickerController(picker: UIImagePickerController!, didFinishPickingImage image: UIImage!, editingInfo: [NSObject : AnyObject]!) {
         picker .dismissViewControllerAnimated(false, completion: { () -> Void in
         })
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-        var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(83, 83))
-           dispatch_async(dispatch_get_main_queue(), { () -> Void in
-            self.userImage.image = resizeImg
-           })
-        })
+     
+            self.userImage.image = image
+
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

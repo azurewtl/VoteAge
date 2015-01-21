@@ -8,6 +8,7 @@
 
 import UIKit
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
+    var optionIndex = 0//纪录option图片的个数
     // MARK: - configureView
     var section1CellCount = 1//投票评论cell的section里cell的数目
     var voteDetail = NSDictionary()
@@ -171,8 +172,17 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         if(voteTitle != nil) {
             voteTitle.text = voteDetail.objectForKey("title") as NSString
             var imageUrl = NSURL(string: voteDetail["voteImage"] as NSString)
+            if voteDetail["voteImage"] as NSString == "" {
+               self.view.addConstraint(NSLayoutConstraint(item: voteImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+            }else {
             voteImage.sd_setImageWithURL(imageUrl)
+            }
             self.optionArray = voteDetail.objectForKey("option") as NSMutableArray
+            for item in optionArray {
+                if (item as NSDictionary).objectForKey("image") as NSString == "" {
+                    optionIndex++
+                }
+            }
             expireDate.text = NSString(format:"截止日期:%@", voteDetail.objectForKey("expireDate") as NSString)
             voteCount.text = NSString(format: "%@人", voteDetail.objectForKey("voteTotal") as NSString)
             
@@ -421,10 +431,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.delegate = self
             cell.imagenumber = indexPath.row
             cell.checkImageView.hidden = true
+        
             var imageUrl = NSURL(string: dicAppear["image"] as NSString)
-            cell.optionImage?.sd_setImageWithURL(imageUrl)
-            cell.contentView.addConstraint(NSLayoutConstraint(item:cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
-
+            if optionIndex == optionArray.count {
+               cell.contentView.addConstraint(NSLayoutConstraint(item: cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+            }else {
+             cell.optionImage?.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "dummyImage"))
+            }
+        
             return cell
         }else if indexPath.section == 1 {
             if section1CellCount == 2 {
