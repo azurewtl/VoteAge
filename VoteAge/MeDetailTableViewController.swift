@@ -137,13 +137,12 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     }
     
     // MARK: - Table view data source
-
     func textViewDidChange(textView: UITextView) {
         var str = NSMutableString(string: textView.text)
-        if(str.length <= 60){
+        if(str.length <= 30){
             textView.text = str
         }else{
-            str.deleteCharactersInRange(NSMakeRange(60, str.length - 60))
+            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
             textView.text = str
         }
     }

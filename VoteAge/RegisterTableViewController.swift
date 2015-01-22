@@ -27,10 +27,21 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         })
     }
     @IBAction func sendVertificationButton(sender: UIButton) {
-         print("成功")
-        if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
+        
+         sender.setTitle("正在发送", forState: UIControlState.Normal)
+         sender.enabled = false
+        let globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let time64 = dispatch_time(DISPATCH_TIME_NOW, (Int64)(15 * NSEC_PER_SEC))
+        dispatch_after(time64, globalQueue) { () -> Void in
+            if self.cellCount == 3 {
+            sender.setTitle("请重新发送", forState: UIControlState.Normal)
+            sender.enabled = true
+        }
+        }
+         //验证手机号码对错
+            if phoneTextField.text.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 11 {
             Vertify.getphone(phoneTextField.text, block: { (var result:Int32) -> Void in
-                sender.setTitle("正在发送", forState: UIControlState.Normal)
+               
                 if result == 1 {
                     sender.setTitle("发送成功", forState: UIControlState.Normal)
                     self.vertiButton.enabled = true
@@ -43,7 +54,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                     self.cellCount = 3
                     self.tableView.reloadData()
                 }else {
-                   sender.setTitle("发送失败", forState: UIControlState.Normal)
+                   sender.setTitle("失败,请重新发送", forState: UIControlState.Normal)
+                    sender.enabled = true
                 }
                 
          })
@@ -57,9 +69,19 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
     
     @IBOutlet weak var vertiButton: UIButton!
     @IBAction func vertificationButton(sender: UIButton) {
-        
+        sender.setTitle("正在验证", forState: UIControlState.Normal)
+        //验证验证吗对错
+        sender.enabled = false
+        let globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let time64 = dispatch_time(DISPATCH_TIME_NOW, (Int64)(15 * NSEC_PER_SEC))
+        dispatch_after(time64, globalQueue) { () -> Void in
+            if self.cellCount1 == 0 {
+            sender.setTitle("请重新验证", forState: UIControlState.Normal)
+            sender.enabled = true
+            }
+        }
         Vertify.getvertifynumber(verificationTextField.text, block: { (var result:Int32) -> Void in
-            sender.setTitle("正在验证", forState: UIControlState.Normal)
+            
             if result == 1 {
                 sender.setTitle("验证成功", forState: UIControlState.Normal)
                 self.timer.invalidate()
@@ -70,7 +92,8 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 self.cellCount1 = 1
                 self.tableView.reloadData()
             }else {
-                sender.setTitle("验证失败", forState: UIControlState.Normal)
+                sender.setTitle("失败,请重新验证", forState: UIControlState.Normal)
+                sender.enabled = true
             }
         })
         
@@ -137,15 +160,6 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         verificationTextField.keyboardType = UIKeyboardType.PhonePad
         backButton.clipsToBounds = true
         backButton.layer.cornerRadius = 15
-    }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-//        for index in 0...2 {
-//        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
-//        cell?.hidden = true
-//        }
-//       let cell1 =  tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
-//        cell1?.hidden = true
     }
 
     func timeraction() {

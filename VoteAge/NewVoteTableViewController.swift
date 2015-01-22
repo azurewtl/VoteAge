@@ -68,16 +68,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
-                if result.valueForKey("messgae") as NSString != "网络出故障啦!" {
                 if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     alert.show()
                 }else {
                     var alert = UIAlertView(title: "", message: "请重新登录", delegate: nil, cancelButtonTitle: "重发")
-                    alert.show()
-                }
-                }else {
-                    var alert = UIAlertView(title: "温馨提示", message: "网络故障", delegate: nil, cancelButtonTitle: "确定")
                     alert.show()
                 }
             }
@@ -236,14 +231,14 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             placeholder.hidden = false
         }
         
-        if(str.length <= 30){
+        if(str.length <= 50){
             textView.text = str
         }else{
-            str.deleteCharactersInRange(NSMakeRange(30, str.length - 30))
+            str.deleteCharactersInRange(NSMakeRange(50, str.length - 50))
             textView.text = str
         }
         
-        countlabeL.text = (30 - str.length).description
+        countlabeL.text = (50 - str.length).description
     }
     // MARK: -   Textfield
     func textFieldShouldReturn(textField: UITextField) -> Bool {

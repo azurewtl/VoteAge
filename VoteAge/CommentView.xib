@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentView" customModule="VoteAge" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="420" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hWt-P8-Jhe">
+                    <rect key="frame" x="8" y="4" width="329" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </textView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OCh-vP-w4F">
+                    <rect key="frame" x="366" y="4" width="46" height="36"/>
+                    <color key="backgroundColor" red="0.51391780373518925" green="0.46104599562836124" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="BPJ-jb-BfG"/>
+                    </constraints>
+                    <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="发表">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="5"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="hWt-P8-Jhe" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="6iz-b5-YAp"/>
+                <constraint firstItem="hWt-P8-Jhe" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="6qw-4c-IAt"/>
+                <constraint firstItem="OCh-vP-w4F" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="YjP-Yn-LTs"/>
+                <constraint firstItem="OCh-vP-w4F" firstAttribute="leading" secondItem="hWt-P8-Jhe" secondAttribute="trailing" constant="29" id="mFW-f5-Wu0"/>
+                <constraint firstAttribute="bottom" secondItem="OCh-vP-w4F" secondAttribute="bottom" constant="4" id="oZD-Xb-BKv"/>
+                <constraint firstAttribute="bottom" secondItem="hWt-P8-Jhe" secondAttribute="bottom" constant="4" id="saM-DI-gX7"/>
+                <constraint firstAttribute="trailing" secondItem="OCh-vP-w4F" secondAttribute="trailing" constant="8" id="zTd-dh-ccR"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="keyboardButton" destination="OCh-vP-w4F" id="dGs-8k-v5W"/>
+                <outlet property="keyboardTextView" destination="hWt-P8-Jhe" id="Bki-7g-c99"/>
+            </connections>
+            <point key="canvasLocation" x="455" y="-1248"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

@@ -8,15 +8,13 @@
 
 import UIKit
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
-    var optionIndex = 0//纪录option图片的个数
+    var emptyIndex = 0//纪录option图片的个数
     // MARK: - configureView
     var section1CellCount = 1//投票评论cell的section里cell的数目
     var voteDetail = NSDictionary()
     // For textField above keyboard
     var showKeyboardTextView = true // If the textview about keyboard needed to be shown
-    var keyboardView = UIView()
-    var keyboardButton = UIButton()
-    var keyboardTextView = UITextView()
+    var keyboardView = CommentView()
     var commtArray = NSMutableArray()
     var commentCellHeightArray = NSMutableArray()
     // For vote count
@@ -97,9 +95,10 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // MARK: - 分享评论按钮
     
     @IBAction func commentOnClick(sender: UIBarButtonItem) {
+   
         showKeyboardTextView = true
         let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1))
-        keyboardTextView.becomeFirstResponder()
+         keyboardView.keyboardTextView.becomeFirstResponder()
         if commentCellHeightArray.count >= 1 {
             var cellheight = commentCellHeightArray.objectAtIndex(0) as CGFloat
             var totalheight = cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height + cellheight + 25
@@ -110,7 +109,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }
             
         }else {
-            tableView.contentOffset.y =  cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height
+//            tableView.contentOffset.y =  cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height
         }
     }
     
@@ -130,31 +129,38 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
                     label1.text = str
                     label1.sizeToFit()
-                    self.commentCellHeightArray.addObject(label1.frame.height + 40)
+                    self.commentCellHeightArray.addObject(label1.frame.height + 50)
                 }
                 
             self.tableView.reloadData()
             }
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidHidden:", name: UIKeyboardWillHideNotification, object: nil)
         self.tabBarController?.tabBar.hidden = true
-        keyboardView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
-        keyboardView.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, 70)
+        var nib = NSBundle.mainBundle().loadNibNamed("CommentView", owner: nil, options: nil) as NSArray
+        keyboardView = nib.objectAtIndex(0) as CommentView
+       
+        keyboardView.backgroundColor = UIColor.whiteColor()
+        keyboardView.frame = CGRectMake(0, self.view.frame.height, self.view.frame.width, 50)
+        keyboardView.layer.borderWidth = 1
+        keyboardView.layer.borderColor = UIColor.grayColor().CGColor
+         keyboardView.keyboardTextView.returnKeyType = UIReturnKeyType.Done
         self.view.addSubview(keyboardView)
-        keyboardButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
-        keyboardTextView.frame = CGRectMake(0, 0, 0.75 * keyboardView.frame.width, 70)
-        keyboardTextView.delegate = self
-        keyboardTextView.font = UIFont.boldSystemFontOfSize(15)
-        keyboardTextView.layer.borderWidth = 0.5
-        keyboardTextView.layer.borderColor = UIColor.whiteColor().CGColor
-        keyboardTextView.backgroundColor = UIColor(white: 0.75, alpha: 1.0)
-        keyboardView.addSubview(keyboardTextView)
-        keyboardButton.frame = CGRectMake(keyboardTextView.frame.width, 0, 0.25 * keyboardView.frame.width,
-            70)
-        keyboardButton.setTitle("发表", forState: UIControlState.Normal)
-        keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
-        keyboardView.addSubview(keyboardButton)
+        keyboardView.keyboardButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+         keyboardView.keyboardTextView.frame = CGRectMake(0, 0, 0.75 * keyboardView.frame.width, 50)
+         keyboardView.keyboardTextView.delegate = self
+         keyboardView.keyboardTextView.layer.borderColor = UIColor.grayColor().CGColor
+         keyboardView.keyboardTextView.layer.borderWidth = 1
+        keyboardView.keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
+//
+        
         self.configureView()
+        for item in optionArray {
+            if (item as NSDictionary)["image"] as NSString == "" {
+                emptyIndex++
+            }
+        }
         if(voteDetail["allowVote"] as Int == 1){
             section1CellCount = 2
             tableView.reloadData()
@@ -178,11 +184,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             voteImage.sd_setImageWithURL(imageUrl)
             }
             self.optionArray = voteDetail.objectForKey("option") as NSMutableArray
-            for item in optionArray {
-                if (item as NSDictionary).objectForKey("image") as NSString == "" {
-                    optionIndex++
-                }
-            }
             expireDate.text = NSString(format:"截止日期:%@", voteDetail.objectForKey("expireDate") as NSString)
             voteCount.text = NSString(format: "%@人", voteDetail.objectForKey("voteTotal") as NSString)
             
@@ -192,22 +193,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
     }
-    
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
-        keyboardTextView.resignFirstResponder()
-        keyboardView.hidden = true
-        scrollView.contentOffset.y = -64
-    }
+
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
-            keyboardView.hidden = true
-            tableView.contentOffset.y = -64
         }
         return true
     }
 
-    
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
             showKeyboardTextView = false
@@ -240,7 +233,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
         }
     }
-    
+    // MARK: - keyborad 通知中心的两个方法
     func handleKeyboardDidShow(notification:NSNotification) {
         var dic = notification.userInfo as NSDictionary!
         if showKeyboardTextView == true {
@@ -250,21 +243,25 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             animationValue.getValue(&duration)
             UIView.beginAnimations("animal", context: nil)
             UIView.setAnimationDuration(duration)
-            keyboardView.frame = CGRectMake(0, self.view.frame.height - keyboardHeight - 70, self.view.frame.width, 70)
+            keyboardView.frame = CGRectMake(0, self.view.frame.height - keyboardHeight - 50, self.view.frame.width, 50)
             UIView.commitAnimations()
             keyboardView.hidden = false
         }
         
     }
+    func handleKeyboardDidHidden(notification:NSNotification) {
+        tableView.contentOffset = CGPointZero
+        keyboardView.hidden = true
+    }
     //MARK: - 发送评论
     func sendInform() {
         keyboardView.hidden = true
-        keyboardTextView.resignFirstResponder()
+         keyboardView.keyboardTextView.resignFirstResponder()
         var commtDic = NSMutableDictionary()
-        commtDic.setValue(keyboardTextView.text, forKey: "content")
-    commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString, forKey: "userName")
+        commtDic.setValue( keyboardView.keyboardTextView.text, forKey: "content")
+        commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString, forKey: "userName")
         commtArray.insertObject(commtDic, atIndex: 0)
-        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content":keyboardTextView.text,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content": keyboardView.keyboardTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/addComment") { (result) -> Void in
             print(result)
@@ -274,15 +271,19 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         var label1 = UILabel()
         label1.numberOfLines = 0
         label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
-        label1.text = keyboardTextView.text
+        label1.text =  keyboardView.keyboardTextView.text
         label1.sizeToFit()
-        commentCellHeightArray.insertObject(label1.frame.height + 40, atIndex: 0)
+        commentCellHeightArray.insertObject(label1.frame.height + 50, atIndex: 0)
         tableView.reloadData()
-        keyboardTextView.text = ""
         
         
     }
-
+     func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+        if scrollView == tableView {
+             keyboardView.keyboardTextView.resignFirstResponder()
+        }
+       
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -365,6 +366,11 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             var alert = UIAlertView()
             alert.message = "请选择"
             alert.show()
+            let gloabalqueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+            let time64 = dispatch_time(DISPATCH_TIME_NOW, (Int64)(NSEC_PER_SEC))
+            dispatch_after(time64, gloabalqueue, { () -> Void in
+                alert.dismissWithClickedButtonIndex(0, animated: true)
+            })
         }else {
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
@@ -378,13 +384,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 if result.valueForKey("status") as Int == 1 {
                     self.voteDetail = result.valueForKey("list") as NSDictionary
                     self.configureView()
-                    self.voteTotalperson()
                     self.waiveButton.hidden = true
                     self.voteSegment.selectedSegmentIndex = 1;
                     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
                     cell?.checkImageView.hidden = true
                     self.section1CellCount = 1
                     self.tableView.reloadData()
+                      self.voteTotalperson()
                 }else {
                     print("error")
                 }
@@ -433,7 +439,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.checkImageView.hidden = true
         
             var imageUrl = NSURL(string: dicAppear["image"] as NSString)
-            if optionIndex == optionArray.count {
+            if emptyIndex == optionArray.count {
                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }else {
              cell.optionImage?.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "dummyImage"))
@@ -469,7 +475,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }else {
         userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
         }
-        label.text = (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString
+        label.text = ((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString).stringByRemovingPercentEncoding
         }
         return cell
     }
