@@ -101,15 +101,15 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
          keyboardView.keyboardTextView.becomeFirstResponder()
         if commentCellHeightArray.count >= 1 {
             var cellheight = commentCellHeightArray.objectAtIndex(0) as CGFloat
-            var totalheight = cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height + cellheight + 25
+            var totalheight = cell!.frame.origin.y - cell!.frame.height - 20
             if totalheight < cell?.frame.origin.y {
                 tableView.contentOffset.y = totalheight
             }else {
-                tableView.contentOffset.y = cell!.frame.origin.y - 64
+                tableView.contentOffset.y = totalheight
             }
             
         }else {
-//            tableView.contentOffset.y =  cell!.frame.origin.y - keyboardView.frame.origin.y + cell!.frame.height
+            tableView.contentOffset.y = cell!.frame.origin.y - cell!.frame.height - 20
         }
     }
     
