@@ -24,7 +24,6 @@ class UserDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        
         var contactDic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "contactId":contactId, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(contactDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getUserInfo") { (result) -> Void in
             print(result)

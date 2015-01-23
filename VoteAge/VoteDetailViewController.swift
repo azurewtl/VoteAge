@@ -37,7 +37,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteSegment: UISegmentedControl!
     
     @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
-        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "分享", "定位")
+        var selectSheet = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "分享", "生成二维码")
         selectSheet.showInView(self.view)
     }
     // MARK: - Segment Control
@@ -146,13 +146,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardView.layer.borderWidth = 1
         keyboardView.layer.borderColor = UIColor.grayColor().CGColor
          keyboardView.keyboardTextView.returnKeyType = UIReturnKeyType.Done
-        self.view.addSubview(keyboardView)
-        keyboardView.keyboardButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+  
          keyboardView.keyboardTextView.frame = CGRectMake(0, 0, 0.75 * keyboardView.frame.width, 50)
          keyboardView.keyboardTextView.delegate = self
          keyboardView.keyboardTextView.layer.borderColor = UIColor.grayColor().CGColor
          keyboardView.keyboardTextView.layer.borderWidth = 1
-        keyboardView.keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
+         keyboardView.keyboardButton.addTarget(self, action: "sendInform", forControlEvents: UIControlEvents.TouchUpInside)
+        self.view.addSubview(keyboardView)
 //
         
         self.configureView()
@@ -232,6 +232,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             })
 
         }
+        if buttonIndex == 2 {
+            
+        }
     }
     // MARK: - keyborad 通知中心的两个方法
     func handleKeyboardDidShow(notification:NSNotification) {
@@ -258,6 +261,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         keyboardView.hidden = true
          keyboardView.keyboardTextView.resignFirstResponder()
         var commtDic = NSMutableDictionary()
+         commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("userId"), forKey: "userId")
         commtDic.setValue( keyboardView.keyboardTextView.text, forKey: "content")
         commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString, forKey: "userName")
         commtArray.insertObject(commtDic, atIndex: 0)
@@ -479,6 +483,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
         return cell
     }
+    
+    
     func setSelect(number: Int) {
         let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var imageViewController = storyBoard.instantiateViewControllerWithIdentifier("imgView") as ImageViewController
@@ -512,6 +518,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             (segue.destinationViewController as ImageViewController).photoView.image = self.voteImage.image
             (segue.destinationViewController as ImageViewController).imgCount = -1
         }
+        if segue.identifier == "getUserInfo" {
+            var targetCell = (sender!.superview! as UIView!).superview! as UITableViewCell
+            var index = tableView.indexPathForCell(targetCell)
+            (segue.destinationViewController as UserDetailTableViewController).contactId = (commtArray.objectAtIndex(index!.row) as NSMutableDictionary).objectForKey("userId") as NSString
+        }
+        
     }
     
 }

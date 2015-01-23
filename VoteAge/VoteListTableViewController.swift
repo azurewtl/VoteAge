@@ -16,7 +16,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         sheet.showInView(self.view)
     }
     var allowvoteDic = NSMutableDictionary()
-    var tokenDefult = NSUserDefaults.standardUserDefaults()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
@@ -106,6 +105,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        getLoginStatus()
         tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         self.view.addSubview(activityIndicator)
         //下拉刷新
@@ -116,6 +116,25 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
         refresh(0, longit: "", latit: "")
+    }
+    // MARK: - 判断token是否匹配
+    func getLoginStatus() {
+        var dic = ["userId":(NSUserDefaults.standardUserDefaults().objectForKey("userId")) as NSString, "accessToken":(NSUserDefaults.standardUserDefaults().objectForKey("accessToken")) as NSString] as NSDictionary
+        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getLoginStatus") { (result) -> Void in
+            print(result)
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                print("网络出故障啦!")
+            }else {
+                if result.valueForKey("login") as Int == 0 {
+                    NSUserDefaults.standardUserDefaults().setValue("", forKey: "userId")
+                    NSUserDefaults.standardUserDefaults().setValue("", forKey: "accessToken")
+                    NSUserDefaults.standardUserDefaults().setValue("", forKey: "name")
+                    NSUserDefaults.standardUserDefaults().setValue("", forKey: "image")
+                    NSUserDefaults.standardUserDefaults().setValue(0, forKey: "gender")
+                    NSUserDefaults.standardUserDefaults().setValue("", forKey: "description")
+                }
+            }
+        }
     }
     // MARK: - refresh function
     func refresh(flag:Int, longit:NSString, latit:NSString) {
