@@ -86,18 +86,18 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     
         self.session.stopRunning()
         println("code is \(stringValue)")
-        
-        //        let alertController = UIAlertController(title: "二维码", message: "扫到的二维码内容为:\(stringValue)", preferredStyle: UIAlertControllerStyle.Alert)
-        //        alertController.addAction(UIAlertAction(title: "确认", style: UIAlertActionStyle.Default, handler: nil))
-        //        self.presentViewController(alertController, animated: true, completion: nil)
-        var alertView = UIAlertView()
-        alertView.delegate=self
-        alertView.title = "二维码"
-        alertView.message = "扫到的二维码内容为:\(stringValue)"
-        alertView.addButtonWithTitle("确认")
-        alertView.show()
-//        var url = NSURL(string: stringValue!)
-//        UIApplication.sharedApplication().openURL(url!)
+    
+//        var alertView = UIAlertView()
+//        alertView.delegate=self
+//        alertView.title = "二维码"
+//        alertView.message = "扫到的二维码内容为:\(stringValue)"
+//        alertView.addButtonWithTitle("确认")
+//        alertView.show()
+        var url = NSURL(string: stringValue!)
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        let webVc = storyBoard.instantiateViewControllerWithIdentifier("webview") as WebViewViewController
+        webVc.webStr = stringValue!
+        self.navigationController?.pushViewController(webVc, animated: true)
         
     }
     

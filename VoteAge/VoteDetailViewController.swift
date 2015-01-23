@@ -233,7 +233,10 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 
         }
         if buttonIndex == 2 {
-            
+            let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            let qrcVc = storyBoard.instantiateViewControllerWithIdentifier("makeqrc") as MakeqrcViewController
+            qrcVc.qrcStr = voteDetail["shareUrl"] as NSString
+            self.navigationController?.pushViewController(qrcVc, animated: true)
         }
     }
     // MARK: - keyborad 通知中心的两个方法

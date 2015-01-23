@@ -128,6 +128,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 if result.valueForKey("login") as Int == 0 {
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "userId")
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "accessToken")
+         
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "name")
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "image")
                     NSUserDefaults.standardUserDefaults().setValue(0, forKey: "gender")

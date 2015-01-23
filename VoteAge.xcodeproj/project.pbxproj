@@ -121,6 +121,16 @@
 		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
+		188CB4A81A7227B10039734A /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB49A1A7227B10039734A /* bitstream.c */; };
+		188CB4A91A7227B10039734A /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB49C1A7227B10039734A /* mask.c */; };
+		188CB4AA1A7227B10039734A /* qrencode.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB49E1A7227B10039734A /* qrencode.c */; };
+		188CB4AB1A7227B10039734A /* qrinput.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4A01A7227B10039734A /* qrinput.c */; };
+		188CB4AC1A7227B10039734A /* qrspec.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4A21A7227B10039734A /* qrspec.c */; };
+		188CB4AD1A7227B10039734A /* rscode.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4A41A7227B10039734A /* rscode.c */; };
+		188CB4AE1A7227B10039734A /* split.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4A61A7227B10039734A /* split.c */; };
+		188CB4B11A7228320039734A /* QRCodeGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4B01A7228320039734A /* QRCodeGenerator.m */; };
+		188CB4B31A7229F00039734A /* MakeqrcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4B21A7229F00039734A /* MakeqrcViewController.swift */; };
+		188CB4B51A72321E0039734A /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4B41A72321E0039734A /* WebViewViewController.swift */; };
 		1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
@@ -315,6 +325,24 @@
 		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
+		188CB49A1A7227B10039734A /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
+		188CB49B1A7227B10039734A /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
+		188CB49C1A7227B10039734A /* mask.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mask.c; sourceTree = "<group>"; };
+		188CB49D1A7227B10039734A /* mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mask.h; sourceTree = "<group>"; };
+		188CB49E1A7227B10039734A /* qrencode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrencode.c; sourceTree = "<group>"; };
+		188CB49F1A7227B10039734A /* qrencode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrencode.h; sourceTree = "<group>"; };
+		188CB4A01A7227B10039734A /* qrinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrinput.c; sourceTree = "<group>"; };
+		188CB4A11A7227B10039734A /* qrinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrinput.h; sourceTree = "<group>"; };
+		188CB4A21A7227B10039734A /* qrspec.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = qrspec.c; sourceTree = "<group>"; };
+		188CB4A31A7227B10039734A /* qrspec.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = qrspec.h; sourceTree = "<group>"; };
+		188CB4A41A7227B10039734A /* rscode.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = rscode.c; sourceTree = "<group>"; };
+		188CB4A51A7227B10039734A /* rscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rscode.h; sourceTree = "<group>"; };
+		188CB4A61A7227B10039734A /* split.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = split.c; sourceTree = "<group>"; };
+		188CB4A71A7227B10039734A /* split.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = split.h; sourceTree = "<group>"; };
+		188CB4AF1A7228320039734A /* QRCodeGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeGenerator.h; sourceTree = "<group>"; };
+		188CB4B01A7228320039734A /* QRCodeGenerator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeGenerator.m; sourceTree = "<group>"; };
+		188CB4B21A7229F00039734A /* MakeqrcViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeqrcViewController.swift; sourceTree = "<group>"; };
+		188CB4B41A72321E0039734A /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVoteTableViewController.swift; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
@@ -626,6 +654,9 @@
 		184BB3FD1A1C54BE006DF06C /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				188CB4AF1A7228320039734A /* QRCodeGenerator.h */,
+				188CB4B01A7228320039734A /* QRCodeGenerator.m */,
+				188CB4991A7227B10039734A /* libqrencode */,
 				1850D86C1A6D11650017AB70 /* blurimage */,
 				182E83C21A2C0F530048069C /* ShareSDK */,
 				18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */,
@@ -742,6 +773,27 @@
 			path = blurimage;
 			sourceTree = "<group>";
 		};
+		188CB4991A7227B10039734A /* libqrencode */ = {
+			isa = PBXGroup;
+			children = (
+				188CB49A1A7227B10039734A /* bitstream.c */,
+				188CB49B1A7227B10039734A /* bitstream.h */,
+				188CB49C1A7227B10039734A /* mask.c */,
+				188CB49D1A7227B10039734A /* mask.h */,
+				188CB49E1A7227B10039734A /* qrencode.c */,
+				188CB49F1A7227B10039734A /* qrencode.h */,
+				188CB4A01A7227B10039734A /* qrinput.c */,
+				188CB4A11A7227B10039734A /* qrinput.h */,
+				188CB4A21A7227B10039734A /* qrspec.c */,
+				188CB4A31A7227B10039734A /* qrspec.h */,
+				188CB4A41A7227B10039734A /* rscode.c */,
+				188CB4A51A7227B10039734A /* rscode.h */,
+				188CB4A61A7227B10039734A /* split.c */,
+				188CB4A71A7227B10039734A /* split.h */,
+			);
+			path = libqrencode;
+			sourceTree = "<group>";
+		};
 		18ED9C5E1A2851A300463101 /* framework */ = {
 			isa = PBXGroup;
 			children = (
@@ -796,6 +848,7 @@
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
 				1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
+				188CB4B21A7229F00039734A /* MakeqrcViewController.swift */,
 				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
 				18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */,
 				18CF28AA1A70C05100BEAC68 /* CommentView.swift */,
@@ -807,6 +860,7 @@
 				1818D9231A259B4000AAC458 /* RegisterTableViewController.swift */,
 				18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */,
 				18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */,
+				188CB4B41A72321E0039734A /* WebViewViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
@@ -979,6 +1033,7 @@
 				184BB4481A1C54BE006DF06C /* MKAnnotationView+WebCache.m in Sources */,
 				18EDD6E31A5D1E6C00C796EC /* TabbarController.swift in Sources */,
 				181C4D601A1C9DB90077B682 /* DataBaseHandle.m in Sources */,
+				188CB4B11A7228320039734A /* QRCodeGenerator.m in Sources */,
 				184BB4581A1C54BE006DF06C /* SQLiteDB.swift in Sources */,
 				184BB43E1A1C54BE006DF06C /* AFHTTPRequestOperation.m in Sources */,
 				BB7208BB1A0BC6B200A97FCD /* OptionTableViewCell.swift in Sources */,
@@ -990,6 +1045,7 @@
 				1818D9241A259B4000AAC458 /* RegisterTableViewController.swift in Sources */,
 				18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
+				188CB4AC1A7227B10039734A /* qrspec.c in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
 				1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */,
 				184BB4531A1C54BE006DF06C /* UIImage+MultiFormat.m in Sources */,
@@ -998,22 +1054,29 @@
 				184BB44D1A1C54BE006DF06C /* SDWebImageDownloader.m in Sources */,
 				184BB4461A1C54BE006DF06C /* AFURLSessionManager.m in Sources */,
 				181C4D621A1CA2E00077B682 /* NewVoteTableViewController.swift in Sources */,
+				188CB4AE1A7227B10039734A /* split.c in Sources */,
 				184BB4561A1C54BE006DF06C /* UIImageView+WebCache.m in Sources */,
 				184BB4511A1C54BE006DF06C /* UIButton+WebCache.m in Sources */,
 				18D06E9B1A35563B0054A2CE /* Vertify.m in Sources */,
 				184BB4401A1C54BE006DF06C /* AFHTTPSessionManager.m in Sources */,
 				18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */,
+				188CB4AB1A7227B10039734A /* qrinput.c in Sources */,
 				184BB4411A1C54BE006DF06C /* AFNetworkReachabilityManager.m in Sources */,
 				1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */,
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
+				188CB4AD1A7227B10039734A /* rscode.c in Sources */,
+				188CB4A91A7227B10039734A /* mask.c in Sources */,
 				184BB4441A1C54BE006DF06C /* AFURLRequestSerialization.m in Sources */,
 				184BB44E1A1C54BE006DF06C /* SDWebImageDownloaderOperation.m in Sources */,
 				184BB4431A1C54BE006DF06C /* AFURLConnectionOperation.m in Sources */,
 				18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */,
 				184BB43F1A1C54BE006DF06C /* AFHTTPRequestOperationManager.m in Sources */,
+				188CB4A81A7227B10039734A /* bitstream.c in Sources */,
 				184BB4501A1C54BE006DF06C /* SDWebImagePrefetcher.m in Sources */,
 				18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */,
+				188CB4B31A7229F00039734A /* MakeqrcViewController.swift in Sources */,
+				188CB4AA1A7227B10039734A /* qrencode.c in Sources */,
 				18687D171A1DD2C500CF3434 /* VoteDetailViewController.swift in Sources */,
 				184BB4541A1C54BE006DF06C /* UIImage+WebP.m in Sources */,
 				184BB4591A1C54BE006DF06C /* String-Extras.swift in Sources */,
@@ -1023,6 +1086,7 @@
 				184BB4421A1C54BE006DF06C /* AFSecurityPolicy.m in Sources */,
 				BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */,
 				18D2DC401A280E91006F74B1 /* ImageViewController.swift in Sources */,
+				188CB4B51A72321E0039734A /* WebViewViewController.swift in Sources */,
 				184BB4571A1C54BE006DF06C /* UIView+WebCacheOperation.m in Sources */,
 				184BB4551A1C54BE006DF06C /* UIImageView+HighlightedWebCache.m in Sources */,
 				184BB43D1A1C54BE006DF06C /* AFnetworkingJS.m in Sources */,
