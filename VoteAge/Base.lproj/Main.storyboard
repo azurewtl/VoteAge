@@ -36,6 +36,22 @@
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="CfM-Lq-aDB">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Whf-ew-QSl">
+                                    <rect key="frame" x="150" y="12" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="Whf-ew-QSl" secondAttribute="trailing" constant="150" id="LLA-nu-aSi"/>
+                                <constraint firstItem="Whf-ew-QSl" firstAttribute="top" secondItem="CfM-Lq-aDB" secondAttribute="top" constant="12" id="X49-Kd-XHb"/>
+                                <constraint firstItem="Whf-ew-QSl" firstAttribute="leading" secondItem="CfM-Lq-aDB" secondAttribute="leading" constant="150" id="Xb3-qM-bcL"/>
+                                <constraint firstAttribute="bottom" secondItem="Whf-ew-QSl" secondAttribute="bottom" constant="12" id="juF-Ww-S9b"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="m0d-ak-lc9" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -100,6 +116,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="loadActivityView" destination="Whf-ew-QSl" id="aab-Jz-Lo7"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
@@ -122,18 +141,28 @@
                                     <constraints>
                                         <constraint firstAttribute="width" constant="94" id="wQD-9L-YWw"/>
                                     </constraints>
-                                    <state key="normal" title="Button">
+                                    <state key="normal">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
                                         <action selector="subscribeButton:" destination="1NT-h6-jRF" eventType="touchUpInside" id="l9z-Oq-Kcp"/>
                                     </connections>
                                 </button>
+                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="haveContact" translatesAutoresizingMaskIntoConstraints="NO" id="3Xb-nw-RkC">
+                                    <rect key="frame" x="61" y="14" width="30" height="30"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="30" id="Tca-B3-CVP"/>
+                                        <constraint firstAttribute="width" constant="30" id="f2i-da-jcG"/>
+                                    </constraints>
+                                </imageView>
                             </subviews>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
+                                <constraint firstAttribute="bottom" secondItem="3Xb-nw-RkC" secondAttribute="bottom" id="5zc-6g-xSL"/>
                                 <constraint firstItem="jGG-0j-E82" firstAttribute="top" secondItem="W3P-jz-gUr" secondAttribute="top" constant="14" id="93C-Hr-KNu"/>
+                                <constraint firstItem="3Xb-nw-RkC" firstAttribute="top" secondItem="W3P-jz-gUr" secondAttribute="top" constant="14" id="Ewq-yB-4ne"/>
                                 <constraint firstItem="jGG-0j-E82" firstAttribute="leading" secondItem="W3P-jz-gUr" secondAttribute="leading" constant="113" id="VbT-5z-f15"/>
+                                <constraint firstItem="3Xb-nw-RkC" firstAttribute="leading" secondItem="W3P-jz-gUr" secondAttribute="leading" constant="61" id="f4O-79-fDi"/>
                                 <constraint firstAttribute="bottom" secondItem="jGG-0j-E82" secondAttribute="bottom" id="rtD-ul-LyQ"/>
                             </constraints>
                         </view>
@@ -261,6 +290,7 @@
                         <outlet property="authorImage" destination="VDa-3E-Snd" id="TbS-ON-wqG"/>
                         <outlet property="authorName" destination="JDG-0g-vd2" id="apM-Sx-Fzz"/>
                         <outlet property="authorgender" destination="LJ0-G4-daT" id="gcc-hp-7Si"/>
+                        <outlet property="haveContactImageView" destination="3Xb-nw-RkC" id="1Xc-No-FI7"/>
                         <outlet property="simpleintroduce" destination="Ofw-aY-kQG" id="cuC-St-cKp"/>
                         <outlet property="subscribeButton" destination="jGG-0j-E82" id="kKt-PG-bZa"/>
                     </connections>
@@ -687,7 +717,7 @@
                         </textAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="bQ0-Aw-XyS" kind="relationship" relationship="rootViewController" id="7gk-gH-6BU"/>
+                        <segue destination="bQ0-Aw-XyS" kind="relationship" relationship="rootViewController" id="KcK-uC-47S"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLl-mg-8hZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1807,6 +1837,7 @@
         <image name="contact" width="32" height="32"/>
         <image name="dummyImage" width="132" height="132"/>
         <image name="first" width="32" height="32"/>
+        <image name="haveContact" width="32" height="32"/>
         <image name="icon_me" width="32" height="32"/>
         <image name="icon_more" width="32" height="32"/>
         <image name="iconfont-add" width="64" height="64"/>
@@ -1819,9 +1850,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QJE-fe-Sfl"/>
         <segue reference="sY0-fD-qOm"/>
         <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="oO6-sd-y4b"/>
         <segue reference="8xi-9P-nrj"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -16,7 +16,6 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
-    var allowvoteDic = NSMutableDictionary()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
@@ -35,7 +34,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         }
         if buttonIndex == 2 {
             self.title = "热点"
-            refresh(1, longit: "", latit: "")
+               refresh(1, longit: "", latit: "", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, relationship:1)
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -53,7 +52,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
-        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description)
+          refresh(2, longit:coord.latitude.description, latit: coord.longitude.description, userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, relationship:1)
         print(coord.latitude)
         print(coord.longitude)
         manager.stopUpdatingLocation()
@@ -123,11 +122,11 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        refresh(0, longit: "", latit: "")
+        refresh(0, longit: "", latit: "", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, relationship:1)
         
     }
     // MARK: - refresh function
-    func refresh(flag:Int, longit:NSString, latit:NSString) {
+    func refresh(flag:Int, longit:NSString, latit:NSString, userid:NSString, relationship:Int) {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let group = dispatch_group_create()
         activityIndicator.frame = CGRectMake(0, 150, 50, 50)
@@ -139,7 +138,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
             self.activityIndicator.startAnimating()
         })
         dispatch_group_notify(group, queue, {
-            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":userid,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":relationship] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                 print(result)
                 if result.valueForKey("message") as NSString == "网络出故障啦!" {

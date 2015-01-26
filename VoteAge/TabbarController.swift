@@ -62,9 +62,6 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
             return true
             }
             
-            
-            
-            
     }
     return true
     }

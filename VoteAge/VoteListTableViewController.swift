@@ -15,12 +15,17 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
-    var allowvoteDic = NSMutableDictionary()
+    var startIndex = 0
+    var endIndex = 5
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
     var dragDownactivity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     var dragImageView = UIImageView()
+    
+    @IBOutlet var loadActivityView: UIActivityIndicatorView!
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -33,7 +38,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
         if buttonIndex == 2 {
            self.title = "热点"
-            refresh(1, longit: "", latit: "")
+            refresh(1, longit: "", latit: "", startindex:"0", endindex:"5")
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -51,7 +56,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
-        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description)
+        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"5")
         print(coord.latitude)
         print(coord.longitude)
         manager.stopUpdatingLocation()
@@ -66,12 +71,47 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named:"dragUp")
     }
     override func scrollViewDidScroll(scrollView: UIScrollView) {
-        
         if scrollView.contentOffset.y < -140 {
             dragImageView.image = UIImage(named:"dragDown")
         }else{
            dragImageView.image = UIImage(named:"dragUp")
         }
+       
+    }
+    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
+            loadActivityView.hidden = false
+            loadActivityView.startAnimating()
+            UIView.animateWithDuration(1.0, animations: { () -> Void in
+                scrollView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
+                }, completion: { (finish) -> Void in
+                    self.startIndex += 5
+                    self.endIndex += 5
+                        var dic = ["accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+                            print(result)
+                            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                                print("网络故障")
+                            }else {
+                                print(result.valueForKey("message"))
+                                for item in result.valueForKey("list") as NSArray {
+                                    self.voteArray.addObject(item as NSDictionary)
+                                    
+                                }
+                                self.tableView.reloadData()
+                                scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+                                self.loadActivityView.hidden = true
+                            }
+                        
+                        }
+
+                  
+            })
+            
+        }else {
+            loadActivityView.stopAnimating()
+        }
+
     }
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
          self.dragImageView.hidden = true
@@ -84,7 +124,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 scrollView.contentInset = UIEdgeInsetsMake(120, 0, 0, 0)
             })
             dispatch_group_notify(group, queue, {
-                var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"5", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                     print(result)
                     if result.valueForKey("message") as NSString == "网络出故障啦!" {
@@ -94,6 +134,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                         
                         self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
                         self.tableView.reloadData()
+                        self.startIndex = 0
+                        self.endIndex = 0
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
@@ -102,12 +144,17 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 
             })
             
-
-            
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadActivityView.hidden = true
+        activityIndicator.frame = CGRectMake(0, 150, 50, 50)
+        activityIndicator.center.x = view.center.x
+        activityIndicator.backgroundColor = UIColor.grayColor()
+        activityIndicator.layer.masksToBounds = true
+        activityIndicator.layer.cornerRadius = 5
+        self.activityIndicator.startAnimating()
         getLoginStatus()
         tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         self.view.addSubview(activityIndicator)
@@ -115,10 +162,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
         self.view.addSubview(dragDownactivity)
         dragImageView.frame = CGRectMake(150, -50, 50, 50)
+        dragImageView.center = CGPointMake(view.center.x, dragImageView.center.y)
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        refresh(0, longit: "", latit: "")
+        refresh(0, longit: "", latit: "", startindex:"0", endindex:"5")
+        
     }
     // MARK: - 判断token是否匹配
     func getLoginStatus() {
@@ -141,19 +190,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
     }
     // MARK: - refresh function
-    func refresh(flag:Int, longit:NSString, latit:NSString) {
+    func refresh(flag:Int, longit:NSString, latit:NSString, startindex:NSString, endindex:NSString) {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let group = dispatch_group_create()
-        activityIndicator.frame = CGRectMake(0, 150, 50, 50)
-        activityIndicator.center.x = view.center.x
-        activityIndicator.backgroundColor = UIColor.grayColor()
-        activityIndicator.layer.masksToBounds = true
-        activityIndicator.layer.cornerRadius = 5
+     
         dispatch_group_async(group, queue, {
-            self.activityIndicator.startAnimating()
+           
         })
         dispatch_group_notify(group, queue, {
-            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":startindex,"endIndex":endindex, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                 print(result)
                 if result.valueForKey("message") as NSString == "网络出故障啦!" {
@@ -163,6 +208,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                     
                     self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
                     self.tableView.reloadData()
+                
                 }
                 self.activityIndicator.stopAnimating()
             }
@@ -174,15 +220,14 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showVoteDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
                 if voteArray.count > 0 {
-               let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
+               let vote = voteArray[indexPath.row] as NSDictionary
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                }
+            }
                
             }
         }
@@ -209,7 +254,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+        
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
+    
         if voteArray.count > 0 {
             
         cell.num = indexPath.row

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
     var emptyIndex = 0//纪录option图片的个数
     // MARK: - configureView
@@ -25,9 +26,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     // For countdown
     var time = NSTimeInterval()
     var timer = NSTimer()
- 
-    
-    
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
@@ -216,7 +214,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             var picName = "screenShow.png"
             var savepath = documentdirectory.stringByAppendingPathComponent(picName)
             imageviewdata.writeToFile(savepath, atomically: true)
-            var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: "http://www.voteage.com", description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
+            var publishContent = ShareSDK.content("VoteAge", defaultContent: "VoteAge", image: ShareSDK.imageWithPath(savepath), title: "VoteAge", url: voteDetail["shareUrl"] as NSString, description: "这是一条测试信息", mediaType: SSPublishContentMediaTypeNews)
             
             ShareSDK.showShareActionSheet(nil, shareList: nil, content: publishContent, statusBarTips: true, authOptions: nil, shareOptions: nil, result: { (var type:ShareType, var state:SSResponseState, var info:ISSPlatformShareInfo?, var error:ICMErrorInfo?, var end:Bool) -> Void in
                 
@@ -397,7 +395,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     cell?.checkImageView.hidden = true
                     self.section1CellCount = 1
                     self.tableView.reloadData()
-                      self.voteTotalperson()
+                    self.voteTotalperson()
                 }else {
                     print("error")
                 }

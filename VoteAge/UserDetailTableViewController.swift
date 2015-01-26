@@ -11,6 +11,7 @@ import UIKit
 class UserDetailTableViewController: UITableViewController {
     
 
+    @IBOutlet var haveContactImageView: UIImageView!
     @IBOutlet weak var authorImage: UIImageView!
    
     @IBOutlet var simpleintroduce: UILabel!
@@ -24,10 +25,14 @@ class UserDetailTableViewController: UITableViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.haveContactImageView.hidden = true
         var contactDic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "contactId":contactId, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(contactDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getUserInfo") { (result) -> Void in
             print(result)
             print(result.objectForKey("message"))
+            if result.objectForKey("message") as NSString == "网络出故障啦!" {
+                print("网络故障")
+            }else {
             if result.valueForKey("status") as Int == 1 {
             var dic = result.valueForKey("list") as NSDictionary
             self.authorName.text = dic["name"] as NSString
@@ -43,9 +48,11 @@ class UserDetailTableViewController: UITableViewController {
             if dic["relationship"] as Int == 0 || dic["relationship"] as Int == 2 {
                 self.relationship = 1
                 self.subscribeButton.setTitle("关注", forState: UIControlState.Normal)
+                self.haveContactImageView.hidden = true
             }else {
                 self.relationship = 2
                  self.subscribeButton.setTitle("取消关注", forState: UIControlState.Normal)
+                self.haveContactImageView.hidden = false
             }
             if self.authorID.text == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
                 self.subscribeButton.hidden = true
@@ -55,12 +62,10 @@ class UserDetailTableViewController: UITableViewController {
             }
             
         }
-        
+        }
         self.tabBarController?.tabBar.hidden = true
-
         
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -72,8 +77,10 @@ class UserDetailTableViewController: UITableViewController {
         print(relationship)
         if sender.currentTitle == "关注" {
         sender.setTitle("取消关注", forState: UIControlState.Normal)
+            haveContactImageView.hidden = false
         }else {
             sender.setTitle("关注", forState: UIControlState.Normal)
+            haveContactImageView.hidden = true
         }
         var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,"contactId":authorID.text!, "relationship":relationship,"accessToken":((NSUserDefaults.standardUserDefaults()).objectForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/subscribeContact") { (result) -> Void in
