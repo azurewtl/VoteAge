@@ -35,6 +35,7 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         }
         if buttonIndex == 2 {
             self.title = "热点"
+            refresh(1, longit: "", latit: "")
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -46,9 +47,13 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         }
         locationManager.startUpdatingLocation()
     }
+    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+        print("error")
+    }
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
+        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description)
         print(coord.latitude)
         print(coord.longitude)
         manager.stopUpdatingLocation()
@@ -62,10 +67,13 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         
         if scrollView.contentOffset.y < -140 {
             dragImageView.image = UIImage(named:"dragDown")
+        }else {
+            dragImageView.image = UIImage(named:"dragUp")
         }
     }
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.dragImageView.hidden = true
+        dragImageView.image = UIImage(named:"dragUp")
         if scrollView.contentOffset.y < -140 {
             let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
             let group = dispatch_group_create()
@@ -112,46 +120,41 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        var ceshi:Int = 1
-        if(ceshi == 1){
-            //            var str = "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/"
-            let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-            let group = dispatch_group_create()
-            dispatch_group_async(group, queue, {
-                self.activityIndicator.startAnimating()
-                
-            })
-            dispatch_group_notify(group, queue, {
-            
-                var dic = ["accessToken":self.tokenDefult.objectForKey("accessToken") as NSString, "userId":self.tokenDefult.objectForKey("userId") as NSString,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.relationship] as NSDictionary
-                AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-                    print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
-                        print("网络故障")
-                    }else {
-                        print(result.valueForKey("message"))
-                        
-                        self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
-                        
+        refresh(0, longit: "", latit: "")
 
-                        self.tableView.reloadData()
-                    }
-                    self.activityIndicator.stopAnimating()
-                }
-                
-            })
-            
-            
-        }else{
-            //            var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-            //            var data1 = NSData(contentsOfFile: path1!)
-            //
-            //            var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
-            //            voteArray = votedic.objectForKey("hotlist") as NSMutableArray
-        }
     }
+    // MARK: - refresh function
+    func refresh(flag:Int, longit:NSString, latit:NSString) {
+        let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+        let group = dispatch_group_create()
+        activityIndicator.frame = CGRectMake(0, 150, 50, 50)
+        activityIndicator.center.x = view.center.x
+        activityIndicator.backgroundColor = UIColor.grayColor()
+        activityIndicator.layer.masksToBounds = true
+        activityIndicator.layer.cornerRadius = 5
+        dispatch_group_async(group, queue, {
+            self.activityIndicator.startAnimating()
+        })
+        dispatch_group_notify(group, queue, {
+            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+                print(result)
+                if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                    print("网络故障")
+                }else {
+                    print(result.valueForKey("message"))
+                    
+                    self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                    self.tableView.reloadData()
+                }
+                self.activityIndicator.stopAnimating()
+            }
+            
+        })
+    }
+
     // MARK: - protocol
-    var vote = NSMutableDictionary()
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

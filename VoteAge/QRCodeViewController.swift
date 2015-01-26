@@ -18,7 +18,7 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         super.viewDidLoad()
         var imgView = UIImageView(frame: view.frame)
         imgView.image = UIImage(named: "empty")
-        imgView.alpha = 0.4
+        imgView.alpha = 0.7
         view.addSubview(imgView)
 
         self.setupCamera()

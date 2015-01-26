@@ -69,10 +69,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         if scrollView.contentOffset.y < -140 {
             dragImageView.image = UIImage(named:"dragDown")
+        }else{
+           dragImageView.image = UIImage(named:"dragUp")
         }
     }
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
          self.dragImageView.hidden = true
+         dragImageView.image = UIImage(named:"dragUp")
             if scrollView.contentOffset.y < -140 {
             let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
             let group = dispatch_group_create()
