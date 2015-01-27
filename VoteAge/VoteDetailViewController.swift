@@ -125,11 +125,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     var label1 = UILabel()
                     label1.numberOfLines = 0
                     label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
-                    label1.text = str
+                    label1.text = str.stringByRemovingPercentEncoding
                     label1.sizeToFit()
                     self.commentCellHeightArray.addObject(label1.frame.height + 50)
                 }
-                
+                print(self.commentCellHeightArray)
+                print("??????")
             self.tableView.reloadData()
             }
         }
@@ -280,7 +281,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         label1.sizeToFit()
         commentCellHeightArray.insertObject(label1.frame.height + 50, atIndex: 0)
         tableView.reloadData()
-        
+        keyboardView.keyboardTextView.text = ""
         
     }
      func scrollViewWillBeginDragging(scrollView: UIScrollView) {

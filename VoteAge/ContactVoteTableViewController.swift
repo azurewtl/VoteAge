@@ -116,7 +116,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         activityIndicator.layer.cornerRadius = 5
         self.view.addSubview(activityIndicator)
         //下拉刷新
-        dragDownactivity.frame = CGRectMake(150, 50, 50, 50)
+        dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
         self.view.addSubview(dragDownactivity)
         dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.image = UIImage(named: "dragUp")
