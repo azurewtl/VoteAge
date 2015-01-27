@@ -174,11 +174,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rom-oJ-Ybk" id="44i-bz-aA3">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDa-3E-Snd">
+                                                <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VDa-3E-Snd">
                                                     <rect key="frame" x="8" y="9" width="83" height="83"/>
+                                                    <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="83" id="AhW-qU-wr6"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="4NZ-dU-Cx7" appends="YES" id="nZ1-b9-N62"/>
+                                                    </connections>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="NickName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JDG-0g-vd2">
                                                     <rect key="frame" x="99" y="24" width="181" height="21"/>
@@ -296,6 +300,12 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8nx-7s-lf2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="4NZ-dU-Cx7">
+                    <connections>
+                        <outlet property="delegate" destination="VDa-3E-Snd" id="O3W-It-6ES"/>
+                        <segue destination="e2B-gI-aB3" kind="modal" identifier="authorImage" id="6Kq-Af-4k6"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2110" y="846"/>
         </scene>
@@ -326,6 +336,7 @@
                             <constraint firstItem="w4B-We-H9Z" firstAttribute="top" secondItem="1EY-wT-4Z1" secondAttribute="bottom" constant="43" id="jWi-6v-urn"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="i9B-hv-BVH"/>
                     <connections>
                         <outlet property="pageLabel" destination="1EY-wT-4Z1" id="cAW-nh-SPJ"/>
                     </connections>
@@ -447,7 +458,7 @@
                                                 <constraint firstAttribute="height" constant="55" id="0Da-sy-J4j"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="Button">
+                                            <state key="normal" title="放弃投票，察看结果">
                                                 <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -574,9 +585,7 @@
                                                 <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT">
                                                     <rect key="frame" x="16" y="0.0" width="289" height="44"/>
                                                     <color key="backgroundColor" red="0.66671834184884737" green="0.5176217868072871" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="投票">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
+                                                    <state key="normal" title="投票"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1852,7 +1861,8 @@
     <inferredMetricsTieBreakers>
         <segue reference="sY0-fD-qOm"/>
         <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="oO6-sd-y4b"/>
+        <segue reference="QJE-fe-Sfl"/>
         <segue reference="8xi-9P-nrj"/>
+        <segue reference="6Kq-Af-4k6"/>
     </inferredMetricsTieBreakers>
 </document>

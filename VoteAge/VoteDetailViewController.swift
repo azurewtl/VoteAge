@@ -24,8 +24,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     var womenCount = CGFloat()
     var optionArray = NSMutableArray()
     // For countdown
-    var time = NSTimeInterval()
-    var timer = NSTimer()
+
     @IBOutlet var tableView: UITableView!
     @IBOutlet weak var voteImage: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
@@ -57,7 +56,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     }else {
                     percentage = percentage / menCount
                     }
-                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        cell!.optionProgress.setProgress(Float(percentage), animated: true)
+                    })
                     let perInt = Int(percentage * 100)
                     cell?.optionDetail.text = perInt.description + "%"
                 }
@@ -79,7 +80,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     }else {
                     percentage = percentage / womenCount
                     }
-                    cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                    UIView.animateWithDuration(0.2, animations: { () -> Void in
+                        cell!.optionProgress.setProgress(Float(percentage), animated: true)
+                    })
                     let perInt = Int(percentage * 100)
                     cell?.optionDetail.text = perInt.description + "%"
                 }
@@ -166,7 +169,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             tableView.allowsSelection = false
             waiveButton.userInteractionEnabled = false
             voteSegment.userInteractionEnabled = false
-            timeCount()
         }else{
             self.voteTotalperson()
             waiveButton.hidden = true
@@ -302,24 +304,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         self.voteTotalperson()
     }
     
-    func timeCount() {
-        timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "timeFire", userInfo: nil, repeats: true)
-        timer.fire()
-    }
-    
-    func timeFire(){
-        time++
-        waiveButton .setTitle((3 - time).description + "秒后可以投票", forState: UIControlState.Normal)
-        if(time > 2){
-            time = 0
-            waiveButton.userInteractionEnabled = true
-            waiveButton .setTitle("放弃投票,查看结果", forState: UIControlState.Normal)
-            self.tableView.allowsSelection = true
-            voteSegment.userInteractionEnabled = true
-            timer.invalidate()
-        }
-        
-    }
     
     // MARK: - totalVoted
     func voteTotalperson() {
@@ -335,7 +319,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     percentage = 0
                 }else{
                 percentage = percentage / (menCount + womenCount)
-                cell?.optionProgress.setProgress(Float(percentage), animated: true)
+                
+                UIView.animateWithDuration(0.2, animations: { () -> Void in
+                    cell!.optionProgress.setProgress(Float(percentage), animated: true)
+                })
+
+                
                 }
                 let perInt = Int(percentage * 100)
                 cell?.optionDetail.text = perInt.description + "%"

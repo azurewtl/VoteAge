@@ -82,6 +82,7 @@
 		182E845B1A2C0F540048069C /* ShareSDKiPhoneSimpleShareViewUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E84191A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.framework */; };
 		182E845C1A2C0F540048069C /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */; };
 		182E84611A2C6A100048069C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E84601A2C6A100048069C /* MapKit.framework */; };
+		183A68891A774FB7000FC249 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183A68881A774FB7000FC249 /* Main.storyboard */; };
 		184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */; };
 		184BB43D1A1C54BE006DF06C /* AFnetworkingJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4001A1C54BE006DF06C /* AFnetworkingJS.m */; };
 		184BB43E1A1C54BE006DF06C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4031A1C54BE006DF06C /* AFHTTPRequestOperation.m */; };
@@ -152,7 +153,6 @@
 		18EDD6E31A5D1E6C00C796EC /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */; };
 		BB7208511A0B600100A97FCD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208501A0B600100A97FCD /* AppDelegate.swift */; };
 		BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */; };
-		BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BB7208591A0B600100A97FCD /* Main.storyboard */; };
 		BB7208601A0B600100A97FCD /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = BB72085E1A0B600100A97FCD /* LaunchScreen.xib */; };
 		BB72086C1A0B600100A97FCD /* VoteAgeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB72086B1A0B600100A97FCD /* VoteAgeTests.swift */; };
 		BB7208761A0B7F0300A97FCD /* VoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB7208751A0B7F0300A97FCD /* VoteTableViewCell.swift */; };
@@ -255,6 +255,7 @@
 		182E84191A2C0F530048069C /* ShareSDKiPhoneSimpleShareViewUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKiPhoneSimpleShareViewUI.framework; sourceTree = "<group>"; };
 		182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
 		182E84601A2C6A100048069C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		183A68881A774FB7000FC249 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoteAge-Bridging-Header.h"; sourceTree = "<group>"; };
 		184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		184BB3FF1A1C54BE006DF06C /* AFnetworkingJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFnetworkingJS.h; sourceTree = "<group>"; };
@@ -367,7 +368,6 @@
 		BB72084F1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BB7208501A0B600100A97FCD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BB7208531A0B600100A97FCD /* VoteAge.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = VoteAge.xcdatamodel; sourceTree = "<group>"; };
-		BB72085A1A0B600100A97FCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BB72085F1A0B600100A97FCD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		BB7208651A0B600100A97FCD /* VoteAgeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoteAgeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB72086A1A0B600100A97FCD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -861,8 +861,8 @@
 				18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */,
 				18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */,
 				188CB4B41A72321E0039734A /* WebViewViewController.swift */,
+				183A68881A774FB7000FC249 /* Main.storyboard */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
-				BB7208591A0B600100A97FCD /* Main.storyboard */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
 				BB72085E1A0B600100A97FCD /* LaunchScreen.xib */,
 				BB7208521A0B600100A97FCD /* VoteAge.xcdatamodeld */,
@@ -999,7 +999,6 @@
 				18773A091A1495AD00A05745 /* testData1.json in Resources */,
 				182E84241A2C0F540048069C /* InstapaperResource.bundle in Resources */,
 				182E84511A2C0F540048069C /* ShareSDKFlatShareViewUI.bundle in Resources */,
-				BB72085B1A0B600100A97FCD /* Main.storyboard in Resources */,
 				182E84401A2C0F540048069C /* Resource.bundle in Resources */,
 				182E84581A2C0F540048069C /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */,
 				182E84491A2C0F540048069C /* RennSDK.bundle in Resources */,
@@ -1009,6 +1008,7 @@
 				182E84551A2C0F540048069C /* ShareSDKiPadSimpleShareViewUI.bundle in Resources */,
 				182E845A1A2C0F540048069C /* ShareSDKiPhoneSimpleShareViewUI.bundle in Resources */,
 				182E84461A2C0F540048069C /* PinterestSDKResources.bundle in Resources */,
+				183A68891A774FB7000FC249 /* Main.storyboard in Resources */,
 				18CF28A91A70C01C00BEAC68 /* CommentView.xib in Resources */,
 				182E844C1A2C0F540048069C /* WeiboSDK.bundle in Resources */,
 			);
@@ -1119,14 +1119,6 @@
 				182E83ED1A2C0F530048069C /* zh-Hans */,
 			);
 			name = ShareSDKLocalizable.strings;
-			sourceTree = "<group>";
-		};
-		BB7208591A0B600100A97FCD /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BB72085A1A0B600100A97FCD /* Base */,
-			);
-			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 		BB72085E1A0B600100A97FCD /* LaunchScreen.xib */ = {

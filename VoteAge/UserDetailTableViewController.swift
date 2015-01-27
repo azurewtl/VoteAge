@@ -104,5 +104,10 @@ class UserDetailTableViewController: UITableViewController {
         default: return 0
         }
     }
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "authorImage" {
+            (segue.destinationViewController as ImageViewController).photoView.image = authorImage.image
+            (segue.destinationViewController as ImageViewController).imgCount = -1
+        }
+    }
 }
