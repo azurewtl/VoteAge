@@ -15,6 +15,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var tabbarItemTag = 0//1热点 2附近 0全部
+    var longi:Double = 0//经度
+    var lati:Double = 0//纬度
+    
     var startIndex = 0
     var endIndex = 5
     var managedObjectContext: NSManagedObjectContext? = nil
@@ -33,11 +37,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
+        tabbarItemTag = 1
         self.activityIndicator.startAnimating()
         updateLocation(locationManager)
         self.title = "附近"
         }
         if buttonIndex == 2 {
+            tabbarItemTag = 2
            self.title = "热点"
             self.activityIndicator.startAnimating()
             refresh(1, longit: "", latit: "", startindex:"0", endindex:"5")
@@ -58,6 +64,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
+        lati = coord.latitude
+        longi = coord.longitude
         refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"5")
         manager.stopUpdatingLocation()
     }
@@ -88,7 +96,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 }, completion: { (finish) -> Void in
                     self.startIndex += 5
                     self.endIndex += 5
-                        var dic = ["accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                        var dic = ["tag":self.tabbarItemTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                             print(result)
                             if result.valueForKey("message") as NSString == "网络出故障啦!" {
@@ -103,9 +111,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                                 scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                                 self.loadActivityView.hidden = true
                             }
-                        
                         }
-
                   
             })
             
@@ -138,6 +144,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                         self.tableView.reloadData()
                         self.startIndex = 0
                         self.endIndex = 0
+                        self.tabbarItemTag = 0
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
