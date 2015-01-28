@@ -7,8 +7,12 @@
 //
 
 import UIKit
-
+protocol allowVoteDelegate {
+    func allowVote(count:Int, dic:NSDictionary)
+}
 class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UIActionSheetDelegate, UITextViewDelegate, UIAlertViewDelegate, ImagesendDelegate{
+    var delegate = allowVoteDelegate?()
+    var lastPageCellCount = 0
     var emptyIndex = 0//纪录option图片的个数
     // MARK: - configureView
     var section1CellCount = 1//投票评论cell的section里cell的数目
@@ -298,8 +302,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
- 
         self.voteTotalperson()
+        section1CellCount = 1
+        tableView.reloadData()
     }
     
     
@@ -390,6 +395,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.section1CellCount = 1
                     self.tableView.reloadData()
                     self.voteTotalperson()
+                    self.delegate?.allowVote(self.lastPageCellCount,dic: self.voteDetail)
                 }else {
                     print("error")
                     voteButton.juhua.stopAnimating()
