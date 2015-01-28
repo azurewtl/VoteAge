@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 import CoreLocation
-class HasVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, sendInfoDelegate{
+class HasVoteTableViewController: UITableViewController, NSFetchedResultsControllerDelegate,  UIActionSheetDelegate, CLLocationManagerDelegate, sendInfoDelegate,allowVoteDelegate{
     var locationManager = CLLocationManager()
     @IBAction func optionButton(sender: UIBarButtonItem) {
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
@@ -160,7 +160,10 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+      // MARK: - allowVote protocol
+    func allowVote(count: Int, dic: NSDictionary) {
+        voteArray.replaceObjectAtIndex(count, withObject: dic)
+    }
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "hasVotePush" {
@@ -168,8 +171,8 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                 if voteArray.count > 0 {
                     let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
                     (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                    print("**")
-                    print(vote)
+                    (segue.destinationViewController as VoteDetailViewController).lastPageCellCount = indexPath.row
+                    (segue.destinationViewController as VoteDetailViewController).delegate = self
                 }
                 
             }

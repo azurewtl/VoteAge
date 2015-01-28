@@ -33,11 +33,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
+        self.activityIndicator.startAnimating()
         updateLocation(locationManager)
         self.title = "附近"
         }
         if buttonIndex == 2 {
            self.title = "热点"
+            self.activityIndicator.startAnimating()
             refresh(1, longit: "", latit: "", startindex:"0", endindex:"5")
         }
     }
@@ -76,6 +78,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
        
     }
+    // MARK: -上拉加载
     override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
         if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
             loadActivityView.hidden = false
@@ -111,6 +114,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
 
     }
+    // MARK: -下拉刷新
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
          self.dragImageView.hidden = true
          dragImageView.image = UIImage(named:"dragUp")
@@ -191,7 +195,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     func refresh(flag:Int, longit:NSString, latit:NSString, startindex:NSString, endindex:NSString) {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let group = dispatch_group_create()
-     
+        
         dispatch_group_async(group, queue, {
            
         })
