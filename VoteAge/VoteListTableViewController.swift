@@ -57,8 +57,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
         refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"5")
-        print(coord.latitude)
-        print(coord.longitude)
         manager.stopUpdatingLocation()
     }
        override func viewWillAppear(animated: Bool) {

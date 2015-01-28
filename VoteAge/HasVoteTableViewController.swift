@@ -53,8 +53,6 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
          refresh(2, longit: coord.longitude.description, latit: coord.latitude.description, userid: NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, relation:relationship)
-        print(coord.latitude)
-        print(coord.longitude)
         manager.stopUpdatingLocation()
     }
 
@@ -94,7 +92,11 @@ class HasVoteTableViewController: UITableViewController, NSFetchedResultsControl
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
-                    self.title = "全部"
+                    if self.relationship == 0 {
+                    self.title = "我发起的"
+                    }else {
+                    self.title = "我参与的"
+                    }
                 }
                 
             })

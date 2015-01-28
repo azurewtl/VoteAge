@@ -166,9 +166,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         if(voteDetail["allowVote"] as Int == 1){
             section1CellCount = 2
             tableView.reloadData()
-            tableView.allowsSelection = false
-            waiveButton.userInteractionEnabled = false
-            voteSegment.userInteractionEnabled = false
         }else{
             self.voteTotalperson()
             waiveButton.hidden = true
@@ -301,6 +298,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     @IBAction func waiveButton(sender: UIButton) {
         sender.hidden = true
+ 
         self.voteTotalperson()
     }
     
@@ -356,6 +354,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     func voteAndrefreshSingle() {
+        let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 1)) as UITableViewCell?
+        let voteButton = cell?.contentView.viewWithTag(101) as ActivityButton
+        
         var deviceId = UIDevice.currentDevice().identifierForVendor.UUIDString
         if selectIndex == -1 {
             var alert = UIAlertView()
@@ -367,6 +368,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 alert.dismissWithClickedButtonIndex(0, animated: true)
             })
         }else {
+        voteButton.juhua.startAnimating()//菊花开始转动
+            
         var optionDic = optionArray.objectAtIndex(selectIndex) as NSDictionary
         var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/votesubmit") { (result) -> Void in
@@ -383,11 +386,13 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.voteSegment.selectedSegmentIndex = 1;
                     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
                     cell?.checkImageView.hidden = true
+                    voteButton.juhua.stopAnimating()
                     self.section1CellCount = 1
                     self.tableView.reloadData()
                     self.voteTotalperson()
                 }else {
                     print("error")
+                    voteButton.juhua.stopAnimating()
                 }
             })
         }
@@ -445,8 +450,11 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             if section1CellCount == 2 {
                 if indexPath.row == 0 {
                     let cell = tableView.dequeueReusableCellWithIdentifier("voteCell") as UITableViewCell
-                    var button = cell.contentView.viewWithTag(101) as UIButton
+                    var button = cell.contentView.viewWithTag(101) as ActivityButton
+                    button.setTitle("投票", forState: UIControlState.Normal)
+                    button.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
                     button.addTarget(self, action: "votedOnclick:", forControlEvents: UIControlEvents.TouchUpInside)
+                    
                     return cell
                 }else {
                     let cell = tableView.dequeueReusableCellWithIdentifier("toolBarCell", forIndexPath: indexPath) as UITableViewCell

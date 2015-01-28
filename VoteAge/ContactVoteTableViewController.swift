@@ -97,7 +97,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
-                    
+                    self.title = "关注"
                 }
                 
             })

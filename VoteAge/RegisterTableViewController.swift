@@ -8,8 +8,8 @@
 
 import UIKit
 
-class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
-
+class RegisterTableViewController: UITableViewController, UITextFieldDelegate, UIActionSheetDelegate {
+    var genderIndex = 0
     @IBOutlet weak var timeLabel: UILabel!
     var timeInterval = Int()
     var timer = NSTimer()
@@ -33,7 +33,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         let globalQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let time64 = dispatch_time(DISPATCH_TIME_NOW, (Int64)(15 * NSEC_PER_SEC))
         dispatch_after(time64, globalQueue) { () -> Void in
-            if self.cellCount == 3 {
+            if self.cellCount == 0 {
             sender.setTitle("请重新发送", forState: UIControlState.Normal)
             sender.enabled = true
         }
@@ -51,7 +51,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                         let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: index, inSection: 1)) as UITableViewCell?
                         cell?.hidden = false
                     }
-                    self.cellCount = 3
+                    self.cellCount = 2
                     self.tableView.reloadData()
                 }else {
                    sender.setTitle("失败,请重新发送", forState: UIControlState.Normal)
@@ -90,21 +90,28 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 2)) as UITableViewCell?
                 cell?.hidden = false
                 self.cellCount1 = 1
+                var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "男", "女")
+                sheet.showInView(self.view)
+                sheet.tag = 10000
                 self.tableView.reloadData()
+                
             }else {
                 sender.setTitle("失败,请重新验证", forState: UIControlState.Normal)
                 sender.enabled = true
             }
         })
         
-        
+    }
+  // MARK: -actionsheetDelegate
+    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
+         genderIndex = buttonIndex
     }
     
-    @IBOutlet weak var genderSegmentControl: UISegmentedControl!
-  
-    
     @IBAction func submitButton(sender: UIButton) {
-    
+        if genderIndex == 0 {
+            var alert = UIAlertView(title: "提示", message: "您没有选性别", delegate: nil, cancelButtonTitle: "确定")
+            alert.show()
+        }else {
       let cell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 1, inSection: 0)) as UITableViewCell?
         var textfield = cell?.contentView.viewWithTag(102) as UITextField
 //        var password =  ((textfield.text as NSString).integerValue + 1).description
@@ -112,7 +119,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         var passwordNSStr = passwordStr as NSString
         var passwordInt = passwordNSStr.longLongValue + 1
         
-      var dic = ["mobile":textfield.text, "password":passwordInt.description, "gender":genderSegmentControl.selectedSegmentIndex + 1, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+      var dic = ["mobile":textfield.text, "password":passwordInt.description, "gender":genderIndex, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
 //
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
@@ -134,6 +141,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
                 print("error")
             }
             
+        }
         }
       
     }
@@ -160,6 +168,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate {
         verificationTextField.keyboardType = UIKeyboardType.PhonePad
         backButton.clipsToBounds = true
         backButton.layer.cornerRadius = 15
+
     }
 
     func timeraction() {

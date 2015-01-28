@@ -22,8 +22,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var optionCellRowCountArray = ["1", "2"] as NSMutableArray
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
+    
+    @IBOutlet var sendButton: UIBarButtonItem!
     @IBAction func sendVote(sender: UIBarButtonItem) {
+        sendButton.title = "正在发送.."
         updateLocation(locationManager)
+        sender.enabled = false
     }
        // 发送的内容function
     func  sendMessage() {
@@ -70,14 +74,20 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 print(result.valueForKey("message"))
                 if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
+                    self.sendButton.enabled = true
+                    self.sendButton.title = "发送"
                     alert.show()
                 }else {
                     var alert = UIAlertView(title: "", message: "请重新登录", delegate: nil, cancelButtonTitle: "重发")
+                    self.sendButton.enabled = true
+                    self.sendButton.title = "发送"
                     alert.show()
                 }
             }
         }else{
             var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
+            sendButton.enabled = true
+            sendButton.title = "发送"
             alert.show()
             
         }
@@ -126,7 +136,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String! {
         return (pickerArray.objectAtIndex(row) as NSString)
     }
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         var now = NSDate(timeIntervalSinceNow: 8 * 60 * 60)
@@ -135,9 +145,12 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         pickerArray = ["1", "3", "5", "10", "15", "30", "60", "90"]
         
     }
-    
+
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        optionArray.removeAllObjects()
+        sendButton.enabled = true
+        sendButton.title = "发送"
         self.tabBarController?.tabBar.hidden = true
     }
     
@@ -201,9 +214,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         //      print(cell1?.frame)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
-            
             var resizeImg = ImageUtil.imageFitView(image, fitforSize: CGSizeMake(400, 400))
-            
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 self.selectedImageView.image = resizeImg
             })

@@ -582,10 +582,13 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MhB-LO-i8Q" id="w7H-fH-0pH">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT">
+                                                <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT" customClass="ActivityButton" customModule="VoteAge" customModuleProvider="target">
                                                     <rect key="frame" x="16" y="0.0" width="289" height="44"/>
                                                     <color key="backgroundColor" red="0.66671834184884737" green="0.5176217868072871" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="投票"/>
+                                                    <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
+                                                    <state key="normal" title="投票">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -1334,6 +1337,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sendButton" destination="PHT-Mm-29X" id="WUv-Jp-7N2"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1605,8 +1611,9 @@
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhF-bj-UwQ">
                                     <rect key="frame" x="8" y="71" width="304" height="56"/>
                                     <color key="backgroundColor" red="0.0" green="0.36078431372549019" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    <state key="normal" title="还想再看看">
+                                    <state key="normal" title="取消">
                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     </state>
                                     <connections>
@@ -1764,28 +1771,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="44" id="uHU-xt-TbU">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uHU-xt-TbU" id="CLi-tK-I06">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="lNI-7u-K2e">
-                                                    <rect key="frame" x="85" y="7" width="150" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="150" id="opG-0x-ihT"/>
-                                                    </constraints>
-                                                    <segments>
-                                                        <segment title="男"/>
-                                                        <segment title="女"/>
-                                                    </segments>
-                                                </segmentedControl>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="lNI-7u-K2e" secondAttribute="centerY" id="bE9-eu-jlU"/>
-                                                <constraint firstAttribute="centerX" secondItem="lNI-7u-K2e" secondAttribute="centerX" id="lJR-FG-tG0"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="S1v-or-vXI">
@@ -1828,7 +1813,6 @@
                     <connections>
                         <outlet property="backButton" destination="yhF-bj-UwQ" id="3Hk-cj-4Me"/>
                         <outlet property="countryTextField" destination="Rp0-kw-BMf" id="gfY-nk-zsl"/>
-                        <outlet property="genderSegmentControl" destination="lNI-7u-K2e" id="zQu-Cs-Y3l"/>
                         <outlet property="phoneTextField" destination="Ufo-b0-5Zq" id="6UR-xf-Nqb"/>
                         <outlet property="senderVertiButton" destination="rCD-AB-K5A" id="jku-Vy-cBQ"/>
                         <outlet property="timeLabel" destination="UiS-1U-YYS" id="zgw-x6-sDv"/>

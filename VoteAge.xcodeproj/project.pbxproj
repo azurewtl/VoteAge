@@ -83,6 +83,7 @@
 		182E845C1A2C0F540048069C /* ShareSDKShareActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */; };
 		182E84611A2C6A100048069C /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 182E84601A2C6A100048069C /* MapKit.framework */; };
 		183A68891A774FB7000FC249 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 183A68881A774FB7000FC249 /* Main.storyboard */; };
+		183A68BB1A779784000FC249 /* ActivityButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183A68BA1A779784000FC249 /* ActivityButton.swift */; };
 		184BB3F81A1C5375006DF06C /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */; };
 		184BB43D1A1C54BE006DF06C /* AFnetworkingJS.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4001A1C54BE006DF06C /* AFnetworkingJS.m */; };
 		184BB43E1A1C54BE006DF06C /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 184BB4031A1C54BE006DF06C /* AFHTTPRequestOperation.m */; };
@@ -256,6 +257,7 @@
 		182E841A1A2C0F530048069C /* ShareSDKShareActionSheet.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKShareActionSheet.framework; sourceTree = "<group>"; };
 		182E84601A2C6A100048069C /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		183A68881A774FB7000FC249 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		183A68BA1A779784000FC249 /* ActivityButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityButton.swift; sourceTree = "<group>"; };
 		183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "VoteAge-Bridging-Header.h"; sourceTree = "<group>"; };
 		184BB3F71A1C5375006DF06C /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		184BB3FF1A1C54BE006DF06C /* AFnetworkingJS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFnetworkingJS.h; sourceTree = "<group>"; };
@@ -654,6 +656,7 @@
 		184BB3FD1A1C54BE006DF06C /* ThridParty */ = {
 			isa = PBXGroup;
 			children = (
+				183A68BA1A779784000FC249 /* ActivityButton.swift */,
 				188CB4AF1A7228320039734A /* QRCodeGenerator.h */,
 				188CB4B01A7228320039734A /* QRCodeGenerator.m */,
 				188CB4991A7227B10039734A /* libqrencode */,
@@ -1045,6 +1048,7 @@
 				1818D9241A259B4000AAC458 /* RegisterTableViewController.swift in Sources */,
 				18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
+				183A68BB1A779784000FC249 /* ActivityButton.swift in Sources */,
 				188CB4AC1A7227B10039734A /* qrspec.c in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
 				1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */,
