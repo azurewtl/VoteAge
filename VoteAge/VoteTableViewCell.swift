@@ -15,6 +15,9 @@ class VoteTableViewCell: UITableViewCell {
     var delegate = sendInfoDelegate?()
     var num = Int()
     var authorID: NSString? = NSString()
+    
+    
+    @IBOutlet var statusImageView: UIImageView!
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var voteImage: UIImageView?
     @IBOutlet var voteAuthor: UIButton!

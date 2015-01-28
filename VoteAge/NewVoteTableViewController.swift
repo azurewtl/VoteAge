@@ -72,6 +72,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
+                if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                    print("网络故障")
+                    self.sendButton.enabled = true
+                    self.sendButton.title = "发送"
+                }else {
                 if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     self.sendButton.enabled = true
@@ -83,6 +88,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                     self.sendButton.title = "发送"
                     alert.show()
                 }
+            }
             }
         }else{
             var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")

@@ -125,6 +125,9 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getCommentList/") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                print("网络故障")
+            }else {
             if (result.valueForKey("list") as NSArray).count > 0 {
             self.commtArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
                 for item in (result.valueForKey("list") as NSArray) {
@@ -139,6 +142,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 print(self.commentCellHeightArray)
                 print("??????")
             self.tableView.reloadData()
+            }
             }
         }
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleKeyboardDidShow:", name: UIKeyboardWillShowNotification, object: nil)

@@ -46,7 +46,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             tabbarItemTag = 2
            self.title = "热点"
             self.activityIndicator.startAnimating()
-            refresh(1, longit: "", latit: "", startindex:"0", endindex:"5")
+            refresh(1, longit: "", latit: "", startindex:"0", endindex:"20")
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -66,7 +66,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var coord = loc.coordinate
         lati = coord.latitude
         longi = coord.longitude
-        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"5")
+        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"20")
         manager.stopUpdatingLocation()
     }
        override func viewWillAppear(animated: Bool) {
@@ -94,8 +94,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             UIView.animateWithDuration(1.0, animations: { () -> Void in
                 scrollView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
                 }, completion: { (finish) -> Void in
-                    self.startIndex += 5
-                    self.endIndex += 5
+                    self.startIndex += 20
+                    self.endIndex += 20
                         var dic = ["tag":self.tabbarItemTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                             print(result)
@@ -175,7 +175,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        refresh(0, longit: "", latit: "", startindex:"0", endindex:"5")
+        refresh(0, longit: "", latit: "", startindex:"0", endindex:"20")
         
     }
     // MARK: - 判断token是否匹配
@@ -232,6 +232,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     // MARK: - allowVote protocol
     func allowVote(count: Int, dic: NSDictionary) {
      voteArray.replaceObjectAtIndex(count, withObject: dic)
+     tableView.reloadData()
     }
     // MARK: - Segues
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -272,12 +273,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     
         
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
-    
+        cell.statusImageView.image = UIImage(named:"statusno32")
         if voteArray.count > 0 {
             
         cell.num = indexPath.row
         cell.delegate = self
         let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
+            if voteItem["allowVote"] as Int == 0 {
+        cell.statusImageView.image = UIImage(named: "status")
+            }
         cell.voteTitle.text = voteItem["title"] as? NSString
             if voteItem["authorName"] as NSString == "" {
               cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
@@ -286,12 +290,11 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             }
         cell.authorID = voteItem["authorId"] as? NSString
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
+        cell.voteImage?.sd_setImageWithURL(imageUrl)
         if voteItem["voteImage"] as NSString == "" {
                 cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
-        }else {
-        cell.voteImage?.sd_setImageWithURL(imageUrl)
-            }
-          
+        }
+        
         }
         return cell
     }
