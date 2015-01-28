@@ -113,7 +113,8 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         }
     }
     
-    @IBAction func saveButton(sender: UIButton) {
+    @IBAction func saveButton(sender: ActivityButton) {
+        sender.juhua.startAnimating()
         var img = userImage.image
         var data = UIImageJPEGRepresentation(img, 0.7)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
@@ -121,18 +122,25 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/updateUser") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+            print("网络故障")
+            sender.juhua.stopAnimating()
+            }else {
             if result.valueForKey("status") as Int == 1 {
             self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
             self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
             self.tokenDefult.setValue(self.genderSeg.selectedSegmentIndex + 1, forKey: "gender")
             self.tokenDefult.setValue(encodeStr, forKey: "image")
+                 sender.juhua.stopAnimating()
+                self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
             self.navigationController?.popViewControllerAnimated(true)
-            self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
+            
             }else {
                 print("error")
+                sender.juhua.stopAnimating()
             }
         }
-
+        }
        
     }
     
