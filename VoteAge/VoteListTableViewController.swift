@@ -105,14 +105,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                                 print(result.valueForKey("message"))
                                 for item in result.valueForKey("list") as NSArray {
                                     self.voteArray.addObject(item as NSDictionary)
-                                    
                                 }
                                 self.tableView.reloadData()
                                 scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                                 self.loadActivityView.hidden = true
                             }
                         }
-                  
             })
             
         }else {
@@ -292,7 +290,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
         cell.voteImage?.sd_setImageWithURL(imageUrl)
         if voteItem["voteImage"] as NSString == "" {
+
                 cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+            
         }
         
         }
