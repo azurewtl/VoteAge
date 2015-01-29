@@ -33,7 +33,7 @@ class VoteTableViewCell: UITableViewCell {
     @IBAction func hasVoteOnclick(sender: UIButton) {
         self.delegate?.sendNumber(num)
     }
- 
+
     override func awakeFromNib() {
         super.awakeFromNib()
 

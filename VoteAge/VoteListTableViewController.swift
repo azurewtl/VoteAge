@@ -46,7 +46,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             tabbarItemTag = 2
            self.title = "热点"
             self.activityIndicator.startAnimating()
-            refresh(1, longit: "", latit: "", startindex:"0", endindex:"20")
+            refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:"", relationship:0)
+
         }
     }
     func updateLocation(locationManager: CLLocationManager) {
@@ -66,12 +67,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var coord = loc.coordinate
         lati = coord.latitude
         longi = coord.longitude
-        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"20")
+        refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"20", userid:"", relationship:0)
         manager.stopUpdatingLocation()
     }
        override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
         self.tabBarController?.tabBar.hidden = false
+     
         
     }
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
@@ -98,12 +100,12 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                     self.endIndex += 20
                         var dic = ["tag":self.tabbarItemTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-                            print(result)
-                            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+//                            print(result)
+                            if result.objectForKey("message") as NSString == "网络出故障啦!" {
                                 print("网络故障")
                             }else {
-                                print(result.valueForKey("message"))
-                                for item in result.valueForKey("list") as NSArray {
+                                print(result.objectForKey("message"))
+                                for item in result.objectForKey("list") as NSArray {
                                     self.voteArray.addObject(item as NSDictionary)
                                 }
                                 self.tableView.reloadData()
@@ -132,13 +134,13 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             dispatch_group_notify(group, queue, {
                 var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-                    print(result)
-                    if result.valueForKey("message") as NSString == "网络出故障啦!" {
+//                    print(result)
+                    if result.objectForKey("message") as NSString == "网络出故障啦!" {
                         print("网络故障")
                     }else {
-                        print(result.valueForKey("message"))
+                        print(result.objectForKey("message"))
                         
-                        self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                        self.voteArray = NSMutableArray(array: result.objectForKey("list") as NSArray)
                         self.tableView.reloadData()
                         self.startIndex = 0
                         self.endIndex = 0
@@ -153,6 +155,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             
         }
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         loadActivityView.hidden = true
@@ -173,7 +176,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        refresh(0, longit: "", latit: "", startindex:"0", endindex:"20")
+        refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:"",relationship:0)
+        
         
     }
     // MARK: - 判断token是否匹配
@@ -181,10 +185,10 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var dic = ["userId":(NSUserDefaults.standardUserDefaults().objectForKey("userId")) as NSString, "accessToken":(NSUserDefaults.standardUserDefaults().objectForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getLoginStatus") { (result) -> Void in
             print(result)
-            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+            if result.objectForKey("message") as NSString == "网络出故障啦!" {
                 print("网络出故障啦!")
             }else {
-                if result.valueForKey("login") as Int == 0 {
+                if result.objectForKey("login") as Int == 0 {
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "userId")
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "accessToken")
          
@@ -197,7 +201,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }
     }
     // MARK: - refresh function
-    func refresh(flag:Int, longit:NSString, latit:NSString, startindex:NSString, endindex:NSString) {
+    func refresh(flag:Int, longit:NSString, latit:NSString, startindex:NSString, endindex:NSString, userid:NSString, relationship:Int) {
         let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
         let group = dispatch_group_create()
         
@@ -205,15 +209,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
            
         })
         dispatch_group_notify(group, queue, {
-            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":"","startIndex":startindex,"endIndex":endindex, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+            var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":userid,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":relationship] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
                 print(result)
-                if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                if result.objectForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
                 }else {
-                    print(result.valueForKey("message"))
+                    print(result.objectForKey("message"))
                     
-                    self.voteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+                    self.voteArray = NSMutableArray(array: result.objectForKey("list") as NSArray)
                     self.tableView.reloadData()
                 
                 }
@@ -268,37 +272,59 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    
+        
         
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         cell.statusImageView.image = UIImage(named:"statusno32")
         if voteArray.count > 0 {
+            let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
+            cell.num = indexPath.row
+            cell.delegate = self
+            cell.voteTitle.text = voteItem["title"] as? NSString
             
-        cell.num = indexPath.row
-        cell.delegate = self
-        let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             if voteItem["allowVote"] as Int == 0 {
-        cell.statusImageView.image = UIImage(named: "status")
+                cell.statusImageView.image = UIImage(named: "status")
             }
-        cell.voteTitle.text = voteItem["title"] as? NSString
-            if voteItem["authorName"] as NSString == "" {
-              cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
-            }else {
-        cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
-            }
-        cell.authorID = voteItem["authorId"] as? NSString
-        var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
-        cell.voteImage?.sd_setImageWithURL(imageUrl)
-        if voteItem["voteImage"] as NSString == "" {
 
-                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+            if voteItem["authorName"] as NSString == "" {
+                cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
+            }else {
+                cell.voteAuthor.setTitle(voteItem["authorName"] as? NSString, forState: UIControlState.Normal)
+            }
+            cell.authorID = voteItem["authorId"] as? NSString
+            var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
+            cell.voteImage?.sd_setImageWithURL(imageUrl)
+            var widthEqualZeroConstraint = NSLayoutConstraint(
+                item: cell.voteImage!,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 0,
+                constant: 0
+            )
+            var defaultWidthConstraint = NSLayoutConstraint(
+                item: cell.voteImage!,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 0,
+                constant: 83
+            )
+            if voteItem["voteImage"] as NSString == "" {
+                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
+                cell.voteImage!.addConstraint(widthEqualZeroConstraint)
+            }
+            else{
+                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
+                cell.voteImage!.addConstraint(defaultWidthConstraint)
+            }
             
-        }
-        
         }
         return cell
     }
-
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }

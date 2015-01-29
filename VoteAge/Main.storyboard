@@ -774,7 +774,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="rS3-R9-Ivy" kind="relationship" relationship="viewControllers" id="yGT-nh-E4A"/>
-                        <segue destination="S6W-LG-0Ru" kind="relationship" relationship="viewControllers" id="qYM-sl-4Qf"/>
+                        <segue destination="S6W-LG-0Ru" kind="relationship" relationship="viewControllers" id="092-K3-dnK"/>
                         <segue destination="Wr0-9c-Iej" kind="relationship" relationship="viewControllers" id="Wov-Uv-7B3"/>
                         <segue destination="eAs-K5-hih" kind="relationship" relationship="viewControllers" id="lSu-i4-B9G"/>
                     </connections>
@@ -1865,10 +1865,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="QJE-fe-Sfl"/>
         <segue reference="8xi-9P-nrj"/>
+        <segue reference="QJE-fe-Sfl"/>
         <segue reference="sY0-fD-qOm"/>
+        <segue reference="Jtg-IW-Xz3"/>
         <segue reference="zDq-fi-hlT"/>
     </inferredMetricsTieBreakers>
 </document>
