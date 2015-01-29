@@ -104,10 +104,10 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
             (segue.destinationViewController as MeDetailTableViewController).delegate = self
         }
         if segue.identifier == "sendVote" {
-            (segue.destinationViewController as HasVoteTableViewController).relationship = 0
+            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 0
         }
         if segue.identifier == "hasVote" {
-            (segue.destinationViewController as HasVoteTableViewController).relationship = 2
+            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 2
         }
         
     }

@@ -1046,7 +1046,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="lw6-ly-i3M" kind="push" identifier="sendVote" id="ERR-bz-Jha"/>
+                                            <segue destination="pGg-6v-bdr" kind="push" identifier="sendVote" id="Q24-CZ-ijF"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="RNm-If-lDZ" style="IBUITableViewCellStyleDefault" id="gyh-dg-fKQ">
@@ -1063,7 +1063,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="lw6-ly-i3M" kind="push" identifier="hasVote" id="sY0-fD-qOm"/>
+                                            <segue destination="pGg-6v-bdr" kind="push" identifier="hasVote" id="vBu-NL-zv8"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -1865,10 +1865,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="vBu-NL-zv8"/>
+        <segue reference="w1p-qS-yrD"/>
         <segue reference="8xi-9P-nrj"/>
-        <segue reference="QJE-fe-Sfl"/>
-        <segue reference="sY0-fD-qOm"/>
-        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="Odc-lF-DYQ"/>
         <segue reference="zDq-fi-hlT"/>
     </inferredMetricsTieBreakers>
 </document>

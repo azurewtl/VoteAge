@@ -15,6 +15,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var pushrelationship = Int()
     var tabbarItemTag = 0//1热点 2附近 0全部
     var longi:Double = 0//经度
     var lati:Double = 0//纬度
@@ -177,14 +178,19 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
         refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:"",relationship:0)
-        
+        if pushrelationship == 0 {
+              refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+        }
+        if pushrelationship == 2 {
+            refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
+        }
         
     }
     // MARK: - 判断token是否匹配
     func getLoginStatus() {
         var dic = ["userId":(NSUserDefaults.standardUserDefaults().objectForKey("userId")) as NSString, "accessToken":(NSUserDefaults.standardUserDefaults().objectForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getLoginStatus") { (result) -> Void in
-            print(result)
+//            print(result)
             if result.objectForKey("message") as NSString == "网络出故障啦!" {
                 print("网络出故障啦!")
             }else {
