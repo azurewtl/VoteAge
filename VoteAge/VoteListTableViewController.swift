@@ -15,13 +15,14 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
-    var pushrelationship = Int()
-    var tabbarItemTag = 0//1热点 2附近 0全部
+    var pushrelationship = -1
+    var actionSheetTag = 0//1热点 2附近 0全部
     var longi:Double = 0//经度
     var lati:Double = 0//纬度
     
+    
     var startIndex = 0
-    var endIndex = 5
+    var endIndex = 20
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
@@ -38,16 +39,24 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
         if buttonIndex == 1 {
-        tabbarItemTag = 1
+        actionSheetTag = 1
         self.activityIndicator.startAnimating()
         updateLocation(locationManager)
         self.title = "附近"
         }
         if buttonIndex == 2 {
-            tabbarItemTag = 2
+            actionSheetTag = 2
            self.title = "热点"
             self.activityIndicator.startAnimating()
+            if self.tabBarController?.selectedIndex == 0 {
             refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:"", relationship:0)
+            }
+            if pushrelationship == 0 {
+                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+            }
+            if pushrelationship == 2 {
+                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
+            }
 
         }
     }
@@ -68,7 +77,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         var coord = loc.coordinate
         lati = coord.latitude
         longi = coord.longitude
+        if self.tabBarController?.selectedIndex == 0 {
         refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"20", userid:"", relationship:0)
+        }
+        if pushrelationship == 0 {
+            refresh(2, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+        }
+        if pushrelationship == 2 {
+            refresh(2, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
+        }
         manager.stopUpdatingLocation()
     }
        override func viewWillAppear(animated: Bool) {
@@ -91,6 +108,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     // MARK: -上拉加载
     override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+     
         if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
             loadActivityView.hidden = false
             loadActivityView.startAnimating()
@@ -99,13 +117,23 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 }, completion: { (finish) -> Void in
                     self.startIndex += 20
                     self.endIndex += 20
-                        var dic = ["tag":self.tabbarItemTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                    var uid = NSString()
+                    if self.tabBarController?.selectedIndex == 0 {
+                        uid = ""
+                    }
+                    if self.pushrelationship == 0 {
+                        uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                    }
+                    if self.pushrelationship == 2 {
+                        uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                    }
+                        var dic = ["tag":self.actionSheetTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":uid,"startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.pushrelationship] as NSDictionary
                         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
 //                            print(result)
                             if result.objectForKey("message") as NSString == "网络出故障啦!" {
                                 print("网络故障")
                             }else {
-                                print(result.objectForKey("message"))
+                            
                                 for item in result.objectForKey("list") as NSArray {
                                     self.voteArray.addObject(item as NSDictionary)
                                 }
@@ -123,6 +151,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     // MARK: -下拉刷新
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    
          self.dragImageView.hidden = true
          dragImageView.image = UIImage(named:"dragUp")
             if scrollView.contentOffset.y < -140 {
@@ -133,7 +162,17 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 scrollView.contentInset = UIEdgeInsetsMake(120, 0, 0, 0)
             })
             dispatch_group_notify(group, queue, {
-                var dic = ["accessToken":"", "userId":"","startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
+                var uid = NSString()
+                if self.tabBarController?.selectedIndex == 0 {
+                    uid = ""
+                }
+                if self.pushrelationship == 0 {
+                    uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                }
+                if self.pushrelationship == 2 {
+                    uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                }
+                var dic = ["accessToken":"", "userId":uid,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.pushrelationship] as NSDictionary
                 AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
 //                    print(result)
                     if result.objectForKey("message") as NSString == "网络出故障啦!" {
@@ -145,7 +184,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                         self.tableView.reloadData()
                         self.startIndex = 0
                         self.endIndex = 0
-                        self.tabbarItemTag = 0
+                        self.actionSheetTag = 0
                     }
                     scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                     self.dragDownactivity.stopAnimating()
@@ -177,11 +216,15 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
+        if self.tabBarController?.selectedIndex == 0 {
         refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:"",relationship:0)
+        }
         if pushrelationship == 0 {
+            self.title = "我发起的"
               refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
         }
         if pushrelationship == 2 {
+            self.title = "我参与的"
             refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
         }
         
@@ -217,7 +260,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dispatch_group_notify(group, queue, {
             var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":userid,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":relationship] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-                print(result)
+//                print(result)
                 if result.objectForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
                 }else {
@@ -281,7 +324,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
-        cell.statusImageView.image = UIImage(named:"statusno32")
+        cell.statusImageView.image = UIImage(named:"status_green")
         if voteArray.count > 0 {
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.num = indexPath.row
@@ -289,7 +332,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             cell.voteTitle.text = voteItem["title"] as? NSString
             
             if voteItem["allowVote"] as Int == 0 {
-                cell.statusImageView.image = UIImage(named: "status")
+                cell.statusImageView.image = UIImage(named: "status_gray")
             }
 
             if voteItem["authorName"] as NSString == "" {

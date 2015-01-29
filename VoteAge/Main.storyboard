@@ -31,7 +31,7 @@
         <!--全部-->
         <scene sceneID="VgW-fR-Quf">
             <objects>
-                <tableViewController id="pGg-6v-bdr" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="allvote" id="pGg-6v-bdr" customClass="VoteListTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="mLL-gJ-YKr">
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -80,7 +80,7 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="statusno32" translatesAutoresizingMaskIntoConstraints="NO" id="T3S-cg-VhL">
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="status_green" translatesAutoresizingMaskIntoConstraints="NO" id="T3S-cg-VhL">
                                             <rect key="frame" x="201" y="71" width="20" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="20" id="KMp-EK-ojX"/>
@@ -791,6 +791,22 @@
                         <rect key="frame" x="1" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="jH2-Ax-hLD">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="aCP-ej-Uni">
+                                    <rect key="frame" x="150" y="12" width="20" height="20"/>
+                                </activityIndicatorView>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            <constraints>
+                                <constraint firstItem="aCP-ej-Uni" firstAttribute="leading" secondItem="jH2-Ax-hLD" secondAttribute="leading" constant="150" id="FcH-sX-Zfc"/>
+                                <constraint firstItem="aCP-ej-Uni" firstAttribute="top" secondItem="jH2-Ax-hLD" secondAttribute="top" constant="12" id="HWc-Y0-6Ne"/>
+                                <constraint firstAttribute="bottom" secondItem="aCP-ej-Uni" secondAttribute="bottom" constant="12" id="KTX-Ap-1SC"/>
+                                <constraint firstAttribute="trailing" secondItem="aCP-ej-Uni" secondAttribute="trailing" constant="150" id="riv-yb-YyL"/>
+                            </constraints>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="qAC-N7-XDe" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
@@ -854,6 +870,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="loadActivity" destination="aCP-ej-Uni" id="qKv-7V-hDQ"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAT-DF-cO3" sceneMemberID="firstResponder"/>
             </objects>
@@ -900,11 +919,27 @@
                                 <rect key="frame" x="0.0" y="36" width="320" height="532"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="LaD-jU-gIG">
+                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Hd6-3N-pBx"/>
+                                    <constraint firstAttribute="width" constant="50" id="oo5-Wr-CnJ"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1G0-bt-CQy" firstAttribute="top" secondItem="2Sy-4i-n2u" secondAttribute="bottom" constant="16" id="0qQ-hI-5Hd"/>
+                            <constraint firstAttribute="centerY" secondItem="LaD-jU-gIG" secondAttribute="centerY" id="FGs-1q-EiL"/>
                             <constraint firstItem="1G0-bt-CQy" firstAttribute="leading" secondItem="azh-bz-uY9" secondAttribute="leadingMargin" constant="-16" id="Fso-We-9KI"/>
+                            <constraint firstAttribute="centerX" secondItem="LaD-jU-gIG" secondAttribute="centerX" id="M3V-a4-jIW"/>
                             <constraint firstItem="ybM-VA-lgc" firstAttribute="top" secondItem="Rqj-nq-6lh" secondAttribute="bottom" constant="293" id="ORs-S1-MIq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rqj-nq-6lh" secondAttribute="trailing" constant="28" id="UHO-ko-gf8"/>
                             <constraint firstItem="ybM-VA-lgc" firstAttribute="top" secondItem="1G0-bt-CQy" secondAttribute="bottom" id="ZNA-Qd-xQm"/>
@@ -914,6 +949,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="LaD-jU-gIG" id="Slf-Rv-vNI"/>
                         <outlet property="webView" destination="1G0-bt-CQy" id="egL-jI-M1R"/>
                     </connections>
                 </viewController>
@@ -1541,82 +1577,6 @@
             </objects>
             <point key="canvasLocation" x="1763" y="1489"/>
         </scene>
-        <!--我发起的投票-->
-        <scene sceneID="I4k-sk-q9d">
-            <objects>
-                <tableViewController storyboardIdentifier="hasVote" id="lw6-ly-i3M" customClass="HasVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="CJr-GZ-x3R">
-                        <rect key="frame" x="1" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="Ynt-ip-FTb" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ynt-ip-FTb" id="D0G-F7-iCb">
-                                    <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kDa-1I-Su9">
-                                            <rect key="frame" x="8" y="8" width="212" height="30"/>
-                                            <state key="normal" title="user">
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="hasVoteOnclick:" destination="Ynt-ip-FTb" eventType="touchUpInside" id="wWs-4B-GQ6"/>
-                                            </connections>
-                                        </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6qC-9D-XeF">
-                                            <rect key="frame" x="229" y="8" width="83" height="83"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="83" id="XDn-s8-fhr"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5MJ-Yw-36u">
-                                            <rect key="frame" x="8" y="61" width="212" height="30"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="Q0y-pg-TGG"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="6qC-9D-XeF" firstAttribute="leading" secondItem="5MJ-Yw-36u" secondAttribute="trailing" constant="9" id="Cs4-zo-Ix3"/>
-                                        <constraint firstItem="kDa-1I-Su9" firstAttribute="leading" secondItem="D0G-F7-iCb" secondAttribute="leadingMargin" id="JaZ-ig-wfD"/>
-                                        <constraint firstItem="5MJ-Yw-36u" firstAttribute="leading" secondItem="D0G-F7-iCb" secondAttribute="leadingMargin" id="KSv-MT-X64"/>
-                                        <constraint firstItem="6qC-9D-XeF" firstAttribute="bottom" secondItem="D0G-F7-iCb" secondAttribute="bottomMargin" id="M20-kL-oah"/>
-                                        <constraint firstItem="6qC-9D-XeF" firstAttribute="leading" secondItem="kDa-1I-Su9" secondAttribute="trailing" constant="9" id="Rw2-II-j00"/>
-                                        <constraint firstItem="kDa-1I-Su9" firstAttribute="top" secondItem="D0G-F7-iCb" secondAttribute="topMargin" id="d9t-x6-Joh"/>
-                                        <constraint firstItem="6qC-9D-XeF" firstAttribute="top" secondItem="D0G-F7-iCb" secondAttribute="topMargin" id="vOD-D8-FtE"/>
-                                        <constraint firstItem="5MJ-Yw-36u" firstAttribute="bottom" secondItem="D0G-F7-iCb" secondAttribute="bottomMargin" id="zFg-oj-9dy"/>
-                                        <constraint firstItem="6qC-9D-XeF" firstAttribute="trailing" secondItem="D0G-F7-iCb" secondAttribute="trailingMargin" id="zjL-52-fMP"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="voteAuthor" destination="kDa-1I-Su9" id="F2p-bK-mVa"/>
-                                    <outlet property="voteImage" destination="6qC-9D-XeF" id="vjD-tn-boe"/>
-                                    <outlet property="voteTitle" destination="5MJ-Yw-36u" id="ANJ-Xu-I84"/>
-                                    <segue destination="A6m-Tk-UQa" kind="push" identifier="hasVotePush" id="Odc-lF-DYQ"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
-                        <sections/>
-                    </tableView>
-                    <navigationItem key="navigationItem" title="我发起的投票" id="k1w-bZ-gSA">
-                        <barButtonItem key="rightBarButtonItem" image="icon_more" id="uQG-hz-pJG">
-                            <connections>
-                                <action selector="optionButton:" destination="lw6-ly-i3M" id="Lfc-qv-2uY"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="GEl-lT-riU" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1343" y="2927"/>
-        </scene>
         <!--Item-->
         <scene sceneID="g7N-YT-fur">
             <objects>
@@ -1857,7 +1817,7 @@
         <image name="iconfont-add" width="64" height="64"/>
         <image name="me" width="32" height="32"/>
         <image name="qrc" width="32" height="32"/>
-        <image name="statusno32" width="32" height="32"/>
+        <image name="status_green" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1865,10 +1825,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="8xi-9P-nrj"/>
+        <segue reference="QJE-fe-Sfl"/>
         <segue reference="vBu-NL-zv8"/>
         <segue reference="w1p-qS-yrD"/>
-        <segue reference="8xi-9P-nrj"/>
-        <segue reference="Odc-lF-DYQ"/>
         <segue reference="zDq-fi-hlT"/>
     </inferredMetricsTieBreakers>
 </document>

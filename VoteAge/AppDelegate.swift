@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if  accessTokenDefault.valueForKey("accessToken") == nil {
              accessTokenDefault.setValue("", forKey: "accessToken")
+          
         }
         if accessTokenDefault.valueForKey("userId") == nil {
           accessTokenDefault.setValue("", forKey: "userId")

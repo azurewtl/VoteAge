@@ -128,7 +128,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     // MARK: - alertview
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("hasVote") as HasVoteTableViewController
+        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("allvote") as VoteListTableViewController
+        meVoteVc.title = "我发起的"
+        meVoteVc.pushrelationship = 0
         self.navigationController?.pushViewController(meVoteVc, animated: true)
     }
    // MARK: -   Picker view

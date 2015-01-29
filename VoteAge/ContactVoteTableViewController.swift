@@ -16,10 +16,17 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         var sheet  = UIActionSheet(title: "提示", delegate: self, cancelButtonTitle: "取消", destructiveButtonTitle: nil, otherButtonTitles: "附近", "热点")
         sheet.showInView(self.view)
     }
+    var actionSheetTag = 0//1热点 2附近 0全部
+    var startIndex = 0
+    var endIndex = 20
+    var longi:Double = 0//经度
+    var lati:Double = 0//纬度
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
     var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+    
+    @IBOutlet var loadActivity: UIActivityIndicatorView!
     var dragDownactivity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     var dragImageView = UIImageView()
     override func awakeFromNib() {
@@ -52,6 +59,8 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
+        lati = coord.latitude
+        longi = coord.longitude
           refresh(2, longit:coord.latitude.description, latit: coord.longitude.description, userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, relationship:1)
         print(coord.latitude)
         print(coord.longitude)
@@ -73,6 +82,41 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
             dragImageView.image = UIImage(named:"dragUp")
         }
     }
+    // MARK: -上拉加载
+    override func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
+        
+        if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
+            loadActivity.hidden = false
+            loadActivity.startAnimating()
+            UIView.animateWithDuration(1.0, animations: { () -> Void in
+                scrollView.contentInset = UIEdgeInsetsMake(0, 0, 60, 0)
+                }, completion: { (finish) -> Void in
+                    self.startIndex += 20
+                    self.endIndex += 20
+                    var dic = ["tag":self.actionSheetTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":"","startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":1] as NSDictionary
+                    AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
+                        //                            print(result)
+                        if result.objectForKey("message") as NSString == "网络出故障啦!" {
+                            print("网络故障")
+                        }else {
+                            
+                            for item in result.objectForKey("list") as NSArray {
+                                self.voteArray.addObject(item as NSDictionary)
+                            }
+                            self.tableView.reloadData()
+                            scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+                            self.loadActivity.hidden = true
+                        }
+                    }
+            })
+            
+        }else {
+            loadActivity.stopAnimating()
+        }
+        
+    }
+
+    // MARK: -下拉刷新
     override func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         self.dragImageView.hidden = true
         dragImageView.image = UIImage(named:"dragUp")
@@ -111,6 +155,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
+        activityIndicator.center.x = view.center.x
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
         activityIndicator.layer.cornerRadius = 5
@@ -119,6 +164,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
         self.view.addSubview(dragDownactivity)
         dragImageView.frame = CGRectMake(150, -50, 50, 50)
+        dragImageView.center = CGPointMake(view.center.x, dragImageView.center.y)
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
@@ -211,10 +257,32 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
             }
             cell.authorID = voteItem["authorId"] as? NSString
             var imageUrl = NSURL(string: voteItem["voteImage"] as NSString)
+            var widthEqualZeroConstraint = NSLayoutConstraint(
+                item: cell.voteImage!,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 0,
+                constant: 0
+            )
+            var defaultWidthConstraint = NSLayoutConstraint(
+                item: cell.voteImage!,
+                attribute: NSLayoutAttribute.Width,
+                relatedBy: NSLayoutRelation.Equal,
+                toItem: nil,
+                attribute: NSLayoutAttribute.Width,
+                multiplier: 0,
+                constant: 83
+            )
             if voteItem["voteImage"] as NSString == "" {
-                cell.contentView.addConstraint(NSLayoutConstraint(item: cell.voteImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: cell.contentView, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
+                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
+                cell.voteImage!.addConstraint(widthEqualZeroConstraint)
             }
-
+            else{
+                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
+                cell.voteImage!.addConstraint(defaultWidthConstraint)
+            }
             cell.voteImage?.sd_setImageWithURL(imageUrl)
             
         }

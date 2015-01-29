@@ -140,7 +140,6 @@
 		18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF28AA1A70C05100BEAC68 /* CommentView.swift */; };
 		18D06E9B1A35563B0054A2CE /* Vertify.m in Sources */ = {isa = PBXBuildFile; fileRef = 18D06E9A1A35563B0054A2CE /* Vertify.m */; };
 		18D06F801A35A0430054A2CE /* VoteAddPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D06F7F1A35A0430054A2CE /* VoteAddPersonCell.swift */; };
-		18D2DBAA1A256BD8006F74B1 /* HasVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */; };
 		18D2DBAC1A25AEEF006F74B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */; };
 		18D2DBAE1A25AEF6006F74B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */; };
 		18D2DBB01A25AEFE006F74B1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */; };
@@ -354,7 +353,6 @@
 		18D06E991A35562F0054A2CE /* Vertify.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Vertify.h; sourceTree = "<group>"; };
 		18D06E9A1A35563B0054A2CE /* Vertify.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Vertify.m; sourceTree = "<group>"; };
 		18D06F7F1A35A0430054A2CE /* VoteAddPersonCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteAddPersonCell.swift; sourceTree = "<group>"; };
-		18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HasVoteTableViewController.swift; sourceTree = "<group>"; };
 		18D2DBAB1A25AEEF006F74B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		18D2DBAD1A25AEF6006F74B1 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		18D2DBAF1A25AEFE006F74B1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -861,7 +859,6 @@
 				181C4D611A1CA2E00077B682 /* NewVoteTableViewController.swift */,
 				18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */,
 				1818D9231A259B4000AAC458 /* RegisterTableViewController.swift */,
-				18D2DBA91A256BD8006F74B1 /* HasVoteTableViewController.swift */,
 				18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */,
 				188CB4B41A72321E0039734A /* WebViewViewController.swift */,
 				183A68881A774FB7000FC249 /* Main.storyboard */,
@@ -1044,7 +1041,6 @@
 				BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */,
 				18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */,
 				18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */,
-				18D2DBAA1A256BD8006F74B1 /* HasVoteTableViewController.swift in Sources */,
 				1818D9241A259B4000AAC458 /* RegisterTableViewController.swift in Sources */,
 				18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,

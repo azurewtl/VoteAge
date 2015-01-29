@@ -10,13 +10,17 @@ import UIKit
 
 class WebViewViewController: UIViewController, UIWebViewDelegate{
 
+    @IBOutlet var activityIndicator: UIActivityIndicatorView!
     @IBOutlet var webView: UIWebView!
     var webStr = NSString()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         var url = NSURL(string: webStr)
         webView.delegate = self
         if url == nil {
+            activityIndicator.stopAnimating()
+            activityIndicator.hidden = true
             webView.hidden = true
         }else {
         var request = NSURLRequest(URL: url!)
@@ -24,8 +28,17 @@ class WebViewViewController: UIViewController, UIWebViewDelegate{
         }
         // Do any additional setup after loading the view.
     }
+    func webViewDidStartLoad(webView: UIWebView) {
+        activityIndicator.startAnimating()
+    }
+    func webViewDidFinishLoad(webView: UIWebView) {
+        activityIndicator.stopAnimating()
+        activityIndicator.hidden = true
+    }
     func webView(webView: UIWebView, didFailLoadWithError error: NSError) {
         webView.hidden = true
+        activityIndicator.stopAnimating()
+        activityIndicator.hidden = true
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
