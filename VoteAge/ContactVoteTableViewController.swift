@@ -146,12 +146,11 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 
             })
             
-            
-            
         }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadActivity.hidden = true
         tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
         activityIndicator.frame = CGRectMake(130, 200, 50, 50)
@@ -162,6 +161,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         self.view.addSubview(activityIndicator)
         //下拉刷新
         dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
+        dragDownactivity.center.x = view.center.x
         self.view.addSubview(dragDownactivity)
         dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.center = CGPointMake(view.center.x, dragImageView.center.y)

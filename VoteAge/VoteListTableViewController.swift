@@ -210,6 +210,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         self.view.addSubview(activityIndicator)
         //下拉刷新
         dragDownactivity.frame = CGRectMake(150, -50, 50, 50)
+        dragDownactivity.center.x = view.center.x
         self.view.addSubview(dragDownactivity)
         dragImageView.frame = CGRectMake(150, -50, 50, 50)
         dragImageView.center = CGPointMake(view.center.x, dragImageView.center.y)
@@ -377,7 +378,32 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }
-    
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        if pushrelationship == 0 {
+            return true
+        }
+        return false
+    }
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            
+            print(NSUserDefaults.standardUserDefaults().objectForKey("accessToken"))
+            print("*******")
+            var deleteItem = NSArray(objects: indexPath)
+            var deleteDic = ["method":"delete","deviceId:":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":(voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString,  "acessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+            AFnetworkingJS.uploadJson(deleteDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+                print(result.valueForKey("message"))
+//                if result.valueForKey("messgae") as NSString == "网络出故障啦!" {
+//                    print("网络故障")
+//                }else {
+                    self.voteArray.removeObjectAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
+//                }
+            })
+           
+        }
+            
+    }
     //    func configureCell(cell: VoteTableViewCell, atIndexPath indexPath: NSIndexPath) {
     //        let object = self.fetchedResultsController.objectAtIndexPath(indexPath) as NSManagedObject
     //        cell.voteTitle.text = object.valueForKey("voteTitle") as? String

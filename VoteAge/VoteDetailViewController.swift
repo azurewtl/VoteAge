@@ -389,6 +389,8 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 print(result)
                 print(result.valueForKey("message"))
                 if result.valueForKey("status") as Int == 1 {
+                    self.menCount = 0
+                    self.womenCount = 0
                     self.voteDetail = result.valueForKey("list") as NSDictionary
                     self.configureView()
                     self.waiveButton.hidden = true

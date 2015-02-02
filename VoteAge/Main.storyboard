@@ -328,7 +328,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2110" y="846"/>
+            <point key="canvasLocation" x="2546" y="806"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
@@ -369,7 +369,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2049" y="56"/>
+            <point key="canvasLocation" x="2913" y="120"/>
         </scene>
         <!--Makeqrc View Controller-->
         <scene sceneID="Gwi-fr-7rU">
@@ -955,7 +955,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ueR-mi-cpY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1227" y="1459"/>
+            <point key="canvasLocation" x="1275" y="1379"/>
         </scene>
         <!--我-->
         <scene sceneID="VCD-YV-Ny9">
@@ -1182,7 +1182,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Q2Q-Xq-8hg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2185" y="1744"/>
+            <point key="canvasLocation" x="2249" y="2168"/>
         </scene>
         <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
@@ -1400,7 +1400,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2231" y="2620"/>
+            <point key="canvasLocation" x="1799" y="2636"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1575,7 +1575,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0p-nN-kIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1763" y="1489"/>
+            <point key="canvasLocation" x="1779" y="1665"/>
         </scene>
         <!--Item-->
         <scene sceneID="g7N-YT-fur">
@@ -1591,7 +1591,7 @@
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yhF-bj-UwQ">
                                     <rect key="frame" x="8" y="71" width="304" height="56"/>
-                                    <color key="backgroundColor" red="0.0" green="0.36078431372549019" blue="0.68627450980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="backgroundColor" red="0.51391780369999995" green="0.46104599559999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <state key="normal" title="取消">
@@ -1825,10 +1825,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="8xi-9P-nrj"/>
         <segue reference="QJE-fe-Sfl"/>
         <segue reference="vBu-NL-zv8"/>
-        <segue reference="w1p-qS-yrD"/>
-        <segue reference="zDq-fi-hlT"/>
+        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="SGg-dd-0wa"/>
+        <segue reference="6Kq-Af-4k6"/>
     </inferredMetricsTieBreakers>
 </document>
