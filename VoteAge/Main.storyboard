@@ -430,7 +430,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="npW-VL-0G6">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="npW-VL-0G6">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="Cbk-15-yMC">
@@ -603,8 +603,8 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MhB-LO-i8Q" id="w7H-fH-0pH">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <button opaque="NO" tag="101" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT" customClass="ActivityButton" customModule="VoteAge" customModuleProvider="target">
-                                                    <rect key="frame" x="16" y="0.0" width="289" height="44"/>
+                                                <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4O-hJ-eRT" customClass="ActivityButton" customModule="VoteAge" customModuleProvider="target">
+                                                    <rect key="frame" x="8" y="0.0" width="304" height="44"/>
                                                     <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" name="STHeitiSC-Medium" family="Heiti SC" pointSize="15"/>
                                                     <state key="normal" title="投票">
@@ -619,10 +619,11 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="leading" secondItem="w7H-fH-0pH" secondAttribute="leadingMargin" constant="8" id="2WX-lk-WNW"/>
-                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="top" secondItem="w7H-fH-0pH" secondAttribute="topMargin" constant="-8" id="3eF-6O-Wqe"/>
-                                                <constraint firstAttribute="centerX" secondItem="w4O-hJ-eRT" secondAttribute="centerX" id="Nzh-G1-gSA"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="w4O-hJ-eRT" secondAttribute="bottom" constant="-8" id="c0n-kw-2kB"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="w4O-hJ-eRT" secondAttribute="bottom" constant="-8" id="0ia-l2-nXi"/>
+                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="leading" secondItem="w7H-fH-0pH" secondAttribute="leadingMargin" id="28z-Or-P6z"/>
+                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="top" secondItem="w7H-fH-0pH" secondAttribute="topMargin" constant="-8" id="7tE-gS-1fU"/>
+                                                <constraint firstAttribute="centerX" secondItem="w4O-hJ-eRT" secondAttribute="centerX" id="MC3-n8-gpy"/>
+                                                <constraint firstItem="w4O-hJ-eRT" firstAttribute="trailing" secondItem="w7H-fH-0pH" secondAttribute="trailingMargin" id="V5x-IC-grC"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -633,7 +634,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z8a-uq-PVD" id="xc4-MJ-PfU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                                     <items>
                                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="EMc-0M-Jjx"/>
@@ -668,7 +669,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
                                                     <state key="normal" title="userName">
-                                                        <color key="titleColor" red="0.35634732899999999" green="0.26562488490000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleColor" red="0.51391780369999995" green="0.46104599559999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
                                                     <connections>
                                                         <segue destination="1NT-h6-jRF" kind="push" identifier="getUserInfo" id="8xi-9P-nrj"/>
@@ -1825,10 +1826,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="QJE-fe-Sfl"/>
         <segue reference="vBu-NL-zv8"/>
         <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="SGg-dd-0wa"/>
-        <segue reference="6Kq-Af-4k6"/>
+        <segue reference="QJE-fe-Sfl"/>
+        <segue reference="8xi-9P-nrj"/>
+        <segue reference="zDq-fi-hlT"/>
     </inferredMetricsTieBreakers>
 </document>
