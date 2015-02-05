@@ -105,6 +105,7 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
         }
         if segue.identifier == "sendVote" {
             (segue.destinationViewController as VoteListTableViewController).pushrelationship = 0
+            (segue.destinationViewController as VoteListTableViewController).pushuserId = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
         }
         if segue.identifier == "hasVote" {
             (segue.destinationViewController as VoteListTableViewController).pushrelationship = 2

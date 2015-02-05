@@ -235,7 +235,7 @@
                             </tableViewSection>
                             <tableViewSection id="MDC-jk-1ng">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" textLabel="mdN-lo-z4L" style="IBUITableViewCellStyleDefault" id="9xr-fU-9cQ">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="mdN-lo-z4L" style="IBUITableViewCellStyleDefault" id="9xr-fU-9cQ">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9xr-fU-9cQ" id="qc0-b2-70N">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -248,6 +248,9 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="pGg-6v-bdr" kind="push" identifier="userVote" id="EJ0-02-a7H"/>
+                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -328,7 +331,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2546" y="806"/>
+            <point key="canvasLocation" x="1519" y="750"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
@@ -1826,10 +1829,10 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="vBu-NL-zv8"/>
-        <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="QJE-fe-Sfl"/>
         <segue reference="8xi-9P-nrj"/>
-        <segue reference="zDq-fi-hlT"/>
+        <segue reference="oO6-sd-y4b"/>
+        <segue reference="Jtg-IW-Xz3"/>
+        <segue reference="EJ0-02-a7H"/>
+        <segue reference="6Kq-Af-4k6"/>
     </inferredMetricsTieBreakers>
 </document>

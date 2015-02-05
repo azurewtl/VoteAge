@@ -109,5 +109,9 @@ class UserDetailTableViewController: UITableViewController {
             (segue.destinationViewController as ImageViewController).photoView.image = authorImage.image
             (segue.destinationViewController as ImageViewController).imgCount = -1
         }
+        if segue.identifier == "userVote" {
+            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 0
+            (segue.destinationViewController as VoteListTableViewController).pushuserId = authorID.text!
+        }
     }
 }

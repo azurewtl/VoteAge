@@ -19,7 +19,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     var actionSheetTag = 0//1热点 2附近 0全部
     var longi:Double = 0//经度
     var lati:Double = 0//纬度
-    
+    var pushuserId = ""
     
     var startIndex = 0
     var endIndex = 20
@@ -52,7 +52,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:"", relationship:0)
             }
             if pushrelationship == 0 {
-                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:pushuserId,relationship:0)
             }
             if pushrelationship == 2 {
                 refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
@@ -81,7 +81,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         refresh(2, longit:coord.latitude.description, latit: coord.longitude.description,startindex:"0", endindex:"20", userid:"", relationship:0)
         }
         if pushrelationship == 0 {
-            refresh(2, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+            refresh(2, longit: "", latit: "", startindex:"0", endindex:"20", userid:pushuserId,relationship:0)
         }
         if pushrelationship == 2 {
             refresh(2, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
@@ -122,7 +122,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                         uid = ""
                     }
                     if self.pushrelationship == 0 {
-                        uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                        uid = self.pushuserId
                     }
                     if self.pushrelationship == 2 {
                         uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
@@ -167,7 +167,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                     uid = ""
                 }
                 if self.pushrelationship == 0 {
-                    uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+                    uid = self.pushuserId
                 }
                 if self.pushrelationship == 2 {
                     uid = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
@@ -217,12 +217,18 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dragImageView.image = UIImage(named: "dragUp")
         self.view.addSubview(dragImageView)
         dragImageView.highlighted = true
-        if self.tabBarController?.selectedIndex == 0 {
+        if self.tabBarController?.selectedIndex == 0 && pushrelationship == -1 {
         refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:"",relationship:0)
         }
         if pushrelationship == 0 {
+            print(pushuserId)
+            if pushuserId == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
             self.title = "我发起的"
-              refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:0)
+            }else {
+                self.title = pushuserId
+            }
+            refresh(0, longit: "", latit: "", startindex:"0", endindex:"20", userid:pushuserId,relationship:0)
+            
         }
         if pushrelationship == 2 {
             self.title = "我参与的"
@@ -380,7 +386,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         if pushrelationship == 0 {
+            if pushuserId == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
             return true
+            }
         }
         return false
     }
