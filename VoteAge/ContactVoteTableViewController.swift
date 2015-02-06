@@ -98,6 +98,8 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                         //                            print(result)
                         if result.objectForKey("message") as NSString == "网络出故障啦!" {
                             print("网络故障")
+                            self.loadActivity.stopAnimating()
+                            self.loadActivity.hidden = true
                         }else {
                             
                             for item in result.objectForKey("list") as NSArray {
@@ -189,6 +191,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 print(result)
                 if result.valueForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
+                    self.activityIndicator.stopAnimating()
                 }else {
                     print(result.valueForKey("message"))
                     

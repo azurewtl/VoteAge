@@ -132,6 +132,8 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 //                            print(result)
                             if result.objectForKey("message") as NSString == "网络出故障啦!" {
                                 print("网络故障")
+                                self.loadActivityView.stopAnimating()
+                                self.loadActivityView.hidden = true
                             }else {
                             
                                 for item in result.objectForKey("list") as NSArray {
@@ -147,6 +149,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         }else {
             loadActivityView.stopAnimating()
         }
+  
 
     }
     // MARK: -下拉刷新
@@ -270,6 +273,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 //                print(result)
                 if result.objectForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
+                    self.activityIndicator.stopAnimating()
                 }else {
                     print(result.objectForKey("message"))
                     

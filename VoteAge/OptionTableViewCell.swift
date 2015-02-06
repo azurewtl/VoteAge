@@ -10,10 +10,10 @@ import UIKit
 protocol ImagesendDelegate {
     func setSelect(number:Int)
 }
-class OptionTableViewCell: UITableViewCell {
+class OptionTableViewCell: SingleLineTableViewCell {
 
     @IBOutlet var checkImageView: UIImageView!
-    var line = UIView()
+//    var line = UIView()
     @IBOutlet weak var optionImage: UIImageView?
     @IBOutlet var optionProgress: UIProgressView!
     @IBOutlet weak var optionTitle: UILabel!
@@ -28,13 +28,13 @@ class OptionTableViewCell: UITableViewCell {
         var tap = UITapGestureRecognizer(target: self, action: "tap")
         optionImage?.userInteractionEnabled = true
         optionImage?.addGestureRecognizer(tap)
-        self.contentView.addSubview(line)
+//        self.contentView.addSubview(line)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        line.frame = CGRectMake(0, contentView.frame.height - 1, contentView.frame.width, 1)
-        line.backgroundColor = UIColor(white: 0.7, alpha: 1)
+
     }
+ 
     func tap() {
         self.delegate?.setSelect(imagenumber)
     }

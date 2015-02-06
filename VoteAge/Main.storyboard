@@ -475,21 +475,6 @@
                                                 <action selector="voteSegment:" destination="A6m-Tk-UQa" eventType="valueChanged" id="03X-fF-4ag"/>
                                             </connections>
                                         </segmentedControl>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQU-BN-N53">
-                                            <rect key="frame" x="0.0" y="100" width="320" height="55"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="55" id="0Da-sy-J4j"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="放弃投票，察看结果">
-                                                <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="waiveButton:" destination="A6m-Tk-UQa" eventType="touchUpInside" id="rVa-PB-dTn"/>
-                                            </connections>
-                                        </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="53人" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f0E-fh-ocB">
                                             <rect key="frame" x="277" y="79" width="35" height="21"/>
                                             <constraints>
@@ -510,6 +495,21 @@
                                             <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yQU-BN-N53">
+                                            <rect key="frame" x="0.0" y="101" width="320" height="54"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="54" id="0Da-sy-J4j"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <state key="normal" title="放弃投票，察看结果">
+                                                <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="waiveButton:" destination="A6m-Tk-UQa" eventType="touchUpInside" id="rVa-PB-dTn"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -517,16 +517,16 @@
                                         <constraint firstItem="9QO-uv-YVJ" firstAttribute="top" secondItem="gX8-sb-lcw" secondAttribute="bottom" id="BPk-U6-4xz"/>
                                         <constraint firstItem="9QO-uv-YVJ" firstAttribute="leading" secondItem="Cbk-15-yMC" secondAttribute="leading" constant="-5" id="CRh-tI-75f"/>
                                         <constraint firstItem="0ow-t7-4cA" firstAttribute="leading" secondItem="gX8-sb-lcw" secondAttribute="trailing" constant="8" id="EAM-pv-Oya"/>
-                                        <constraint firstItem="yQU-BN-N53" firstAttribute="top" secondItem="f0E-fh-ocB" secondAttribute="bottom" id="Gsr-Dp-yOe"/>
                                         <constraint firstItem="gX8-sb-lcw" firstAttribute="top" secondItem="Cbk-15-yMC" secondAttribute="top" id="HVW-Jp-XWZ"/>
                                         <constraint firstAttribute="trailing" secondItem="f0E-fh-ocB" secondAttribute="trailing" constant="8" id="IvS-FQ-M9f"/>
                                         <constraint firstAttribute="trailing" secondItem="0ow-t7-4cA" secondAttribute="trailing" constant="8" id="LQ5-XP-M56"/>
                                         <constraint firstItem="yQU-BN-N53" firstAttribute="leading" secondItem="Cbk-15-yMC" secondAttribute="leading" id="Z0U-EQ-v6L"/>
+                                        <constraint firstItem="Y6K-SB-fSG" firstAttribute="bottom" secondItem="f0E-fh-ocB" secondAttribute="bottom" id="bVk-QZ-pfd"/>
                                         <constraint firstItem="gX8-sb-lcw" firstAttribute="leading" secondItem="Cbk-15-yMC" secondAttribute="leading" id="eWo-0W-2fq"/>
+                                        <constraint firstItem="Y6K-SB-fSG" firstAttribute="bottom" secondItem="gX8-sb-lcw" secondAttribute="bottom" id="hOh-mo-w0V"/>
                                         <constraint firstItem="Y6K-SB-fSG" firstAttribute="leading" secondItem="gX8-sb-lcw" secondAttribute="trailing" constant="8" id="jRG-I1-ooy"/>
                                         <constraint firstItem="0ow-t7-4cA" firstAttribute="top" secondItem="Cbk-15-yMC" secondAttribute="top" id="lZD-ae-9Yi"/>
-                                        <constraint firstItem="yQU-BN-N53" firstAttribute="top" secondItem="Y6K-SB-fSG" secondAttribute="bottom" id="qvk-BC-T7W"/>
-                                        <constraint firstItem="yQU-BN-N53" firstAttribute="top" secondItem="gX8-sb-lcw" secondAttribute="bottom" id="xHV-7N-Htj"/>
+                                        <constraint firstItem="yQU-BN-N53" firstAttribute="top" secondItem="gX8-sb-lcw" secondAttribute="bottom" constant="1" id="xHV-7N-Htj"/>
                                         <constraint firstAttribute="trailing" secondItem="yQU-BN-N53" secondAttribute="trailing" id="xR8-28-NnW"/>
                                     </constraints>
                                 </view>
@@ -537,27 +537,27 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aw-lY-GXs" id="U3q-f6-ZN1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-7R-Xwn">
-                                                    <rect key="frame" x="0.0" y="1" width="54" height="54"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dummyImage" translatesAutoresizingMaskIntoConstraints="NO" id="CYJ-7R-Xwn">
+                                                    <rect key="frame" x="0.0" y="0.0" width="54" height="54"/>
                                                     <gestureRecognizers/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="54" id="QkN-N4-wf7"/>
                                                     </constraints>
                                                 </imageView>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Nis-7W-3yh">
-                                                    <rect key="frame" x="54" y="2" width="266" height="53"/>
+                                                    <rect key="frame" x="54" y="1" width="266" height="53"/>
                                                     <color key="progressTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Option" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12S-r5-16K">
-                                                    <rect key="frame" x="54" y="2" width="205" height="53"/>
+                                                    <rect key="frame" x="54" y="0.0" width="205" height="53"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="40％" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsD-ht-hML">
-                                                    <rect key="frame" x="267" y="1" width="45" height="54"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40％" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wsD-ht-hML">
+                                                    <rect key="frame" x="267" y="0.0" width="45" height="55"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="45" id="LuA-DD-d0f"/>
                                                     </constraints>
@@ -578,10 +578,10 @@
                                                 <constraint firstItem="Nis-7W-3yh" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-7" id="5UO-x8-q9J"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="6d6-kU-U20"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="trailing" secondItem="U3q-f6-ZN1" secondAttribute="trailingMargin" id="6is-Ju-R6a"/>
-                                                <constraint firstItem="12S-r5-16K" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-7" id="Dtv-lO-Kup"/>
+                                                <constraint firstItem="12S-r5-16K" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="Dtv-lO-Kup"/>
                                                 <constraint firstItem="12S-r5-16K" firstAttribute="leading" secondItem="U3q-f6-ZN1" secondAttribute="leadingMargin" constant="46" id="R81-f7-eCN"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="CYJ-7R-Xwn" secondAttribute="bottom" constant="-8" id="Rr7-AJ-jiU"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="Nis-7W-3yh" secondAttribute="bottom" constant="-8" id="Zej-Bu-Byf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="CYJ-7R-Xwn" secondAttribute="bottom" constant="-7" id="Rr7-AJ-jiU"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Nis-7W-3yh" secondAttribute="bottom" constant="-7" id="Zej-Bu-Byf"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="12S-r5-16K" secondAttribute="bottom" constant="-8" id="fI6-Rn-f0k"/>
                                                 <constraint firstItem="Nis-7W-3yh" firstAttribute="leading" secondItem="CYJ-7R-Xwn" secondAttribute="trailing" id="foH-Sg-XiY"/>
                                                 <constraint firstItem="CYJ-7R-Xwn" firstAttribute="leading" secondItem="U3q-f6-ZN1" secondAttribute="leadingMargin" constant="-8" id="o7W-O7-Pke"/>
@@ -631,7 +631,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="toolBarCell" rowHeight="45" id="z8a-uq-PVD" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="toolBarCell" rowHeight="45" id="z8a-uq-PVD">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z8a-uq-PVD" id="xc4-MJ-PfU">
@@ -658,7 +658,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="9su-IT-hIj" customClass="OptionTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" selectionStyle="none" indentationWidth="10" reuseIdentifier="commentCell" rowHeight="100" id="9su-IT-hIj" customClass="SingleLineTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" tableViewCell="9su-IT-hIj" id="EUG-cq-UVh">
@@ -1833,6 +1833,6 @@
         <segue reference="oO6-sd-y4b"/>
         <segue reference="Jtg-IW-Xz3"/>
         <segue reference="EJ0-02-a7H"/>
-        <segue reference="6Kq-Af-4k6"/>
+        <segue reference="zDq-fi-hlT"/>
     </inferredMetricsTieBreakers>
 </document>

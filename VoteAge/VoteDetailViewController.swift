@@ -449,7 +449,6 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.delegate = self
             cell.imagenumber = indexPath.row
             cell.checkImageView.hidden = true
-           
             var imageUrl = NSURL(string: dicAppear["image"] as NSString)
             if emptyIndex == optionArray.count {
                cell.optionImage!.addConstraint(NSLayoutConstraint(item: cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
@@ -480,17 +479,18 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             return cell
             }
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
+
+        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as SingleLineTableViewCell
         var userButton = cell.contentView.viewWithTag(101) as UIButton
         var label = cell.contentView.viewWithTag(102) as UILabel
-    
+        
         if commtArray.count > 0 {
-        if (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString == "" {
-               userButton.setTitle("游客", forState: UIControlState.Normal)
-        }else {
-        userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
-        }
-        label.text = ((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString).stringByRemovingPercentEncoding
+            if (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString == "" {
+                userButton.setTitle("游客", forState: UIControlState.Normal)
+            }else {
+                userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("userName") as NSString, forState: UIControlState.Normal)
+            }
+            label.text = ((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString).stringByRemovingPercentEncoding
         }
         return cell
     }
