@@ -120,7 +120,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
         var passwordInt = passwordNSStr.longLongValue + 1
         
       var dic = ["mobile":textfield.text, "password":passwordInt.description, "gender":genderIndex, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
-//
+
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
             print(result)
             if result.valueForKey("status") as Int == 1 {
