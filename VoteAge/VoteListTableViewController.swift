@@ -25,7 +25,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     var endIndex = 20
     var managedObjectContext: NSManagedObjectContext? = nil
     var voteArray = NSMutableArray()
-    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.White)
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.WhiteLarge)
     var dragDownactivity = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
     var dragImageView = UIImageView()
     

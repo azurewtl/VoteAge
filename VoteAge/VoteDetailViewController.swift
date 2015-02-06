@@ -430,7 +430,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.section {
         case 0:
-            return 55
+            return 53
         case 1:
             return 45
         case 2:
@@ -480,7 +480,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }
         }
 
-        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as SingleLineTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var userButton = cell.contentView.viewWithTag(101) as UIButton
         var label = cell.contentView.viewWithTag(102) as UILabel
         

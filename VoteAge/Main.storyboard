@@ -66,6 +66,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="83" id="MjV-dn-v47"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s">
                                             <rect key="frame" x="8" y="8" width="213" height="63"/>
@@ -545,12 +551,12 @@
                                                     </constraints>
                                                 </imageView>
                                                 <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Nis-7W-3yh">
-                                                    <rect key="frame" x="54" y="1" width="266" height="53"/>
+                                                    <rect key="frame" x="54" y="1" width="266" height="54"/>
                                                     <color key="progressTintColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <color key="trackTintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </progressView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Option" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="12S-r5-16K">
-                                                    <rect key="frame" x="54" y="0.0" width="205" height="53"/>
+                                                    <rect key="frame" x="54" y="1" width="205" height="53"/>
                                                     <gestureRecognizers/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -575,7 +581,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="617-nf-bws" secondAttribute="centerY" id="4aQ-Zk-sLV"/>
-                                                <constraint firstItem="Nis-7W-3yh" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-7" id="5UO-x8-q9J"/>
+                                                <constraint firstItem="Nis-7W-3yh" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="5UO-x8-q9J"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="6d6-kU-U20"/>
                                                 <constraint firstItem="wsD-ht-hML" firstAttribute="trailing" secondItem="U3q-f6-ZN1" secondAttribute="trailingMargin" id="6is-Ju-R6a"/>
                                                 <constraint firstItem="12S-r5-16K" firstAttribute="top" secondItem="U3q-f6-ZN1" secondAttribute="topMargin" constant="-8" id="Dtv-lO-Kup"/>
@@ -637,8 +643,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z8a-uq-PVD" id="xc4-MJ-PfU">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                                <toolbar opaque="NO" clearsContextBeforeDrawing="NO" tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ptO-et-qiq">
+                                                    <rect key="frame" x="0.0" y="1" width="320" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="93y-J0-PWu"/>
+                                                    </constraints>
                                                     <items>
                                                         <barButtonItem style="plain" systemItem="flexibleSpace" id="EMc-0M-Jjx"/>
                                                         <barButtonItem tag="102" title="评论" id="PL4-iw-4um">
@@ -651,10 +660,9 @@
                                                 </toolbar>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="ptO-et-qiq" firstAttribute="leading" secondItem="xc4-MJ-PfU" secondAttribute="leadingMargin" constant="-8" id="Kmg-fQ-0RG"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ptO-et-qiq" secondAttribute="trailing" constant="-8" id="Mav-yn-GH1"/>
-                                                <constraint firstItem="ptO-et-qiq" firstAttribute="top" secondItem="xc4-MJ-PfU" secondAttribute="topMargin" constant="-8" id="Soe-l7-cEv"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="ptO-et-qiq" secondAttribute="bottom" constant="-8" id="YK3-MA-lSf"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="ptO-et-qiq" secondAttribute="bottom" constant="-8" id="ZA8-AN-2lI"/>
+                                                <constraint firstItem="ptO-et-qiq" firstAttribute="leading" secondItem="xc4-MJ-PfU" secondAttribute="leadingMargin" constant="-8" id="aKq-Cf-mon"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="ptO-et-qiq" secondAttribute="trailing" constant="-8" id="eBn-Gd-bwy"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -824,6 +832,12 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="83" id="RKx-Qi-a12"/>
                                             </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                    <integer key="value" value="10"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
                                         </imageView>
                                         <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1000" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pjz-9r-El4">
                                             <rect key="frame" x="8" y="8" width="212" height="30"/>
@@ -923,13 +937,9 @@
                                 <rect key="frame" x="0.0" y="36" width="320" height="532"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="LaD-jU-gIG">
-                                <rect key="frame" x="150" y="274" width="20" height="20"/>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="LaD-jU-gIG">
+                                <rect key="frame" x="142" y="266" width="37" height="37"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="Hd6-3N-pBx"/>
-                                    <constraint firstAttribute="width" constant="50" id="oo5-Wr-CnJ"/>
-                                </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="keyPath">
@@ -941,15 +951,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="1G0-bt-CQy" firstAttribute="top" secondItem="2Sy-4i-n2u" secondAttribute="bottom" constant="16" id="0qQ-hI-5Hd"/>
-                            <constraint firstAttribute="centerY" secondItem="LaD-jU-gIG" secondAttribute="centerY" id="FGs-1q-EiL"/>
                             <constraint firstItem="1G0-bt-CQy" firstAttribute="leading" secondItem="azh-bz-uY9" secondAttribute="leadingMargin" constant="-16" id="Fso-We-9KI"/>
-                            <constraint firstAttribute="centerX" secondItem="LaD-jU-gIG" secondAttribute="centerX" id="M3V-a4-jIW"/>
                             <constraint firstItem="ybM-VA-lgc" firstAttribute="top" secondItem="Rqj-nq-6lh" secondAttribute="bottom" constant="293" id="ORs-S1-MIq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Rqj-nq-6lh" secondAttribute="trailing" constant="28" id="UHO-ko-gf8"/>
                             <constraint firstItem="ybM-VA-lgc" firstAttribute="top" secondItem="1G0-bt-CQy" secondAttribute="bottom" id="ZNA-Qd-xQm"/>
+                            <constraint firstAttribute="centerX" secondItem="LaD-jU-gIG" secondAttribute="centerX" id="atN-QI-mlG"/>
                             <constraint firstItem="Rqj-nq-6lh" firstAttribute="leading" secondItem="azh-bz-uY9" secondAttribute="leadingMargin" id="bnb-8L-GNV"/>
                             <constraint firstItem="Rqj-nq-6lh" firstAttribute="top" secondItem="2Sy-4i-n2u" secondAttribute="bottom" constant="17" id="nCD-cn-8Ux"/>
                             <constraint firstAttribute="trailingMargin" secondItem="1G0-bt-CQy" secondAttribute="trailing" constant="-16" id="sxQ-q6-5Nj"/>
+                            <constraint firstAttribute="centerY" secondItem="LaD-jU-gIG" secondAttribute="centerY" id="xLH-lG-Cad"/>
                         </constraints>
                     </view>
                     <connections>

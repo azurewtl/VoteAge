@@ -24,6 +24,7 @@ class VoteTableViewCell: UITableViewCell {
     
     @IBAction func userOnclick(sender: UIButton) {
         self.delegate?.sendNumber(num)
+        
     }
   
     @IBAction func contactUserOnclick(sender: UIButton) {
