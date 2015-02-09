@@ -73,8 +73,8 @@ class UserDetailTableViewController: UITableViewController {
 
     // MARK: - Subcribe Button
     
-    @IBAction func subscribeButton(sender: UIButton) {
-        print(relationship)
+    @IBAction func subscribeButton(sender: ActivityButton) {
+         sender.juhua.startAnimating()
         if sender.currentTitle == "关注" {
         sender.setTitle("取消关注", forState: UIControlState.Normal)
             haveContactImageView.hidden = false
@@ -86,6 +86,11 @@ class UserDetailTableViewController: UITableViewController {
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/subscribeContact") { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
+            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+               print("故障")
+            }else{
+                sender.juhua.stopAnimating()
+            }
         }
         
     }

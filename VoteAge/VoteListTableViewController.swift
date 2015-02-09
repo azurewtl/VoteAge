@@ -335,7 +335,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
-        cell.statusImageView.image = UIImage(named:"status_green")
+        cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)
         if voteArray.count > 0 {
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.num = indexPath.row
@@ -343,7 +343,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
             cell.voteTitle.text = voteItem["title"] as? NSString
             
             if voteItem["allowVote"] as Int == 0 {
-                cell.statusImageView.image = UIImage(named: "status_gray")
+                cell.statusImageView.backgroundColor = UIColor.grayColor()
             }
 
             if voteItem["authorName"] as NSString == "" {

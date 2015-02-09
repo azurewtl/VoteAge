@@ -9,19 +9,27 @@
 import UIKit
 import CoreData
 
-class ContactListTableViewController: UITableViewController{
+class ContactListTableViewController: UITableViewController, UISearchBarDelegate{
+    
+    
+    @IBOutlet var searchBar: UISearchBar!
+    var userdic = NSMutableDictionary()
+    var userarray = NSMutableArray()
     
     var selectedCell = NSDictionary() // store list of selected cell when composing new vote
     var initialArray = NSArray() // store sorted initial of all contacts
     var contactArray = NSMutableArray() // store sorted contact info corresponding to initialArray
-   var friendArray = NSMutableArray()//接口list
-    
+    var friendArray = NSMutableArray()//接口list
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        searchBar.resignFirstResponder()
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-//        print(NSTemporaryDirectory())
+        searchBar.delegate = self
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
         self.tabBarController?.tabBar.hidden = true
-        
+        tableView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         // Initialize data base
         let db = DataBaseHandle.shareInstance()
         db.openDB()
@@ -31,7 +39,7 @@ class ContactListTableViewController: UITableViewController{
 //        var data1 = NSData(contentsOfFile: path1!)
 //        var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
         
-        var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"10","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
+        var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"100","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
             print(result)
             print(result.valueForKey("message"))
@@ -40,6 +48,11 @@ class ContactListTableViewController: UITableViewController{
             }else if result.valueForKey("list") != nil {
                 
                 self.friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
+              
+                for index in 0...self.friendArray.count - 1 {
+                    self.userdic.setObject(self.friendArray.objectAtIndex(index)["userId"] as NSString, forKey: self.friendArray.objectAtIndex(index)["name"] as NSString)
+                }
+                self.userarray.addObject(self.userdic)
                 self.updateDataBaseAndInitialArray(self.friendArray)
                 // Update contactArray accroding to initalArray
                 for var i = 0; i < self.initialArray.count; i++  {
@@ -55,14 +68,27 @@ class ContactListTableViewController: UITableViewController{
         // test end
 
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - DataBase
+     // MARK: - Search Bar delegate
     
+    func searchBarShouldBeginEditing(searchBar: UISearchBar) -> Bool {
+     
+        var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var searchVc = storyboard.instantiateViewControllerWithIdentifier("search") as SearchViewController
+        
+        searchVc.searchArray = NSArray(array: userarray)
+        self.navigationController?.pushViewController(searchVc, animated: false)
+        
+        return true
+    }
+    
+    
+    // MARK: - update
     func updateDataBaseAndInitialArray(friendArray: NSArray){
         let db = DataBaseHandle.shareInstance()
         var initialSet = NSMutableSet()
@@ -103,7 +129,7 @@ class ContactListTableViewController: UITableViewController{
         }
     }
     
-    // MARK: - Search Bar
+   
     
     
     // MARK: - Table view data source
