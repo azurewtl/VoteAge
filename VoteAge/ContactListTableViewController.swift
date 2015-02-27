@@ -148,7 +148,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         // Configure the cell...
         var arname = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringname = arname.objectAtIndex(indexPath.row)["userName"] as NSString
-        cell.textLabel.text = stringname
+        cell.textLabel!.text = stringname
         var arId = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray;
         var stringId = arname.objectAtIndex(indexPath.row)["userID"] as NSString
         cell.detailTextLabel?.text = stringId
@@ -157,7 +157,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
         
         var url = NSURL(string: strimage)
-        cell.imageView.sd_setImageWithURL(url)
+        cell.imageView!.sd_setImageWithURL(url)
         return cell
         
     }

@@ -62,7 +62,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UITableViewDat
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("searchCell") as UITableViewCell
-        cell.textLabel.text = resultArray.objectAtIndex(indexPath.row) as NSString
+        cell.textLabel!.text = resultArray.objectAtIndex(indexPath.row) as NSString
         cell.detailTextLabel?.text = (searchArray.firstObject as NSDictionary).objectForKey(resultArray.objectAtIndex(indexPath.row) as NSString) as NSString
         return cell
     }

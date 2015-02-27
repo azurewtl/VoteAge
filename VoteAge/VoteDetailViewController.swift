@@ -533,7 +533,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "getUserInfo" {
             var targetCell = (sender!.superview! as UIView!).superview! as UITableViewCell
             var index = tableView.indexPathForCell(targetCell)
+         
+            if (commtArray.objectAtIndex(index!.row) as NSMutableDictionary).objectForKey("userName") as NSString == "" {
+                print(1)
+            }else {
             (segue.destinationViewController as UserDetailTableViewController).contactId = (commtArray.objectAtIndex(index!.row) as NSMutableDictionary).objectForKey("userId") as NSString
+            }
         }
         
     }

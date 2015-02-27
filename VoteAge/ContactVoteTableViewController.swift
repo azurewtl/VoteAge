@@ -152,6 +152,12 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        if tableView.respondsToSelector("setSeparatorInset:") {
+            tableView.separatorInset = UIEdgeInsetsZero
+        }
+        if tableView.respondsToSelector("setLayoutMargins:") {
+            tableView.layoutMargins = UIEdgeInsetsZero
+        }
         loadActivity.hidden = true
         tableView.tableHeaderView = UIView(frame: CGRectMake(0.1, 0.1, view.frame.width, 0.1))
         //        print(UIDevice.currentDevice().identifierForVendor.UUIDString)
@@ -236,6 +242,16 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         self.navigationController?.pushViewController(userDetailVc, animated: true)
     }
     // MARK: - Table View
+    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.respondsToSelector("setSeparatorInset:") {
+            tableView.separatorInset = UIEdgeInsetsZero
+        }
+        if tableView.respondsToSelector("setLayoutMargins:") {
+            tableView.layoutMargins = UIEdgeInsetsZero
+        }
+    }
+    
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1

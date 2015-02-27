@@ -130,6 +130,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                         var dic = ["tag":self.actionSheetTag,"longitude":self.longi.description, "latitude":self.lati.description, "accessToken":"", "userId":uid,"startIndex":self.startIndex.description,"endIndex":self.endIndex.description, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":self.pushrelationship] as NSDictionary
                         AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
 //                            print(result)
+                            
                             if result.objectForKey("message") as NSString == "网络出故障啦!" {
                                 print("网络故障")
                                 self.loadActivityView.stopAnimating()
@@ -201,6 +202,14 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //设置分割线左边到头
+        if tableView.respondsToSelector("setSeparatorInset:") {
+        tableView.separatorInset = UIEdgeInsetsZero
+        }
+        if tableView.respondsToSelector("setLayoutMargins:") {
+            tableView.layoutMargins = UIEdgeInsetsZero
+        }
+        
         loadActivityView.hidden = true
         activityIndicator.frame = CGRectMake(0, 150, 50, 50)
         activityIndicator.center.x = view.center.x
@@ -250,7 +259,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 if result.objectForKey("login") as Int == 0 {
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "userId")
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "accessToken")
-         
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "name")
                     NSUserDefaults.standardUserDefaults().setValue("", forKey: "image")
                     NSUserDefaults.standardUserDefaults().setValue(0, forKey: "gender")
@@ -270,7 +278,9 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         dispatch_group_notify(group, queue, {
             var dic = ["tag":flag,"longitude":longit, "latitude":latit, "accessToken":"", "userId":userid,"startIndex":"0","endIndex":"20", "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "relationship":relationship] as NSDictionary
             AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVoteList/") { (result) -> Void in
-//                print(result)
+                print("***")
+                print(result)
+                print("***")
                 if result.objectForKey("message") as NSString == "网络出故障啦!" {
                     print("网络故障")
                     self.activityIndicator.stopAnimating()
@@ -321,7 +331,14 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     
     }
     // MARK: - Table View
-    
+    override func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if tableView.respondsToSelector("setSeparatorInset:") {
+            tableView.separatorInset = UIEdgeInsetsZero
+        }
+        if tableView.respondsToSelector("setLayoutMargins:") {
+            tableView.layoutMargins = UIEdgeInsetsZero
+        }
+    }
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
@@ -332,7 +349,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         
         let cell = tableView.dequeueReusableCellWithIdentifier("voteCell", forIndexPath: indexPath) as VoteTableViewCell
         cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)
