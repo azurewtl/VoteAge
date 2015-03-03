@@ -28,7 +28,6 @@ class QRCodeViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     override func viewDidAppear(animated: Bool) {
         
         super.viewDidAppear(true)
-        self.tabBarController?.tabBar.hidden = false
         session.startRunning()
         line.frame = CGRectMake(50, 130, view.frame.width - 100, 3)
 //        line.backgroundColor = UIColor.greenColor()

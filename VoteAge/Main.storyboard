@@ -10,7 +10,7 @@
         <!--首页-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
-                <navigationController id="rS3-R9-Ivy" sceneMemberID="viewController">
+                <navigationController hidesBottomBarWhenPushed="YES" id="rS3-R9-Ivy" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="首页" image="first" id="xuk-T8-Qnj"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
@@ -26,7 +26,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="453" y="60"/>
+            <point key="canvasLocation" x="421" y="20"/>
         </scene>
         <!--全部-->
         <scene sceneID="VgW-fR-Quf">
@@ -55,7 +55,7 @@
                             </constraints>
                         </view>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="voteCell" rowHeight="100" id="m0d-ak-lc9" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="votecell" rowHeight="100" id="m0d-ak-lc9" customClass="VoteTableViewCell" customModule="VoteAge" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="86" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m0d-ak-lc9" id="d3P-M7-ByW">
@@ -137,6 +137,10 @@
                             </tableViewCell>
                         </prototypes>
                         <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="pGg-6v-bdr" id="AfX-4Z-qHq"/>
+                            <outlet property="delegate" destination="pGg-6v-bdr" id="qJn-gI-YhF"/>
+                        </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="全部" id="tQt-TN-PWz">
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI">
@@ -151,7 +155,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="854" y="57"/>
+            <point key="canvasLocation" x="1394" y="28"/>
         </scene>
         <!--User Detail Table View Controller-->
         <scene sceneID="6tZ-Bi-EGg">
@@ -339,7 +343,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1863" y="834"/>
+            <point key="canvasLocation" x="2431" y="954"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
@@ -380,7 +384,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2197" y="47"/>
+            <point key="canvasLocation" x="2901" y="423"/>
         </scene>
         <!--Makeqrc View Controller-->
         <scene sceneID="Gwi-fr-7rU">
@@ -427,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ST9-go-H4T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1519" y="-612"/>
+            <point key="canvasLocation" x="1026" y="-696"/>
         </scene>
         <!--Vote Detail View Controller-->
         <scene sceneID="dch-wu-VKO">
@@ -684,9 +688,6 @@
                                                     <state key="normal" title="userName">
                                                         <color key="titleColor" red="0.51391780369999995" green="0.46104599559999998" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     </state>
-                                                    <connections>
-                                                        <segue destination="1NT-h6-jRF" kind="push" identifier="getUserInfo" id="8xi-9P-nrj"/>
-                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" tag="102" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hsp-Hv-MNm">
                                                     <rect key="frame" x="8" y="38" width="304" height="21"/>
@@ -748,7 +749,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1519" y="47"/>
+            <point key="canvasLocation" x="1979" y="28"/>
         </scene>
         <!--关注-->
         <scene sceneID="fkt-CA-BMg">
@@ -769,15 +770,15 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YLl-mg-8hZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="756"/>
+            <point key="canvasLocation" x="-1206" y="-392"/>
         </scene>
         <!--Tabbar Controller-->
         <scene sceneID="Qce-eb-XAR">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="660-7C-4iM" customClass="TabbarController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController hidesBottomBarWhenPushed="YES" id="660-7C-4iM" customClass="TabbarController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="MQh-rV-LLw">
+                    <tabBar key="tabBar" contentMode="scaleToFill" itemPositioning="centered" itemSpacing="160" itemWidth="40" id="MQh-rV-LLw">
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <userDefinedRuntimeAttributes>
@@ -788,14 +789,12 @@
                     </tabBar>
                     <connections>
                         <segue destination="rS3-R9-Ivy" kind="relationship" relationship="viewControllers" id="yGT-nh-E4A"/>
-                        <segue destination="S6W-LG-0Ru" kind="relationship" relationship="viewControllers" id="092-K3-dnK"/>
-                        <segue destination="Wr0-9c-Iej" kind="relationship" relationship="viewControllers" id="Wov-Uv-7B3"/>
                         <segue destination="eAs-K5-hih" kind="relationship" relationship="viewControllers" id="lSu-i4-B9G"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bs7-9M-M7q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-405" y="732"/>
+            <point key="canvasLocation" x="-197" y="750"/>
         </scene>
         <!--关注-->
         <scene sceneID="93J-vX-Cxb">
@@ -873,12 +872,10 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <connections>
                                     <outlet property="voteAuthor" destination="pjz-9r-El4" id="UR7-Wh-h4f"/>
                                     <outlet property="voteImage" destination="REd-yQ-cDZ" id="W7F-dw-0fc"/>
                                     <outlet property="voteTitle" destination="aCW-o1-L03" id="Q37-4A-ug3"/>
-                                    <segue destination="A6m-Tk-UQa" kind="push" identifier="contactVoteDetail" id="oO6-sd-y4b"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -897,7 +894,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DAT-DF-cO3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="854" y="756"/>
+            <point key="canvasLocation" x="-806" y="-392"/>
         </scene>
         <!--二维码-->
         <scene sceneID="ENt-rh-KRR">
@@ -916,7 +913,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sl8-PK-UiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="854" y="1459"/>
+            <point key="canvasLocation" x="-794" y="255"/>
         </scene>
         <!--Web View View Controller-->
         <scene sceneID="UCF-Z4-iHO">
@@ -972,7 +969,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ueR-mi-cpY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1239" y="1443"/>
+            <point key="canvasLocation" x="-1157" y="979"/>
         </scene>
         <!--我-->
         <scene sceneID="VCD-YV-Ny9">
@@ -1042,9 +1039,6 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="tEt-l1-TGs" kind="push" identifier="newvote" id="HAr-8C-xVZ"/>
-                                        </connections>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1154,7 +1148,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dnU-nt-6Js" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="975" y="2181"/>
+            <point key="canvasLocation" x="965" y="1485"/>
         </scene>
         <!--我的关注-->
         <scene sceneID="ADj-fZ-5Xh">
@@ -1314,11 +1308,42 @@
         <!--发起投票-->
         <scene sceneID="34t-TQ-Byp">
             <objects>
-                <tableViewController id="tEt-l1-TGs" customClass="NewVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="newVote" id="tEt-l1-TGs" customClass="NewVoteTableViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="R30-3n-G58">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="fBs-RS-7hZ">
+                            <rect key="frame" x="0.0" y="471" width="320" height="52"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMI-sL-RZg">
+                                    <rect key="frame" x="96" y="14" width="46" height="30"/>
+                                    <state key="normal" title="发起">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskstoBounds" value="YES"/>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                            <integer key="value" value="5"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="sendVoteOnclick:" destination="tEt-l1-TGs" eventType="touchUpInside" id="h4c-aA-Jyl"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-vE-w07">
+                                    <rect key="frame" x="181" y="14" width="46" height="30"/>
+                                    <state key="normal" title="取消">
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="cancelOnclick:" destination="tEt-l1-TGs" eventType="touchUpInside" id="rrh-Lf-vvb"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        </view>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteTitleCell" rowHeight="100" id="iLS-Bc-LW0">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -1468,51 +1493,13 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="NewVoteAddCell" rowHeight="77" id="4ad-3x-t9w">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4ad-3x-t9w" id="Q2t-FE-tVe">
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="101" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="lzd-tr-vig">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="69"/>
-                                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="7hc-I7-KYU">
-                                                <size key="itemSize" width="50" height="50"/>
-                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                            </collectionViewFlowLayout>
-                                            <cells>
-                                                <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="NG5-fj-P8N">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                                        <autoresizingMask key="autoresizingMask"/>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    </view>
-                                                    <connections>
-                                                        <segue destination="kLs-jY-tF5" kind="push" identifier="contact" id="Jtg-IW-Xz3"/>
-                                                    </connections>
-                                                </collectionViewCell>
-                                            </cells>
-                                        </collectionView>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="lzd-tr-vig" firstAttribute="top" secondItem="Q2t-FE-tVe" secondAttribute="topMargin" id="9Pi-Pw-7l9"/>
-                                        <constraint firstItem="lzd-tr-vig" firstAttribute="leading" secondItem="Q2t-FE-tVe" secondAttribute="leadingMargin" id="S82-U6-i2U"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="lzd-tr-vig" secondAttribute="bottom" id="Xi3-1d-4oL"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="lzd-tr-vig" secondAttribute="trailing" id="tJB-dj-xmx"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="tEt-l1-TGs" id="v7U-hN-Nlx"/>
                             <outlet property="delegate" destination="tEt-l1-TGs" id="5ne-Yc-sfq"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="g2Z-Y2-wlJ"/>
                     <navigationItem key="navigationItem" title="发起投票" id="T3z-Yx-p25">
                         <barButtonItem key="rightBarButtonItem" title="发起" id="PHT-Mm-29X">
                             <color key="tintColor" red="0.5" green="0.0" blue="0.5" alpha="1" colorSpace="calibratedRGB"/>
@@ -1527,12 +1514,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1479" y="2696"/>
+            <point key="canvasLocation" x="421" y="750"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eAs-K5-hih" sceneMemberID="viewController">
+                <navigationController hidesBottomBarWhenPushed="YES" id="eAs-K5-hih" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="3" title="我" image="me" id="26a-k9-QGp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
@@ -1550,7 +1537,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXi-OV-8MS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="437" y="2181"/>
+            <point key="canvasLocation" x="427" y="1485"/>
         </scene>
         <!--扫一扫-->
         <scene sceneID="u0h-Ph-MV2">
@@ -1573,7 +1560,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE6-XJ-bxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="454" y="1459"/>
+            <point key="canvasLocation" x="-1194" y="255"/>
         </scene>
         <!--Me Detail Table View Controller-->
         <scene sceneID="Pi0-KS-fDb">
@@ -1702,7 +1689,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="g0p-nN-kIH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1679" y="1449"/>
+            <point key="canvasLocation" x="1635" y="1485"/>
         </scene>
         <!--Item-->
         <scene sceneID="g7N-YT-fur">
@@ -1951,10 +1938,8 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="oO6-sd-y4b"/>
-        <segue reference="8xi-9P-nrj"/>
+        <segue reference="xeh-Fx-dGB"/>
         <segue reference="EJ0-02-a7H"/>
-        <segue reference="Jtg-IW-Xz3"/>
-        <segue reference="zDq-fi-hlT"/>
+        <segue reference="6Kq-Af-4k6"/>
     </inferredMetricsTieBreakers>
 </document>

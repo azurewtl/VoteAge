@@ -21,3 +21,4 @@
 #import <UIKit/UIKit.h>
 #import "BlurImageView.h"
 #import "QRCodeGenerator.h"
+#import "AutoScrollView.h"

@@ -63,7 +63,7 @@ class UserDetailTableViewController: UITableViewController {
             
         }
         }
-        self.tabBarController?.tabBar.hidden = true
+        
         
     }
     override func didReceiveMemoryWarning() {

@@ -9,12 +9,35 @@
 import UIKit
 
 class TabbarController: UITabBarController, UITabBarControllerDelegate{
-     var userDefault = NSUserDefaults.standardUserDefaults()
+    var userDefault = NSUserDefaults.standardUserDefaults()
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.delegate = self
+  
+        var addBtn = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        addBtn.frame = CGRectMake(0, 0, 80, 80)
+        addBtn.backgroundColor = UIColor.grayColor()
+        addBtn.layer.masksToBounds = true
+        addBtn.layer.cornerRadius = 40
+        addBtn.center = tabBar.center
+        self.view.addSubview(addBtn)
+        addBtn.addTarget(self, action: "onclick:", forControlEvents: UIControlEvents.TouchUpInside)
+        var addimageView = UIImageView(frame: CGRectMake(0, 0, 60, 60))
+        addimageView.center = addBtn.center
+        addimageView.layer.masksToBounds = true
+        addimageView.layer.cornerRadius = 30
+        addimageView.backgroundColor = UIColor.whiteColor()
+        addimageView.image = UIImage(named: "plus")
+        self.view.addSubview(addimageView)
+        self.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "noti:", name: "logout", object: nil)
         // Do any additional setup after loading the view.
+    }
+    func onclick(click:UIButton) {
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var newvoteVc = storyBoard.instantiateViewControllerWithIdentifier("newVote") as NewVoteTableViewController
+        self.presentViewController(newvoteVc, animated: true) { () -> Void in
+            
+        }
     }
     func noti(noti:NSNotification) {
         if (noti.userInfo! as NSDictionary).objectForKey("logout") as NSString == "1" {

@@ -66,10 +66,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         print(coord.longitude)
         manager.stopUpdatingLocation()
     }
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(true)
-        self.tabBarController?.tabBar.hidden = false
-    }
+
     override func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         dragImageView.hidden = false
         dragImageView.image = UIImage(named:"dragUp")
@@ -249,6 +246,9 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         }
         if tableView.respondsToSelector("setLayoutMargins:") {
             tableView.layoutMargins = UIEdgeInsetsZero
+        }
+        if cell.respondsToSelector("setLayoutMargins:") {
+            cell.layoutMargins = UIEdgeInsetsZero
         }
     }
     

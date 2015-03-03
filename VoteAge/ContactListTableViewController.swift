@@ -28,7 +28,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         super.viewDidLoad()
         searchBar.delegate = self
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
-        self.tabBarController?.tabBar.hidden = true
+      
         tableView.backgroundColor = UIColor.groupTableViewBackgroundColor()
         // Initialize data base
         let db = DataBaseHandle.shareInstance()

@@ -24,12 +24,18 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var optionTagArray = NSMutableArray()
     
     @IBOutlet var sendButton: UIBarButtonItem!
-    @IBAction func sendVote(sender: UIBarButtonItem) {
-        sendButton.title = "正在发送.."
-        updateLocation(locationManager)
+    
+    @IBAction func cancelOnclick(sender: UIButton) {
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+            
+        })
+    }
+    @IBAction func sendVoteOnclick(sender: UIButton) {
+//        sender.setTitle("...", forState: UIControlState.Normal)
+        sendMessage()
         sender.enabled = false
     }
-       // 发送的内容function
+ //MARK: -发送的内容function
     func  sendMessage() {
         let titlecell = tableView.cellForRowAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as UITableViewCell?
         
@@ -50,9 +56,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             var encodeStr1 = data1.base64EncodedStringWithOptions(nil)
             var dic = NSMutableDictionary()
             if optionTitle.text != "" {
-                dic.setObject(optionTitle.text, forKey: "option")
+                dic.setObject(optionTitle.text, forKey: "title")
                 if imageview.image == UIImage(named: "dummyImage") {
-                 dic.setObject("", forKey: "image")
+//                 dic.setObject("", forKey: "image")
                     optionArray.addObject(dic)
                 }else {
                 dic.setObject(encodeStr1, forKey: "image")
@@ -66,28 +72,32 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         var selectPicker = pickerArray.objectAtIndex(picker.selectedRowInComponent(0)) as NSString
         var date = NSDate(timeIntervalSinceNow: (8 + selectPicker.doubleValue * 24) * 60 * 60)
         var dateArray = date.description.componentsSeparatedByString(" ") as NSArray
-        var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":optionArray,"latitude":latitude,"longitude":longitude,"expireDate":dateArray.firstObject as NSString,"accessToken":tokenDefult.valueForKey("accessToken") as NSString,"allowComment":1] as NSDictionary
-        
-        if (senddic["title"] as NSString != "") {
-            AFnetworkingJS.uploadJson(senddic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/voteAdd") { (result) -> Void in
+//        var senddic = ["title":titleTextView.text, "voteImage":encodeStr,"option":optionArray,"latitude":latitude,"longitude":longitude,"expireDate":dateArray.firstObject as NSString,"accessToken":tokenDefult.valueForKey("accessToken") as NSString,"allowComment":1] as NSDictionary
+        var sendDic = NSDictionary()
+        if encodeStr == "" {
+        sendDic = ["title":titleTextView.text,  "allowVote":true, "allowComment":true,  "option":optionArray]
+        }else {
+           sendDic = ["title":titleTextView.text, "image":encodeStr, "allowVote":true, "allowComment":true,  "option":optionArray]
+        }
+//        print(sendDic)
+        if (sendDic["title"] as NSString != "") {
+            var str = "http://voteage.com:8000/api/votes/"
+            AFnetworkingJS.uploadJson(sendDic, url: str) { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
-                if result.valueForKey("message") as NSString == "网络出故障啦!" {
+                if result.valueForKey("message")  != nil {
                     print("网络故障")
                     self.sendButton.enabled = true
                     self.sendButton.title = "发送"
                 }else {
-                if result.valueForKey("status") as Int == 1 {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     self.sendButton.enabled = true
                     self.sendButton.title = "发送"
                     alert.show()
-                }else {
-                    var alert = UIAlertView(title: "", message: "请重新登录", delegate: nil, cancelButtonTitle: "重发")
-                    self.sendButton.enabled = true
-                    self.sendButton.title = "发送"
-                    alert.show()
-                }
+                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        
+                    })
+                
             }
             }
         }else{
@@ -102,20 +112,20 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     
     // MARK: - 定位
-    func updateLocation(locationManager: CLLocationManager) {
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 100.0
-        locationManager.delegate = self
-        if UIDevice.currentDevice().systemVersion >= "8.0" {
-            locationManager.requestWhenInUseAuthorization()
-        }
-        locationManager.startUpdatingLocation()
-    }
-    
-    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
-        print(error)
-        sendMessage()
-    }
+//    func updateLocation(locationManager: CLLocationManager) {
+//        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        locationManager.distanceFilter = 100.0
+//        locationManager.delegate = self
+//        if UIDevice.currentDevice().systemVersion >= "8.0" {
+//            locationManager.requestWhenInUseAuthorization()
+//        }
+//        locationManager.startUpdatingLocation()
+//    }
+//    
+//    func locationManager(manager: CLLocationManager!, didFailWithError error: NSError!) {
+//        print(error)
+//        sendMessage()
+//    }
     func locationManager(manager: CLLocationManager!, didUpdateLocations locations: [AnyObject]!) {
         var loc = locations.last as CLLocation
         var coord = loc.coordinate
@@ -159,7 +169,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         optionArray.removeAllObjects()
         sendButton.enabled = true
         sendButton.title = "发送"
-        self.tabBarController?.tabBar.hidden = true
+        
     }
     
     func tap(sender:UITapGestureRecognizer) {

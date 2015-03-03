@@ -37,7 +37,7 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         userNickName.text = tokenDefult.objectForKey("name") as? NSString
         userDescription.text = tokenDefult.objectForKey("description") as? NSString
         userNickName.delegate = self
-        self.tabBarController?.tabBar.hidden = true
+       
         self.userImage.layer.masksToBounds = true
         self.userImage.layer.cornerRadius = self.userImage.frame.width / 2
         userDescription.delegate = self

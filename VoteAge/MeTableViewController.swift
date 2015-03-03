@@ -52,7 +52,7 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        self.tabBarController?.tabBar.hidden = false
+        
      
     }
 

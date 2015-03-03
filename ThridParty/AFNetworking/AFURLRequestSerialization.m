@@ -242,6 +242,7 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
 
 - (void)setAuthorizationHeaderFieldWithToken:(NSString *)token {
     [self setValue:[NSString stringWithFormat:@"Token token=\"%@\"", token] forHTTPHeaderField:@"Authorization"];
+  
 }
 
 - (void)clearAuthorizationHeader {

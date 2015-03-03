@@ -21,8 +21,8 @@
         id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
         block(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSString *result = @"0";
-        block(result);
+        NSDictionary *dic = @{@"message": @"网络出故障啦!"};
+        block(dic);
     }];
             NSOperationQueue *queue = [[NSOperationQueue alloc] init];
             [queue addOperation:operation];
@@ -41,16 +41,18 @@
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     //申明请求的数据是json类型
     manager.requestSerializer=[AFJSONRequestSerializer serializer];
+//    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:@"Bearer FxIw9HMBZ7hexur3ime1vLd427Ujax"];
+    [manager.requestSerializer setValue:@"Bearer FxIw9HMBZ7hexur3ime1vLd427Ujax" forHTTPHeaderField:@"Authorization"];
     //如果报接受类型不一致请替换一致text/html或别的
+    NSLog(@"%@", [manager.requestSerializer HTTPRequestHeaders]);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
-
     //传入的参数
     NSDictionary *parameters = dic;
     //你的接口地址
     NSString *url= url1;
    
     //发送请求
-
+   
     [manager POST:url parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
 //        NSLog(@"JSON: %@", responseObject);
 //        NSLog(@"%@",[responseObject valueForKey:@"message"]);
