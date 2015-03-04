@@ -235,7 +235,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
         var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
         let voteFeed = voteArray[num] as NSDictionary
-        userDetailVc.contactId = voteFeed["authorId"] as NSString
+//        userDetailVc.contactId = voteFeed["authorId"] as NSString
         self.navigationController?.pushViewController(userDetailVc, animated: true)
     }
     // MARK: - Table View

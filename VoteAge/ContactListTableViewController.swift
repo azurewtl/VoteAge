@@ -232,7 +232,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
             var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
             let cell = tableView.cellForRowAtIndexPath(indexPath)
             print(friendArray.objectAtIndex(indexPath.row)["userId"] as NSString)
-            (segue.destinationViewController as UserDetailTableViewController).contactId = (cell?.detailTextLabel?.text as NSString!)
+            (segue.destinationViewController as UserDetailTableViewController).contactId = (cell?.detailTextLabel?.text as NSString!).integerValue
         }
     }
     

@@ -48,30 +48,6 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         super.awakeFromNib()
         
     }
-
-//    func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
-//        if buttonIndex == 1 {
-//        actionSheetTag = 1
-//        self.activityIndicator.startAnimating()
-//        updateLocation(locationManager)
-//        self.title = "附近"
-//        }
-//        if buttonIndex == 2 {
-//            actionSheetTag = 2
-//           self.title = "热点"
-//            self.activityIndicator.startAnimating()
-//            if self.tabBarController?.selectedIndex == 0 {
-//            refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:"", relationship:0)
-//            }
-//            if pushrelationship == 0 {
-//                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:pushuserId,relationship:0)
-//            }
-//            if pushrelationship == 2 {
-//                refresh(1, longit: "", latit: "", startindex:"0", endindex:"20", userid:NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,relationship:2)
-//            }
-//
-//        }
-//    }
    
  
     func updateLocation(locationManager: CLLocationManager) {
@@ -237,6 +213,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.grayColor()
         sheetView.addSubview(collectionView)
+    
         collectionView.registerClass(VoteListCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "reuse")
         //轮播图
         newScroll = AutoScrollView(frame: CGRectMake(0, 0, collectionView.frame.width, collectionView.frame.height  - collectionView.frame.width - 100))

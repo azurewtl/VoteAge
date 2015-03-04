@@ -127,7 +127,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
              if (result as NSDictionary).objectForKey("message") == nil {
             self.tokenDefult.setValue(NSString(format: "Bearer %@", result.valueForKey("access_token") as NSString), forKey: "accessToken")
                 self.tokenDefult.setValue(self.genderIndex, forKey: "gender")
-                self.tokenDefult.setValue("7", forKey: "userId")
+//                self.tokenDefult.setValue("7", forKey: "userId")
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
                     
                 })

@@ -12,28 +12,40 @@
 @implementation AFnetworkingJS
 -(void)getDataWithURL:(NSString *)urlStr resultBlock:(void (^)(id))block{
     NSString *urlRequest = [urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    NSURL *url = [NSURL URLWithString:urlRequest];
-    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
-    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *html = operation.responseString;
-        NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
-        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
-        block(result);
+//    NSURL *url = [NSURL URLWithString:urlRequest];
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//
+//    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc]initWithRequest:request];
+//    
+//    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        NSString *html = operation.responseString;
+//        NSData *data = [html dataUsingEncoding:NSUTF8StringEncoding];
+//        id result = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:nil];
+//        block(result);
+//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//        NSDictionary *dic = @{@"message": @"网络出故障啦!"};
+//        block(dic);
+//    }];
+//            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+//            [queue addOperation:operation];
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"] forHTTPHeaderField:@"Authorization"];
+    [manager GET:urlRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(responseObject);
+        NSLog(@"JSON: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
         NSDictionary *dic = @{@"message": @"网络出故障啦!"};
         block(dic);
     }];
-            NSOperationQueue *queue = [[NSOperationQueue alloc] init];
-            [queue addOperation:operation];
-    
 }
 +(void)netWorkWithURL:(NSString *)urlStr resultBlock:(void (^)(id))block{
     
     AFnetworkingJS *js = [[AFnetworkingJS alloc]init];
     [js getDataWithURL:urlStr resultBlock:block];
 
-    
 }
 - (void)upJson:(NSDictionary *)dic url:(NSString *)url1 resultBlock:(void (^)(id))block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];

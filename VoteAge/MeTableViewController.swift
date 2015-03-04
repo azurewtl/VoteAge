@@ -19,33 +19,35 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        var dic = ["userId":tokenDefult.objectForKey("userId") as NSString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
-//        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
-//            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-//               print(result.valueForKey("message"))
-//            }else if result.valueForKey("list") != nil {
-//              self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
-//            }
-//        })
         var str = tokenDefult.objectForKey("placeholderImage") as NSString
         var data = NSData(base64EncodedString: str, options: nil)
         var placeimg = UIImage(data: data!)
-//        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
-//        meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
-//        meNicLabel.text = tokenDefult.objectForKey("name") as NSString
-//        meUserIdLabel.text = tokenDefult.objectForKey("userId") as NSString
-     AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/7/", resultBlock: { (result) -> Void in
-        if (result as NSDictionary).objectForKey("message") == nil {
-            if result.objectForKey("image")! as? NSString != nil {
-               var url = NSURL(string: result.objectForKey("image") as NSString)
-            self.meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
-            }
-            self.meNicLabel.text = result.objectForKey("nickname") as NSString
-            self.meUserIdLabel.text = self.tokenDefult.objectForKey("userId") as NSString
+        meNicLabel.text = tokenDefult.objectForKey("name") as NSString
+        meUserIdLabel.text = tokenDefult.objectForKey("userId") as NSString
+        if tokenDefult.objectForKey("image")! as? NSString != nil {
+                var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
+                meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
         }else {
-            print("error")
+            self.meHeaderImage.image = UIImage(named: "dummyImage")
         }
-     })
+        AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/myAccount/", resultBlock: { (result) -> Void in
+            if (result as NSDictionary).objectForKey("message") == nil {
+                if result.objectForKey("image")! as? NSString != nil {
+                    var url = NSURL(string: result.objectForKey("image") as NSString)
+                    self.tokenDefult.setValue(result["image"] as NSString, forKey: "image")
+                    self.meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+                }else {
+                    self.meHeaderImage.image = UIImage(named: "dummyImage")
+                }
+                self.meNicLabel.text = result.objectForKey("nickname") as NSString
+                self.meUserIdLabel.text = String(result["id"] as Int)
+                self.tokenDefult.setValue(String(result["id"] as Int), forKey: "userId")
+                self.tokenDefult.setValue(result["nickname"] as NSString, forKey: "name")
+                
+            }else {
+                print("error")
+            }
+        })
     }
      func sendbackInfo(str: NSString, img: UIImage) {
         meHeaderImage.image = img
@@ -113,11 +115,11 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
             (segue.destinationViewController as MeDetailTableViewController).delegate = self
         }
         if segue.identifier == "sendVote" {
-            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 0
-            (segue.destinationViewController as VoteListTableViewController).pushuserId = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
+            (segue.destinationViewController as VoteListViewController).pushrelationship = 0
+            (segue.destinationViewController as VoteListViewController).pushuserId = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
         }
         if segue.identifier == "hasVote" {
-            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 2
+            (segue.destinationViewController as VoteListViewController).pushrelationship = 2
         }
         
     }

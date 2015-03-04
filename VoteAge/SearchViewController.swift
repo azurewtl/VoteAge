@@ -70,7 +70,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate,UITableViewDat
         if segue.identifier == "search" {
             let indexpath = tableView.indexPathForSelectedRow()
             let cell = tableView.cellForRowAtIndexPath(indexpath!) as UITableViewCell?
-            (segue.destinationViewController as UserDetailTableViewController).contactId = cell!.detailTextLabel!.text!
+            (segue.destinationViewController as UserDetailTableViewController).contactId = ((cell!.detailTextLabel!.text!) as NSString).integerValue
         }
     }
     /*

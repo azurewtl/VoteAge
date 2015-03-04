@@ -140,6 +140,7 @@
 		1893CE151A84911000002B08 /* SingleLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893CE141A84911000002B08 /* SingleLineTableViewCell.swift */; };
 		1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
+		18B212D01AA6A2940068C93D /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212CF1AA6A2940068C93D /* VoteListViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
 		18CDC0211AA48F57008EFF09 /* gloable.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18CDC01E1AA48F57008EFF09 /* gloable.jpg */; };
 		18CDC0221AA48F57008EFF09 /* tiger.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 18CDC01F1AA48F57008EFF09 /* tiger.jpg */; };
@@ -363,6 +364,7 @@
 		1893CE141A84911000002B08 /* SingleLineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLineTableViewCell.swift; sourceTree = "<group>"; };
 		1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVoteTableViewController.swift; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
+		18B212CF1AA6A2940068C93D /* VoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		18CDC01E1AA48F57008EFF09 /* gloable.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = gloable.jpg; sourceTree = "<group>"; };
 		18CDC01F1AA48F57008EFF09 /* tiger.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = tiger.jpg; sourceTree = "<group>"; };
@@ -882,8 +884,7 @@
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
 				18EDD6E21A5D1E6C00C796EC /* TabbarController.swift */,
-				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
-				1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */,
+				18B212CF1AA6A2940068C93D /* VoteListViewController.swift */,
 				18623D881A172DB500BC44F1 /* QRCodeViewController.swift */,
 				188CB4B21A7229F00039734A /* MakeqrcViewController.swift */,
 				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
@@ -899,6 +900,8 @@
 				188CB4B41A72321E0039734A /* WebViewViewController.swift */,
 				185255791A887DBE006C6F78 /* SearchViewController.swift */,
 				183A68881A774FB7000FC249 /* Main.storyboard */,
+				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
+				1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
 				BB72085E1A0B600100A97FCD /* LaunchScreen.xib */,
@@ -1111,6 +1114,7 @@
 				184BB4411A1C54BE006DF06C /* AFNetworkReachabilityManager.m in Sources */,
 				1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */,
 				18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */,
+				18B212D01AA6A2940068C93D /* VoteListViewController.swift in Sources */,
 				184BB4451A1C54BE006DF06C /* AFURLResponseSerialization.m in Sources */,
 				188CB4AD1A7227B10039734A /* rscode.c in Sources */,
 				188CB4A91A7227B10039734A /* mask.c in Sources */,

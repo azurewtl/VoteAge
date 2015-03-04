@@ -20,49 +20,55 @@ class UserDetailTableViewController: UITableViewController {
     @IBOutlet weak var authorName: UILabel!
     @IBOutlet weak var authorID: UILabel!
     @IBOutlet weak var subscribeButton: UIButton!
-    var contactId = NSString()
+    var contactId = Int()
     var relationship = 0
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         self.haveContactImageView.hidden = true
         var contactDic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "contactId":contactId, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(contactDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getUserInfo") { (result) -> Void in
-            print(result)
-            print(result.objectForKey("message"))
-            if result.objectForKey("message") as NSString == "网络出故障啦!" {
-                print("网络故障")
-            }else {
-            if result.valueForKey("status") as Int == 1 {
-            var dic = result.valueForKey("list") as NSDictionary
-            self.authorName.text = dic["name"] as NSString
-            var url = NSURL(string: dic["image"] as NSString)
-            self.authorImage.sd_setImageWithURL(url)
-            self.authorID.text = dic["userId"] as NSString
-            if dic["gender"] as Int == 1 {
-                self.authorgender.text = "男"
-            }else{
-                self.authorgender.text = "女"
-            }
-            self.simpleintroduce.text = dic["description"] as NSString
-            if dic["relationship"] as Int == 0 || dic["relationship"] as Int == 2 {
-                self.relationship = 1
-                self.subscribeButton.setTitle("关注", forState: UIControlState.Normal)
-                self.haveContactImageView.hidden = true
-            }else {
-                self.relationship = 2
-                 self.subscribeButton.setTitle("取消关注", forState: UIControlState.Normal)
-                self.haveContactImageView.hidden = false
-            }
-            if self.authorID.text == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
-                self.subscribeButton.hidden = true
-            }
+        var urlStr = NSString(format: "http://voteage.com:8000/api/users/%d/", contactId)
+        AFnetworkingJS.netWorkWithURL(urlStr, resultBlock: { (result) -> Void in
+            if (result as NSDictionary).objectForKey("message") == nil {
+                if result["nickname"] as NSString == ""{
+                    self.authorName.text = "游客"
+                }else {
+                self.authorName.text = result["nickname"] as NSString
+                }
+                if result["image"]! as? NSString != nil {
+                var url = NSURL(string:  NSString(format: "http://voteage.com:8000/%@", result["image"] as NSString))
+                self.authorImage.sd_setImageWithURL(url)
+                }else {
+                 self.authorImage.image = UIImage(named: "dummyImage")
+                }
+                self.authorID.text = String((result["id"] as Int))
+                if result["gender"] as Int == 1 {
+                    self.authorgender.text = "男"
+                }else{
+                    self.authorgender.text = "女"
+                }
+//                self.simpleintroduce.text = result["description"] as NSString
+                if result["relationship"] as Int == 0 || result["relationship"] as Int == 2 {
+                    self.relationship = 1
+                    self.subscribeButton.setTitle("关注", forState: UIControlState.Normal)
+                    self.haveContactImageView.hidden = true
+                }else {
+                    self.relationship = 2
+                    self.subscribeButton.setTitle("取消关注", forState: UIControlState.Normal)
+                    self.haveContactImageView.hidden = false
+                }
+                if self.authorID.text == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
+                    self.subscribeButton.hidden = true
+                    self.haveContactImageView.hidden = true
+                    self.title = "自己"
+                }
+
+                
             }else {
                 print("error")
             }
-            
-        }
-        }
+        
+        })
+
         
         
     }
@@ -75,23 +81,36 @@ class UserDetailTableViewController: UITableViewController {
     
     @IBAction func subscribeButton(sender: ActivityButton) {
          sender.juhua.startAnimating()
+        var urlStr = NSString()
         if sender.currentTitle == "关注" {
-        sender.setTitle("取消关注", forState: UIControlState.Normal)
-            haveContactImageView.hidden = false
+            urlStr = NSString(format: "http://voteage.com:8000/api/users/%d/subscribe/", contactId)
+            AFnetworkingJS.uploadJson(nil, url: urlStr) { (result) -> Void in
+                print(result)
+                if (result as NSDictionary).objectForKey("message") == nil {
+                    sender.juhua.stopAnimating()
+                    sender.setTitle("取消关注", forState: UIControlState.Normal)
+                    self.haveContactImageView.hidden = false
+                }else{
+                    sender.juhua.stopAnimating()
+                    print("故障")
+                }
+            }
+       
         }else {
-            sender.setTitle("关注", forState: UIControlState.Normal)
-            haveContactImageView.hidden = true
-        }
-        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString,"contactId":authorID.text!, "relationship":relationship,"accessToken":((NSUserDefaults.standardUserDefaults()).objectForKey("accessToken")) as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/subscribeContact") { (result) -> Void in
-            print(result)
-            print(result.valueForKey("message"))
-            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-               print("故障")
-            }else{
-                sender.juhua.stopAnimating()
+            urlStr = NSString(format: "http://voteage.com:8000/api/users/%d/unsubscribe/", contactId)
+            AFnetworkingJS.uploadJson(nil, url: urlStr) { (result) -> Void in
+                print(result)
+                if (result as NSDictionary).objectForKey("message") == nil {
+                    sender.juhua.stopAnimating()
+                    sender.setTitle("关注", forState: UIControlState.Normal)
+                    self.haveContactImageView.hidden = true
+                }else{
+                    sender.juhua.stopAnimating()
+                    print("故障")
+                }
             }
         }
+   
         
     }
     
@@ -115,8 +134,8 @@ class UserDetailTableViewController: UITableViewController {
             (segue.destinationViewController as ImageViewController).imgCount = -1
         }
         if segue.identifier == "userVote" {
-            (segue.destinationViewController as VoteListTableViewController).pushrelationship = 0
-            (segue.destinationViewController as VoteListTableViewController).pushuserId = authorID.text!
+            (segue.destinationViewController as VoteListViewController).pushrelationship = 0
+            (segue.destinationViewController as VoteListViewController).pushuserId = authorID.text!
         }
     }
 }
