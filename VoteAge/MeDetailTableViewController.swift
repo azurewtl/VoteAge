@@ -118,28 +118,27 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         var img = userImage.image
         var data = UIImageJPEGRepresentation(img, 0.7)
         var encodeStr = data.base64EncodedStringWithOptions(nil)
-        var dic1 = ["gender":genderSeg.selectedSegmentIndex + 1 ,"name":userNickName.text, "image":encodeStr,"description":userDescription.text,"accessToken":tokenDefult.valueForKey("accessToken") as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(dic1, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/updateUser") { (result) -> Void in
+        var userParameters = NSDictionary()
+        if encodeStr == ""{
+             userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "description":userDescription.text] as NSDictionary
+        }else {
+         userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "image":encodeStr,"description":userDescription.text] as NSDictionary
+        }
+        AFnetworkingJS.updateJson("http://voteage.com:8000/api/users/7/", dic: userParameters) { (result) -> Void in
             print(result)
-            print(result.valueForKey("message"))
-            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-            print("网络故障")
-            sender.juhua.stopAnimating()
-            }else {
-            if result.valueForKey("status") as Int == 1 {
-            self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
-            self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
-            self.tokenDefult.setValue(self.genderSeg.selectedSegmentIndex + 1, forKey: "gender")
-            self.tokenDefult.setValue(encodeStr, forKey: "image")
-                 sender.juhua.stopAnimating()
+            if (result as NSDictionary).objectForKey("message") == nil {
+                self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
+                self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
+                self.tokenDefult.setValue(self.genderSeg.selectedSegmentIndex + 1, forKey: "gender")
+                self.tokenDefult.setValue(encodeStr, forKey: "image")
+                sender.juhua.stopAnimating()
                 self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
-            self.navigationController?.popViewControllerAnimated(true)
-            
+                self.navigationController?.popViewControllerAnimated(true)
+
             }else {
                 print("error")
                 sender.juhua.stopAnimating()
             }
-        }
         }
        
     }

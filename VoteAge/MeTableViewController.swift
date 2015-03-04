@@ -19,22 +19,33 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var dic = ["userId":tokenDefult.objectForKey("userId") as NSString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
-            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-               print(result.valueForKey("message"))
-            }else if result.valueForKey("list") != nil {
-              self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
-            }
-        })
+//        var dic = ["userId":tokenDefult.objectForKey("userId") as NSString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+//        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getVotePromotionList", resultBlock: { (result) -> Void in
+//            if result.valueForKey("message") as NSString == "网络出故障啦!" {
+//               print(result.valueForKey("message"))
+//            }else if result.valueForKey("list") != nil {
+//              self.addVoteArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
+//            }
+//        })
         var str = tokenDefult.objectForKey("placeholderImage") as NSString
         var data = NSData(base64EncodedString: str, options: nil)
         var placeimg = UIImage(data: data!)
-        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
-        meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
-        meNicLabel.text = tokenDefult.objectForKey("name") as NSString
-        meUserIdLabel.text = tokenDefult.objectForKey("userId") as NSString
-
+//        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
+//        meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+//        meNicLabel.text = tokenDefult.objectForKey("name") as NSString
+//        meUserIdLabel.text = tokenDefult.objectForKey("userId") as NSString
+     AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/7/", resultBlock: { (result) -> Void in
+        if (result as NSDictionary).objectForKey("message") == nil {
+            if result.objectForKey("image")! as? NSString != nil {
+               var url = NSURL(string: result.objectForKey("image") as NSString)
+            self.meHeaderImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+            }
+            self.meNicLabel.text = result.objectForKey("nickname") as NSString
+            self.meUserIdLabel.text = self.tokenDefult.objectForKey("userId") as NSString
+        }else {
+            print("error")
+        }
+     })
     }
      func sendbackInfo(str: NSString, img: UIImage) {
         meHeaderImage.image = img
@@ -52,8 +63,6 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-        
-     
     }
 
     // MARK: - Table view data source

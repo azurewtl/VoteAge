@@ -105,6 +105,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
   // MARK: -actionsheetDelegate
     func actionSheet(actionSheet: UIActionSheet, didDismissWithButtonIndex buttonIndex: Int) {
          genderIndex = buttonIndex
+    
     }
     
     @IBAction func submitButton(sender: UIButton) {
@@ -120,26 +121,35 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
         var passwordInt = passwordNSStr.longLongValue + 1
         
       var dic = ["mobile":textfield.text, "password":passwordInt.description, "gender":genderIndex, "deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString] as NSDictionary
-
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/login") { (result) -> Void in
+        var urlStr = NSString(format: "http://voteage.com:8000/api/o/token/?username=%@&password=%@&grant_type=password&client_id=crotrol_vote", textfield.text, passwordInt.description)
+        AFnetworkingJS.uploadJson(nil, url: urlStr) { (result) -> Void in
             print(result)
-            if result.valueForKey("status") as Int == 1 {
-            self.tokenDefult.setValue((result!.valueForKey("accessToken")) as NSString, forKey: "accessToken")
-            var list = result.valueForKey("list") as NSDictionary
-             self.tokenDefult.setValue(textfield.text, forKey: "userId")
-             self.tokenDefult.setValue(list["name"] as NSString, forKey: "name")
-             self.tokenDefult.setValue(list["image"] as NSString, forKey: "image")
-             self.tokenDefult.setValue(list["gender"] as Int, forKey: "gender")
-             self.tokenDefult.setValue(list["description"] as NSString, forKey: "description")
-            print(result.valueForKey("message"))
-           
+             if (result as NSDictionary).objectForKey("message") == nil {
+            self.tokenDefult.setValue(NSString(format: "Bearer %@", result.valueForKey("access_token") as NSString), forKey: "accessToken")
+                self.tokenDefult.setValue(self.genderIndex, forKey: "gender")
+                self.tokenDefult.setValue("7", forKey: "userId")
                 self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    var logoutDic = ["logout":"1"] as NSDictionary
-                    NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
+                    
                 })
-            }else {
-                print("error")
+             }else {
+                var alert = UIAlertView(title: "提示", message: "登录失败", delegate: nil, cancelButtonTitle: "确定")
+                alert.show()
             }
+//            var list = result.valueForKey("list") as NSDictionary
+//             self.tokenDefult.setValue(textfield.text, forKey: "userId")
+//             self.tokenDefult.setValue(list["name"] as NSString, forKey: "name")
+//             self.tokenDefult.setValue(list["image"] as NSString, forKey: "image")
+//             self.tokenDefult.setValue(list["gender"] as Int, forKey: "gender")
+//             self.tokenDefult.setValue(list["description"] as NSString, forKey: "description")
+//            print(result.valueForKey("message"))
+//           
+//                self.dismissViewControllerAnimated(true, completion: { () -> Void in
+//                    var logoutDic = ["logout":"1"] as NSDictionary
+//                    NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: logoutDic)
+//                })
+//            }else {
+//                print("error")
+//            }
             
         }
         }

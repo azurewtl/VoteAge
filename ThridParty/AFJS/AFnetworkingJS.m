@@ -42,7 +42,7 @@
     //申明请求的数据是json类型
     manager.requestSerializer=[AFJSONRequestSerializer serializer];
 //    [manager.requestSerializer setAuthorizationHeaderFieldWithToken:@"Bearer FxIw9HMBZ7hexur3ime1vLd427Ujax"];
-    [manager.requestSerializer setValue:@"Bearer FxIw9HMBZ7hexur3ime1vLd427Ujax" forHTTPHeaderField:@"Authorization"];
+    [manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"] forHTTPHeaderField:@"Authorization"];
     //如果报接受类型不一致请替换一致text/html或别的
     NSLog(@"%@", [manager.requestSerializer HTTPRequestHeaders]);
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
@@ -79,19 +79,23 @@
     AFnetworkingJS *js = [[AFnetworkingJS alloc]init];
     [js deleteJson:url resultBlock:block];
 }
-- (void)changeJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void (^)(int))block{
+- (void)changeJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void (^)(id))block{
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.requestSerializer = [AFJSONRequestSerializer serializer];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    [manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"] forHTTPHeaderField:@"Authorization"];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"text/html", nil];
     NSDictionary *parameters = dic;
     NSString *url1 = url;
-    [manager PUT:url1 parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        block(0);
+    [manager PATCH:url1 parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        block(1);
+        NSLog(@"Error: %@", error);
+        NSDictionary *dic = @{@"message": @"网络出故障啦!"};
+        block(dic);
     }];
 }
-+ (void)updateJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void (^)(int))block{
++ (void)updateJson:(NSString *)url dic:(NSDictionary *)dic resultBlock:(void (^)(id))block{
     AFnetworkingJS *js = [[AFnetworkingJS alloc]init];
     [js changeJson:url dic:dic resultBlock:block];
 }

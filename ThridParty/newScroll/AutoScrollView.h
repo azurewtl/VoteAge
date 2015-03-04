@@ -15,7 +15,7 @@ typedef NS_ENUM(NSInteger, AutoScorllViewPageControlAlignment) {
 };
 
 @interface AutoScrollView : UIView<UIScrollViewDelegate>
-
+@property (nonatomic, copy) NSArray *labelArray;
 @property (nonatomic, copy) NSArray *imagePaths;
 @property (nonatomic, copy) NSArray *imageNames;
 @property (nonatomic, copy) NSArray *imageUrls;
@@ -23,11 +23,12 @@ typedef NS_ENUM(NSInteger, AutoScorllViewPageControlAlignment) {
 @property (nonatomic, assign) NSTimeInterval timeInterval;
 @property (nonatomic, assign) BOOL showPageControl; //default is YES:
 @property (nonatomic, assign) AutoScorllViewPageControlAlignment pageControlAlignment;
-
+@property (nonatomic, retain) UILabel *titleLabel;
 - (instancetype)initWithFrame:(CGRect)frame imageNames:(NSArray *)imageNames;
 - (instancetype)initWithFrame:(CGRect)frame imagePaths:(NSArray *)imagePaths;
 + (instancetype)autoScrollViewWithFrame:(CGRect)frame imageNames:(NSArray *)imageNames;
 + (instancetype)autoScrollViewWithFrame:(CGRect)frame imagePaths:(NSArray *)imagePaths;
+-(void)setLabelArray:(NSArray *)labelArray;
 -(void)setImageUrls:(NSArray *)imageUrls;
 -(void)setTimeInterval:(NSTimeInterval)timeInterval;
 - (void)setTarget:(id)target action:(SEL)action;

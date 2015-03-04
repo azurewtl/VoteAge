@@ -10,6 +10,7 @@ import UIKit
 import CoreLocation
 class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UITextFieldDelegate,UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate, UIPickerViewDelegate, UIPickerViewDataSource,UIAlertViewDelegate, CLLocationManagerDelegate {
     //notification
+
     var locationManager = CLLocationManager()
     var tokenDefult = NSUserDefaults.standardUserDefaults()
     var pickerArray = NSArray()
@@ -85,26 +86,23 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
             AFnetworkingJS.uploadJson(sendDic, url: str) { (result) -> Void in
                 print(result)
                 print(result.valueForKey("message"))
-                if result.valueForKey("message")  != nil {
-                    print("网络故障")
-                    self.sendButton.enabled = true
-                    self.sendButton.title = "发送"
-                }else {
+                if (result as NSDictionary).objectForKey("message") == nil {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     self.sendButton.enabled = true
                     self.sendButton.title = "发送"
                     alert.show()
-                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                        
-                    })
-                
+                }else {
+                    self.sendButton.enabled = true
+                    self.sendButton.title = "发送"
+                    var alert = UIAlertView(title: "温馨提示", message: "发送失败", delegate: nil, cancelButtonTitle: "确定")
+                    alert.show()
             }
             }
         }else{
             var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
             sendButton.enabled = true
             sendButton.title = "发送"
-            alert.show()
+            
             
         }
         
@@ -137,6 +135,10 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     // MARK: - alertview
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
+        self.tabBarController?.selectedIndex = 0
+        self.dismissViewControllerAnimated(true, completion: { () -> Void in
+           
+        })
         var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("allvote") as VoteListTableViewController
         meVoteVc.title = "我发起的"

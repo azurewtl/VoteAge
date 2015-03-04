@@ -38,7 +38,7 @@
 }
 
 @property (nonatomic, retain) UIPageControl *pageControl;
-@property (nonatomic, retain) UILabel *titleLabel;
+
 @property (nonatomic, assign) NSInteger currentPage;
 
 @end
@@ -148,7 +148,14 @@
     }
     return [[imagePaths retain] autorelease];
 }
+-(void)setLabelArray:(NSArray *)labelArray {
+    if (_labelArray == labelArray) {
+        return;
+    }
+    [_labelArray release];
+    _labelArray = [labelArray copy];
 
+}
 -(void)setImageUrls:(NSArray *)imageUrls{
     
     if (_imageUrls == imageUrls) {
@@ -222,7 +229,6 @@
     }
     
     [_scrollView addSubview:aView];
-    
     for (int i = 0; i < array.count; i++) {
         rect.origin.x += rect.size.width;
         //        rect.origin.x = i * rect.size.width;
@@ -230,7 +236,12 @@
         aView.userInteractionEnabled = YES;
         Tap *tap = [[Tap alloc] initWithTarget:self action:@selector(tap:)];
         tap.flag = i;
-        
+        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, self.pageControl.frame.origin.y + self.pageControl.frame.size.height, aView.frame.size.width, aView.frame.size.height - self.pageControl.frame.origin.y - self.pageControl.frame.size.height)];
+        _titleLabel.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.8];
+        _titleLabel.textColor = [UIColor whiteColor];
+        _titleLabel.text = [self.labelArray objectAtIndex:i];
+        [aView addSubview:_titleLabel];
+        [_titleLabel release];
         [aView addGestureRecognizer:tap];
         [tap release];
         //        UIImage *image = [UIImage imageNamed:[_imageNames objectAtIndex:i]];  //  初始化成功后会被系统缓存 不能释放

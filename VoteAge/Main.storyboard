@@ -45,12 +45,22 @@
                                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="Whf-ew-QSl">
                                     <rect key="frame" x="150" y="12" width="20" height="20"/>
                                 </activityIndicatorView>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已经拉到最底" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5Eh-ET-jxq">
+                                    <rect key="frame" x="8" y="8" width="304" height="28"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" red="0.44797585227272729" green="0.44797585227272729" blue="0.44797585227272729" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                             <constraints>
+                                <constraint firstItem="5Eh-ET-jxq" firstAttribute="leading" secondItem="CfM-Lq-aDB" secondAttribute="leading" constant="8" id="9gM-9y-tb7"/>
                                 <constraint firstAttribute="trailing" secondItem="Whf-ew-QSl" secondAttribute="trailing" constant="150" id="LLA-nu-aSi"/>
+                                <constraint firstAttribute="bottom" secondItem="5Eh-ET-jxq" secondAttribute="bottom" constant="8" id="QJd-Bv-4RH"/>
+                                <constraint firstAttribute="trailing" secondItem="5Eh-ET-jxq" secondAttribute="trailing" constant="8" id="UyN-ei-46o"/>
                                 <constraint firstItem="Whf-ew-QSl" firstAttribute="top" secondItem="CfM-Lq-aDB" secondAttribute="top" constant="12" id="X49-Kd-XHb"/>
                                 <constraint firstItem="Whf-ew-QSl" firstAttribute="leading" secondItem="CfM-Lq-aDB" secondAttribute="leading" constant="150" id="Xb3-qM-bcL"/>
+                                <constraint firstItem="5Eh-ET-jxq" firstAttribute="top" secondItem="CfM-Lq-aDB" secondAttribute="top" constant="8" id="YkB-eQ-bjq"/>
                                 <constraint firstAttribute="bottom" secondItem="Whf-ew-QSl" secondAttribute="bottom" constant="12" id="juF-Ww-S9b"/>
                             </constraints>
                         </view>
@@ -143,6 +153,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="全部" id="tQt-TN-PWz">
+                        <barButtonItem key="leftBarButtonItem" image="swip" id="Dv3-9f-HSa">
+                            <connections>
+                                <segue destination="pJv-6D-Gee" kind="push" id="ew3-Ce-x3S"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="icon_more" id="oU6-DF-NSI">
                             <connections>
                                 <action selector="optionButton:" destination="pGg-6v-bdr" id="X4n-SL-6tY"/>
@@ -150,6 +165,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="bottomLabel" destination="5Eh-ET-jxq" id="Of2-hd-qvJ"/>
                         <outlet property="loadActivityView" destination="Whf-ew-QSl" id="aab-Jz-Lo7"/>
                     </connections>
                 </tableViewController>
@@ -348,7 +364,7 @@
         <!--Image View Controller-->
         <scene sceneID="ERD-VL-xZ9">
             <objects>
-                <viewController storyboardIdentifier="imgView" id="e2B-gI-aB3" customClass="ImageViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="imgView" hidesBottomBarWhenPushed="YES" id="e2B-gI-aB3" customClass="ImageViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5YP-13-02T"/>
                         <viewControllerLayoutGuide type="bottom" id="w4B-We-H9Z"/>
@@ -514,7 +530,7 @@
                                                 <constraint firstAttribute="height" constant="54" id="0Da-sy-J4j"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <state key="normal" title="放弃投票，察看结果">
+                                            <state key="normal" title="查看投票状态">
                                                 <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -913,7 +929,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sl8-PK-UiD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-794" y="255"/>
+            <point key="canvasLocation" x="421" y="-667"/>
         </scene>
         <!--Web View View Controller-->
         <scene sceneID="UCF-Z4-iHO">
@@ -1514,13 +1530,13 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="421" y="750"/>
+            <point key="canvasLocation" x="531" y="750"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
             <objects>
                 <navigationController hidesBottomBarWhenPushed="YES" id="eAs-K5-hih" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我" image="me" id="26a-k9-QGp"/>
+                    <tabBarItem key="tabBarItem" tag="1" title="我" image="me" id="26a-k9-QGp"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -1554,9 +1570,6 @@
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="pJv-6D-Gee" kind="relationship" relationship="rootViewController" id="Hov-lP-tPr"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BE6-XJ-bxo" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1931,6 +1944,7 @@
         <image name="iconfont-add" width="64" height="64"/>
         <image name="me" width="32" height="32"/>
         <image name="qrc" width="32" height="32"/>
+        <image name="swip" width="32" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
@@ -1938,7 +1952,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="xeh-Fx-dGB"/>
+        <segue reference="SGg-dd-0wa"/>
         <segue reference="EJ0-02-a7H"/>
         <segue reference="6Kq-Af-4k6"/>
     </inferredMetricsTieBreakers>

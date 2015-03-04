@@ -118,35 +118,11 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         }
     }
     // MARK: - viewDidload
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.showsVerticalScrollIndicator = false
-//        var dic = ["voteId":voteDetail["Id"] as NSString,"startIndex":"0","endIndex":"10"] as NSDictionary
-//        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/getCommentList/") { (result) -> Void in
-//            print(result)
-//            print(result.valueForKey("message"))
-//            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-//                print("网络故障")
-//            }else {
-//            if (result.valueForKey("list") as NSArray).count > 0 {
-//            self.commtArray = NSMutableArray(array: result.valueForKey("list") as NSArray)
-//                for item in (result.valueForKey("list") as NSArray) {
-//                    var str = (item as NSDictionary).objectForKey("content") as NSString
-//                    var label1 = UILabel()
-//                    label1.numberOfLines = 0
-//                    label1.frame = CGRectMake(0, 0, self.view.frame.width - 16, 0)
-//                    label1.text = str.stringByRemovingPercentEncoding
-//                    label1.sizeToFit()
-//                    self.commentCellHeightArray.addObject(label1.frame.height + 50)
-//                }
-//                print(self.commentCellHeightArray)
-//                print("??????")
-//            self.tableView.reloadData()
-//            }
-//            }
-//        }
-        
+        tableView.showsVerticalScrollIndicator = false        
         commtArray = NSMutableArray(array: voteDetail.valueForKey("comment") as NSArray)
         if commtArray.count > 0 {
         for item in commtArray {
@@ -205,9 +181,18 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                 self.view.addConstraint(NSLayoutConstraint(item: voteImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }
             self.optionArray = voteDetail.objectForKey("option") as NSMutableArray
-            var dateStr = NSString(format:"截止日期:%@", voteDetail.objectForKey("expireDate") as NSString)
-            dateStr = dateStr.stringByReplacingOccurrencesOfString("T", withString: " ")
+            var dateStr = voteDetail.objectForKey("expireDate") as NSString
+            var startStr = voteDetail.objectForKey("createDate") as NSString
+          
+            dateStr = dateStr.stringByReplacingOccurrencesOfString("T", withString: "")
             dateStr = dateStr.stringByReplacingOccurrencesOfString("Z", withString: "")
+       
+//            var format = NSDateFormatter()
+//            format.dateFormat = "yyyyMMddHHmmss"
+//            var date = format.dateFromString(dateStr)
+//               print("*&*&*&****************")
+//            print(date)
+//            print("\n\n\n")
             expireDate.text = dateStr
 //            voteCount.text = NSString(format: "%@人", voteDetail.objectForKey("voteTotal") as NSString)
             
@@ -217,8 +202,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                
             }
              voteCount.text = NSString(format: "%d人", Int(menCount) + Int(womenCount))
-            print(voteCount.text)
-            print("**")
+         
         }
     }
 
@@ -294,13 +278,16 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         var commtDic = NSMutableDictionary()
          commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("userId"), forKey: "userId")
         commtDic.setValue( keyboardView.keyboardTextView.text, forKey: "content")
-        commtDic.setValue(NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString, forKey: "userName")
+        var dateformatter = NSDateFormatter()
+        dateformatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        var dateStr = dateformatter.stringFromDate(NSDate())
+        commtDic.setValue(dateStr, forKey: "createDate")
         commtArray.insertObject(commtDic, atIndex: 0)
 //        var dic = ["userId":NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString, "voteId":voteDetail["Id"] as NSString, "content": keyboardView.keyboardTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!,"deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "accessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
         var dic = ["content":keyboardView.keyboardTextView.text.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding)!]
 //        var str = "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/addComment"
         AFnetworkingJS.uploadJson(dic, url: NSString(format: "http://voteage.com:8000/api/votes/%d/comment/", voteDetail["id"] as Int)) { (result) -> Void in
-            print(result)
+            
            
         }
         //自适应的label1，别无他用
@@ -406,8 +393,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 //        var dic = ["voteId":voteDetail.objectForKey("Id") as NSString,"optionId":optionDic.objectForKey("optionId") as NSString,"gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int,"deviceId":deviceId,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
             var voteDic = ["optionid":optionDic.objectForKey("id") as Int, "gender":NSUserDefaults.standardUserDefaults().objectForKey("gender") as Int]
         AFnetworkingJS.uploadJson(voteDic, url: NSString(format: "http://voteage.com:8000/api/votes/%d/submit/", voteDetail["id"] as Int)) { (result) -> Void in
-            print("**")
-            print(result)
+          
 //            var getSingleDic = ["deviceId":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":self.voteDetail.objectForKey("Id") as NSString] as NSDictionary
 //            AFnetworkingJS.uploadJson(getSingleDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
 //                print(result)
@@ -432,7 +418,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
 //                }
 //            })
             AFnetworkingJS.netWorkWithURL(NSString(format: "http://voteage.com:8000/api/votes/%d/", self.voteDetail["id"] as Int), resultBlock: { (result) -> Void in
-                print(result)
+               
                 if result.valueForKey("message") == nil {
                     self.menCount = 0
                     self.womenCount = 0
@@ -526,10 +512,14 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
         let cell = tableView.dequeueReusableCellWithIdentifier("commentCell", forIndexPath: indexPath) as UITableViewCell
         var userButton = cell.contentView.viewWithTag(101) as UIButton
         var label = cell.contentView.viewWithTag(102) as UILabel
-        
-        if commtArray.count > 0 {
 
-//            userButton.setTitle((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("createDate") as NSString, forState: UIControlState.Normal)
+        if commtArray.count > 0 {
+            
+           
+            var str = (commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("createDate") as NSString
+            str = str.stringByReplacingOccurrencesOfString("T", withString: " ")
+            str = str.stringByReplacingOccurrencesOfString("Z", withString: "")
+             userButton.setTitle(str, forState: UIControlState.Normal)
             label.text = ((commtArray.objectAtIndex(indexPath.row) as NSMutableDictionary).objectForKey("content") as NSString).stringByRemovingPercentEncoding
         }
         return cell
