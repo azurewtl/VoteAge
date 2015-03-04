@@ -10,42 +10,14 @@ import UIKit
 
 class TabbarController: UITabBarController, UITabBarControllerDelegate{
     var userDefault = NSUserDefaults.standardUserDefaults()
-    var addBtn = UIButton.buttonWithType(UIButtonType.System) as UIButton
-    var addimageView = UIImageView(frame: CGRectMake(0, 0, 60, 60))
     override func viewDidLoad() {
         super.viewDidLoad()
-        addBtn.frame = CGRectMake(0, 0, 80, 80)
-        addBtn.backgroundColor = UIColor.grayColor()
-        addBtn.layer.masksToBounds = true
-        addBtn.layer.cornerRadius = 40
-        addBtn.center = tabBar.center
-        self.view.addSubview(addBtn)
-        addBtn.addTarget(self, action: "onclick:", forControlEvents: UIControlEvents.TouchUpInside)
-        addimageView.center = addBtn.center
-        addimageView.layer.masksToBounds = true
-        addimageView.layer.cornerRadius = 30
-        addimageView.backgroundColor = UIColor.whiteColor()
-        addimageView.image = UIImage(named: "plus")
-        self.view.addSubview(addimageView)
+        self.tabBar.removeFromSuperview()
         self.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "noti:", name: "logout", object: nil)
         // Do any additional setup after loading the view.
     }
-    func onclick(click:UIButton) {
-        
-        if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
-            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
-            self.presentViewController(logVc, animated: true) { () -> Void in
-            }
-        }else {
-            var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-            var newvoteVc = storyBoard.instantiateViewControllerWithIdentifier("newVote") as NewVoteTableViewController
-            self.presentViewController(newvoteVc, animated: true) { () -> Void in
-                
-            }
-        }
-    }
+
     func noti(noti:NSNotification) {
         if (noti.userInfo! as NSDictionary).objectForKey("logout") as NSString == "1" {
             self.selectedIndex = 1

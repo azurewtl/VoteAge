@@ -224,7 +224,7 @@ class ContactVoteTableViewController: UITableViewController, NSFetchedResultsCon
                 if voteArray.count > 0 {
                     let vote = NSMutableDictionary(dictionary:voteArray[indexPath.row] as NSMutableDictionary)
                     (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                    (segue.destinationViewController as VoteDetailViewController).lastPageCellCount = indexPath.row
+                  
                     (segue.destinationViewController as VoteDetailViewController).delegate = self
                 }
             }

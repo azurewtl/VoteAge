@@ -127,10 +127,22 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
              if (result as NSDictionary).objectForKey("message") == nil {
             self.tokenDefult.setValue(NSString(format: "Bearer %@", result.valueForKey("access_token") as NSString), forKey: "accessToken")
                 self.tokenDefult.setValue(self.genderIndex, forKey: "gender")
-//                self.tokenDefult.setValue("7", forKey: "userId")
-                self.dismissViewControllerAnimated(true, completion: { () -> Void in
-                    
+                AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/myAccount/", resultBlock: { (result) -> Void in
+                    if (result as NSDictionary).objectForKey("message") == nil {
+                        NSUserDefaults.standardUserDefaults().setValue((result as NSDictionary).objectForKey("nickname") as NSString, forKey: "name")
+                        NSUserDefaults.standardUserDefaults().setValue(String((result as NSDictionary).objectForKey("id") as Int), forKey: "userId")
+                        if (result as NSDictionary).objectForKey("image")! as? NSString != nil {
+                            NSUserDefaults.standardUserDefaults().setValue((result as NSDictionary).objectForKey("image") as NSString, forKey: "image")
+                            
+                        }
+                    }
+                    self.dismissViewControllerAnimated(true, completion: { () -> Void in
+                        
+                    })
+
                 })
+                
+                
              }else {
                 var alert = UIAlertView(title: "提示", message: "登录失败", delegate: nil, cancelButtonTitle: "确定")
                 alert.show()

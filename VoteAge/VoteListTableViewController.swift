@@ -356,7 +356,7 @@ class VoteListTableViewController: UITableViewController, NSFetchedResultsContro
                 if voteArray.count > 0 {
                let vote = voteArray[indexPath.row] as NSDictionary
                 (segue.destinationViewController as VoteDetailViewController).voteDetail = vote
-                (segue.destinationViewController as VoteDetailViewController).lastPageCellCount = indexPath.row
+             
                 (segue.destinationViewController as VoteDetailViewController).delegate = self
                 
             }

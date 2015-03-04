@@ -11,6 +11,32 @@ import CoreData
 import CoreLocation
 class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendInfoDelegate, allowVoteDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
+ 
+    @IBAction func hotTap(sender: UITapGestureRecognizer) {
+        self.tabBarController?.selectedIndex = 0
+    }
+
+    @IBAction func meTap(sender: UITapGestureRecognizer) {
+        self.tabBarController?.selectedIndex = 1
+    }
+    @IBAction func plusOnclick(sender: UIButton) {
+        if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
+            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+            self.presentViewController(logVc, animated: true) { () -> Void in
+            }
+        }else {
+            var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            var newvoteVc = storyBoard.instantiateViewControllerWithIdentifier("newVote") as NewVoteTableViewController
+            self.presentViewController(newvoteVc, animated: true) { () -> Void in
+                
+            }
+        }
+
+    }
+    
+    @IBOutlet var hotImageView: UIImageView!
+    
     @IBOutlet var tableView: UITableView!
     var homePageArray = NSArray()
     var next = false
@@ -253,7 +279,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     override func viewDidLoad() {
         super.viewDidLoad()
         //添加轮播图的背景view
-        
+        hotImageView.image = UIImage(named: "hot_green")
         bottomLabel.hidden = true
         self.navigationController?.delegate = self
         sheetView.frame = CGRectMake(0, 64, view.frame.width, view.frame.height - 64)
@@ -269,7 +295,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         collectionView.registerClass(VoteListCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "reuse")
         //轮播图
         newScroll = AutoScrollView(frame: CGRectMake(0, 0, collectionView.frame.width, collectionView.frame.height  - collectionView.frame.width))
-        homePage()
+       homePage()
         newScroll.timeInterval = 3
         collectionView.addSubview(newScroll)
         newScroll.setTarget(self, action: "autoAction:")
@@ -283,8 +309,8 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         }
         
         loadActivityView.hidden = true
-        activityIndicator.frame = CGRectMake(0, 150, 50, 50)
-        activityIndicator.center.x = view.center.x
+        activityIndicator.frame = CGRectMake(0, 0, 50, 50)
+        activityIndicator.center = view.center
         activityIndicator.backgroundColor = UIColor.grayColor()
         activityIndicator.layer.masksToBounds = true
         activityIndicator.layer.cornerRadius = 5

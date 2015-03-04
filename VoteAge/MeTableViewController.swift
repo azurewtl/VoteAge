@@ -106,11 +106,7 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "newvote" {
-            if addVoteArray.count > 1 {
-            (segue.destinationViewController as NewVoteTableViewController).titleTagArray = addVoteArray
-            }
-        }
+
         if segue.identifier == "selfInfo" {
             (segue.destinationViewController as MeDetailTableViewController).delegate = self
         }
@@ -118,9 +114,7 @@ class MeTableViewController: UITableViewController, sendbackInforDelegate {
             (segue.destinationViewController as VoteListViewController).pushrelationship = 0
             (segue.destinationViewController as VoteListViewController).pushuserId = NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString
         }
-        if segue.identifier == "hasVote" {
-            (segue.destinationViewController as VoteListViewController).pushrelationship = 2
-        }
+
         
     }
 

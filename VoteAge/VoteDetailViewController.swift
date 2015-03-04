@@ -180,7 +180,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             }else {
                 self.view.addConstraint(NSLayoutConstraint(item: voteImage, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: self.view, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }
-            self.optionArray = voteDetail.objectForKey("option") as NSMutableArray
+            self.optionArray = NSMutableArray(array: voteDetail.objectForKey("option") as NSArray)
             var dateStr = voteDetail.objectForKey("expireDate") as NSString
             var startStr = voteDetail.objectForKey("createDate") as NSString
           
