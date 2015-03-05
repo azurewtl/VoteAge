@@ -124,7 +124,8 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         }else {
          userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "image":encodeStr,"description":userDescription.text] as NSDictionary
         }
-        AFnetworkingJS.updateJson("http://voteage.com:8000/api/users/7/", dic: userParameters) { (result) -> Void in
+     
+        AFnetworkingJS.updateJson(NSString(format: "http://voteage.com:8000/api/users/%d/", (NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString).integerValue), dic: userParameters) { (result) -> Void in
             print(result)
             if (result as NSDictionary).objectForKey("message") == nil {
                 self.tokenDefult.setValue(self.userDescription.text, forKey: "description")

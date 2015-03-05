@@ -26,6 +26,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(NSTemporaryDirectory())
         searchBar.delegate = self
         tableView.sectionIndexBackgroundColor = UIColor(white: 1, alpha: 0.0) // set index bar to transparent
       
@@ -34,23 +35,13 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         let db = DataBaseHandle.shareInstance()
         db.openDB()
         db.createTable("create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)")
-//         For Test
-//        var path1 = NSBundle.mainBundle().pathForResource("testData1", ofType:"json")
-//        var data1 = NSData(contentsOfFile: path1!)
-//        var votedic = NSJSONSerialization.JSONObjectWithData(data1!, options: NSJSONReadingOptions.MutableContainers, error:nil) as NSDictionary
-        
-        var dic = ["userId":((NSUserDefaults.standardUserDefaults()).valueForKey("userId")) as NSString,"startIndex":"0","endIndex":"100","searchString":"*","relationship":1,"accessToken":((NSUserDefaults.standardUserDefaults()).valueForKey("accessToken")) as NSString] as NSDictionary
-        AFnetworkingJS.uploadJson(dic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appUser/getContactList/", resultBlock: { (result) -> Void in
-            print(result)
-            print(result.valueForKey("message"))
-            if result.valueForKey("message") as NSString == "网络出故障啦!" {
-                 print("网络出故障啦!")
-            }else if result.valueForKey("list") != nil {
-                
-                self.friendArray =  NSMutableArray(array: result.valueForKey("list") as NSArray)
-              
+
+        AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/mySubscription/", resultBlock: { (result) -> Void in
+            
+                self.friendArray =  NSMutableArray(array: result as NSArray)
+            
                 for index in 0...self.friendArray.count - 1 {
-                    self.userdic.setObject(self.friendArray.objectAtIndex(index)["userId"] as NSString, forKey: self.friendArray.objectAtIndex(index)["name"] as NSString)
+                    self.userdic.setObject(String(self.friendArray.objectAtIndex(index)["id"] as Int), forKey: self.friendArray.objectAtIndex(index)["nickname"] as NSString)
                 }
                 self.userarray.addObject(self.userdic)
                 self.updateDataBaseAndInitialArray(self.friendArray)
@@ -60,12 +51,13 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
                     var str = (self.initialArray[i] as NSString)
                     contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
                     self.contactArray.addObject(contactInfo)
+                    
                     self.tableView.reloadData()
                 }
-               
-            }
+
+          
         })
-        // test end
+              // test end
 
     }
 
@@ -94,13 +86,21 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         var initialSet = NSMutableSet()
         if friendArray.count > 0 {
         for index in 0...friendArray.count - 1 {
-            var strrUsername = friendArray.objectAtIndex(index)["name"] as NSString
-            var strrUserID = friendArray.objectAtIndex(index)["userId"] as NSString
-            var strrUserImage = NSString(format: "http://73562.vhost33.cloudvhost.net/VoteAge/Public/Uploads/%@",friendArray.objectAtIndex(index)["image"] as NSString)
+            var strrUsername = friendArray.objectAtIndex(index)["nickname"] as NSString
+            var strrUserID = String(friendArray.objectAtIndex(index)["id"] as Int)
+            var strrUserImage = NSString()
+            if friendArray.objectAtIndex(index)["image"]! as? NSString != nil {
+            strrUserImage = NSString(format: "http://voteage.com:8000%@",friendArray.objectAtIndex(index)["image"] as NSString)
+            }else {
+                strrUserImage = ""
+            }
 //            var strrgender = friendArray.objectAtIndex(index)["gender"] as NSString
 //            var strrcity = friendArray.objectAtIndex(index)["city"] as NSString
-            var strrdescribe = friendArray.objectAtIndex(index)["description"] as NSString
+            var strrdescribe = friendArray.objectAtIndex(index)["about"] as NSString
             var firstLetter = NSString()
+            if strrUsername == "" {
+                strrUsername = "???"
+            }
             var ff = Int(pinyinFirstLetter(strrUsername.characterAtIndex(0)))
             
             if(strrUsername.characterAtIndex(0) > 64 && strrUsername.characterAtIndex(0) < 123){
@@ -136,6 +136,7 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
     
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return contactArray.count
+        
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -155,9 +156,12 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         
         var arimage = self.contactArray.objectAtIndex(indexPath.section)["letter"] as NSArray
         var strimage = arimage.objectAtIndex(indexPath.row)["userImage"] as NSString
-        
+        if strimage == "" {
+           cell.imageView?.image = UIImage(named: "dummyImage")
+        }else {
         var url = NSURL(string: strimage)
         cell.imageView!.sd_setImageWithURL(url)
+        }
         return cell
         
     }
@@ -231,7 +235,6 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         if segue.identifier == "contactDetail" {
             var indexPath:NSIndexPath = self.tableView.indexPathForSelectedRow()!
             let cell = tableView.cellForRowAtIndexPath(indexPath)
-            print(friendArray.objectAtIndex(indexPath.row)["userId"] as NSString)
             (segue.destinationViewController as UserDetailTableViewController).contactId = (cell?.detailTextLabel?.text as NSString!).integerValue
         }
     }

@@ -14,10 +14,12 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
  
     @IBAction func hotTap(sender: UITapGestureRecognizer) {
         self.tabBarController?.selectedIndex = 0
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
 
     @IBAction func meTap(sender: UITapGestureRecognizer) {
         self.tabBarController?.selectedIndex = 1
+        
     }
     @IBAction func plusOnclick(sender: UIButton) {
         if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
@@ -214,7 +216,12 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
                     //                    print(result)
                     if (result as NSDictionary).objectForKey("message") == nil {
                         self.voteArray = NSMutableArray(array: result.objectForKey("results") as NSArray)
-                        self.next = true
+                        if result.valueForKey("next")! as? NSString != nil {
+                            self.next = true
+                        }else {
+                            self.next = false
+                            
+                        }
                         self.tableView.reloadData()
                         scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                         self.dragDownactivity.stopAnimating()
@@ -234,7 +241,12 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
                         //                    print(result)
                         if (result as NSDictionary).objectForKey("message") == nil {
                             self.voteArray = NSMutableArray(array: result.objectForKey("results") as NSArray)
-                            self.next = true
+                            if result.valueForKey("next")! as? NSString != nil {
+                                self.next = true
+                            }else {
+                                self.next = false
+                                
+                            }
                             self.tableView.reloadData()
                             scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
                             self.dragDownactivity.stopAnimating()
@@ -251,7 +263,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     // MARK: -加载界面
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
-
+       
     }
     
     func homePage() {
@@ -349,6 +361,11 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     
     func autoAction(tap:Tap) {
         print(tap.flag)
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var gameVc = storyBoard.instantiateViewControllerWithIdentifier("gameVC") as GameViewController
+        self.presentViewController(gameVc, animated: true) { () -> Void in
+        }
+        
     }
     // MARK: - collectionviewDelegate
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

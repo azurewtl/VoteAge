@@ -24,7 +24,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     var titleTagArray = NSMutableArray()
     var optionTagArray = NSMutableArray()
     
-    @IBOutlet var sendButton: UIBarButtonItem!
+    @IBOutlet var sendButton: UIButton!
     
     @IBAction func cancelOnclick(sender: UIButton) {
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
@@ -33,8 +33,9 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     }
     @IBAction func sendVoteOnclick(sender: UIButton) {
 //        sender.setTitle("...", forState: UIControlState.Normal)
-        sendMessage()
         sender.enabled = false
+        sendMessage()
+        
     }
  //MARK: -发送的内容function
     func  sendMessage() {
@@ -89,11 +90,11 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 if (result as NSDictionary).objectForKey("message") == nil {
                     var alert = UIAlertView(title: "", message: "发起成功", delegate: self, cancelButtonTitle: "点击查看")
                     self.sendButton.enabled = true
-                    self.sendButton.title = "发送"
+                    self.sendButton.setTitle("发送", forState: UIControlState.Normal)
                     alert.show()
                 }else {
                     self.sendButton.enabled = true
-                    self.sendButton.title = "发送"
+                    self.sendButton.setTitle("发送", forState: UIControlState.Normal)
                     var alert = UIAlertView(title: "温馨提示", message: "发送失败", delegate: nil, cancelButtonTitle: "确定")
                     alert.show()
             }
@@ -101,8 +102,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         }else{
             var alert = UIAlertView(title: "温馨提示", message: "请输入问题", delegate: nil, cancelButtonTitle: "确定")
             sendButton.enabled = true
-            sendButton.title = "发送"
-            
+            self.sendButton.setTitle("发送", forState: UIControlState.Normal)
+            alert.show()
             
         }
         
@@ -136,6 +137,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
     // MARK: - alertview
     func alertView(alertView: UIAlertView, didDismissWithButtonIndex buttonIndex: Int) {
         self.tabBarController?.selectedIndex = 0
+        
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
            
         })
@@ -170,7 +172,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         super.viewWillAppear(true)
         optionArray.removeAllObjects()
         sendButton.enabled = true
-        sendButton.title = "发送"
+        sendButton.setTitle("发送", forState: UIControlState.Normal)
         
     }
     

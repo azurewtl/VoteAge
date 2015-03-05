@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, allowVoteDelegate {
+class MeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, allowVoteDelegate, sendbackInforDelegate {
     var page = 1
     var next = false
     @IBOutlet var headerView: UIImageView!
@@ -27,6 +27,7 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
     
     @IBAction func meTap(sender: UITapGestureRecognizer) {
         self.tabBarController?.selectedIndex = 1
+        self.navigationController?.popToRootViewControllerAnimated(true)
     }
     @IBAction func plusOnclick(sender: UIButton) {
         if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
@@ -82,15 +83,29 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/myAccount/", resultBlock: { (result) -> Void in
+            if (result as NSDictionary).objectForKey("message") == nil {
+                if (result as NSDictionary).objectForKey("image")! as? NSString != nil {
+                    var url = NSURL(string: NSString(format: "http://voteage.com:8000%@", (result as NSDictionary).objectForKey("image") as NSString))
+        
+                self.headerView.sd_setImageWithURL(url)
+                }
+            }else {
+                print("error")
+            }
+        })
+        
         meImageview.image = UIImage(named: "wo_green")
         headerView.layer.masksToBounds = true
         headerView.layer.cornerRadius = headerView.frame.width / 2
-        print(NSUserDefaults.standardUserDefaults().objectForKey("userId"))
-        print("*********************")
+      
         if NSUserDefaults.standardUserDefaults().objectForKey("image") as NSString == "" {
             headerView.image = UIImage(named: "dummyImage")
         }else {
+        
             var url = NSURL(string:NSString(format: "http://voteage.com:8000%@", NSUserDefaults.standardUserDefaults().objectForKey("image") as NSString))
+         
             headerView.sd_setImageWithURL(url)
         }
          headerLabel.text = NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString
@@ -146,11 +161,20 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
                 }
                 
             }
-
-            (segue.destinationViewController as VoteDetailViewController)
         }
+        if segue.identifier == "Mydetail" {
+                (segue.destinationViewController as MeDetailTableViewController).delegate = self
+            }
+
+           
+       
     }
-    
+    //MARK:-detail  protocol
+    func sendbackInfo(str: NSString, img: UIImage) {
+        headerView.image = img
+        headerLabel.text = str
+        NSUserDefaults.standardUserDefaults().setObject(str, forKey: "name")
+    }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

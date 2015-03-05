@@ -126,6 +126,9 @@
 		18687D171A1DD2C500CF3434 /* VoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */; };
 		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
+		1875B16C1AA81338001F7919 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875B1691AA81338001F7919 /* 0.png */; };
+		1875B16D1AA81338001F7919 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875B16A1AA81338001F7919 /* 1.png */; };
+		1875B16E1AA81338001F7919 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875B16B1AA81338001F7919 /* 2.png */; };
 		18773A091A1495AD00A05745 /* testData1.json in Resources */ = {isa = PBXBuildFile; fileRef = 18773A081A1495AD00A05745 /* testData1.json */; };
 		188CB4A81A7227B10039734A /* bitstream.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB49A1A7227B10039734A /* bitstream.c */; };
 		188CB4A91A7227B10039734A /* mask.c in Sources */ = {isa = PBXBuildFile; fileRef = 188CB49C1A7227B10039734A /* mask.c */; };
@@ -142,6 +145,7 @@
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B212D01AA6A2940068C93D /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212CF1AA6A2940068C93D /* VoteListViewController.swift */; };
 		18B212D21AA6E4700068C93D /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212D11AA6E4700068C93D /* MeViewController.swift */; };
+		18B212D81AA806C20068C93D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212D71AA806C20068C93D /* GameViewController.swift */; };
 		18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */; };
 		18CF28A91A70C01C00BEAC68 /* CommentView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18CF28A81A70C01C00BEAC68 /* CommentView.xib */; };
 		18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CF28AA1A70C05100BEAC68 /* CommentView.swift */; };
@@ -339,6 +343,9 @@
 		18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteDetailViewController.swift; sourceTree = "<group>"; };
 		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
+		1875B1691AA81338001F7919 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
+		1875B16A1AA81338001F7919 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
+		1875B16B1AA81338001F7919 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		18773A081A1495AD00A05745 /* testData1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = testData1.json; sourceTree = "<group>"; };
 		188CB49A1A7227B10039734A /* bitstream.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bitstream.c; sourceTree = "<group>"; };
 		188CB49B1A7227B10039734A /* bitstream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bitstream.h; sourceTree = "<group>"; };
@@ -363,6 +370,7 @@
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B212CF1AA6A2940068C93D /* VoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
 		18B212D11AA6E4700068C93D /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		18B212D71AA806C20068C93D /* GameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		18B2EAA61A1F25B500F7E6BA /* ImageUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageUtil.swift; sourceTree = "<group>"; };
 		18CF28A81A70C01C00BEAC68 /* CommentView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommentView.xib; sourceTree = "<group>"; };
 		18CF28AA1A70C05100BEAC68 /* CommentView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
@@ -802,6 +810,16 @@
 			path = newScroll;
 			sourceTree = "<group>";
 		};
+		1875B1681AA81338001F7919 /* hand */ = {
+			isa = PBXGroup;
+			children = (
+				1875B1691AA81338001F7919 /* 0.png */,
+				1875B16A1AA81338001F7919 /* 1.png */,
+				1875B16B1AA81338001F7919 /* 2.png */,
+			);
+			path = hand;
+			sourceTree = "<group>";
+		};
 		188CB4991A7227B10039734A /* libqrencode */ = {
 			isa = PBXGroup;
 			children = (
@@ -870,6 +888,7 @@
 		BB72084D1A0B600100A97FCD /* VoteAge */ = {
 			isa = PBXGroup;
 			children = (
+				1875B1681AA81338001F7919 /* hand */,
 				18773A081A1495AD00A05745 /* testData1.json */,
 				183E1B001A136FA600E45DFA /* VoteAge-Bridging-Header.h */,
 				BB7208501A0B600100A97FCD /* AppDelegate.swift */,
@@ -889,6 +908,7 @@
 				18D2DC3F1A280E91006F74B1 /* ImageViewController.swift */,
 				188CB4B41A72321E0039734A /* WebViewViewController.swift */,
 				185255791A887DBE006C6F78 /* SearchViewController.swift */,
+				18B212D71AA806C20068C93D /* GameViewController.swift */,
 				183A68881A774FB7000FC249 /* Main.storyboard */,
 				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
 				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
@@ -1026,6 +1046,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1875B16C1AA81338001F7919 /* 0.png in Resources */,
 				182E843F1A2C0F540048069C /* ShareSDKLocalizable.strings in Resources */,
 				BB7208B71A0BA94700A97FCD /* Images.xcassets in Resources */,
 				182E84431A2C0F540048069C /* GooglePlus.bundle in Resources */,
@@ -1034,6 +1055,8 @@
 				182E84511A2C0F540048069C /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				182E84401A2C0F540048069C /* Resource.bundle in Resources */,
 				182E84581A2C0F540048069C /* ShareSDKiPhoneDefaultShareViewUI.bundle in Resources */,
+				1875B16E1AA81338001F7919 /* 2.png in Resources */,
+				1875B16D1AA81338001F7919 /* 1.png in Resources */,
 				182E84491A2C0F540048069C /* RennSDK.bundle in Resources */,
 				BB7208601A0B600100A97FCD /* LaunchScreen.xib in Resources */,
 				182E84481A2C0F540048069C /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1061,6 +1084,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18B212D81AA806C20068C93D /* GameViewController.swift in Sources */,
 				184BB44C1A1C54BE006DF06C /* SDWebImageDecoder.m in Sources */,
 				184BB4471A1C54BE006DF06C /* pinyin.c in Sources */,
 				184BB4481A1C54BE006DF06C /* MKAnnotationView+WebCache.m in Sources */,
