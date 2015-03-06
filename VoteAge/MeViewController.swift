@@ -19,6 +19,16 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet var tableView: UITableView!
     var myvoteArray = NSMutableArray()
     
+    @IBAction func logOut(sender: UIBarButtonItem) {
+        self.tabBarController?.selectedIndex = 0
+        NSUserDefaults.standardUserDefaults().setValue("", forKey: "userId")
+        NSUserDefaults.standardUserDefaults().setValue("", forKey: "accessToken")
+        NSUserDefaults.standardUserDefaults().setValue("", forKey: "name")
+        NSUserDefaults.standardUserDefaults().setValue("", forKey: "image")
+        NSUserDefaults.standardUserDefaults().setValue(0, forKey: "gender")
+        NSUserDefaults.standardUserDefaults().setValue("", forKey: "description")
+        NSNotificationCenter.defaultCenter().postNotificationName("logout", object: nil, userInfo: ["logout":"0"] as NSDictionary)
+    }
     
     
     @IBAction func hotTap(sender: UITapGestureRecognizer) {
@@ -92,6 +102,7 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
                 self.headerView.sd_setImageWithURL(url)
                 }
             }else {
+                self.headerView.image = UIImage(named: "dummyImage")
                 print("error")
             }
         })

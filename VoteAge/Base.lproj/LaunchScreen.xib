@@ -28,7 +28,7 @@
         </view>
     </objects>
     <resources>
-        <image name="launch" width="989" height="1920"/>
+        <image name="launch" width="940" height="1502"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

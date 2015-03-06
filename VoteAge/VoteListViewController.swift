@@ -58,7 +58,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     @IBAction func optionButton(sender: UIBarButtonItem) {
         if sheetView.hidden == true {
             sheetView.hidden = false
-            tableView.scrollEnabled = false
+//            tableView.scrollEnabled = false
         }else {
             sheetView.hidden = true
             tableView.scrollEnabled = true

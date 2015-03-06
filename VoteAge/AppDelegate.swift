@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     var window: UIWindow?
     var appkey = "54a13b78eb55"
     var appsecret = "d1b9befd2fd1e210b7605ec7162bf11a"
+
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         if  accessTokenDefault.valueForKey("accessToken") == nil {
              accessTokenDefault.setValue("", forKey: "accessToken")

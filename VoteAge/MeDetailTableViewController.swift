@@ -18,6 +18,7 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
     @IBOutlet weak var genderSeg: UISegmentedControl!
     @IBOutlet weak var userDescription: UITextView!
     
+    
     @IBAction func genderSegment(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
             print("男")
@@ -32,8 +33,8 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         var str = tokenDefult.objectForKey("placeholderImage") as NSString
         var data = NSData(base64EncodedString: str, options: nil)
         var placeimg = UIImage(data: data!)
-        var url = NSURL(string: tokenDefult.objectForKey("image") as NSString)
-        userImage.sd_setImageWithURL(url, placeholderImage: placeimg)
+        var url = NSURL(string: NSString(format: "http://voteage.com:8000%@", tokenDefult.objectForKey("image") as NSString))
+        userImage.sd_setImageWithURL(url, placeholderImage: UIImage(named:"dummyImage"))
         userNickName.text = tokenDefult.objectForKey("name") as? NSString
         userDescription.text = tokenDefult.objectForKey("description") as? NSString
         userNickName.delegate = self

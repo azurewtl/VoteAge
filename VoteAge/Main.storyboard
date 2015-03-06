@@ -2014,6 +2014,9 @@
                                     <constraint firstAttribute="trailing" secondItem="zC0-J3-bsA" secondAttribute="trailing" constant="15" id="mAb-TQ-dGD"/>
                                     <constraint firstAttribute="centerY" secondItem="kUg-QO-ers" secondAttribute="centerY" id="rba-Bg-L12"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2027,7 +2030,13 @@
                             <constraint firstItem="v6Q-eu-uaH" firstAttribute="top" secondItem="mq5-Ql-GtF" secondAttribute="topMargin" id="vvN-Sh-dy7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uiS-Rj-VZd"/>
+                    <navigationItem key="navigationItem" id="uiS-Rj-VZd">
+                        <barButtonItem key="rightBarButtonItem" title="退出账号" id="Ygm-3z-YDY">
+                            <connections>
+                                <action selector="logOut:" destination="LwL-OE-s0I" id="0dr-xm-bug"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="headerLabel" destination="ruL-Ea-Jx3" id="Umz-LL-Src"/>
                         <outlet property="headerView" destination="viC-R4-niH" id="Wkj-hx-yfc"/>
@@ -2445,9 +2454,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
+        <segue reference="efa-h5-z36"/>
         <segue reference="SGg-dd-0wa"/>
         <segue reference="Eqw-eQ-RF4"/>
-        <segue reference="QJE-fe-Sfl"/>
-        <segue reference="6Kq-Af-4k6"/>
+        <segue reference="16p-HW-VoW"/>
     </inferredMetricsTieBreakers>
 </document>
