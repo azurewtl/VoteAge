@@ -18,8 +18,15 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     }
 
     @IBAction func meTap(sender: UITapGestureRecognizer) {
-        self.tabBarController?.selectedIndex = 1
         
+        if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
+            var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+            var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
+            self.presentViewController(logVc, animated: true) { () -> Void in
+            }
+        }else {
+            self.tabBarController?.selectedIndex = 1
+        }
     }
     @IBAction func plusOnclick(sender: UIButton) {
         if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
@@ -576,31 +583,31 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
      func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         return 100
     }
-     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        if pushrelationship == 0 {
-            if pushuserId == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
-                return true
-            }
-        }
-        return false
-    }
-     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            var deleteItem = NSArray(objects: indexPath)
-            var deleteDic = ["method":"delete","deviceId:":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":(voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString,  "acessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
-            AFnetworkingJS.uploadJson(deleteDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
-              
-                //                if result.valueForKey("messgae") as NSString == "网络出故障啦!" {
-                //                    print("网络故障")
-                //                }else {
-                self.voteArray.removeObjectAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
-                //                }
-            })
-            
-        }
-
-}
+//     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        if pushrelationship == 0 {
+//            if pushuserId == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
+//                return true
+//            }
+//        }
+//        return false
+//    }
+//     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+//        if editingStyle == .Delete {
+//            var deleteItem = NSArray(objects: indexPath)
+//            var deleteDic = ["method":"delete","deviceId:":UIDevice.currentDevice().identifierForVendor.UUIDString, "voteId":(voteArray.objectAtIndex(indexPath.row) as NSDictionary).objectForKey("Id") as NSString,  "acessToken":NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString] as NSDictionary
+//            AFnetworkingJS.uploadJson(deleteDic, url: "http://73562.vhost33.cloudvhost.net/VoteAge/appVote/vote/", resultBlock: { (result) -> Void in
+//              
+//                //                if result.valueForKey("messgae") as NSString == "网络出故障啦!" {
+//                //                    print("网络故障")
+//                //                }else {
+//                self.voteArray.removeObjectAtIndex(indexPath.row)
+//                tableView.deleteRowsAtIndexPaths(deleteItem, withRowAnimation: UITableViewRowAnimation.Fade)
+//                //                }
+//            })
+//            
+//        }
+//
+//}
 }
 
     /*

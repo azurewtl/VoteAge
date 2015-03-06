@@ -164,9 +164,14 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
         }
         if segue.identifier == "Mydetail" {
                 (segue.destinationViewController as MeDetailTableViewController).delegate = self
+          
             }
+        if segue.identifier == "imageSegue" {
+            (segue.destinationViewController as ImageViewController).photoView.image = headerView.image
+            (segue.destinationViewController as ImageViewController).imgCount = -1
+        }
 
-           
+        
        
     }
     //MARK:-detail  protocol
