@@ -32,12 +32,14 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
     
     
     @IBAction func hotTap(sender: UITapGestureRecognizer) {
+        self.navigationController?.popToRootViewControllerAnimated(true)
         self.tabBarController?.selectedIndex = 0
     }
     
     @IBAction func meTap(sender: UITapGestureRecognizer) {
-        self.tabBarController?.selectedIndex = 1
         self.navigationController?.popToRootViewControllerAnimated(true)
+        self.tabBarController?.selectedIndex = 1
+    
     }
     @IBAction func plusOnclick(sender: UIButton) {
         if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {

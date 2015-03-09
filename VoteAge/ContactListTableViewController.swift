@@ -37,27 +37,32 @@ class ContactListTableViewController: UITableViewController, UISearchBarDelegate
         db.createTable("create table Contact(userInital tex, userName tex, userID tex primary key, userImage tex, gender tex, city tex, descibed tex)")
 
         AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/mySubscription/", resultBlock: { (result) -> Void in
+
+            if result.isKindOfClass(NSArray.classForCoder()){
+            self.friendArray =  NSMutableArray(array: result as NSArray)
+            for index in 0...self.friendArray.count - 1 {
             
-                self.friendArray =  NSMutableArray(array: result as NSArray)
-            
-                for index in 0...self.friendArray.count - 1 {
-                    self.userdic.setObject(String(self.friendArray.objectAtIndex(index)["id"] as Int), forKey: self.friendArray.objectAtIndex(index)["nickname"] as NSString)
-                }
-                self.userarray.addObject(self.userdic)
-                self.updateDataBaseAndInitialArray(self.friendArray)
-                // Update contactArray accroding to initalArray
-                for var i = 0; i < self.initialArray.count; i++  {
-                    var contactInfo = NSMutableDictionary()
-                    var str = (self.initialArray[i] as NSString)
-                    contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
-                    self.contactArray.addObject(contactInfo)
-                    
-                    self.tableView.reloadData()
-                }
+                self.userdic.setObject(String(self.friendArray.objectAtIndex(index)["id"] as Int), forKey: self.friendArray.objectAtIndex(index)["nickname"] as NSString)
+            }
+            self.userarray.addObject(self.userdic)
+            self.updateDataBaseAndInitialArray(self.friendArray)
+            // Update contactArray accroding to initalArray
+            for var i = 0; i < self.initialArray.count; i++  {
+                var contactInfo = NSMutableDictionary()
+                var str = (self.initialArray[i] as NSString)
+                contactInfo.setObject(db.selectAll("select * from Contact where userInital = '\(str)'"), forKey: "letter")
+                self.contactArray.addObject(contactInfo)
+                
+                self.tableView.reloadData()
+            }
+            }else {
+                print("error")
+            }
 
           
         })
               // test end
+     
 
     }
 

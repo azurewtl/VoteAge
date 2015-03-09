@@ -500,9 +500,6 @@
                                     <constraint firstAttribute="centerX" secondItem="Ypo-9l-ndT" secondAttribute="centerX" id="ryl-ZJ-x0N"/>
                                     <constraint firstItem="rma-C1-T75" firstAttribute="leading" secondItem="wu5-4F-gsD" secondAttribute="leading" constant="16" id="tzL-67-hS4"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2014,9 +2011,6 @@
                                     <constraint firstAttribute="trailing" secondItem="zC0-J3-bsA" secondAttribute="trailing" constant="15" id="mAb-TQ-dGD"/>
                                     <constraint firstAttribute="centerY" secondItem="kUg-QO-ers" secondAttribute="centerY" id="rba-Bg-L12"/>
                                 </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

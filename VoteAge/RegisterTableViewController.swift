@@ -55,7 +55,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
                     self.tableView.reloadData()
                 }else {
                    sender.setTitle("失败,请重新发送", forState: UIControlState.Normal)
-                    sender.enabled = true
+                   sender.enabled = true
                 }
                 
          })

@@ -13,8 +13,9 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
 
  
     @IBAction func hotTap(sender: UITapGestureRecognizer) {
-        self.tabBarController?.selectedIndex = 0
+        
         self.navigationController?.popToRootViewControllerAnimated(true)
+        self.tabBarController?.selectedIndex = 0
     }
 
     @IBAction func meTap(sender: UITapGestureRecognizer) {
@@ -25,6 +26,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             self.presentViewController(logVc, animated: true) { () -> Void in
             }
         }else {
+            self.navigationController?.popToRootViewControllerAnimated(true)
             self.tabBarController?.selectedIndex = 1
         }
     }
@@ -60,6 +62,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             sheetView.hidden = false
 //            tableView.scrollEnabled = false
         }else {
+            
             sheetView.hidden = true
             tableView.scrollEnabled = true
         }
