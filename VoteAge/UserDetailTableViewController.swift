@@ -35,7 +35,7 @@ class UserDetailTableViewController: UITableViewController {
                 self.authorName.text = result["nickname"] as NSString
                 }
                 if result["image"]! as? NSString != nil {
-                var url = NSURL(string:  NSString(format: "http://voteage.com:8000/%@", result["image"] as NSString))
+                var url = NSURL(string:  NSString(format: "%@", result["image"] as NSString))
                 self.authorImage.sd_setImageWithURL(url)
                 }else {
                  self.authorImage.image = UIImage(named: "dummyImage")
@@ -47,6 +47,9 @@ class UserDetailTableViewController: UITableViewController {
                     self.authorgender.text = "女"
                 }
 //                self.simpleintroduce.text = result["description"] as NSString
+                if NSUserDefaults.standardUserDefaults().objectForKey("accessToken") as NSString == "" {
+                    
+                }else{
                 if result["relationship"] as Int == 0 || result["relationship"] as Int == 2 {
                     self.relationship = 1
                     self.subscribeButton.setTitle("关注", forState: UIControlState.Normal)
@@ -61,12 +64,12 @@ class UserDetailTableViewController: UITableViewController {
                     self.haveContactImageView.hidden = true
                     self.title = "自己"
                 }
-
+                }
                 
             }else {
                 print("error")
             }
-        
+         
         })
 
         

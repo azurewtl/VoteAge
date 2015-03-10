@@ -497,11 +497,11 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     
     // MARK: - Table View 自定义cell protocol
     func sendNumber(num: Int) {
-                var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-                var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
-                let voteFeed = voteArray[num] as NSDictionary
-                userDetailVc.contactId = voteFeed["creatorid"] as Int
-                self.navigationController?.pushViewController(userDetailVc, animated: true)
+        var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        var userDetailVc = storyBoard.instantiateViewControllerWithIdentifier("userDetail") as UserDetailTableViewController
+        let voteFeed = voteArray[num] as NSDictionary
+        userDetailVc.contactId = voteFeed["creatorid"] as Int
+        self.navigationController?.pushViewController(userDetailVc, animated: true)
         
     }
     // MARK: - Table View

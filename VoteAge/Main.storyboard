@@ -1698,35 +1698,40 @@
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="T8q-hx-gqi" id="aOp-Vh-0pi">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="投票截止日期" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Lq-io-ydh">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投票截止日期" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Lq-io-ydh">
                                             <rect key="frame" x="75" y="10" width="170" height="25"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="25" id="8Ed-vp-WAr"/>
-                                                <constraint firstAttribute="width" constant="170" id="g0J-kK-SOr"/>
+                                                <constraint firstAttribute="height" constant="25" id="aAT-pE-qE9"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <pickerView tag="101" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yjR-7G-r41">
-                                            <rect key="frame" x="85" y="34" width="150" height="162"/>
+                                        <pickerView tag="101" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yjR-7G-r41">
+                                            <rect key="frame" x="85" y="39" width="150" height="162"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="150" id="nLU-3D-TpI"/>
-                                                <constraint firstAttribute="height" constant="162" id="nMq-ju-hhf"/>
+                                                <constraint firstAttribute="width" constant="150" id="fh6-d7-ij6"/>
                                             </constraints>
                                         </pickerView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="天" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdm-A1-e9v">
-                                            <rect key="frame" x="243" y="86" width="69" height="58"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="天" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fdm-A1-e9v">
+                                            <rect key="frame" x="251" y="88" width="61" height="58"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="22"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="centerX" secondItem="yjR-7G-r41" secondAttribute="centerX" id="08r-Jr-zMY"/>
-                                        <constraint firstItem="yjR-7G-r41" firstAttribute="top" secondItem="1Lq-io-ydh" secondAttribute="bottom" id="KPh-U8-4Kv"/>
-                                        <constraint firstItem="1Lq-io-ydh" firstAttribute="top" secondItem="aOp-Vh-0pi" secondAttribute="topMargin" id="Yga-qN-91A"/>
-                                        <constraint firstAttribute="centerX" secondItem="1Lq-io-ydh" secondAttribute="centerX" id="bw0-wc-qyu"/>
+                                        <constraint firstItem="yjR-7G-r41" firstAttribute="leading" secondItem="aOp-Vh-0pi" secondAttribute="leadingMargin" constant="77" id="2HX-g5-0Ke"/>
+                                        <constraint firstItem="1Lq-io-ydh" firstAttribute="top" secondItem="aOp-Vh-0pi" secondAttribute="topMargin" constant="2" id="2iR-Gn-vS3"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="yjR-7G-r41" secondAttribute="bottom" constant="3" id="5SB-cS-xiX"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="fdm-A1-e9v" secondAttribute="bottom" constant="58" id="Kj5-O5-i5V"/>
+                                        <constraint firstItem="fdm-A1-e9v" firstAttribute="trailing" secondItem="aOp-Vh-0pi" secondAttribute="trailingMargin" id="Ubm-4c-fKP"/>
+                                        <constraint firstItem="fdm-A1-e9v" firstAttribute="leading" secondItem="yjR-7G-r41" secondAttribute="trailing" constant="16" id="gcg-3h-KSl"/>
+                                        <constraint firstItem="yjR-7G-r41" firstAttribute="top" secondItem="1Lq-io-ydh" secondAttribute="bottom" constant="4" id="otT-rK-MHr"/>
+                                        <constraint firstItem="1Lq-io-ydh" firstAttribute="leading" secondItem="aOp-Vh-0pi" secondAttribute="leadingMargin" constant="67" id="tnH-Ig-h2y"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="1Lq-io-ydh" secondAttribute="trailing" constant="67" id="vB3-7j-7Iv"/>
+                                        <constraint firstItem="fdm-A1-e9v" firstAttribute="top" secondItem="aOp-Vh-0pi" secondAttribute="topMargin" constant="80" id="wcJ-bG-cfc"/>
+                                        <constraint firstItem="1Lq-io-ydh" firstAttribute="top" secondItem="aOp-Vh-0pi" secondAttribute="topMargin" constant="2" id="wor-d5-D1c"/>
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
@@ -1751,7 +1756,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ylf-a1-Tog" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="531" y="750"/>
+            <point key="canvasLocation" x="531" y="748"/>
         </scene>
         <!--我-->
         <scene sceneID="xab-K3-35P">
@@ -1911,7 +1916,7 @@
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LoA-Mf-BLb" customClass="ActivityButton" customModule="VoteAge" customModuleProvider="target">
                                             <rect key="frame" x="38" y="8" width="245" height="30"/>
-                                            <color key="backgroundColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="tintColor" red="0.99522569444444442" green="0.99522569444444442" blue="0.99522569444444442" alpha="1" colorSpace="calibratedRGB"/>
                                             <state key="normal" title="点击加载">
                                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -2429,7 +2434,7 @@
         <image name="first" width="32" height="32"/>
         <image name="flower" width="141" height="179"/>
         <image name="haveContact" width="32" height="32"/>
-        <image name="hot" width="32" height="32"/>
+        <image name="hot" width="64" height="64"/>
         <image name="icon_me" width="32" height="32"/>
         <image name="icon_more" width="32" height="32"/>
         <image name="iconfont-add" width="64" height="64"/>
@@ -2439,7 +2444,7 @@
         <image name="sunyanzi" width="137" height="207"/>
         <image name="swip" width="32" height="32"/>
         <image name="user1" width="200" height="200"/>
-        <image name="wo" width="32" height="32"/>
+        <image name="wo" width="64" height="64"/>
         <image name="zhangzhengyue" width="137" height="207"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -2448,9 +2453,9 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="efa-h5-z36"/>
-        <segue reference="SGg-dd-0wa"/>
         <segue reference="Eqw-eQ-RF4"/>
+        <segue reference="SGg-dd-0wa"/>
+        <segue reference="QJE-fe-Sfl"/>
         <segue reference="16p-HW-VoW"/>
     </inferredMetricsTieBreakers>
 </document>
