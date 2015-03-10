@@ -58,13 +58,17 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     var locationManager = CLLocationManager()
     
     @IBAction func optionButton(sender: UIBarButtonItem) {
-        if sheetView.hidden == true {
-            sheetView.hidden = false
+        if sheetView.alpha == 0 {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                 self.sheetView.alpha = 1
+            })
+           
 //            tableView.scrollEnabled = false
         }else {
+            UIView.animateWithDuration(0.5, animations: { () -> Void in
+                self.sheetView.alpha = 0
+            })
             
-            sheetView.hidden = true
-            tableView.scrollEnabled = true
         }
     }
     var pushrelationship = -1
@@ -298,6 +302,11 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         }
        })
     }
+    func backOnclick() {
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+            self.sheetView.alpha = 0
+        })
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         //添加轮播图的背景view
@@ -305,11 +314,17 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         bottomLabel.hidden = true
         self.navigationController?.delegate = self
         sheetView.frame = CGRectMake(0, 64, view.frame.width, view.frame.height - 64)
-        sheetView.backgroundColor = UIColor.yellowColor()
-        sheetView.hidden = true
+        sheetView.backgroundColor = UIColor(red: 0.45, green: 0.70, blue: 0.99, alpha: 1)
+        sheetView.alpha = 0
         self.view.addSubview(sheetView)
+        var backButton = UIButton.buttonWithType(UIButtonType.System) as UIButton
+        backButton.frame = CGRectMake(0, sheetView.frame.height - 49, 49, 49)
+        backButton.center = CGPointMake(sheetView.center.x, backButton.center.y)
+        backButton.addTarget(self, action: "backOnclick", forControlEvents: UIControlEvents.TouchUpInside)
+        backButton.setBackgroundImage(UIImage(named: "chacha"), forState: UIControlState.Normal)
+        sheetView.addSubview(backButton)
         // UICollectionView
-        collectionView = UICollectionView(frame: CGRectMake(0, 0, view.frame.width, sheetView.frame.height), collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView = UICollectionView(frame: CGRectMake(0, 0, view.frame.width, sheetView.frame.height - 49), collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = UIColor.grayColor()
@@ -398,7 +413,10 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         return cell
     }
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        sheetView.hidden = true
+        UIView.animateWithDuration(0.5, animations: { () -> Void in
+           self.sheetView.alpha = 0
+        })
+       
     }
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
         return CGSizeMake(collectionView.frame.width / 2 - 1.5, collectionView.frame.width / 2 - 1.5)
