@@ -142,7 +142,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
            
         })
         var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("allvote") as VoteListTableViewController
+        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("allvote") as VoteListViewController
         meVoteVc.title = "我发起的"
         meVoteVc.pushrelationship = 0
         self.navigationController?.pushViewController(meVoteVc, animated: true)

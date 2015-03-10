@@ -117,14 +117,12 @@
 		1850D86B1A6D11270017AB70 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850D86A1A6D11270017AB70 /* CoreImage.framework */; };
 		1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850D86E1A6D11750017AB70 /* BlurImageView.m */; };
 		1852557A1A887DBE006C6F78 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185255791A887DBE006C6F78 /* SearchViewController.swift */; };
-		18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D841A172C3C00BC44F1 /* MeTableViewController.swift */; };
 		18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D881A172DB500BC44F1 /* QRCodeViewController.swift */; };
 		1862EF471AA42803004CE931 /* AutoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862EF441AA42803004CE931 /* AutoScrollView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		1862EF481AA42803004CE931 /* Tap.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862EF461AA42803004CE931 /* Tap.m */; };
 		1862EF4C1AA42DE3004CE931 /* VoteListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1862EF4B1AA42DE3004CE931 /* VoteListCollectionViewCell.swift */; };
 		18687D141A1DD1DD00CF3434 /* UserDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D131A1DD1DD00CF3434 /* UserDetailTableViewController.swift */; };
 		18687D171A1DD2C500CF3434 /* VoteDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */; };
-		18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */; };
 		18687D1C1A1DD90F00CF3434 /* ContactListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */; };
 		1875B16C1AA81338001F7919 /* 0.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875B1691AA81338001F7919 /* 0.png */; };
 		1875B16D1AA81338001F7919 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 1875B16A1AA81338001F7919 /* 1.png */; };
@@ -141,7 +139,6 @@
 		188CB4B31A7229F00039734A /* MakeqrcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4B21A7229F00039734A /* MakeqrcViewController.swift */; };
 		188CB4B51A72321E0039734A /* WebViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188CB4B41A72321E0039734A /* WebViewViewController.swift */; };
 		1893CE151A84911000002B08 /* SingleLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1893CE141A84911000002B08 /* SingleLineTableViewCell.swift */; };
-		1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */; };
 		18AEE3101A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */; };
 		18B212D01AA6A2940068C93D /* VoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212CF1AA6A2940068C93D /* VoteListViewController.swift */; };
 		18B212D21AA6E4700068C93D /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B212D11AA6E4700068C93D /* MeViewController.swift */; };
@@ -332,7 +329,6 @@
 		1850D86D1A6D11750017AB70 /* BlurImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurImageView.h; sourceTree = "<group>"; };
 		1850D86E1A6D11750017AB70 /* BlurImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurImageView.m; sourceTree = "<group>"; };
 		185255791A887DBE006C6F78 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
-		18623D841A172C3C00BC44F1 /* MeTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeTableViewController.swift; sourceTree = "<group>"; };
 		18623D881A172DB500BC44F1 /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		1862EF431AA42803004CE931 /* AutoScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoScrollView.h; sourceTree = "<group>"; };
 		1862EF441AA42803004CE931 /* AutoScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoScrollView.m; sourceTree = "<group>"; };
@@ -341,7 +337,6 @@
 		1862EF4B1AA42DE3004CE931 /* VoteListCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListCollectionViewCell.swift; sourceTree = "<group>"; };
 		18687D131A1DD1DD00CF3434 /* UserDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailTableViewController.swift; sourceTree = "<group>"; };
 		18687D151A1DD2C500CF3434 /* VoteDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteDetailViewController.swift; sourceTree = "<group>"; };
-		18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListTableViewController.swift; sourceTree = "<group>"; };
 		18687D1B1A1DD90F00CF3434 /* ContactListTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactListTableViewController.swift; sourceTree = "<group>"; };
 		1875B1691AA81338001F7919 /* 0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 0.png; sourceTree = "<group>"; };
 		1875B16A1AA81338001F7919 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -366,7 +361,6 @@
 		188CB4B21A7229F00039734A /* MakeqrcViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MakeqrcViewController.swift; sourceTree = "<group>"; };
 		188CB4B41A72321E0039734A /* WebViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewViewController.swift; sourceTree = "<group>"; };
 		1893CE141A84911000002B08 /* SingleLineTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SingleLineTableViewCell.swift; sourceTree = "<group>"; };
-		1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactVoteTableViewController.swift; sourceTree = "<group>"; };
 		18AEE30F1A1DEBDA00C7F8D4 /* MeDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeDetailTableViewController.swift; sourceTree = "<group>"; };
 		18B212CF1AA6A2940068C93D /* VoteListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VoteListViewController.swift; sourceTree = "<group>"; };
 		18B212D11AA6E4700068C93D /* MeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
@@ -910,9 +904,6 @@
 				185255791A887DBE006C6F78 /* SearchViewController.swift */,
 				18B212D71AA806C20068C93D /* GameViewController.swift */,
 				183A68881A774FB7000FC249 /* Main.storyboard */,
-				18623D841A172C3C00BC44F1 /* MeTableViewController.swift */,
-				18687D161A1DD2C500CF3434 /* VoteListTableViewController.swift */,
-				1899B2081A677928007097C6 /* ContactVoteTableViewController.swift */,
 				BB7208BC1A0BC6C700A97FCD /* CustomizedCell */,
 				BB7208B61A0BA94700A97FCD /* Images.xcassets */,
 				BB72085E1A0B600100A97FCD /* LaunchScreen.xib */,
@@ -1098,14 +1089,12 @@
 				1852557A1A887DBE006C6F78 /* SearchViewController.swift in Sources */,
 				BB7208541A0B600100A97FCD /* VoteAge.xcdatamodeld in Sources */,
 				18B2EAA71A1F25B500F7E6BA /* ImageUtil.swift in Sources */,
-				18623D851A172C3C00BC44F1 /* MeTableViewController.swift in Sources */,
 				1818D9241A259B4000AAC458 /* RegisterTableViewController.swift in Sources */,
 				18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
 				183A68BB1A779784000FC249 /* ActivityButton.swift in Sources */,
 				188CB4AC1A7227B10039734A /* qrspec.c in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
-				1899B2091A677928007097C6 /* ContactVoteTableViewController.swift in Sources */,
 				184BB4531A1C54BE006DF06C /* UIImage+MultiFormat.m in Sources */,
 				18D06F801A35A0430054A2CE /* VoteAddPersonCell.swift in Sources */,
 				184BB4521A1C54BE006DF06C /* UIImage+GIF.m in Sources */,
@@ -1143,7 +1132,6 @@
 				18687D171A1DD2C500CF3434 /* VoteDetailViewController.swift in Sources */,
 				184BB4541A1C54BE006DF06C /* UIImage+WebP.m in Sources */,
 				184BB4591A1C54BE006DF06C /* String-Extras.swift in Sources */,
-				18687D181A1DD2C500CF3434 /* VoteListTableViewController.swift in Sources */,
 				184BB44F1A1C54BE006DF06C /* SDWebImageManager.m in Sources */,
 				184BB4491A1C54BE006DF06C /* NSData+ImageContentType.m in Sources */,
 				184BB4421A1C54BE006DF06C /* AFSecurityPolicy.m in Sources */,
