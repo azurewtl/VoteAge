@@ -99,7 +99,7 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
         AFnetworkingJS.netWorkWithURL("http://voteage.com:8000/api/users/myAccount/", resultBlock: { (result) -> Void in
             if (result as NSDictionary).objectForKey("message") == nil {
                 if (result as NSDictionary).objectForKey("image")! as? NSString != nil {
-                    var url = NSURL(string: NSString(format: "http://voteage.com:8000%@", (result as NSDictionary).objectForKey("image") as NSString))
+                    var url = NSURL(string: NSString(format: "%@", (result as NSDictionary).objectForKey("image") as NSString))
         
                 self.headerView.sd_setImageWithURL(url)
                 }
@@ -112,15 +112,7 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
         meImageview.image = UIImage(named: "wo_green")
         headerView.layer.masksToBounds = true
         headerView.layer.cornerRadius = headerView.frame.width / 2
-      
-        if NSUserDefaults.standardUserDefaults().objectForKey("image") as NSString == "" {
-            headerView.image = UIImage(named: "dummyImage")
-        }else {
-        
-            var url = NSURL(string:NSString(format: "http://voteage.com:8000%@", NSUserDefaults.standardUserDefaults().objectForKey("image") as NSString))
-         
-            headerView.sd_setImageWithURL(url)
-        }
+    
          headerLabel.text = NSUserDefaults.standardUserDefaults().objectForKey("name") as NSString
         
         tableView.showsVerticalScrollIndicator = false
@@ -138,6 +130,10 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
                 })
        
         // Do any additional setup after loading the view.
+    }
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(true)
+        
     }
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return myvoteArray.count
@@ -177,7 +173,8 @@ class MeViewController: UIViewController, UITableViewDataSource, UITableViewDele
         }
         if segue.identifier == "Mydetail" {
                 (segue.destinationViewController as MeDetailTableViewController).delegate = self
-          
+      
+            
             }
         if segue.identifier == "imageSegue" {
             (segue.destinationViewController as ImageViewController).photoView.image = headerView.image

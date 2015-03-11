@@ -141,11 +141,7 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
         self.dismissViewControllerAnimated(true, completion: { () -> Void in
            
         })
-        var stroyborad = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        var meVoteVc = storyboard?.instantiateViewControllerWithIdentifier("allvote") as VoteListViewController
-        meVoteVc.title = "我发起的"
-        meVoteVc.pushrelationship = 0
-        self.navigationController?.pushViewController(meVoteVc, animated: true)
+
     }
    // MARK: -   Picker view
     

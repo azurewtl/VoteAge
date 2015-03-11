@@ -16,9 +16,10 @@ class VoteTableViewCell: UITableViewCell {
     var num = Int()
     var authorID: NSString? = NSString()
     
+    @IBOutlet var userHeadImage: UIImageView!
     
-    @IBOutlet var statusImageView: UIImageView!
-    @IBOutlet weak var voteTitle: UILabel!
+//    @IBOutlet var statusImageView: UIImageView!
+    @IBOutlet weak var voteTitle: THLabel!
     @IBOutlet weak var voteImage: UIImageView?
     @IBOutlet var voteAuthor: UIButton!
     
@@ -34,10 +35,14 @@ class VoteTableViewCell: UITableViewCell {
     @IBAction func hasVoteOnclick(sender: UIButton) {
         self.delegate?.sendNumber(num)
     }
-
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        voteTitle.strokeColor = UIColor.blackColor()
+        voteTitle.strokeSize = 3
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
         // Initialization code
 //        voteImage!.layer.cornerRadius = voteImage!.frame.width / 2
 //        voteImage!.clipsToBounds = true

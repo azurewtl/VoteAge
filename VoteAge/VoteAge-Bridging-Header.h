@@ -22,3 +22,4 @@
 #import "BlurImageView.h"
 #import "QRCodeGenerator.h"
 #import "AutoScrollView.h"
+#import "THLabel.h"

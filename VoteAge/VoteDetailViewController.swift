@@ -34,7 +34,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var voteTitle: UILabel!
     @IBOutlet weak var expireDate: UILabel!
     @IBOutlet weak var voteCount: UILabel!
-    @IBOutlet weak var waiveButton: UIButton!
+//    @IBOutlet weak var waiveButton: UIButton!
     @IBOutlet weak var voteSegment: UISegmentedControl!
     
     @IBAction func optionItemOnClick(sender: UIBarButtonItem) {
@@ -166,7 +166,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             tableView.reloadData()
         }else{
             self.voteTotalperson()
-            waiveButton.hidden = true
+//            waiveButton.hidden = true
         }
     }
     
@@ -314,12 +314,12 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
     
     // MARK: - waiveButton
     
-    @IBAction func waiveButton(sender: UIButton) {
-        sender.hidden = true
-        self.voteTotalperson()
-        section1CellCount = 1
-        tableView.reloadData()
-    }
+//    @IBAction func waiveButton(sender: UIButton) {
+//        sender.hidden = true
+//        self.voteTotalperson()
+//        section1CellCount = 1
+//        tableView.reloadData()
+//    }
     
     
     // MARK: - totalVoted
@@ -424,7 +424,7 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
                     self.womenCount = 0
                     self.voteDetail = result as NSDictionary
                     self.configureView()
-                    self.waiveButton.hidden = true
+//                    self.waiveButton.hidden = true
                     self.voteSegment.selectedSegmentIndex = 1;
                     let cell = self.tableView.cellForRowAtIndexPath(NSIndexPath(forRow: self.selectIndex, inSection: 0)) as OptionTableViewCell?
                     cell?.checkImageView.hidden = true

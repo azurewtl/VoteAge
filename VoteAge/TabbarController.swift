@@ -36,19 +36,7 @@ class TabbarController: UITabBarController, UITabBarControllerDelegate{
                 })
             }
         }
-//       
-//        if item.tag == 3 {
-//            if userDefault.objectForKey("userId") as NSString == "" {
-//                
-//                var storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-//                var logVc:RegisterTableViewController =  storyboard.instantiateViewControllerWithIdentifier("login") as RegisterTableViewController
-//                presentViewController(logVc, animated: true, completion: { () -> Void in
-//                    
-//                })
-//            }
-//           
-//            
-//        }
+
     }
     func tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController) -> Bool {
         if viewController.tabBarItem.tag == 1 {

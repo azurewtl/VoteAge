@@ -13,11 +13,11 @@ protocol sendbackInforDelegate {
 class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate, UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextViewDelegate, UITextFieldDelegate {
     var tokenDefult = NSUserDefaults.standardUserDefaults()//accessToken 单例
     var delegate = sendbackInforDelegate?()
-    @IBOutlet weak var userImage: UIImageView!
+ 
+    @IBOutlet var userImage: UIImageView!
     @IBOutlet weak var userNickName: UITextField!
     @IBOutlet weak var genderSeg: UISegmentedControl!
     @IBOutlet weak var userDescription: UITextView!
-    
     
     @IBAction func genderSegment(sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 0 {
@@ -33,7 +33,8 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         var str = tokenDefult.objectForKey("placeholderImage") as NSString
         var data = NSData(base64EncodedString: str, options: nil)
         var placeimg = UIImage(data: data!)
-        var url = NSURL(string: NSString(format: "http://voteage.com:8000%@", tokenDefult.objectForKey("image") as NSString))
+        print(tokenDefult.objectForKey("image") as NSString)
+        var url = NSURL(string: NSString(format: "%@", tokenDefult.objectForKey("image") as NSString))
         userImage.sd_setImageWithURL(url, placeholderImage: UIImage(named:"dummyImage"))
         userNickName.text = tokenDefult.objectForKey("name") as? NSString
         userDescription.text = tokenDefult.objectForKey("description") as? NSString
@@ -121,18 +122,17 @@ class MeDetailTableViewController: UITableViewController, UIActionSheetDelegate,
         var encodeStr = data.base64EncodedStringWithOptions(nil)
         var userParameters = NSDictionary()
         if encodeStr == ""{
-             userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "description":userDescription.text] as NSDictionary
+             userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "about":userDescription.text] as NSDictionary
         }else {
-         userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "image":encodeStr,"description":userDescription.text] as NSDictionary
+         userParameters = ["gender":genderSeg.selectedSegmentIndex + 1 ,"nickname":userNickName.text, "image":encodeStr,"about":userDescription.text] as NSDictionary
         }
-     
+      
         AFnetworkingJS.updateJson(NSString(format: "http://voteage.com:8000/api/users/%d/", (NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString).integerValue), dic: userParameters) { (result) -> Void in
             print(result)
             if (result as NSDictionary).objectForKey("message") == nil {
                 self.tokenDefult.setValue(self.userDescription.text, forKey: "description")
                 self.tokenDefult.setValue(self.userNickName.text, forKey: "name")
                 self.tokenDefult.setValue(self.genderSeg.selectedSegmentIndex + 1, forKey: "gender")
-                self.tokenDefult.setValue(encodeStr, forKey: "image")
                 sender.juhua.stopAnimating()
                 self.delegate?.sendbackInfo(self.userNickName.text, img: self.userImage.image!)
                 self.navigationController?.popViewControllerAnimated(true)

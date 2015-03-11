@@ -548,16 +548,21 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("votecell") as VoteTableViewCell
-        cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)
+//        cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)
         if voteArray.count > 0 {
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.num = indexPath.row
             cell.delegate = self
             cell.voteTitle.text = voteItem["title"] as? NSString
-            
-            if voteItem["allowVote"] as Int == 0 {
-                cell.statusImageView.backgroundColor = UIColor.grayColor()
+            if voteItem["creatorimage"]! as? NSString != nil {
+            var headStr = voteItem["creatorimage"] as NSString
+            cell.userHeadImage.sd_setImageWithURL(NSURL(string: headStr))
+            }else {
+            cell.userHeadImage.image = UIImage(named: "dummyImage")
             }
+//            if voteItem["allowVote"] as Int == 0 {
+//                cell.statusImageView.backgroundColor = UIColor.grayColor()
+//            }
             
             if voteItem["creatorname"] as NSString == "" {
                 cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
@@ -567,43 +572,41 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             cell.authorID = voteItem["creatorid"] as? NSString
             
             
-            var widthEqualZeroConstraint = NSLayoutConstraint(
-                item: cell.voteImage!,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.Width,
-                multiplier: 0,
-                constant: 0
-            )
-            var defaultWidthConstraint = NSLayoutConstraint(
-                item: cell.voteImage!,
-                attribute: NSLayoutAttribute.Width,
-                relatedBy: NSLayoutRelation.Equal,
-                toItem: nil,
-                attribute: NSLayoutAttribute.Width,
-                multiplier: 0,
-                constant: 83
-            )
+//            var widthEqualZeroConstraint = NSLayoutConstraint(
+//                item: cell.voteImage!,
+//                attribute: NSLayoutAttribute.Width,
+//                relatedBy: NSLayoutRelation.Equal,
+//                toItem: nil,
+//                attribute: NSLayoutAttribute.Width,
+//                multiplier: 0,
+//                constant: 0
+//            )
+//            var defaultWidthConstraint = NSLayoutConstraint(
+//                item: cell.voteImage!,
+//                attribute: NSLayoutAttribute.Width,
+//                relatedBy: NSLayoutRelation.Equal,
+//                toItem: nil,
+//                attribute: NSLayoutAttribute.Width,
+//                multiplier: 0,
+//                constant: 83
+//            )
             cell.voteImage?.image = nil
             if (voteItem["image"]! as? NSString != nil) {
                 var imageUrl = NSURL(string: voteItem["image"] as NSString)
                 cell.voteImage?.sd_setImageWithURL(imageUrl)
-                //                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
-                //                cell.voteImage!.addConstraint(widthEqualZeroConstraint)
+        
             }
             else{
-                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
-                cell.voteImage!.addConstraint(defaultWidthConstraint)
+                cell.voteImage?.image = UIImage(named: "dini")
+//                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
+//                cell.voteImage!.addConstraint(defaultWidthConstraint)
             }
             
         }
         return cell
     }
     
-     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
-    }
+
 //     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
 //        if pushrelationship == 0 {
 //            if pushuserId == NSUserDefaults.standardUserDefaults().objectForKey("userId") as NSString {
