@@ -360,7 +360,7 @@
                                                     <rect key="frame" x="8" y="197" width="304" height="42"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwx-M8-fdz">
-                                                            <rect key="frame" x="8" y="6" width="28" height="28"/>
+                                                            <rect key="frame" x="8" y="11" width="28" height="28"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -369,7 +369,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIu-pI-M2f">
-                                                            <rect key="frame" x="54" y="11" width="60" height="20"/>
+                                                            <rect key="frame" x="50" y="15" width="60" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <state key="normal" title="用户">
                                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -379,10 +379,13 @@
                                                                 <action selector="userOnclick:" destination="m0d-ak-lc9" eventType="touchUpInside" id="wfK-c3-MAK"/>
                                                             </connections>
                                                         </button>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="crown" translatesAutoresizingMaskIntoConstraints="NO" id="puh-Nj-zHw">
+                                                            <rect key="frame" x="5" y="0.0" width="34" height="14"/>
+                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s" customClass="THLabel">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s" customClass="THLabel">
                                                     <rect key="frame" x="8" y="73" width="304" height="110"/>
                                                     <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="25"/>
                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2257,6 +2260,7 @@
         <image name="blury" width="2300" height="1500"/>
         <image name="brokenegg" width="80" height="106"/>
         <image name="checked" width="50" height="50"/>
+        <image name="crown" width="613" height="488"/>
         <image name="dummyImage" width="132" height="132"/>
         <image name="egg" width="129" height="179"/>
         <image name="first" width="32" height="32"/>
