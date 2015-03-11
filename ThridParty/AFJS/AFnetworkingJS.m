@@ -37,6 +37,7 @@
         NSLog(@"JSON: %@", responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [NSNotificationCenter.defaultCenter postNotificationName:@"webout" object:nil userInfo:@{@"webout":@"1"}];
         NSDictionary *dic = @{@"message": @"网络出故障啦!"};
         block(dic);
     }];
@@ -71,6 +72,7 @@
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [NSNotificationCenter.defaultCenter postNotificationName:@"webout" object:nil userInfo:@{@"webout":@"1"}];
         NSDictionary *dic = @{@"message": @"网络出故障啦!"};
         block(dic);
     }];
@@ -103,6 +105,7 @@
         block(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
+        [NSNotificationCenter.defaultCenter postNotificationName:@"webout" object:nil userInfo:@{@"webout":@"1"}];
         NSDictionary *dic = @{@"message": @"网络出故障啦!"};
         block(dic);
     }];

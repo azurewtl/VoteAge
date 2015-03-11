@@ -127,11 +127,10 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         }else{
             dragImageView.image = UIImage(named:"dragUp")
         }
-        
     }
     // MARK: -上拉加载
      func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        
+        if voteArray.count > 5 {
         if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
             loadActivityView.hidden = false
             loadActivityView.startAnimating()
@@ -148,6 +147,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
                                 if result.valueForKey("next")! as? NSString != nil {
                                     self.next = true
                                 }else {
+                    
                                     self.next = false
                                     
                                 }
@@ -203,6 +203,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             
         }else {
             loadActivityView.stopAnimating()
+        }
         }
         
         
@@ -545,7 +546,10 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
      func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: false)
     }
+    
+    
      func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        
         
         let cell = tableView.dequeueReusableCellWithIdentifier("votecell") as VoteTableViewCell
 //        cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)

@@ -10,14 +10,21 @@ import UIKit
 
 class TabbarController: UITabBarController, UITabBarControllerDelegate{
     var userDefault = NSUserDefaults.standardUserDefaults()
+    var alert:UIAlertView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        alert = UIAlertView(title: "提示", message: "网络不稳定", delegate: nil, cancelButtonTitle: "确定")
         self.tabBar.removeFromSuperview()
         self.delegate = self
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "noti:", name: "logout", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "webBroken:", name: "webout", object: nil)
         // Do any additional setup after loading the view.
     }
-
+    func webBroken(noti:NSNotification) {
+        if (noti.userInfo! as NSDictionary).objectForKey("webout") as NSString == "1" {
+          alert.show()
+        }
+    }
     func noti(noti:NSNotification) {
         if (noti.userInfo! as NSDictionary).objectForKey("logout") as NSString == "1" {
             self.selectedIndex = 1
