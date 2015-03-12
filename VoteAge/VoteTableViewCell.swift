@@ -37,12 +37,12 @@ class VoteTableViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        voteTitle.strokeColor = UIColor.blackColor()
-        voteTitle.strokeSize = 3
+       
     }
     override func awakeFromNib() {
         super.awakeFromNib()
-        
+        voteTitle.strokeColor = UIColor.blackColor()
+        voteTitle.strokeSize = 2.5
         // Initialization code
 //        voteImage!.layer.cornerRadius = voteImage!.frame.width / 2
 //        voteImage!.clipsToBounds = true

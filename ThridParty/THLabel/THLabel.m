@@ -76,6 +76,7 @@
 	self.gradientStartPoint = CGPointMake(0.5, 0.2);
 	self.gradientEndPoint = CGPointMake(0.5, 0.8);
 	self.automaticallyAdjustTextInsets = YES;
+    
 }
 
 - (BOOL)hasShadow {

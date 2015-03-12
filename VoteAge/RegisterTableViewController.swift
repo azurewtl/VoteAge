@@ -189,7 +189,7 @@ class RegisterTableViewController: UITableViewController, UITextFieldDelegate, U
         phoneTextField.keyboardType = UIKeyboardType.PhonePad
         verificationTextField.keyboardType = UIKeyboardType.PhonePad
         backButton.clipsToBounds = true
-        backButton.layer.cornerRadius = 15
+        backButton.layer.cornerRadius = 5
 
     }
 

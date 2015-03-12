@@ -95,8 +95,8 @@ class NewVoteTableViewController: UITableViewController, UITextViewDelegate, UIT
                 }else {
                     self.sendButton.enabled = true
                     self.sendButton.setTitle("发送", forState: UIControlState.Normal)
-                    var alert = UIAlertView(title: "温馨提示", message: "发送失败", delegate: nil, cancelButtonTitle: "确定")
-                    alert.show()
+//                    var alert = UIAlertView(title: "温馨提示", message: "发送失败", delegate: nil, cancelButtonTitle: "确定")
+//                    alert.show()
             }
             }
         }else{

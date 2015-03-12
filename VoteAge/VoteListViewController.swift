@@ -602,6 +602,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             }
             else{
                 cell.voteImage?.image = UIImage(named: "dini")
+            
 //                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
 //                cell.voteImage!.addConstraint(defaultWidthConstraint)
             }
