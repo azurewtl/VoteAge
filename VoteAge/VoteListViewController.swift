@@ -123,9 +123,10 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     }
      func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.contentOffset.y < -140 {
-            dragImageView.image = UIImage(named:"dragDown")
+          dragImageView.image = UIImage(named:"dragDown")
         }else{
             dragImageView.image = UIImage(named:"dragUp")
+         
         }
     }
     // MARK: -上拉加载
@@ -288,9 +289,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             var labelAr = NSMutableArray()
             var imgAr = NSMutableArray()
             for item in self.homePageArray {
-                print("******")
-                print(item)
-                print("******")
+        
                 var imgStr = NSString(format: "http://voteage.com:8000%@", (item as NSDictionary).objectForKey("image") as NSString)
                 imgAr.addObject(imgStr)
                 labelAr.addObject((item as NSDictionary).objectForKey("title") as NSString)
@@ -386,7 +385,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     // MARK: - 轮播图点击方法
     
     func autoAction(tap:Tap) {
-        print(tap.flag)
+ 
         var storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
         var gameVc = storyBoard.instantiateViewControllerWithIdentifier("gameVC") as GameViewController
         self.presentViewController(gameVc, animated: true) { () -> Void in
@@ -574,9 +573,8 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
                 cell.voteAuthor.setTitle(voteItem["creatorname"] as? NSString, forState: UIControlState.Normal)
             }
             cell.authorID = voteItem["creatorid"] as? NSString
-            
-            
-//            var widthEqualZeroConstraint = NSLayoutConstraint(
+  
+    //            var widthEqualZeroConstraint = NSLayoutConstraint(
 //                item: cell.voteImage!,
 //                attribute: NSLayoutAttribute.Width,
 //                relatedBy: NSLayoutRelation.Equal,

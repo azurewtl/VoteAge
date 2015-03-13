@@ -186,15 +186,27 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
           
             dateStr = dateStr.stringByReplacingOccurrencesOfString("T", withString: "")
             dateStr = dateStr.stringByReplacingOccurrencesOfString("Z", withString: "")
-       
-//            var format = NSDateFormatter()
-//            format.dateFormat = "yyyyMMddHHmmss"
-//            var date = format.dateFromString(dateStr)
-//               print("*&*&*&****************")
-//            print(date)
-//            print("\n\n\n")
-            expireDate.text = dateStr
-//            voteCount.text = NSString(format: "%@人", voteDetail.objectForKey("voteTotal") as NSString)
+            dateStr = dateStr.stringByReplacingOccurrencesOfString("-", withString: "")
+            dateStr = dateStr.stringByReplacingOccurrencesOfString(":", withString: "")
+            var format = NSDateFormatter()
+            format.dateFormat = "yyyyMMddHHmmss"
+            var date = format.dateFromString(dateStr)
+            var date1 = NSDate(timeInterval: 8 * 60 * 60, sinceDate: date!)
+//            print(date1)
+            var dd = NSDate(timeIntervalSinceNow: 8 * 60 * 60)
+            var inteval = date1.timeIntervalSinceDate(dd)
+            if (Double(inteval) / 24 / 3600) >= 1 {
+            expireDate.text = NSString(format: "还剩%d天", (Int(Double(inteval) / 24 / 3600)))
+            }else if (Double(inteval) / 24 / 3600) > 0 {
+                expireDate.text = NSString(format: "还剩%d小时", (Int(Double(inteval) /  3600)))
+            }else if (Double(inteval) / 3600) > 0{
+                expireDate.text = NSString(format: "还剩%d分钟", (Int(Double(inteval) /  60)))
+
+            }else if (Double(inteval) / 60) > 0{
+                expireDate.text = NSString(format: "还剩%d分钟", Int(inteval))
+            }else {
+                expireDate.text = "已经截止"
+            }
             
             for option in optionArray{
                 menCount += CGFloat(option["menCount"] as Int)

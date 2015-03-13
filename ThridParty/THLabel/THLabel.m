@@ -89,6 +89,7 @@
 
 - (BOOL)hasStroke {
 	return self.strokeSize > 0.0 && ![self.strokeColor isEqual:[UIColor clearColor]];
+
 }
 
 - (BOOL)hasGradient {
@@ -325,7 +326,6 @@
 	
 	if (hasStroke) {
 		CGContextSaveGState(context);
-		
 		CGContextSetTextDrawingMode(context, kCGTextStroke);
 		
 		CGImageRef image = NULL;
@@ -337,8 +337,8 @@
 			// Clip the current context to alpha mask.
 			CGContextClipToMask(context, rect, alphaMask);
 		}
-		
-		// Draw stroke.
+				// Draw stroke.
+
 		CGImageRef strokeImage = [self strokeImageWithRect:rect frameRef:frameRef strokeSize:[self strokeSizeDependentOnStrokePosition] strokeColor:self.strokeColor];
 		CGContextDrawImage(context, rect, strokeImage);
 		
@@ -421,7 +421,7 @@
 	if (needsMask) {
 		CGImageRelease(alphaMask);
 	}
-	
+    
 	CFRelease(frameRef);
 }
 
