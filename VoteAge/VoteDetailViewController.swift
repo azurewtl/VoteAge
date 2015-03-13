@@ -489,14 +489,17 @@ class VoteDetailViewController: UIViewController, UITableViewDelegate, UITableVi
             cell.delegate = self
             cell.imagenumber = indexPath.row
             cell.checkImageView.hidden = true
+            
             if (dicAppear["image"]! as? NSString != nil)  {
             var imageUrl = NSURL(string: dicAppear["image"] as NSString)
+            cell.optionImage?.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "dummyImage"))
+           }
             if emptyIndex == optionArray.count {
                cell.optionImage!.addConstraint(NSLayoutConstraint(item: cell.optionImage!, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.Width, multiplier: 0, constant: 0))
             }else {
-             cell.optionImage?.sd_setImageWithURL(imageUrl, placeholderImage: UIImage(named: "dummyImage"))
+           
             }
-            }
+            
             return cell
         }else if indexPath.section == 1 {
             if section1CellCount == 2 {

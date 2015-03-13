@@ -48,9 +48,10 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
             scrollView.contentSize = CGSizeMake(CGFloat(optionArr.count) * view.frame.width, 0)
             var imgview = UIImageView(frame: CGRectMake(CGFloat(index) * view.frame.width, 0, view.frame.width, view.frame.height))
             imgview.contentMode = UIViewContentMode.ScaleAspectFit
+            if (optionArr.objectAtIndex(index) as NSDictionary).objectForKey("image")! as? NSString != nil {
             var url = NSURL(string: (optionArr.objectAtIndex(index) as NSDictionary).objectForKey("image") as NSString)
-        
             imgview.sd_setImageWithURL(url, placeholderImage: UIImage(named: "dummyImage"))
+            }
             scrollView.addSubview(imgview)
             scrollView.contentOffset = CGPointMake(CGFloat(imgCount) * view.frame.width, 0)
             var gest = UITapGestureRecognizer(target: self, action: "tap")

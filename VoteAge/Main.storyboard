@@ -14,9 +14,11 @@
                     <tabBarItem key="tabBarItem" title="首页" image="first" id="xuk-T8-Qnj"/>
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.99522569439999997" green="0.99522569439999997" blue="0.99522569439999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.99522569439999997" green="0.99522569439999997" blue="0.99522569439999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.99522569439999997" green="0.99522569439999997" blue="0.99522569439999997" alpha="1" colorSpace="calibratedRGB"/>
                             <offsetWrapper key="textShadowOffset" horizontal="0.0" vertical="0.0"/>
                         </textAttributes>
                     </navigationBar>
@@ -319,7 +321,6 @@
                             <tableView opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="255" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="mLL-gJ-YKr">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="clX-XZ-9nO">
                                     <rect key="frame" x="0.0" y="224" width="320" height="39"/>
@@ -353,14 +354,20 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ztz-KA-ALo">
-                                                    <rect key="frame" x="8" y="0.0" width="304" height="197"/>
+                                                    <rect key="frame" x="-6" y="-5" width="331" height="203"/>
                                                     <gestureRecognizers/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s" customClass="THLabel">
+                                                    <rect key="frame" x="8" y="73" width="304" height="110"/>
+                                                    <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="25"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ILY-ku-y5S">
-                                                    <rect key="frame" x="8" y="197" width="304" height="42"/>
+                                                    <rect key="frame" x="0.0" y="197" width="320" height="58"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mwx-M8-fdz">
-                                                            <rect key="frame" x="8" y="11" width="28" height="28"/>
+                                                            <rect key="frame" x="16" y="15" width="28" height="28"/>
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="boolean" keyPath="clipsToBounds" value="YES"/>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -369,7 +376,7 @@
                                                             </userDefinedRuntimeAttributes>
                                                         </imageView>
                                                         <button opaque="NO" tag="102" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wIu-pI-M2f">
-                                                            <rect key="frame" x="50" y="15" width="60" height="20"/>
+                                                            <rect key="frame" x="73" y="23" width="60" height="20"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                             <state key="normal" title="用户">
                                                                 <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -379,18 +386,9 @@
                                                                 <action selector="userOnclick:" destination="m0d-ak-lc9" eventType="touchUpInside" id="wfK-c3-MAK"/>
                                                             </connections>
                                                         </button>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="crown" translatesAutoresizingMaskIntoConstraints="NO" id="puh-Nj-zHw">
-                                                            <rect key="frame" x="5" y="0.0" width="34" height="14"/>
-                                                        </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </view>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="title" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-ur-Z8s" customClass="THLabel">
-                                                    <rect key="frame" x="8" y="73" width="304" height="110"/>
-                                                    <fontDescription key="fontDescription" name="STHeitiTC-Medium" family="Heiti TC" pointSize="25"/>
-                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         </tableViewCellContentView>
@@ -521,7 +519,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1067" y="11"/>
+            <point key="canvasLocation" x="1067" y="10"/>
         </scene>
         <!--Vote Detail View Controller-->
         <scene sceneID="dch-wu-VKO">
@@ -1612,9 +1610,10 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="m2P-4w-V9k">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.99522569439999997" green="0.99522569439999997" blue="0.99522569439999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" red="0.2901960784" green="0.59215686270000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="0.99522569439999997" green="0.99522569439999997" blue="0.99522569439999997" alpha="1" colorSpace="calibratedRGB"/>
                         </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -1626,7 +1625,7 @@
             </objects>
             <point key="canvasLocation" x="427" y="1485"/>
         </scene>
-        <!--Me View Controller-->
+        <!--我-->
         <scene sceneID="eMp-Ih-E19">
             <objects>
                 <viewController id="LwL-OE-s0I" customClass="MeViewController" customModule="VoteAge" customModuleProvider="target" sceneMemberID="viewController">
@@ -1718,6 +1717,9 @@
                                                 <constraint firstItem="rcm-Kr-xbb" firstAttribute="top" secondItem="awW-AT-81M" secondAttribute="top" constant="7" id="uzm-Q1-vFp"/>
                                             </constraints>
                                         </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="crown" translatesAutoresizingMaskIntoConstraints="NO" id="kLM-zL-Jwc">
+                                            <rect key="frame" x="-3" y="-4" width="118" height="120"/>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -1861,7 +1863,7 @@
                             <constraint firstItem="v6Q-eu-uaH" firstAttribute="top" secondItem="mq5-Ql-GtF" secondAttribute="topMargin" id="vvN-Sh-dy7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="uiS-Rj-VZd">
+                    <navigationItem key="navigationItem" title="我" id="uiS-Rj-VZd">
                         <barButtonItem key="rightBarButtonItem" title="退出账号" id="Ygm-3z-YDY">
                             <connections>
                                 <action selector="logOut:" destination="LwL-OE-s0I" id="0dr-xm-bug"/>
@@ -2260,7 +2262,7 @@
         <image name="blury" width="2300" height="1500"/>
         <image name="brokenegg" width="80" height="106"/>
         <image name="checked" width="50" height="50"/>
-        <image name="crown" width="613" height="488"/>
+        <image name="crown" width="3628" height="3628"/>
         <image name="dummyImage" width="132" height="132"/>
         <image name="egg" width="129" height="179"/>
         <image name="first" width="32" height="32"/>
