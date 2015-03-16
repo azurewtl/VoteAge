@@ -129,9 +129,10 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
          
         }
     }
+
+
     // MARK: -上拉加载
      func scrollViewWillBeginDecelerating(scrollView: UIScrollView) {
-        if voteArray.count > 5 {
         if scrollView.contentOffset.y + scrollView.frame.size.height >= scrollView.contentSize.height{
             loadActivityView.hidden = false
             loadActivityView.startAnimating()
@@ -205,13 +206,13 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         }else {
             loadActivityView.stopAnimating()
         }
-        }
+        
         
         
     }
     // MARK: -下拉刷新
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        
+
         self.dragImageView.hidden = true
         dragImageView.image = UIImage(named:"dragUp")
         if scrollView.contentOffset.y < -140 {
@@ -551,7 +552,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
         
         
         let cell = tableView.dequeueReusableCellWithIdentifier("votecell") as VoteTableViewCell
-//        cell.statusImageView.backgroundColor = UIColor(red: 92 / 256, green: 96 / 256, blue: 225 / 256, alpha: 1)
+       
         if voteArray.count > 0 {
             let voteItem = self.voteArray.objectAtIndex(indexPath.row) as NSDictionary
             cell.num = indexPath.row
@@ -563,10 +564,7 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
             }else {
             cell.userHeadImage.image = UIImage(named: "dummyImage")
             }
-//            if voteItem["allowVote"] as Int == 0 {
-//                cell.statusImageView.backgroundColor = UIColor.grayColor()
-//            }
-            
+
             if voteItem["creatorname"] as NSString == "" {
                 cell.voteAuthor.setTitle("游客", forState: UIControlState.Normal)
             }else {
@@ -592,20 +590,17 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
 //                multiplier: 0,
 //                constant: 83
 //            )
-            cell.voteImage?.image = nil
+            cell.voteImage?.image = UIImage(named: "dini")
+           
             if (voteItem["image"]! as? NSString != nil) {
                 var imageUrl = NSURL(string: voteItem["image"] as NSString)
                 cell.voteImage?.sd_setImageWithURL(imageUrl)
+                
+            }
+            }
+     
         
-            }
-            else{
-                cell.voteImage?.image = UIImage(named: "dini")
-            
-//                cell.voteImage!.removeConstraints(cell.voteImage!.constraints())
-//                cell.voteImage!.addConstraint(defaultWidthConstraint)
-            }
-            
-        }
+        
         return cell
     }
     

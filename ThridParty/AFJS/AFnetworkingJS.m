@@ -34,7 +34,7 @@
     [manager.requestSerializer setValue:[[NSUserDefaults standardUserDefaults] objectForKey:@"accessToken"] forHTTPHeaderField:@"Authorization"];
     [manager GET:urlRequest parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         block(responseObject);
-        NSLog(@"JSON: %@", responseObject);
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"Error: %@", error);
         [NSNotificationCenter.defaultCenter postNotificationName:@"webout" object:nil userInfo:@{@"webout":@"1"}];

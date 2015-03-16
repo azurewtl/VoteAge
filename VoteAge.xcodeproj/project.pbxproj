@@ -117,6 +117,7 @@
 		1850D86B1A6D11270017AB70 /* CoreImage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1850D86A1A6D11270017AB70 /* CoreImage.framework */; };
 		1850D86F1A6D11750017AB70 /* BlurImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1850D86E1A6D11750017AB70 /* BlurImageView.m */; };
 		1852557A1A887DBE006C6F78 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185255791A887DBE006C6F78 /* SearchViewController.swift */; };
+		1856A9641AB6860F005C2DBE /* CAiLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1856A9631AB6860F005C2DBE /* CAiLabel.m */; };
 		185736561AB009B1002F1DD4 /* THLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 185736551AB009B1002F1DD4 /* THLabel.m */; };
 		18623D891A172DB500BC44F1 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18623D881A172DB500BC44F1 /* QRCodeViewController.swift */; };
 		1862EF471AA42803004CE931 /* AutoScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862EF441AA42803004CE931 /* AutoScrollView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -330,6 +331,8 @@
 		1850D86D1A6D11750017AB70 /* BlurImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlurImageView.h; sourceTree = "<group>"; };
 		1850D86E1A6D11750017AB70 /* BlurImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlurImageView.m; sourceTree = "<group>"; };
 		185255791A887DBE006C6F78 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		1856A9621AB6860F005C2DBE /* CAiLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CAiLabel.h; sourceTree = "<group>"; };
+		1856A9631AB6860F005C2DBE /* CAiLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CAiLabel.m; sourceTree = "<group>"; };
 		185736541AB009B1002F1DD4 /* THLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THLabel.h; sourceTree = "<group>"; };
 		185736551AB009B1002F1DD4 /* THLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THLabel.m; sourceTree = "<group>"; };
 		18623D881A172DB500BC44F1 /* QRCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
@@ -800,6 +803,8 @@
 		185736531AB009B1002F1DD4 /* THLabel */ = {
 			isa = PBXGroup;
 			children = (
+				1856A9621AB6860F005C2DBE /* CAiLabel.h */,
+				1856A9631AB6860F005C2DBE /* CAiLabel.m */,
 				185736541AB009B1002F1DD4 /* THLabel.h */,
 				185736551AB009B1002F1DD4 /* THLabel.m */,
 			);
@@ -1107,6 +1112,7 @@
 				18CF28AB1A70C05100BEAC68 /* CommentView.swift in Sources */,
 				184BB44B1A1C54BE006DF06C /* SDWebImageCompat.m in Sources */,
 				183A68BB1A779784000FC249 /* ActivityButton.swift in Sources */,
+				1856A9641AB6860F005C2DBE /* CAiLabel.m in Sources */,
 				188CB4AC1A7227B10039734A /* qrspec.c in Sources */,
 				184BB44A1A1C54BE006DF06C /* SDImageCache.m in Sources */,
 				184BB4531A1C54BE006DF06C /* UIImage+MultiFormat.m in Sources */,
