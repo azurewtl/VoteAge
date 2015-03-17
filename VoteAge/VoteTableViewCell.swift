@@ -37,8 +37,8 @@ class VoteTableViewCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        voteTitle.strokeSize = 2.5
-        voteTitle.strokeColor = UIColor.blackColor()
+//        voteTitle.strokeSize = 2.5
+//        voteTitle.strokeColor = UIColor.blackColor()
     }
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -16,10 +16,11 @@
 
 - (void)drawRect:(CGRect)rect {
     
-    self.fontsize = 20;
-    self.fontAttributes = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica" size:30], NSForegroundColorAttributeName:[UIColor whiteColor], NSStrokeWidthAttributeName:@-4, NSStrokeColorAttributeName:[UIColor blackColor]};
+    self.fontAttributes = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:30], NSForegroundColorAttributeName:[UIColor whiteColor], NSStrokeWidthAttributeName:@12, NSStrokeColorAttributeName:[UIColor blackColor]};
+    self.fontAttributesagain = @{NSFontAttributeName:[UIFont boldSystemFontOfSize:30], NSForegroundColorAttributeName:[UIColor whiteColor]};
     [self.text drawInRect:rect withAttributes:_fontAttributes];
- 
+    [self.text drawInRect:rect withAttributes:_fontAttributesagain];
+    
 }
 
 

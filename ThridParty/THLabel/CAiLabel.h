@@ -10,5 +10,5 @@
 
 @interface CAiLabel : UILabel
 @property(nonatomic, strong)NSDictionary *fontAttributes;
-@property(nonatomic, assign)CGFloat fontsize;
+@property(nonatomic, strong)NSDictionary *fontAttributesagain;
 @end
