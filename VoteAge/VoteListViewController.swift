@@ -11,7 +11,7 @@ import CoreData
 import CoreLocation
 class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendInfoDelegate, allowVoteDelegate, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UINavigationControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
- 
+    
     @IBAction func hotTap(sender: UITapGestureRecognizer) {
         
         self.navigationController?.popToRootViewControllerAnimated(true)
@@ -47,7 +47,6 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     }
     
     @IBOutlet var hotImageView: UIImageView!
-    
     @IBOutlet var tableView: UITableView!
     var homePageArray = NSArray()
     var next = false
@@ -56,7 +55,6 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     var collectionView:UICollectionView!
     var newScroll:AutoScrollView!
     var locationManager = CLLocationManager()
-    
     @IBAction func optionButton(sender: UIBarButtonItem) {
         if sheetView.alpha == 0 {
             UIView.animateWithDuration(0.5, animations: { () -> Void in
@@ -119,13 +117,20 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     
      func scrollViewWillBeginDragging(scrollView: UIScrollView) {
         dragImageView.hidden = false
-        dragImageView.image = UIImage(named:"dragUp")
+       
     }
      func scrollViewDidScroll(scrollView: UIScrollView) {
         if scrollView.contentOffset.y < -140 {
-          dragImageView.image = UIImage(named:"dragDown")
+//          dragImageView.image = UIImage(named:"dragDown")
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                 self.dragImageView.transform = CGAffineTransformMakeRotation(3.14)
+               
+            })
+           
         }else{
-            dragImageView.image = UIImage(named:"dragUp")
+            UIView.animateWithDuration(0.2, animations: { () -> Void in
+                self.dragImageView.transform = CGAffineTransformMakeRotation(0)
+            })
          
         }
     }
@@ -214,7 +219,6 @@ class VoteListViewController: UIViewController, CLLocationManagerDelegate, sendI
     func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
 
         self.dragImageView.hidden = true
-        dragImageView.image = UIImage(named:"dragUp")
         if scrollView.contentOffset.y < -140 {
             page = 1
             self.bottomLabel.hidden = true
